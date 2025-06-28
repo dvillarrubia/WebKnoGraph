@@ -169,7 +169,7 @@ Without the contributions from these amazing sponsors, WebKnoGraph would not hav
 ![WebKnoGraph Crawler](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/01_crawler.png)
 
 ## 2. Embeddings Generator
-![Embeddings Controller](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/02_embeddings.png)
+![Embeddings Controller](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/embedding_ui.png)
 
 ## 3. LinkGraph Extractor
 ![LinkGraph Extractor](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/03_link_graph.png)
