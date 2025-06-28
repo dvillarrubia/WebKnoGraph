@@ -166,7 +166,7 @@ Without the contributions from these amazing sponsors, WebKnoGraph would not hav
 # 📷 App UIs
 
 ## 1. WebKnoGraph Crawler
-![WebKnoGraph Crawler](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/01_crawler.png)
+![WebKnoGraph Crawler](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/crawler_ui.png)
 
 ## 2. Embeddings Generator
 ![Embeddings Controller](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/embedding_ui.png)
