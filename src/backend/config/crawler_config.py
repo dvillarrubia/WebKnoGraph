@@ -9,7 +9,7 @@ class CrawlerConfig:
     min_request_delay: float = 1.0
     max_request_delay: float = 30.0
     max_pages_to_crawl: int = 700
-    save_interval_pages: int = 10
+    save_interval_pages: int = 2
     max_retries_request: int = 3
     max_redirects: int = 2
     request_timeout: int = 15
