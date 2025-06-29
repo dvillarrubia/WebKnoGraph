@@ -177,7 +177,7 @@ The project is composed of six modules, illustrated in the images below.
 ![LinkGraph Extractor](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/03_link_graph.png)
 
 ## 4. HITS and PageRank URL Sorter
-![HITS and PageRank Sorted URLs](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/06_HITS_PageRank_Sorted_URLs.png)
+![PageRank and HITS Sorted URLs](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/pagerank_ui.png)
 
 ## 5. GNN Model Trainer
 ![Train GNN Algo](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/04_graphsage_01.png)
