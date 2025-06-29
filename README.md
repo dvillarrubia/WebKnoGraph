@@ -165,6 +165,8 @@ Without the contributions from these amazing sponsors, WebKnoGraph would not hav
 
 # 📷 App UIs
 
+The project is composed of six modules, illustrated in the images below
+
 ## 1. WebKnoGraph Crawler
 ![WebKnoGraph Crawler](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/crawler_ui.png)
 
