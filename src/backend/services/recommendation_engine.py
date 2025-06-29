@@ -71,6 +71,7 @@ class RecommendationEngine:
         top_n: int = 20,
         min_folder_depth: int = 0,
         max_folder_depth: int = 10,
+        folder_path_filter: str = None,
     ):
         if not self.load_artifacts():
             return (
@@ -86,6 +87,7 @@ class RecommendationEngine:
         source_idx = self.url_to_idx[source_url]
         num_nodes = len(self.url_to_idx)
 
+        # 1. Generate scores for all possible links from the source node
         candidate_dest_indices = torch.arange(num_nodes, device=self.device)
         candidate_source_indices = torch.full_like(
             candidate_dest_indices, fill_value=source_idx
@@ -97,47 +99,63 @@ class RecommendationEngine:
         with torch.no_grad():
             scores = self.model.predict_link(self.node_embeddings, candidate_edge_index)
 
-        k = min(num_nodes, top_n + 200)  # Increased buffer
-        top_scores, top_indices = torch.topk(scores, k=k)
-
-        recommendations = []
-        for i in range(k):
-            dest_idx = top_indices[i].item()
-
-            # Defensive check: if for some reason dest_idx is out of bounds, skip
-            if dest_idx >= num_nodes:
-                self.logger.warning(
-                    f"Skipping recommendation candidate with out-of-bounds index: {dest_idx} (max_valid_index={num_nodes - 1})"
-                )
-                continue
-
-            recommended_url = self.idx_to_url[dest_idx]
-
-            if len(recommendations) >= top_n and i > top_n * 2:
-                break
-
-            is_self_link = dest_idx == source_idx
-            is_existing_link = (source_idx, dest_idx) in self.existing_edges or (
-                dest_idx,
-                source_idx,
-            ) in self.existing_edges
-
-            if not is_self_link and not is_existing_link:
-                folder_depth = self.url_processor.get_folder_depth(recommended_url)
-                if min_folder_depth <= folder_depth <= max_folder_depth:
-                    recommendations.append(
-                        {
-                            "RECOMMENDED_URL": recommended_url,
-                            "SCORE": torch.sigmoid(top_scores[i]).item(),
-                            "FOLDER_DEPTH": folder_depth,
-                        }
-                    )
-
-        final_recommendations_df = (
-            pd.DataFrame(recommendations)
-            .sort_values(by="SCORE", ascending=False)
-            .head(top_n)
+        # 2. Create a DataFrame from all possible candidates
+        all_candidates_df = pd.DataFrame(
+            {
+                "DEST_IDX": candidate_dest_indices.cpu().numpy(),
+                "SCORE": torch.sigmoid(scores).cpu().numpy(),
+            }
         )
+
+        # 3. Add URL and FOLDER_DEPTH columns
+        # Use .get() with a default value to handle missing keys and prevent KeyError
+        all_candidates_df["RECOMMENDED_URL"] = all_candidates_df["DEST_IDX"].apply(
+            lambda idx: self.idx_to_url.get(idx, None)
+        )
+
+        # Drop rows with invalid URLs (where index was not found in mapping)
+        all_candidates_df.dropna(subset=["RECOMMENDED_URL"], inplace=True)
+
+        all_candidates_df["FOLDER_DEPTH"] = all_candidates_df["RECOMMENDED_URL"].apply(
+            lambda url: self.url_processor.get_folder_depth(url)
+        )
+
+        # 4. Filter the DataFrame based on all criteria
+        filtered_df = all_candidates_df.copy()
+
+        # Filter out self-links
+        filtered_df = filtered_df[filtered_df["DEST_IDX"] != source_idx]
+
+        # Filter out existing links
+        # Create a tuple column for easy set membership check
+        filtered_df["SOURCE_IDX"] = source_idx
+        filtered_df["EDGE_TUPLE"] = list(
+            zip(filtered_df["SOURCE_IDX"], filtered_df["DEST_IDX"])
+        )
+        filtered_df = filtered_df[~filtered_df["EDGE_TUPLE"].isin(self.existing_edges)]
+
+        # Apply the folder depth filter
+        filtered_df = filtered_df[
+            (filtered_df["FOLDER_DEPTH"] >= min_folder_depth)
+            & (filtered_df["FOLDER_DEPTH"] <= max_folder_depth)
+        ]
+
+        # Apply the folder path filter if provided
+        if folder_path_filter:
+            self.logger.info(f"Applying folder path filter: {folder_path_filter}")
+            filtered_df = filtered_df[
+                filtered_df["RECOMMENDED_URL"].str.startswith(folder_path_filter)
+            ]
+
+        # 5. Sort the filtered DataFrame by score and take the top N
+        final_recommendations_df = filtered_df.sort_values(
+            by="SCORE", ascending=False
+        ).head(top_n)
+
+        # 6. Select the final columns and return
+        final_recommendations_df = final_recommendations_df[
+            ["RECOMMENDED_URL", "SCORE", "FOLDER_DEPTH"]
+        ]
 
         if final_recommendations_df.empty:
             return (
