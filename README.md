@@ -182,7 +182,7 @@ The project is composed of six modules, illustrated in the images below.
 ## 5. GNN Model Trainer
 ![Train GNN Algo](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/04_graphsage_01.png)
 
-## 6. Link Prediction Engine
+## 6. Link Prediction Engine (delete runtime and re-run the script from step 5)
 ![Link Prediction Engine](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/04_graphsage_02.png)
 
 ---
