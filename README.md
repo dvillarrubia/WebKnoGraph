@@ -274,7 +274,7 @@ Each notebook's first cell contains the necessary Python code to mount your Goog
 # Part of the first cell in each notebook
 from google.colab import drive
 
-drive.mount("/content/drive")
+drive.mount("/content/drive", force_remount=True)
 ```
 
 ## 4. Install Dependencies
