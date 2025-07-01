@@ -1,12 +1,14 @@
 import pandas as pd
-from tqdm import tqdm  # For internal progress bar in generate function
+from tqdm import tqdm
 
 from src.backend.config.embeddings_config import EmbeddingConfig
 from src.backend.data.embedding_state_manager import EmbeddingStateManager
 from src.backend.data.embeddings_loader import DataLoader
 from src.backend.data.embeddings_saver import DataSaver
 from src.backend.utils.text_processing import TextExtractor
-from src.backend.utils.embedding_generation import EmbeddingGenerator
+from src.backend.utils.embedding_generation import (
+    EmbeddingGenerator,
+)  # Ensure this path is correct for EmbeddingGenerator
 from src.shared.interfaces import ILogger
 
 
@@ -31,13 +33,17 @@ class EmbeddingPipeline:
         self.embedding_generator = embedding_generator
         self.data_saver = data_saver
 
+    # In src/backend/services/embeddings_service.py, inside the run method
+
     def run(self):
         """A generator that executes the pipeline and yields status updates."""
         try:
             yield "Initializing..."
+            print("--- DEBUG: Pipeline Init ---")  # ADD THIS LINE
             processed_urls = self.state_manager.get_processed_urls()
 
             yield "Loading model and querying data..."
+            print("--- DEBUG: Loading and Querying ---")  # ADD THIS LINE
             data_stream = self.data_loader.stream_unprocessed_data(
                 processed_urls, self.config.batch_size
             )
@@ -45,13 +51,15 @@ class EmbeddingPipeline:
             batch_num = 1
             processed_in_this_session = False
             for df_batch in data_stream:
+                print(
+                    f"--- DEBUG: STARTING BATCH. Current batch_num: {batch_num}, DataFrame size: {len(df_batch)} ---"
+                )  # ADD THIS LINE
                 processed_in_this_session = True
                 status_msg = f"Processing Batch {batch_num} ({len(df_batch)} pages)..."
                 self.logger.info(status_msg)
                 yield status_msg
 
-                # Extract Text
-                # Use tqdm here to show progress for text extraction
+                # Extract Text (rest of your existing code)
                 df_batch["clean_text"] = [
                     self.text_extractor.extract(html)
                     for html in tqdm(
@@ -64,14 +72,17 @@ class EmbeddingPipeline:
                     self.logger.info(
                         "Batch had no pages with sufficient text after cleaning."
                     )
-                    continue
+                    print(
+                        f"--- DEBUG: Batch {batch_num} EMPTY after filter. Skipping increment. ---"
+                    )  # ADD THIS LINE
+                    continue  # If continues, batch_num is NOT incremented for this "empty" batch
 
-                # Generate Embeddings
+                # Generate Embeddings (rest of your existing code)
                 embeddings = self.embedding_generator.generate(
                     df_batch["clean_text"].tolist()
                 )
 
-                # Save Batch
+                # Save Batch (rest of your existing code)
                 output_df = pd.DataFrame(
                     {
                         "URL": df_batch["URL"],
@@ -79,8 +90,14 @@ class EmbeddingPipeline:
                     }
                 )
                 self.data_saver.save_batch(output_df, batch_num)
-                batch_num += 1
+                batch_num += 1  # <--- THIS IS THE LINE THAT MUST BE HERE AND EXECUTED
+                print(
+                    f"--- DEBUG: ENDING BATCH. batch_num incremented to: {batch_num} ---"
+                )  # ADD THIS LINE
 
+            print(
+                f"--- DEBUG: Exited data_stream loop. Final batch_num: {batch_num} ---"
+            )  # ADD THIS LINE
             if not processed_in_this_session:
                 self.logger.info(
                     "No new pages to process. The dataset is already up to date."
