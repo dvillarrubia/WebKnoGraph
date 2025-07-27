@@ -4,12 +4,12 @@ message: "If you use this software, please cite it as below."
 type: software
 title: "WebKnoGraph"
 abstract: >-
-  WebKnoGraph is an open research project that uses data processing, 
-  vector embeddings, and graph algorithms to optimize internal linking 
-  at scale. Built for both academic and industry use, it offers the first 
-  fully transparent, AI-driven framework for improving SEO and site 
-  navigation through reproducible methods. The project revolutionizes 
-  website internal linking by leveraging cutting-edge data processing 
+  WebKnoGraph is an open research project that uses data processing,
+  vector embeddings, and graph algorithms to optimize internal linking
+  at scale. Built for both academic and industry use, it offers the first
+  fully transparent, AI-driven framework for improving SEO and site
+  navigation through reproducible methods. The project revolutionizes
+  website internal linking by leveraging cutting-edge data processing
   techniques, vector embeddings, and graph-based link prediction algorithms.
 authors:
   - family-names: "Gjorgjevska"
@@ -45,8 +45,8 @@ preferred-citation:
   year: 2024
   url: "https://github.com/martech-engineer/WebKnoGraph"
   abstract: >-
-    WebKnoGraph presents the first fully transparent, AI-driven framework 
-    for optimizing internal linking structures at scale. The system combines 
-    advanced data processing techniques, vector embeddings, and graph-based 
-    algorithms to enhance SEO performance and user navigation through 
+    WebKnoGraph presents the first fully transparent, AI-driven framework
+    for optimizing internal linking structures at scale. The system combines
+    advanced data processing techniques, vector embeddings, and graph-based
+    algorithms to enhance SEO performance and user navigation through
     reproducible, scientific methods.
