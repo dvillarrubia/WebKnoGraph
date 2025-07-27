@@ -1,0 +1,52 @@
+# This CITATION.cff file was generated with the help of claude.ai/claude
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "WebKnoGraph"
+abstract: >-
+  WebKnoGraph is an open research project that uses data processing, 
+  vector embeddings, and graph algorithms to optimize internal linking 
+  at scale. Built for both academic and industry use, it offers the first 
+  fully transparent, AI-driven framework for improving SEO and site 
+  navigation through reproducible methods. The project revolutionizes 
+  website internal linking by leveraging cutting-edge data processing 
+  techniques, vector embeddings, and graph-based link prediction algorithms.
+authors:
+  - family-names: "Gjorgjevska"
+    given-names: "Emilija"
+    orcid: # Add your ORCID if available
+    affiliation: "Independent Researcher"
+    website: "https://www.linkedin.com/in/emilijagjorgjevska/"
+keywords:
+  - "SEO"
+  - "internal linking"
+  - "graph algorithms"
+  - "vector embeddings"
+  - "artificial intelligence"
+  - "web optimization"
+  - "link prediction"
+  - "GraphSAGE"
+  - "PageRank"
+  - "HITS algorithm"
+  - "marketing technology"
+  - "content optimization"
+license: "Apache-2.0"
+url: "https://github.com/martech-engineer/WebKnoGraph"
+repository-code: "https://github.com/martech-engineer/WebKnoGraph"
+# version: "1.0.0"  # Uncomment and update when you tag a release
+# date-released: "2024-12-01"  # Uncomment and update with actual release date
+# doi: "10.5281/zenodo.XXXXXXX"  # Uncomment and add DOI when available
+preferred-citation:
+  type: software
+  title: "WebKnoGraph: AI-Driven Framework for Large-Scale Internal Link Optimization"
+  authors:
+    - family-names: "Gjorgjevska"
+      given-names: "Emilija"
+  year: 2024
+  url: "https://github.com/martech-engineer/WebKnoGraph"
+  abstract: >-
+    WebKnoGraph presents the first fully transparent, AI-driven framework 
+    for optimizing internal linking structures at scale. The system combines 
+    advanced data processing techniques, vector embeddings, and graph-based 
+    algorithms to enhance SEO performance and user navigation through 
+    reproducible, scientific methods.
