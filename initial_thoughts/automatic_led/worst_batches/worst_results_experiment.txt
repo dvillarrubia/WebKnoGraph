@@ -1,28 +1,829 @@
-==== EXPERIMENT 1: WORST CANDIDATES AUTOMATIC ====
+==== EXPERIMENT: WORST CANDIDATES AUTOMATIC ====
 
 ------ BATCH 1 ------
 
+🚀 Starting TURBO-OPTIMIZED PageRank simulation...
+
+📁 Checking available files...
+Available CSV files:
+  - link_graph_edges.csv
+  - 240_worst_updated_link_graph_10.csv
+  - 240_worst_updated_link_graph_1.csv
+  - 240_worst_updated_link_graph_6.csv
+  - 240_worst_updated_link_graph_8.csv
+  - 240_worst_updated_link_graph_4.csv
+  - 240_worst_updated_link_graph_2.csv
+  - 240_worst_updated_link_graph_3.csv
+  - 240_worst_updated_link_graph_7.csv
+  - 240_worst_updated_link_graph_5.csv
+  - 240_worst_updated_link_graph_9.csv
+
+📂 Loading graphs with turbo mode...
+✅ Loaded OLD Kalicube graph from: link_graph_edges.csv
+✅ Loaded NEW Kalicube graph from: 240_worst_updated_link_graph_1.csv
+⚙️ Pre-processing graph data...
+
+📊 Network Statistics:
+==================================================
+📈 OLD Kalicube Graph: 1,841 nodes, 122,066 edges
+📈 NEW Kalicube Graph: 1,841 nodes, 122,306 edges
+🌐 WWW Graph (per simulation): 100,000 nodes (OPTIMIZED)
+==================================================
+🔄 Running 20 TURBO simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✓ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000165 (+1.05%) | ➖ Ranks: 347↑ 1353↓ 141→
+Sim   2: ✅ PageRank:+0.000159 (+1.05%) | ➖ Ranks: 355↑ 1353↓ 133→
+Sim   3: ✅ PageRank:+0.000204 (+1.34%) | ➖ Ranks: 378↑ 1300↓ 163→
+Sim   4: ✅ PageRank:+0.000156 (+1.02%) | ➖ Ranks: 331↑ 1381↓ 129→
+Sim   5: ✅ PageRank:+0.000262 (+1.63%) | ➖ Ranks: 325↑ 1442↓ 74→
+⚡ Processing batch 2: simulations 6-10
+    ✓ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000179 (+1.16%) | ➖ Ranks: 363↑ 1345↓ 133→
+Sim   7: ✅ PageRank:+0.000229 (+1.47%) | ➖ Ranks: 352↑ 1388↓ 101→
+Sim   8: ✅ PageRank:+0.000170 (+1.13%) | ➖ Ranks: 295↑ 1386↓ 160→
+Sim   9: ✅ PageRank:+0.000160 (+1.02%) | ➖ Ranks: 336↑ 1372↓ 133→
+Sim  10: ✅ PageRank:+0.000175 (+1.08%) | ➖ Ranks: 351↑ 1349↓ 141→
+⚡ Processing batch 3: simulations 11-15
+    ✓ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000174 (+1.19%) | ➖ Ranks: 359↑ 1319↓ 163→
+Sim  12: ✅ PageRank:+0.000177 (+1.17%) | ➖ Ranks: 290↑ 1431↓ 120→
+Sim  13: ✅ PageRank:+0.000152 (+0.99%) | ➖ Ranks: 386↑ 1353↓ 102→
+Sim  14: ✅ PageRank:+0.000187 (+1.23%) | ➖ Ranks: 360↑ 1311↓ 170→
+Sim  15: ✅ PageRank:+0.000174 (+1.10%) | ➖ Ranks: 410↑ 1282↓ 149→
+⚡ Processing batch 4: simulations 16-20
+    ✓ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000167 (+1.12%) | ➖ Ranks: 287↑ 1427↓ 127→
+Sim  17: ✅ PageRank:+0.000084 (+0.54%) | ➖ Ranks: 467↑ 1282↓ 92→
+Sim  18: ✅ PageRank:+0.000191 (+1.27%) | ➖ Ranks: 354↑ 1377↓ 110→
+Sim  19: ✅ PageRank:+0.000266 (+1.75%) | ➖ Ranks: 320↑ 1455↓ 66→
+Sim  20: ✅ PageRank:+0.000182 (+1.19%) | ➖ Ranks: 375↑ 1320↓ 146→
+✅ All TURBO simulations completed in 30.81 seconds!
+⚡ Average time per simulation: 1.54 seconds
+✅ Saved TURBO results:
+ - simulation_summary_turbo.csv: Overall metrics
+ - all_simulations_detailed_turbo.csv: Detailed results
+
+📈 TURBO Statistical Analysis:
+==================================================
+Mean overall delta: 0.000181
+Std dev overall delta: 0.000039
+Mean delta percentage: 1.18%
+Std dev delta percentage: 0.25%
+
+🎯 TURBO Outcome Distribution:
+===================================
+ - Positive outcomes: 20/20 (100.0%)
+ - Negative outcomes: 0/20 (0.0%)
+ - Neutral outcomes: 0/20 (0.0%)
+
+⚡ TURBO mode delivered 100.0x speed improvement!
+🎯 Total simulation time: 30.8 seconds
+🧹 Memory cleaned up. TURBO simulation complete!
+
 ------ BATCH 2 ------
 
+🚀 Starting TURBO-OPTIMIZED PageRank simulation...
+
+📁 Checking available files...
+Available CSV files:
+  - link_graph_edges.csv
+  - 240_worst_updated_link_graph_10.csv
+  - 240_worst_updated_link_graph_1.csv
+  - 240_worst_updated_link_graph_6.csv
+  - 240_worst_updated_link_graph_8.csv
+  - 240_worst_updated_link_graph_4.csv
+  - 240_worst_updated_link_graph_2.csv
+  - simulation_summary_turbo.csv
+  - 240_worst_updated_link_graph_3.csv
+  - 240_worst_updated_link_graph_7.csv
+  - 240_worst_updated_link_graph_5.csv
+  - 240_worst_updated_link_graph_9.csv
+  - all_simulations_detailed_turbo.csv
+
+📂 Loading graphs with turbo mode...
+✅ Loaded OLD Kalicube graph from: link_graph_edges.csv
+✅ Loaded NEW Kalicube graph from: 240_worst_updated_link_graph_2.csv
+⚙️ Pre-processing graph data...
+
+📊 Network Statistics:
+==================================================
+📈 OLD Kalicube Graph: 1,841 nodes, 122,066 edges
+📈 NEW Kalicube Graph: 1,841 nodes, 122,305 edges
+🌐 WWW Graph (per simulation): 100,000 nodes (OPTIMIZED)
+==================================================
+🔄 Running 20 TURBO simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✓ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000162 (+1.04%) | ➖ Ranks: 328↑ 1362↓ 151→
+Sim   2: ✅ PageRank:+0.000147 (+0.94%) | ➖ Ranks: 389↑ 1326↓ 126→
+Sim   3: ✅ PageRank:+0.000164 (+1.11%) | ➖ Ranks: 505↑ 1167↓ 169→
+Sim   4: ✅ PageRank:+0.000148 (+0.96%) | ➖ Ranks: 349↑ 1334↓ 158→
+Sim   5: ✅ PageRank:+0.000239 (+1.49%) | ➖ Ranks: 340↑ 1436↓ 65→
+⚡ Processing batch 2: simulations 6-10
+    ✓ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000175 (+1.13%) | ➖ Ranks: 408↑ 1263↓ 170→
+Sim   7: ✅ PageRank:+0.000709 (+4.55%) | ➖ Ranks: 388↑ 1393↓ 60→
+Sim   8: ✅ PageRank:+0.000164 (+1.08%) | ➖ Ranks: 403↑ 1284↓ 154→
+Sim   9: ✅ PageRank:+0.000165 (+1.05%) | ➖ Ranks: 338↑ 1369↓ 134→
+Sim  10: ✅ PageRank:+0.000172 (+1.08%) | ➖ Ranks: 374↑ 1334↓ 133→
+⚡ Processing batch 3: simulations 11-15
+    ✓ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000180 (+1.15%) | ➖ Ranks: 447↑ 1266↓ 128→
+Sim  12: ✅ PageRank:+0.000179 (+1.14%) | ➖ Ranks: 330↑ 1371↓ 140→
+Sim  13: ✅ PageRank:+0.000153 (+0.97%) | ➖ Ranks: 388↑ 1339↓ 114→
+Sim  14: ✅ PageRank:+0.000179 (+1.19%) | ➖ Ranks: 441↑ 1232↓ 168→
+Sim  15: ✅ PageRank:+0.000163 (+1.10%) | ➖ Ranks: 425↑ 1232↓ 184→
+⚡ Processing batch 4: simulations 16-20
+    ✓ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000136 (+0.88%) | ➖ Ranks: 401↑ 1334↓ 106→
+Sim  17: ✅ PageRank:+0.000243 (+1.71%) | ➖ Ranks: 393↑ 1363↓ 85→
+Sim  18: ✅ PageRank:+0.000180 (+1.16%) | ➖ Ranks: 413↑ 1258↓ 170→
+Sim  19: ✅ PageRank:+0.000342 (+2.28%) | ➖ Ranks: 325↑ 1449↓ 67→
+Sim  20: ✅ PageRank:+0.000189 (+1.22%) | ➖ Ranks: 399↑ 1275↓ 167→
+✅ All TURBO simulations completed in 31.11 seconds!
+⚡ Average time per simulation: 1.56 seconds
+✅ Saved TURBO results:
+ - simulation_summary_turbo.csv: Overall metrics
+ - all_simulations_detailed_turbo.csv: Detailed results
+
+📈 TURBO Statistical Analysis:
+==================================================
+Mean overall delta: 0.000209
+Std dev overall delta: 0.000126
+Mean delta percentage: 1.36%
+Std dev delta percentage: 0.81%
+
+🎯 TURBO Outcome Distribution:
+===================================
+ - Positive outcomes: 20/20 (100.0%)
+ - Negative outcomes: 0/20 (0.0%)
+ - Neutral outcomes: 0/20 (0.0%)
+
+⚡ TURBO mode delivered 100.0x speed improvement!
+🎯 Total simulation time: 31.1 seconds
+🧹 Memory cleaned up. TURBO simulation complete!
 
 ------ BATCH 3 ------
 
+🚀 Starting TURBO-OPTIMIZED PageRank simulation...
+
+📁 Checking available files...
+Available CSV files:
+  - link_graph_edges.csv
+  - 240_worst_updated_link_graph_10.csv
+  - 240_worst_updated_link_graph_1.csv
+  - 240_worst_updated_link_graph_6.csv
+  - 240_worst_updated_link_graph_8.csv
+  - 240_worst_updated_link_graph_4.csv
+  - 240_worst_updated_link_graph_2.csv
+  - simulation_summary_turbo.csv
+  - 240_worst_updated_link_graph_3.csv
+  - 240_worst_updated_link_graph_7.csv
+  - 240_worst_updated_link_graph_5.csv
+  - 240_worst_updated_link_graph_9.csv
+  - all_simulations_detailed_turbo.csv
+
+📂 Loading graphs with turbo mode...
+✅ Loaded OLD Kalicube graph from: link_graph_edges.csv
+✅ Loaded NEW Kalicube graph from: 240_worst_updated_link_graph_3.csv
+⚙️ Pre-processing graph data...
+
+📊 Network Statistics:
+==================================================
+📈 OLD Kalicube Graph: 1,841 nodes, 122,066 edges
+📈 NEW Kalicube Graph: 1,841 nodes, 122,306 edges
+🌐 WWW Graph (per simulation): 100,000 nodes (OPTIMIZED)
+==================================================
+🔄 Running 20 TURBO simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✓ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000157 (+1.03%) | ➖ Ranks: 378↑ 1307↓ 156→
+Sim   2: ✅ PageRank:+0.000163 (+1.08%) | ➖ Ranks: 386↑ 1309↓ 146→
+Sim   3: ✅ PageRank:+0.000157 (+1.03%) | ➖ Ranks: 476↑ 1189↓ 176→
+Sim   4: ✅ PageRank:+0.000148 (+0.97%) | ➖ Ranks: 356↑ 1365↓ 120→
+Sim   5: ✅ PageRank:+0.000302 (+1.88%) | ➖ Ranks: 323↑ 1462↓ 56→
+⚡ Processing batch 2: simulations 6-10
+    ✓ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000191 (+1.19%) | ➖ Ranks: 394↑ 1267↓ 180→
+Sim   7: ✅ PageRank:+0.000264 (+1.67%) | ➖ Ranks: 375↑ 1381↓ 85→
+Sim   8: ✅ PageRank:+0.000179 (+1.18%) | ➖ Ranks: 355↑ 1345↓ 141→
+Sim   9: ✅ PageRank:+0.000162 (+1.06%) | ➖ Ranks: 346↑ 1339↓ 156→
+Sim  10: ✅ PageRank:+0.000175 (+1.13%) | ➖ Ranks: 360↑ 1342↓ 139→
+⚡ Processing batch 3: simulations 11-15
+    ✓ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000191 (+1.25%) | ➖ Ranks: 387↑ 1315↓ 139→
+Sim  12: ✅ PageRank:+0.000183 (+1.23%) | ➖ Ranks: 313↑ 1406↓ 122→
+Sim  13: ✅ PageRank:+0.000157 (+1.07%) | ➖ Ranks: 393↑ 1318↓ 130→
+Sim  14: ✅ PageRank:+0.000193 (+1.23%) | ➖ Ranks: 474↑ 1184↓ 183→
+Sim  15: ✅ PageRank:+0.000177 (+1.19%) | ➖ Ranks: 515↑ 1192↓ 134→
+⚡ Processing batch 4: simulations 16-20
+    ✓ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000164 (+1.02%) | ➖ Ranks: 379↑ 1335↓ 127→
+Sim  17: ✅ PageRank:+0.000188 (+1.19%) | ➖ Ranks: 483↑ 1228↓ 130→
+Sim  18: ✅ PageRank:+0.000192 (+1.27%) | ➖ Ranks: 376↑ 1302↓ 163→
+Sim  19: ✅ PageRank:+0.000187 (+1.21%) | ➖ Ranks: 357↑ 1350↓ 134→
+Sim  20: ✅ PageRank:+0.000191 (+1.26%) | ➖ Ranks: 411↑ 1270↓ 160→
+✅ All TURBO simulations completed in 29.68 seconds!
+⚡ Average time per simulation: 1.48 seconds
+✅ Saved TURBO results:
+ - simulation_summary_turbo.csv: Overall metrics
+ - all_simulations_detailed_turbo.csv: Detailed results
+
+📈 TURBO Statistical Analysis:
+==================================================
+Mean overall delta: 0.000186
+Std dev overall delta: 0.000037
+Mean delta percentage: 1.21%
+Std dev delta percentage: 0.22%
+
+🎯 TURBO Outcome Distribution:
+===================================
+ - Positive outcomes: 20/20 (100.0%)
+ - Negative outcomes: 0/20 (0.0%)
+ - Neutral outcomes: 0/20 (0.0%)
+
+⚡ TURBO mode delivered 100.0x speed improvement!
+🎯 Total simulation time: 29.7 seconds
+🧹 Memory cleaned up. TURBO simulation complete!
+
 ------ BATCH 4 ------
 
+🚀 Starting TURBO-OPTIMIZED PageRank simulation...
+
+📁 Checking available files...
+Available CSV files:
+  - link_graph_edges.csv
+  - 240_worst_updated_link_graph_10.csv
+  - 240_worst_updated_link_graph_1.csv
+  - 240_worst_updated_link_graph_6.csv
+  - 240_worst_updated_link_graph_8.csv
+  - 240_worst_updated_link_graph_4.csv
+  - 240_worst_updated_link_graph_2.csv
+  - simulation_summary_turbo.csv
+  - 240_worst_updated_link_graph_3.csv
+  - 240_worst_updated_link_graph_7.csv
+  - 240_worst_updated_link_graph_5.csv
+  - 240_worst_updated_link_graph_9.csv
+  - all_simulations_detailed_turbo.csv
+
+📂 Loading graphs with turbo mode...
+✅ Loaded OLD Kalicube graph from: link_graph_edges.csv
+✅ Loaded NEW Kalicube graph from: 240_worst_updated_link_graph_4.csv
+⚙️ Pre-processing graph data...
+
+📊 Network Statistics:
+==================================================
+📈 OLD Kalicube Graph: 1,841 nodes, 122,066 edges
+📈 NEW Kalicube Graph: 1,841 nodes, 122,306 edges
+🌐 WWW Graph (per simulation): 100,000 nodes (OPTIMIZED)
+==================================================
+🔄 Running 20 TURBO simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✓ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000160 (+1.04%) | ➖ Ranks: 351↑ 1324↓ 166→
+Sim   2: ✅ PageRank:+0.000106 (+0.69%) | ➖ Ranks: 381↑ 1305↓ 155→
+Sim   3: ✅ PageRank:+0.000183 (+1.16%) | ➖ Ranks: 499↑ 1200↓ 142→
+Sim   4: ✅ PageRank:+0.000166 (+1.08%) | ➖ Ranks: 329↑ 1355↓ 157→
+Sim   5: ✅ PageRank:+0.000223 (+1.41%) | ➖ Ranks: 339↑ 1383↓ 119→
+⚡ Processing batch 2: simulations 6-10
+    ✓ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000185 (+1.20%) | ➖ Ranks: 386↑ 1282↓ 173→
+Sim   7: ✅ PageRank:+0.000431 (+2.74%) | ➖ Ranks: 341↑ 1424↓ 76→
+Sim   8: ✅ PageRank:+0.000188 (+1.22%) | ➖ Ranks: 330↑ 1348↓ 163→
+Sim   9: ✅ PageRank:+0.000175 (+1.10%) | ➖ Ranks: 337↑ 1377↓ 127→
+Sim  10: ✅ PageRank:+0.000175 (+1.10%) | ➖ Ranks: 388↑ 1320↓ 133→
+⚡ Processing batch 3: simulations 11-15
+    ✓ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000195 (+1.28%) | ➖ Ranks: 364↑ 1347↓ 130→
+Sim  12: ✅ PageRank:+0.000179 (+1.20%) | ➖ Ranks: 326↑ 1372↓ 143→
+Sim  13: ✅ PageRank:+0.000099 (+0.64%) | ➖ Ranks: 431↑ 1302↓ 108→
+Sim  14: ✅ PageRank:+0.000200 (+1.29%) | ➖ Ranks: 402↑ 1275↓ 164→
+Sim  15: ✅ PageRank:+0.000211 (+1.34%) | ➖ Ranks: 364↑ 1323↓ 154→
+⚡ Processing batch 4: simulations 16-20
+    ✓ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000173 (+1.14%) | ➖ Ranks: 315↑ 1356↓ 170→
+Sim  17: ✅ PageRank:+0.000131 (+0.86%) | ➖ Ranks: 460↑ 1251↓ 130→
+Sim  18: ✅ PageRank:+0.000198 (+1.27%) | ➖ Ranks: 387↑ 1275↓ 179→
+Sim  19: ⚠️ PageRank:-0.000115 (-0.73%) | ➖ Ranks: 321↑ 1425↓ 95→
+Sim  20: ✅ PageRank:+0.000191 (+1.26%) | ➖ Ranks: 386↑ 1302↓ 153→
+✅ All TURBO simulations completed in 32.93 seconds!
+⚡ Average time per simulation: 1.65 seconds
+✅ Saved TURBO results:
+ - simulation_summary_turbo.csv: Overall metrics
+ - all_simulations_detailed_turbo.csv: Detailed results
+
+📈 TURBO Statistical Analysis:
+==================================================
+Mean overall delta: 0.000173
+Std dev overall delta: 0.000094
+Mean delta percentage: 1.11%
+Std dev delta percentage: 0.60%
+
+🎯 TURBO Outcome Distribution:
+===================================
+ - Positive outcomes: 19/20 (95.0%)
+ - Negative outcomes: 1/20 (5.0%)
+ - Neutral outcomes: 0/20 (0.0%)
+
+⚡ TURBO mode delivered 100.0x speed improvement!
+🎯 Total simulation time: 32.9 seconds
+🧹 Memory cleaned up. TURBO simulation complete!
 
 ------ BATCH 5 ------
 
+🚀 Starting TURBO-OPTIMIZED PageRank simulation...
+
+📁 Checking available files...
+Available CSV files:
+  - link_graph_edges.csv
+  - 240_worst_updated_link_graph_10.csv
+  - 240_worst_updated_link_graph_1.csv
+  - 240_worst_updated_link_graph_6.csv
+  - 240_worst_updated_link_graph_8.csv
+  - 240_worst_updated_link_graph_4.csv
+  - 240_worst_updated_link_graph_2.csv
+  - simulation_summary_turbo.csv
+  - 240_worst_updated_link_graph_3.csv
+  - 240_worst_updated_link_graph_7.csv
+  - 240_worst_updated_link_graph_5.csv
+  - 240_worst_updated_link_graph_9.csv
+  - all_simulations_detailed_turbo.csv
+
+📂 Loading graphs with turbo mode...
+✅ Loaded OLD Kalicube graph from: link_graph_edges.csv
+✅ Loaded NEW Kalicube graph from: 240_worst_updated_link_graph_5.csv
+⚙️ Pre-processing graph data...
+
+📊 Network Statistics:
+==================================================
+📈 OLD Kalicube Graph: 1,841 nodes, 122,066 edges
+📈 NEW Kalicube Graph: 1,841 nodes, 122,306 edges
+🌐 WWW Graph (per simulation): 100,000 nodes (OPTIMIZED)
+==================================================
+🔄 Running 20 TURBO simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✓ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000157 (+1.01%) | ➖ Ranks: 339↑ 1332↓ 170→
+Sim   2: ✅ PageRank:+0.000099 (+0.63%) | ➖ Ranks: 401↑ 1301↓ 139→
+Sim   3: ✅ PageRank:+0.000168 (+1.10%) | ➖ Ranks: 481↑ 1179↓ 181→
+Sim   4: ✅ PageRank:+0.000158 (+1.01%) | ➖ Ranks: 372↑ 1323↓ 146→
+Sim   5: ✅ PageRank:+0.000183 (+1.18%) | ➖ Ranks: 371↑ 1350↓ 120→
+⚡ Processing batch 2: simulations 6-10
+    ✓ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000166 (+1.06%) | ➖ Ranks: 407↑ 1276↓ 158→
+Sim   7: ✅ PageRank:+0.000194 (+1.23%) | ➖ Ranks: 333↑ 1374↓ 134→
+Sim   8: ✅ PageRank:+0.000170 (+1.11%) | ➖ Ranks: 338↑ 1325↓ 178→
+Sim   9: ✅ PageRank:+0.000163 (+1.03%) | ➖ Ranks: 346↑ 1327↓ 168→
+Sim  10: ✅ PageRank:+0.000167 (+1.05%) | ➖ Ranks: 374↑ 1338↓ 129→
+⚡ Processing batch 3: simulations 11-15
+    ✓ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000185 (+1.20%) | ➖ Ranks: 354↑ 1386↓ 101→
+Sim  12: ✅ PageRank:+0.000177 (+1.15%) | ➖ Ranks: 293↑ 1406↓ 142→
+Sim  13: ✅ PageRank:+0.000160 (+1.02%) | ➖ Ranks: 390↑ 1313↓ 138→
+Sim  14: ✅ PageRank:+0.000197 (+1.23%) | ➖ Ranks: 393↑ 1260↓ 188→
+Sim  15: ✅ PageRank:+0.000172 (+1.11%) | ➖ Ranks: 424↑ 1242↓ 175→
+⚡ Processing batch 4: simulations 16-20
+    ✓ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000165 (+1.05%) | ➖ Ranks: 331↑ 1375↓ 135→
+Sim  17: ✅ PageRank:+0.000239 (+1.52%) | ➖ Ranks: 409↑ 1305↓ 127→
+Sim  18: ✅ PageRank:+0.000174 (+1.12%) | ➖ Ranks: 398↑ 1254↓ 189→
+Sim  19: ⚠️ PageRank:-0.000150 (-0.96%) | ➖ Ranks: 349↑ 1382↓ 110→
+Sim  20: ✅ PageRank:+0.000181 (+1.15%) | ➖ Ranks: 404↑ 1275↓ 162→
+✅ All TURBO simulations completed in 31.02 seconds!
+⚡ Average time per simulation: 1.55 seconds
+✅ Saved TURBO results:
+ - simulation_summary_turbo.csv: Overall metrics
+ - all_simulations_detailed_turbo.csv: Detailed results
+
+📈 TURBO Statistical Analysis:
+==================================================
+Mean overall delta: 0.000156
+Std dev overall delta: 0.000076
+Mean delta percentage: 1.00%
+Std dev delta percentage: 0.49%
+
+🎯 TURBO Outcome Distribution:
+===================================
+ - Positive outcomes: 19/20 (95.0%)
+ - Negative outcomes: 1/20 (5.0%)
+ - Neutral outcomes: 0/20 (0.0%)
+
+⚡ TURBO mode delivered 100.0x speed improvement!
+🎯 Total simulation time: 31.0 seconds
+🧹 Memory cleaned up. TURBO simulation complete!
 
 ------ BATCH 6 ------
 
+🚀 Starting TURBO-OPTIMIZED PageRank simulation...
+
+📁 Checking available files...
+Available CSV files:
+  - link_graph_edges.csv
+  - 240_worst_updated_link_graph_10.csv
+  - 240_worst_updated_link_graph_1.csv
+  - 240_worst_updated_link_graph_6.csv
+  - 240_worst_updated_link_graph_8.csv
+  - 240_worst_updated_link_graph_4.csv
+  - 240_worst_updated_link_graph_2.csv
+  - simulation_summary_turbo.csv
+  - 240_worst_updated_link_graph_3.csv
+  - 240_worst_updated_link_graph_7.csv
+  - 240_worst_updated_link_graph_5.csv
+  - 240_worst_updated_link_graph_9.csv
+  - all_simulations_detailed_turbo.csv
+
+📂 Loading graphs with turbo mode...
+✅ Loaded OLD Kalicube graph from: link_graph_edges.csv
+✅ Loaded NEW Kalicube graph from: 240_worst_updated_link_graph_6.csv
+⚙️ Pre-processing graph data...
+
+📊 Network Statistics:
+==================================================
+📈 OLD Kalicube Graph: 1,841 nodes, 122,066 edges
+📈 NEW Kalicube Graph: 1,841 nodes, 122,306 edges
+🌐 WWW Graph (per simulation): 100,000 nodes (OPTIMIZED)
+==================================================
+🔄 Running 20 TURBO simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✓ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000140 (+0.86%) | ➖ Ranks: 352↑ 1333↓ 156→
+Sim   2: ✅ PageRank:+0.000055 (+0.34%) | ➖ Ranks: 397↑ 1322↓ 122→
+Sim   3: ✅ PageRank:+0.000146 (+0.95%) | ➖ Ranks: 395↑ 1320↓ 126→
+Sim   4: ✅ PageRank:+0.000144 (+0.91%) | ➖ Ranks: 321↑ 1398↓ 122→
+Sim   5: ✅ PageRank:+0.000181 (+1.15%) | ➖ Ranks: 341↑ 1378↓ 122→
+⚡ Processing batch 2: simulations 6-10
+    ✓ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000173 (+1.09%) | ➖ Ranks: 378↑ 1331↓ 132→
+Sim   7: ✅ PageRank:+0.000181 (+1.13%) | ➖ Ranks: 341↑ 1381↓ 119→
+Sim   8: ✅ PageRank:+0.000155 (+1.03%) | ➖ Ranks: 308↑ 1405↓ 128→
+Sim   9: ✅ PageRank:+0.000139 (+0.91%) | ➖ Ranks: 319↑ 1396↓ 126→
+Sim  10: ✅ PageRank:+0.000154 (+0.98%) | ➖ Ranks: 361↑ 1366↓ 114→
+⚡ Processing batch 3: simulations 11-15
+    ✓ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000171 (+1.09%) | ➖ Ranks: 350↑ 1357↓ 134→
+Sim  12: ✅ PageRank:+0.000156 (+1.03%) | ➖ Ranks: 298↑ 1432↓ 111→
+Sim  13: ✅ PageRank:+0.000150 (+0.95%) | ➖ Ranks: 342↑ 1357↓ 142→
+Sim  14: ✅ PageRank:+0.000167 (+1.10%) | ➖ Ranks: 364↑ 1344↓ 133→
+Sim  15: ✅ PageRank:+0.000152 (+1.05%) | ➖ Ranks: 360↑ 1346↓ 135→
+⚡ Processing batch 4: simulations 16-20
+    ✓ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000155 (+0.99%) | ➖ Ranks: 305↑ 1416↓ 120→
+Sim  17: ✅ PageRank:+0.000114 (+0.75%) | ➖ Ranks: 392↑ 1342↓ 107→
+Sim  18: ✅ PageRank:+0.000162 (+1.06%) | ➖ Ranks: 357↑ 1339↓ 145→
+Sim  19: ✅ PageRank:+0.000169 (+1.10%) | ➖ Ranks: 331↑ 1402↓ 108→
+Sim  20: ✅ PageRank:+0.000163 (+1.06%) | ➖ Ranks: 373↑ 1316↓ 152→
+✅ All TURBO simulations completed in 31.01 seconds!
+⚡ Average time per simulation: 1.55 seconds
+✅ Saved TURBO results:
+ - simulation_summary_turbo.csv: Overall metrics
+ - all_simulations_detailed_turbo.csv: Detailed results
+
+📈 TURBO Statistical Analysis:
+==================================================
+Mean overall delta: 0.000151
+Std dev overall delta: 0.000028
+Mean delta percentage: 0.98%
+Std dev delta percentage: 0.18%
+
+🎯 TURBO Outcome Distribution:
+===================================
+ - Positive outcomes: 20/20 (100.0%)
+ - Negative outcomes: 0/20 (0.0%)
+ - Neutral outcomes: 0/20 (0.0%)
+
+⚡ TURBO mode delivered 100.0x speed improvement!
+🎯 Total simulation time: 31.0 seconds
+🧹 Memory cleaned up. TURBO simulation complete!
 
 ------ BATCH 7 ------
 
+🚀 Starting TURBO-OPTIMIZED PageRank simulation...
+
+📁 Checking available files...
+Available CSV files:
+  - link_graph_edges.csv
+  - 240_worst_updated_link_graph_10.csv
+  - 240_worst_updated_link_graph_1.csv
+  - 240_worst_updated_link_graph_6.csv
+  - 240_worst_updated_link_graph_8.csv
+  - 240_worst_updated_link_graph_4.csv
+  - 240_worst_updated_link_graph_2.csv
+  - simulation_summary_turbo.csv
+  - 240_worst_updated_link_graph_3.csv
+  - 240_worst_updated_link_graph_7.csv
+  - 240_worst_updated_link_graph_5.csv
+  - 240_worst_updated_link_graph_9.csv
+  - all_simulations_detailed_turbo.csv
+
+📂 Loading graphs with turbo mode...
+✅ Loaded OLD Kalicube graph from: link_graph_edges.csv
+✅ Loaded NEW Kalicube graph from: 240_worst_updated_link_graph_7.csv
+⚙️ Pre-processing graph data...
+
+📊 Network Statistics:
+==================================================
+📈 OLD Kalicube Graph: 1,841 nodes, 122,066 edges
+📈 NEW Kalicube Graph: 1,841 nodes, 122,306 edges
+🌐 WWW Graph (per simulation): 100,000 nodes (OPTIMIZED)
+==================================================
+🔄 Running 20 TURBO simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✓ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000164 (+1.07%) | ➖ Ranks: 353↑ 1329↓ 159→
+Sim   2: ✅ PageRank:+0.000013 (+0.08%) | ➖ Ranks: 411↑ 1274↓ 156→
+Sim   3: ✅ PageRank:+0.000220 (+1.42%) | ➖ Ranks: 505↑ 1197↓ 139→
+Sim   4: ✅ PageRank:+0.000167 (+1.07%) | ➖ Ranks: 369↑ 1338↓ 134→
+Sim   5: ✅ PageRank:+0.000198 (+1.25%) | ➖ Ranks: 357↑ 1362↓ 122→
+⚡ Processing batch 2: simulations 6-10
+    ✓ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000177 (+1.16%) | ➖ Ranks: 407↑ 1255↓ 179→
+Sim   7: ✅ PageRank:+0.000192 (+1.27%) | ➖ Ranks: 393↑ 1308↓ 140→
+Sim   8: ✅ PageRank:+0.000179 (+1.18%) | ➖ Ranks: 396↑ 1296↓ 149→
+Sim   9: ✅ PageRank:+0.000165 (+1.05%) | ➖ Ranks: 371↑ 1303↓ 167→
+Sim  10: ✅ PageRank:+0.000173 (+1.12%) | ➖ Ranks: 400↑ 1305↓ 136→
+⚡ Processing batch 3: simulations 11-15
+    ✓ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000193 (+1.22%) | ➖ Ranks: 390↑ 1313↓ 138→
+Sim  12: ✅ PageRank:+0.000178 (+1.15%) | ➖ Ranks: 403↑ 1282↓ 156→
+Sim  13: ✅ PageRank:+0.000155 (+1.00%) | ➖ Ranks: 413↑ 1315↓ 113→
+Sim  14: ✅ PageRank:+0.000195 (+1.24%) | ➖ Ranks: 414↑ 1261↓ 166→
+Sim  15: ✅ PageRank:+0.000188 (+1.22%) | ➖ Ranks: 411↑ 1221↓ 209→
+⚡ Processing batch 4: simulations 16-20
+    ✓ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000157 (+1.02%) | ➖ Ranks: 389↑ 1326↓ 126→
+Sim  17: ✅ PageRank:+0.000275 (+1.77%) | ➖ Ranks: 398↑ 1299↓ 144→
+Sim  18: ✅ PageRank:+0.000195 (+1.23%) | ➖ Ranks: 397↑ 1293↓ 151→
+Sim  19: ✅ PageRank:+0.000075 (+0.49%) | ➖ Ranks: 357↑ 1399↓ 85→
+Sim  20: ✅ PageRank:+0.000182 (+1.20%) | ➖ Ranks: 405↑ 1255↓ 181→
+✅ All TURBO simulations completed in 31.23 seconds!
+⚡ Average time per simulation: 1.56 seconds
+✅ Saved TURBO results:
+ - simulation_summary_turbo.csv: Overall metrics
+ - all_simulations_detailed_turbo.csv: Detailed results
+
+📈 TURBO Statistical Analysis:
+==================================================
+Mean overall delta: 0.000172
+Std dev overall delta: 0.000052
+Mean delta percentage: 1.11%
+Std dev delta percentage: 0.33%
+
+🎯 TURBO Outcome Distribution:
+===================================
+ - Positive outcomes: 20/20 (100.0%)
+ - Negative outcomes: 0/20 (0.0%)
+ - Neutral outcomes: 0/20 (0.0%)
+
+⚡ TURBO mode delivered 100.0x speed improvement!
+🎯 Total simulation time: 31.2 seconds
+🧹 Memory cleaned up. TURBO simulation complete!
 
 ------ BATCH 8 ------
 
+🚀 Starting TURBO-OPTIMIZED PageRank simulation...
+
+📁 Checking available files...
+Available CSV files:
+  - link_graph_edges.csv
+  - 240_worst_updated_link_graph_10.csv
+  - 240_worst_updated_link_graph_1.csv
+  - 240_worst_updated_link_graph_6.csv
+  - 240_worst_updated_link_graph_8.csv
+  - 240_worst_updated_link_graph_4.csv
+  - 240_worst_updated_link_graph_2.csv
+  - simulation_summary_turbo.csv
+  - 240_worst_updated_link_graph_3.csv
+  - 240_worst_updated_link_graph_7.csv
+  - 240_worst_updated_link_graph_5.csv
+  - 240_worst_updated_link_graph_9.csv
+  - all_simulations_detailed_turbo.csv
+
+📂 Loading graphs with turbo mode...
+✅ Loaded OLD Kalicube graph from: link_graph_edges.csv
+✅ Loaded NEW Kalicube graph from: 240_worst_updated_link_graph_8.csv
+⚙️ Pre-processing graph data...
+
+📊 Network Statistics:
+==================================================
+📈 OLD Kalicube Graph: 1,841 nodes, 122,066 edges
+📈 NEW Kalicube Graph: 1,841 nodes, 122,306 edges
+🌐 WWW Graph (per simulation): 100,000 nodes (OPTIMIZED)
+==================================================
+🔄 Running 20 TURBO simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✓ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000186 (+1.18%) | ➖ Ranks: 342↑ 1342↓ 157→
+Sim   2: ✅ PageRank:+0.000159 (+1.03%) | ➖ Ranks: 368↑ 1336↓ 137→
+Sim   3: ✅ PageRank:+0.000155 (+1.01%) | ➖ Ranks: 531↑ 1168↓ 142→
+Sim   4: ✅ PageRank:+0.000184 (+1.15%) | ➖ Ranks: 334↑ 1381↓ 126→
+Sim   5: ✅ PageRank:+0.000218 (+1.39%) | ➖ Ranks: 348↑ 1399↓ 94→
+⚡ Processing batch 2: simulations 6-10
+    ✓ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000194 (+1.28%) | ➖ Ranks: 386↑ 1292↓ 163→
+Sim   7: ✅ PageRank:+0.000202 (+1.29%) | ➖ Ranks: 355↑ 1346↓ 140→
+Sim   8: ✅ PageRank:+0.000192 (+1.25%) | ➖ Ranks: 351↑ 1317↓ 173→
+Sim   9: ✅ PageRank:+0.000174 (+1.12%) | ➖ Ranks: 355↑ 1330↓ 156→
+Sim  10: ✅ PageRank:+0.000192 (+1.25%) | ➖ Ranks: 363↑ 1345↓ 133→
+⚡ Processing batch 3: simulations 11-15
+    ✓ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000215 (+1.34%) | ➖ Ranks: 364↑ 1355↓ 122→
+Sim  12: ✅ PageRank:+0.000200 (+1.28%) | ➖ Ranks: 306↑ 1405↓ 130→
+Sim  13: ✅ PageRank:+0.000167 (+1.11%) | ➖ Ranks: 403↑ 1320↓ 118→
+Sim  14: ✅ PageRank:+0.000211 (+1.35%) | ➖ Ranks: 437↑ 1233↓ 171→
+Sim  15: ✅ PageRank:+0.000198 (+1.30%) | ➖ Ranks: 420↑ 1241↓ 180→
+⚡ Processing batch 4: simulations 16-20
+    ✓ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000196 (+1.26%) | ➖ Ranks: 304↑ 1384↓ 153→
+Sim  17: ✅ PageRank:+0.000171 (+1.08%) | ➖ Ranks: 478↑ 1254↓ 109→
+Sim  18: ✅ PageRank:+0.000209 (+1.36%) | ➖ Ranks: 373↑ 1317↓ 151→
+Sim  19: ✅ PageRank:+0.000342 (+2.28%) | ➖ Ranks: 347↑ 1427↓ 67→
+Sim  20: ✅ PageRank:+0.000205 (+1.33%) | ➖ Ranks: 375↑ 1330↓ 136→
+✅ All TURBO simulations completed in 29.54 seconds!
+⚡ Average time per simulation: 1.48 seconds
+✅ Saved TURBO results:
+ - simulation_summary_turbo.csv: Overall metrics
+ - all_simulations_detailed_turbo.csv: Detailed results
+
+📈 TURBO Statistical Analysis:
+==================================================
+Mean overall delta: 0.000198
+Std dev overall delta: 0.000038
+Mean delta percentage: 1.28%
+Std dev delta percentage: 0.26%
+
+🎯 TURBO Outcome Distribution:
+===================================
+ - Positive outcomes: 20/20 (100.0%)
+ - Negative outcomes: 0/20 (0.0%)
+ - Neutral outcomes: 0/20 (0.0%)
+
+⚡ TURBO mode delivered 100.0x speed improvement!
+🎯 Total simulation time: 29.5 seconds
+🧹 Memory cleaned up. TURBO simulation complete!
 
 ------ BATCH 9 ------
 
+🚀 Starting TURBO-OPTIMIZED PageRank simulation...
+
+📁 Checking available files...
+Available CSV files:
+  - link_graph_edges.csv
+  - 240_worst_updated_link_graph_10.csv
+  - 240_worst_updated_link_graph_1.csv
+  - 240_worst_updated_link_graph_6.csv
+  - 240_worst_updated_link_graph_8.csv
+  - 240_worst_updated_link_graph_4.csv
+  - 240_worst_updated_link_graph_2.csv
+  - simulation_summary_turbo.csv
+  - 240_worst_updated_link_graph_3.csv
+  - 240_worst_updated_link_graph_7.csv
+  - 240_worst_updated_link_graph_5.csv
+  - 240_worst_updated_link_graph_9.csv
+  - all_simulations_detailed_turbo.csv
+
+📂 Loading graphs with turbo mode...
+✅ Loaded OLD Kalicube graph from: link_graph_edges.csv
+✅ Loaded NEW Kalicube graph from: 240_worst_updated_link_graph_9.csv
+⚙️ Pre-processing graph data...
+
+📊 Network Statistics:
+==================================================
+📈 OLD Kalicube Graph: 1,841 nodes, 122,066 edges
+📈 NEW Kalicube Graph: 1,841 nodes, 122,306 edges
+🌐 WWW Graph (per simulation): 100,000 nodes (OPTIMIZED)
+==================================================
+🔄 Running 20 TURBO simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✓ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000161 (+1.04%) | ➖ Ranks: 361↑ 1319↓ 161→
+Sim   2: ✅ PageRank:+0.000051 (+0.33%) | ➖ Ranks: 387↑ 1274↓ 180→
+Sim   3: ✅ PageRank:+0.000168 (+1.09%) | ➖ Ranks: 492↑ 1151↓ 198→
+Sim   4: ✅ PageRank:+0.000167 (+1.07%) | ➖ Ranks: 346↑ 1369↓ 126→
+Sim   5: ✅ PageRank:+0.000247 (+1.60%) | ➖ Ranks: 372↑ 1371↓ 98→
+⚡ Processing batch 2: simulations 6-10
+    ✓ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000182 (+1.23%) | ➖ Ranks: 426↑ 1241↓ 174→
+Sim   7: ✅ PageRank:+0.000462 (+2.90%) | ➖ Ranks: 375↑ 1395↓ 71→
+Sim   8: ✅ PageRank:+0.000191 (+1.19%) | ➖ Ranks: 354↑ 1304↓ 183→
+Sim   9: ✅ PageRank:+0.000159 (+1.01%) | ➖ Ranks: 403↑ 1270↓ 168→
+Sim  10: ✅ PageRank:+0.000186 (+1.16%) | ➖ Ranks: 396↑ 1293↓ 152→
+⚡ Processing batch 3: simulations 11-15
+    ✓ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000207 (+1.33%) | ➖ Ranks: 356↑ 1373↓ 112→
+Sim  12: ✅ PageRank:+0.000191 (+1.19%) | ➖ Ranks: 356↑ 1327↓ 158→
+Sim  13: ✅ PageRank:+0.000149 (+0.94%) | ➖ Ranks: 432↑ 1291↓ 118→
+Sim  14: ✅ PageRank:+0.000196 (+1.30%) | ➖ Ranks: 457↑ 1215↓ 169→
+Sim  15: ✅ PageRank:+0.000184 (+1.19%) | ➖ Ranks: 496↑ 1151↓ 194→
+⚡ Processing batch 4: simulations 16-20
+    ✓ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000178 (+1.16%) | ➖ Ranks: 346↑ 1346↓ 149→
+Sim  17: ✅ PageRank:+0.000176 (+1.20%) | ➖ Ranks: 446↑ 1246↓ 149→
+Sim  18: ✅ PageRank:+0.000189 (+1.24%) | ➖ Ranks: 390↑ 1243↓ 208→
+Sim  19: ✅ PageRank:+0.000288 (+1.85%) | ➖ Ranks: 319↑ 1454↓ 68→
+Sim  20: ✅ PageRank:+0.000193 (+1.24%) | ➖ Ranks: 454↑ 1207↓ 180→
+✅ All TURBO simulations completed in 30.96 seconds!
+⚡ Average time per simulation: 1.55 seconds
+✅ Saved TURBO results:
+ - simulation_summary_turbo.csv: Overall metrics
+ - all_simulations_detailed_turbo.csv: Detailed results
+
+📈 TURBO Statistical Analysis:
+==================================================
+Mean overall delta: 0.000196
+Std dev overall delta: 0.000076
+Mean delta percentage: 1.26%
+Std dev delta percentage: 0.48%
+
+🎯 TURBO Outcome Distribution:
+===================================
+ - Positive outcomes: 20/20 (100.0%)
+ - Negative outcomes: 0/20 (0.0%)
+ - Neutral outcomes: 0/20 (0.0%)
+
+⚡ TURBO mode delivered 100.0x speed improvement!
+🎯 Total simulation time: 31.0 seconds
+🧹 Memory cleaned up. TURBO simulation complete!
 
 ------ BATCH 10 ------
+
+🚀 Starting TURBO-OPTIMIZED PageRank simulation...
+
+📁 Checking available files...
+Available CSV files:
+  - link_graph_edges.csv
+  - 240_worst_updated_link_graph_10.csv
+  - 240_worst_updated_link_graph_1.csv
+  - 240_worst_updated_link_graph_6.csv
+  - 240_worst_updated_link_graph_8.csv
+  - 240_worst_updated_link_graph_4.csv
+  - 240_worst_updated_link_graph_2.csv
+  - simulation_summary_turbo.csv
+  - 240_worst_updated_link_graph_3.csv
+  - 240_worst_updated_link_graph_7.csv
+  - 240_worst_updated_link_graph_5.csv
+  - 240_worst_updated_link_graph_9.csv
+  - all_simulations_detailed_turbo.csv
+
+📂 Loading graphs with turbo mode...
+✅ Loaded OLD Kalicube graph from: link_graph_edges.csv
+✅ Loaded NEW Kalicube graph from: 240_worst_updated_link_graph_10.csv
+⚙️ Pre-processing graph data...
+
+📊 Network Statistics:
+==================================================
+📈 OLD Kalicube Graph: 1,841 nodes, 122,066 edges
+📈 NEW Kalicube Graph: 1,841 nodes, 122,306 edges
+🌐 WWW Graph (per simulation): 100,000 nodes (OPTIMIZED)
+==================================================
+🔄 Running 20 TURBO simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✓ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000171 (+1.09%) | ➖ Ranks: 361↑ 1324↓ 156→
+Sim   2: ✅ PageRank:+0.000126 (+0.85%) | ➖ Ranks: 397↑ 1298↓ 146→
+Sim   3: ✅ PageRank:+0.000206 (+1.29%) | ➖ Ranks: 445↑ 1204↓ 192→
+Sim   4: ✅ PageRank:+0.000179 (+1.15%) | ➖ Ranks: 327↑ 1373↓ 141→
+Sim   5: ✅ PageRank:+0.000309 (+1.91%) | ➖ Ranks: 345↑ 1446↓ 50→
+⚡ Processing batch 2: simulations 6-10
+    ✓ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000192 (+1.25%) | ➖ Ranks: 395↑ 1296↓ 150→
+Sim   7: ✅ PageRank:+0.000226 (+1.45%) | ➖ Ranks: 349↑ 1388↓ 104→
+Sim   8: ✅ PageRank:+0.000196 (+1.23%) | ➖ Ranks: 316↑ 1363↓ 162→
+Sim   9: ✅ PageRank:+0.000179 (+1.13%) | ➖ Ranks: 343↑ 1348↓ 150→
+Sim  10: ✅ PageRank:+0.000173 (+1.10%) | ➖ Ranks: 396↑ 1323↓ 122→
+⚡ Processing batch 3: simulations 11-15
+    ✓ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000199 (+1.31%) | ➖ Ranks: 357↑ 1374↓ 110→
+Sim  12: ✅ PageRank:+0.000195 (+1.22%) | ➖ Ranks: 326↑ 1348↓ 167→
+Sim  13: ✅ PageRank:+0.000150 (+0.98%) | ➖ Ranks: 418↑ 1308↓ 115→
+Sim  14: ✅ PageRank:+0.000203 (+1.27%) | ➖ Ranks: 427↑ 1200↓ 214→
+Sim  15: ✅ PageRank:+0.000195 (+1.23%) | ➖ Ranks: 454↑ 1239↓ 148→
+⚡ Processing batch 4: simulations 16-20
+    ✓ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000181 (+1.14%) | ➖ Ranks: 338↑ 1366↓ 137→
+Sim  17: ✅ PageRank:+0.000027 (+0.17%) | ➖ Ranks: 411↑ 1302↓ 128→
+Sim  18: ✅ PageRank:+0.000204 (+1.33%) | ➖ Ranks: 392↑ 1295↓ 154→
+Sim  19: ✅ PageRank:+0.000285 (+1.81%) | ➖ Ranks: 329↑ 1448↓ 64→
+Sim  20: ✅ PageRank:+0.000199 (+1.29%) | ➖ Ranks: 394↑ 1303↓ 144→
+✅ All TURBO simulations completed in 29.43 seconds!
+⚡ Average time per simulation: 1.47 seconds
+✅ Saved TURBO results:
+ - simulation_summary_turbo.csv: Overall metrics
+ - all_simulations_detailed_turbo.csv: Detailed results
+
+📈 TURBO Statistical Analysis:
+==================================================
+Mean overall delta: 0.000190
+Std dev overall delta: 0.000055
+Mean delta percentage: 1.21%
+Std dev delta percentage: 0.34%
+
+🎯 TURBO Outcome Distribution:
+===================================
+ - Positive outcomes: 20/20 (100.0%)
+ - Negative outcomes: 0/20 (0.0%)
+ - Neutral outcomes: 0/20 (0.0%)
+
+⚡ TURBO mode delivered 100.0x speed improvement!
+🎯 Total simulation time: 29.4 seconds
+🧹 Memory cleaned up. TURBO simulation complete!
