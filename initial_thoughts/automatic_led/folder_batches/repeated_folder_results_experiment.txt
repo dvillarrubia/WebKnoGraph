@@ -1,0 +1,1459 @@
+==== EXPERIMENT: FOLDER CANDIDATES AUTOMATIC ====
+
+------ BATCH 1 ------
+
+🔄 Running 100 NetworKit simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✅ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000166 (+0.43%) | ➖ Ranks: 630↗ 1105↘ 106↔
+Sim   2: ✅ PageRank:+0.000260 (+0.67%) | ➖ Ranks: 667↗ 1087↘ 87↔
+Sim   3: ✅ PageRank:+0.000389 (+1.01%) | ➖ Ranks: 750↗ 984↘ 107↔
+Sim   4: ✅ PageRank:+0.000282 (+0.73%) | ➖ Ranks: 593↗ 1148↘ 100↔
+Sim   5: ✅ PageRank:+0.000322 (+0.84%) | ➖ Ranks: 641↗ 1093↘ 107↔
+⚡ Processing batch 2: simulations 6-10
+    ✅ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000296 (+0.77%) | ➖ Ranks: 779↗ 968↘ 94↔
+Sim   7: ✅ PageRank:+0.000294 (+0.76%) | ➖ Ranks: 639↗ 1091↘ 111↔
+Sim   8: ✅ PageRank:+0.000292 (+0.76%) | ➖ Ranks: 663↗ 1078↘ 100↔
+Sim   9: ✅ PageRank:+0.000259 (+0.67%) | ➖ Ranks: 634↗ 1099↘ 108↔
+Sim  10: ✅ PageRank:+0.000311 (+0.81%) | ➖ Ranks: 578↗ 1163↘ 100↔
+⚡ Processing batch 3: simulations 11-15
+    ✅ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000326 (+0.85%) | ➖ Ranks: 752↗ 989↘ 100↔
+Sim  12: ✅ PageRank:+0.000381 (+0.99%) | ➖ Ranks: 589↗ 1171↘ 81↔
+Sim  13: ✅ PageRank:+0.000238 (+0.62%) | ➖ Ranks: 623↗ 1119↘ 99↔
+Sim  14: ✅ PageRank:+0.000427 (+1.11%) | ➖ Ranks: 716↗ 1019↘ 106↔
+Sim  15: ✅ PageRank:+0.000356 (+0.92%) | ➖ Ranks: 723↗ 1004↘ 114↔
+⚡ Processing batch 4: simulations 16-20
+    ✅ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000256 (+0.66%) | ➖ Ranks: 671↗ 1084↘ 86↔
+Sim  17: ✅ PageRank:+0.000401 (+1.04%) | ➖ Ranks: 714↗ 1023↘ 104↔
+Sim  18: ✅ PageRank:+0.000395 (+1.02%) | ➖ Ranks: 743↗ 995↘ 103↔
+Sim  19: ✅ PageRank:+0.000218 (+0.57%) | ➖ Ranks: 781↗ 964↘ 96↔
+Sim  20: ✅ PageRank:+0.000317 (+0.82%) | ➖ Ranks: 789↗ 936↘ 116↔
+⚡ Processing batch 5: simulations 21-25
+    ✅ Completed 5 simulations in batch
+Sim  21: ✅ PageRank:+0.000315 (+0.82%) | ➖ Ranks: 664↗ 1076↘ 101↔
+Sim  22: ✅ PageRank:+0.000259 (+0.67%) | ➖ Ranks: 660↗ 1073↘ 108↔
+Sim  23: ✅ PageRank:+0.000302 (+0.78%) | ➖ Ranks: 602↗ 1142↘ 97↔
+Sim  24: ✅ PageRank:+0.000316 (+0.82%) | ➖ Ranks: 674↗ 1060↘ 107↔
+Sim  25: ✅ PageRank:+0.000315 (+0.82%) | ➖ Ranks: 618↗ 1106↘ 117↔
+⚡ Processing batch 6: simulations 26-30
+    ✅ Completed 5 simulations in batch
+Sim  26: ✅ PageRank:+0.000344 (+0.89%) | ➖ Ranks: 642↗ 1094↘ 105↔
+Sim  27: ✅ PageRank:+0.000271 (+0.70%) | ➖ Ranks: 576↗ 1162↘ 103↔
+Sim  28: ✅ PageRank:+0.000297 (+0.77%) | ➖ Ranks: 659↗ 1092↘ 90↔
+Sim  29: ✅ PageRank:+0.000296 (+0.77%) | ➖ Ranks: 609↗ 1133↘ 99↔
+Sim  30: ✅ PageRank:+0.000292 (+0.76%) | ➖ Ranks: 650↗ 1069↘ 122↔
+⚡ Processing batch 7: simulations 31-35
+    ✅ Completed 5 simulations in batch
+Sim  31: ✅ PageRank:+0.000349 (+0.91%) | ➖ Ranks: 689↗ 1046↘ 106↔
+Sim  32: ✅ PageRank:+0.000459 (+1.19%) | ➖ Ranks: 747↗ 991↘ 103↔
+Sim  33: ✅ PageRank:+0.000306 (+0.79%) | ➖ Ranks: 606↗ 1148↘ 87↔
+Sim  34: ✅ PageRank:+0.000283 (+0.73%) | ➖ Ranks: 647↗ 1111↘ 83↔
+Sim  35: ✅ PageRank:+0.000492 (+1.28%) | ➖ Ranks: 746↗ 997↘ 98↔
+⚡ Processing batch 8: simulations 36-40
+    ✅ Completed 5 simulations in batch
+Sim  36: ✅ PageRank:+0.000545 (+1.42%) | ➖ Ranks: 680↗ 1076↘ 85↔
+Sim  37: ✅ PageRank:+0.000227 (+0.59%) | ➖ Ranks: 709↗ 1030↘ 102↔
+Sim  38: ✅ PageRank:+0.000194 (+0.50%) | ➖ Ranks: 663↗ 1047↘ 131↔
+Sim  39: ✅ PageRank:+0.000444 (+1.15%) | ➖ Ranks: 806↗ 937↘ 98↔
+Sim  40: ✅ PageRank:+0.000351 (+0.91%) | ➖ Ranks: 686↗ 1048↘ 107↔
+⚡ Processing batch 9: simulations 41-45
+    ✅ Completed 5 simulations in batch
+Sim  41: ✅ PageRank:+0.000258 (+0.67%) | ➖ Ranks: 638↗ 1105↘ 98↔
+Sim  42: ✅ PageRank:+0.000353 (+0.92%) | ➖ Ranks: 595↗ 1154↘ 92↔
+Sim  43: ✅ PageRank:+0.000245 (+0.64%) | ➖ Ranks: 819↗ 925↘ 97↔
+Sim  44: ✅ PageRank:+0.000376 (+0.98%) | ➖ Ranks: 722↗ 1015↘ 104↔
+Sim  45: ✅ PageRank:+0.000394 (+1.02%) | ➖ Ranks: 555↗ 1202↘ 84↔
+⚡ Processing batch 10: simulations 46-50
+    ✅ Completed 5 simulations in batch
+Sim  46: ✅ PageRank:+0.000270 (+0.70%) | ➖ Ranks: 696↗ 1032↘ 113↔
+Sim  47: ✅ PageRank:+0.000267 (+0.69%) | ➖ Ranks: 655↗ 1079↘ 107↔
+Sim  48: ✅ PageRank:+0.000383 (+0.99%) | ➖ Ranks: 601↗ 1163↘ 77↔
+Sim  49: ✅ PageRank:+0.000361 (+0.94%) | ➖ Ranks: 749↗ 997↘ 95↔
+Sim  50: ✅ PageRank:+0.000357 (+0.93%) | ➖ Ranks: 614↗ 1119↘ 108↔
+⚡ Processing batch 11: simulations 51-55
+    ✅ Completed 5 simulations in batch
+Sim  51: ✅ PageRank:+0.000444 (+1.15%) | ➖ Ranks: 741↗ 982↘ 118↔
+Sim  52: ✅ PageRank:+0.000429 (+1.11%) | ➖ Ranks: 778↗ 948↘ 115↔
+Sim  53: ✅ PageRank:+0.000412 (+1.07%) | ➖ Ranks: 712↗ 1022↘ 107↔
+Sim  54: ✅ PageRank:+0.000408 (+1.06%) | ➖ Ranks: 560↗ 1185↘ 96↔
+Sim  55: ✅ PageRank:+0.000282 (+0.73%) | ➖ Ranks: 743↗ 996↘ 102↔
+⚡ Processing batch 12: simulations 56-60
+    ✅ Completed 5 simulations in batch
+Sim  56: ✅ PageRank:+0.000353 (+0.92%) | ➖ Ranks: 681↗ 1036↘ 124↔
+Sim  57: ✅ PageRank:+0.000167 (+0.43%) | ➖ Ranks: 744↗ 1000↘ 97↔
+Sim  58: ✅ PageRank:+0.000234 (+0.61%) | ➖ Ranks: 648↗ 1093↘ 100↔
+Sim  59: ✅ PageRank:+0.000250 (+0.65%) | ➖ Ranks: 694↗ 1040↘ 107↔
+Sim  60: ✅ PageRank:+0.000334 (+0.87%) | ➖ Ranks: 672↗ 1051↘ 118↔
+⚡ Processing batch 13: simulations 61-65
+    ✅ Completed 5 simulations in batch
+Sim  61: ✅ PageRank:+0.000294 (+0.76%) | ➖ Ranks: 669↗ 1060↘ 112↔
+Sim  62: ✅ PageRank:+0.000319 (+0.83%) | ➖ Ranks: 658↗ 1109↘ 74↔
+Sim  63: ✅ PageRank:+0.000286 (+0.74%) | ➖ Ranks: 663↗ 1077↘ 101↔
+Sim  64: ✅ PageRank:+0.000391 (+1.02%) | ➖ Ranks: 751↗ 960↘ 130↔
+Sim  65: ✅ PageRank:+0.000280 (+0.73%) | ➖ Ranks: 675↗ 1052↘ 114↔
+⚡ Processing batch 14: simulations 66-70
+    ✅ Completed 5 simulations in batch
+Sim  66: ✅ PageRank:+0.000384 (+1.00%) | ➖ Ranks: 724↗ 1013↘ 104↔
+Sim  67: ✅ PageRank:+0.000373 (+0.96%) | ➖ Ranks: 581↗ 1153↘ 107↔
+Sim  68: ✅ PageRank:+0.000400 (+1.04%) | ➖ Ranks: 635↗ 1108↘ 98↔
+Sim  69: ✅ PageRank:+0.000184 (+0.48%) | ➖ Ranks: 685↗ 1030↘ 126↔
+Sim  70: ✅ PageRank:+0.000384 (+1.00%) | ➖ Ranks: 697↗ 1039↘ 105↔
+⚡ Processing batch 15: simulations 71-75
+    ✅ Completed 5 simulations in batch
+Sim  71: ✅ PageRank:+0.000337 (+0.88%) | ➖ Ranks: 824↗ 909↘ 108↔
+Sim  72: ✅ PageRank:+0.000371 (+0.97%) | ➖ Ranks: 767↗ 977↘ 97↔
+Sim  73: ✅ PageRank:+0.000507 (+1.32%) | ➖ Ranks: 765↗ 981↘ 95↔
+Sim  74: ✅ PageRank:+0.000335 (+0.87%) | ➖ Ranks: 751↗ 983↘ 107↔
+Sim  75: ✅ PageRank:+0.000332 (+0.86%) | ➖ Ranks: 560↗ 1201↘ 80↔
+⚡ Processing batch 16: simulations 76-80
+    ✅ Completed 5 simulations in batch
+Sim  76: ✅ PageRank:+0.000265 (+0.69%) | ➖ Ranks: 640↗ 1090↘ 111↔
+Sim  77: ✅ PageRank:+0.000166 (+0.43%) | ➖ Ranks: 719↗ 1002↘ 120↔
+Sim  78: ✅ PageRank:+0.000465 (+1.21%) | ➖ Ranks: 631↗ 1113↘ 97↔
+Sim  79: ✅ PageRank:+0.000424 (+1.10%) | ➖ Ranks: 612↗ 1142↘ 87↔
+Sim  80: ✅ PageRank:+0.000242 (+0.63%) | ➖ Ranks: 630↗ 1105↘ 106↔
+⚡ Processing batch 17: simulations 81-85
+    ✅ Completed 5 simulations in batch
+Sim  81: ✅ PageRank:+0.000277 (+0.72%) | ➖ Ranks: 565↗ 1196↘ 80↔
+Sim  82: ✅ PageRank:+0.000433 (+1.12%) | ➖ Ranks: 736↗ 1011↘ 94↔
+Sim  83: ✅ PageRank:+0.000339 (+0.88%) | ➖ Ranks: 645↗ 1096↘ 100↔
+Sim  84: ✅ PageRank:+0.000350 (+0.91%) | ➖ Ranks: 521↗ 1235↘ 85↔
+Sim  85: ✅ PageRank:+0.000277 (+0.72%) | ➖ Ranks: 701↗ 1035↘ 105↔
+⚡ Processing batch 18: simulations 86-90
+    ✅ Completed 5 simulations in batch
+Sim  86: ✅ PageRank:+0.000390 (+1.02%) | ➖ Ranks: 609↗ 1121↘ 111↔
+Sim  87: ✅ PageRank:+0.000200 (+0.52%) | ➖ Ranks: 568↗ 1166↘ 107↔
+Sim  88: ✅ PageRank:+0.000353 (+0.92%) | ➖ Ranks: 660↗ 1084↘ 97↔
+Sim  89: ✅ PageRank:+0.000257 (+0.67%) | ➖ Ranks: 632↗ 1093↘ 116↔
+Sim  90: ✅ PageRank:+0.000439 (+1.14%) | ➖ Ranks: 618↗ 1121↘ 102↔
+⚡ Processing batch 19: simulations 91-95
+    ✅ Completed 5 simulations in batch
+Sim  91: ✅ PageRank:+0.000403 (+1.04%) | ➖ Ranks: 621↗ 1128↘ 92↔
+Sim  92: ✅ PageRank:+0.000341 (+0.88%) | ➖ Ranks: 642↗ 1106↘ 93↔
+Sim  93: ✅ PageRank:+0.000332 (+0.86%) | ➖ Ranks: 603↗ 1121↘ 117↔
+Sim  94: ✅ PageRank:+0.000507 (+1.32%) | ➖ Ranks: 578↗ 1170↘ 93↔
+Sim  95: ✅ PageRank:+0.000359 (+0.93%) | ➖ Ranks: 710↗ 1005↘ 126↔
+⚡ Processing batch 20: simulations 96-100
+    ✅ Completed 5 simulations in batch
+Sim  96: ✅ PageRank:+0.000323 (+0.84%) | ➖ Ranks: 556↗ 1171↘ 114↔
+Sim  97: ✅ PageRank:+0.000263 (+0.68%) | ➖ Ranks: 646↗ 1091↘ 104↔
+Sim  98: ✅ PageRank:+0.000196 (+0.51%) | ➖ Ranks: 703↗ 1036↘ 102↔
+Sim  99: ✅ PageRank:+0.000354 (+0.92%) | ➖ Ranks: 650↗ 1092↘ 99↔
+Sim 100: ✅ PageRank:+0.000323 (+0.84%) | ➖ Ranks: 703↗ 1025↘ 113↔
+✅ All NetworKit simulations completed in 71.49 seconds!
+⚡ Average time per simulation: 0.71 seconds
+
+------ BATCH 2 ------
+
+🔄 Running 100 NetworKit simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✅ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000110 (+0.28%) | ➖ Ranks: 649↗ 1053↘ 139↔
+Sim   2: ✅ PageRank:+0.000203 (+0.52%) | ➖ Ranks: 683↗ 1019↘ 139↔
+Sim   3: ✅ PageRank:+0.000332 (+0.86%) | ➖ Ranks: 739↗ 966↘ 136↔
+Sim   4: ✅ PageRank:+0.000225 (+0.58%) | ➖ Ranks: 575↗ 1153↘ 113↔
+Sim   5: ✅ PageRank:+0.000265 (+0.69%) | ➖ Ranks: 676↗ 1018↘ 147↔
+⚡ Processing batch 2: simulations 6-10
+    ✅ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000240 (+0.62%) | ➖ Ranks: 826↗ 859↘ 156↔
+Sim   7: ✅ PageRank:+0.000237 (+0.61%) | ➖ Ranks: 671↗ 1037↘ 133↔
+Sim   8: ✅ PageRank:+0.000235 (+0.61%) | ➖ Ranks: 706↗ 1048↘ 87↔
+Sim   9: ✅ PageRank:+0.000202 (+0.52%) | ➖ Ranks: 671↗ 1050↘ 120↔
+Sim  10: ✅ PageRank:+0.000254 (+0.66%) | ➖ Ranks: 607↗ 1126↘ 108↔
+⚡ Processing batch 3: simulations 11-15
+    ✅ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000269 (+0.70%) | ➖ Ranks: 788↗ 893↘ 160↔
+Sim  12: ✅ PageRank:+0.000324 (+0.84%) | ➖ Ranks: 617↗ 1131↘ 93↔
+Sim  13: ✅ PageRank:+0.000181 (+0.47%) | ➖ Ranks: 619↗ 1082↘ 140↔
+Sim  14: ✅ PageRank:+0.000370 (+0.96%) | ➖ Ranks: 744↗ 956↘ 141↔
+Sim  15: ✅ PageRank:+0.000300 (+0.78%) | ➖ Ranks: 762↗ 941↘ 138↔
+⚡ Processing batch 4: simulations 16-20
+    ✅ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000199 (+0.52%) | ➖ Ranks: 707↗ 1015↘ 119↔
+Sim  17: ✅ PageRank:+0.000344 (+0.89%) | ➖ Ranks: 741↗ 954↘ 146↔
+Sim  18: ✅ PageRank:+0.000338 (+0.88%) | ➖ Ranks: 802↗ 911↘ 128↔
+Sim  19: ✅ PageRank:+0.000162 (+0.42%) | ➖ Ranks: 795↗ 912↘ 134↔
+Sim  20: ✅ PageRank:+0.000255 (+0.66%) | ➖ Ranks: 867↗ 814↘ 160↔
+⚡ Processing batch 5: simulations 21-25
+    ✅ Completed 5 simulations in batch
+Sim  21: ✅ PageRank:+0.000258 (+0.67%) | ➖ Ranks: 707↗ 1008↘ 126↔
+Sim  22: ✅ PageRank:+0.000203 (+0.53%) | ➖ Ranks: 683↗ 1026↘ 132↔
+Sim  23: ✅ PageRank:+0.000246 (+0.64%) | ➖ Ranks: 604↗ 1129↘ 108↔
+Sim  24: ✅ PageRank:+0.000259 (+0.67%) | ➖ Ranks: 695↗ 981↘ 165↔
+Sim  25: ✅ PageRank:+0.000258 (+0.67%) | ➖ Ranks: 680↗ 1032↘ 129↔
+⚡ Processing batch 6: simulations 26-30
+    ✅ Completed 5 simulations in batch
+Sim  26: ✅ PageRank:+0.000288 (+0.75%) | ➖ Ranks: 674↗ 1040↘ 127↔
+Sim  27: ✅ PageRank:+0.000214 (+0.55%) | ➖ Ranks: 615↗ 1090↘ 136↔
+Sim  28: ✅ PageRank:+0.000240 (+0.62%) | ➖ Ranks: 696↗ 1041↘ 104↔
+Sim  29: ✅ PageRank:+0.000239 (+0.62%) | ➖ Ranks: 653↗ 1073↘ 115↔
+Sim  30: ✅ PageRank:+0.000235 (+0.61%) | ➖ Ranks: 691↗ 1007↘ 143↔
+⚡ Processing batch 7: simulations 31-35
+    ✅ Completed 5 simulations in batch
+Sim  31: ✅ PageRank:+0.000293 (+0.76%) | ➖ Ranks: 744↗ 982↘ 115↔
+Sim  32: ✅ PageRank:+0.000402 (+1.05%) | ➖ Ranks: 810↗ 898↘ 133↔
+Sim  33: ✅ PageRank:+0.000249 (+0.65%) | ➖ Ranks: 618↗ 1113↘ 110↔
+Sim  34: ✅ PageRank:+0.000226 (+0.58%) | ➖ Ranks: 636↗ 1079↘ 126↔
+Sim  35: ✅ PageRank:+0.000435 (+1.13%) | ➖ Ranks: 779↗ 922↘ 140↔
+⚡ Processing batch 8: simulations 36-40
+    ✅ Completed 5 simulations in batch
+Sim  36: ✅ PageRank:+0.000488 (+1.27%) | ➖ Ranks: 662↗ 1052↘ 127↔
+Sim  37: ✅ PageRank:+0.000170 (+0.44%) | ➖ Ranks: 768↗ 960↘ 113↔
+Sim  38: ✅ PageRank:+0.000138 (+0.36%) | ➖ Ranks: 740↗ 988↘ 113↔
+Sim  39: ✅ PageRank:+0.000387 (+1.01%) | ➖ Ranks: 841↗ 846↘ 154↔
+Sim  40: ✅ PageRank:+0.000294 (+0.76%) | ➖ Ranks: 701↗ 976↘ 164↔
+⚡ Processing batch 9: simulations 41-45
+    ✅ Completed 5 simulations in batch
+Sim  41: ✅ PageRank:+0.000201 (+0.52%) | ➖ Ranks: 700↗ 1033↘ 108↔
+Sim  42: ✅ PageRank:+0.000297 (+0.77%) | ➖ Ranks: 609↗ 1115↘ 117↔
+Sim  43: ✅ PageRank:+0.000188 (+0.49%) | ➖ Ranks: 843↗ 853↘ 145↔
+Sim  44: ✅ PageRank:+0.000319 (+0.83%) | ➖ Ranks: 768↗ 909↘ 164↔
+Sim  45: ✅ PageRank:+0.000337 (+0.88%) | ➖ Ranks: 550↗ 1211↘ 80↔
+⚡ Processing batch 10: simulations 46-50
+    ✅ Completed 5 simulations in batch
+Sim  46: ✅ PageRank:+0.000214 (+0.55%) | ➖ Ranks: 701↗ 1009↘ 131↔
+Sim  47: ✅ PageRank:+0.000201 (+0.52%) | ➖ Ranks: 670↗ 1025↘ 146↔
+Sim  48: ✅ PageRank:+0.000326 (+0.84%) | ➖ Ranks: 682↗ 1053↘ 106↔
+Sim  49: ✅ PageRank:+0.000304 (+0.79%) | ➖ Ranks: 819↗ 876↘ 146↔
+Sim  50: ✅ PageRank:+0.000301 (+0.78%) | ➖ Ranks: 615↗ 1101↘ 125↔
+⚡ Processing batch 11: simulations 51-55
+    ✅ Completed 5 simulations in batch
+Sim  51: ✅ PageRank:+0.000387 (+1.01%) | ➖ Ranks: 772↗ 907↘ 162↔
+Sim  52: ✅ PageRank:+0.000372 (+0.97%) | ➖ Ranks: 838↗ 853↘ 150↔
+Sim  53: ✅ PageRank:+0.000355 (+0.92%) | ➖ Ranks: 744↗ 984↘ 113↔
+Sim  54: ✅ PageRank:+0.000329 (+0.86%) | ➖ Ranks: 659↗ 1045↘ 137↔
+Sim  55: ✅ PageRank:+0.000225 (+0.58%) | ➖ Ranks: 799↗ 924↘ 118↔
+⚡ Processing batch 12: simulations 56-60
+    ✅ Completed 5 simulations in batch
+Sim  56: ✅ PageRank:+0.000297 (+0.77%) | ➖ Ranks: 705↗ 998↘ 138↔
+Sim  57: ✅ PageRank:+0.000110 (+0.28%) | ➖ Ranks: 759↗ 948↘ 134↔
+Sim  58: ✅ PageRank:+0.000177 (+0.46%) | ➖ Ranks: 662↗ 1076↘ 103↔
+Sim  59: ✅ PageRank:+0.000196 (+0.51%) | ➖ Ranks: 701↗ 1000↘ 140↔
+Sim  60: ✅ PageRank:+0.000277 (+0.72%) | ➖ Ranks: 681↗ 1053↘ 107↔
+⚡ Processing batch 13: simulations 61-65
+    ✅ Completed 5 simulations in batch
+Sim  61: ✅ PageRank:+0.000237 (+0.62%) | ➖ Ranks: 697↗ 1012↘ 132↔
+Sim  62: ✅ PageRank:+0.000262 (+0.68%) | ➖ Ranks: 679↗ 1042↘ 120↔
+Sim  63: ✅ PageRank:+0.000194 (+0.50%) | ➖ Ranks: 690↗ 1038↘ 113↔
+Sim  64: ✅ PageRank:+0.000334 (+0.87%) | ➖ Ranks: 789↗ 910↘ 142↔
+Sim  65: ✅ PageRank:+0.000223 (+0.58%) | ➖ Ranks: 705↗ 993↘ 143↔
+⚡ Processing batch 14: simulations 66-70
+    ✅ Completed 5 simulations in batch
+Sim  66: ✅ PageRank:+0.000325 (+0.84%) | ➖ Ranks: 723↗ 967↘ 151↔
+Sim  67: ✅ PageRank:+0.000316 (+0.82%) | ➖ Ranks: 589↗ 1121↘ 131↔
+Sim  68: ✅ PageRank:+0.000344 (+0.89%) | ➖ Ranks: 648↗ 1061↘ 132↔
+Sim  69: ✅ PageRank:+0.000127 (+0.33%) | ➖ Ranks: 713↗ 978↘ 150↔
+Sim  70: ✅ PageRank:+0.000327 (+0.85%) | ➖ Ranks: 718↗ 994↘ 129↔
+⚡ Processing batch 15: simulations 71-75
+    ✅ Completed 5 simulations in batch
+Sim  71: ✅ PageRank:+0.000280 (+0.73%) | ➖ Ranks: 902↗ 781↘ 158↔
+Sim  72: ✅ PageRank:+0.000314 (+0.81%) | ➖ Ranks: 801↗ 880↘ 160↔
+Sim  73: ✅ PageRank:+0.000450 (+1.17%) | ➖ Ranks: 795↗ 914↘ 132↔
+Sim  74: ✅ PageRank:+0.000278 (+0.72%) | ➖ Ranks: 809↗ 875↘ 157↔
+Sim  75: ✅ PageRank:+0.000275 (+0.71%) | ➖ Ranks: 574↗ 1177↘ 90↔
+⚡ Processing batch 16: simulations 76-80
+    ✅ Completed 5 simulations in batch
+Sim  76: ✅ PageRank:+0.000209 (+0.54%) | ➖ Ranks: 676↗ 1056↘ 109↔
+Sim  77: ✅ PageRank:+0.000109 (+0.28%) | ➖ Ranks: 755↗ 953↘ 133↔
+Sim  78: ✅ PageRank:+0.000408 (+1.06%) | ➖ Ranks: 677↗ 1068↘ 96↔
+Sim  79: ✅ PageRank:+0.000367 (+0.96%) | ➖ Ranks: 623↗ 1085↘ 133↔
+Sim  80: ✅ PageRank:+0.000185 (+0.48%) | ➖ Ranks: 678↗ 1024↘ 139↔
+⚡ Processing batch 17: simulations 81-85
+    ✅ Completed 5 simulations in batch
+Sim  81: ✅ PageRank:+0.000221 (+0.57%) | ➖ Ranks: 576↗ 1163↘ 102↔
+Sim  82: ✅ PageRank:+0.000376 (+0.98%) | ➖ Ranks: 767↗ 938↘ 136↔
+Sim  83: ✅ PageRank:+0.000282 (+0.73%) | ➖ Ranks: 644↗ 1041↘ 156↔
+Sim  84: ✅ PageRank:+0.000293 (+0.76%) | ➖ Ranks: 540↗ 1215↘ 86↔
+Sim  85: ✅ PageRank:+0.000220 (+0.57%) | ➖ Ranks: 747↗ 963↘ 131↔
+⚡ Processing batch 18: simulations 86-90
+    ✅ Completed 5 simulations in batch
+Sim  86: ✅ PageRank:+0.000334 (+0.87%) | ➖ Ranks: 619↗ 1092↘ 130↔
+Sim  87: ✅ PageRank:+0.000144 (+0.37%) | ➖ Ranks: 626↗ 1111↘ 104↔
+Sim  88: ✅ PageRank:+0.000296 (+0.77%) | ➖ Ranks: 654↗ 1060↘ 127↔
+Sim  89: ✅ PageRank:+0.000200 (+0.52%) | ➖ Ranks: 661↗ 1065↘ 115↔
+Sim  90: ✅ PageRank:+0.000382 (+0.99%) | ➖ Ranks: 652↗ 1065↘ 124↔
+⚡ Processing batch 19: simulations 91-95
+    ✅ Completed 5 simulations in batch
+Sim  91: ✅ PageRank:+0.000346 (+0.90%) | ➖ Ranks: 609↗ 1124↘ 108↔
+Sim  92: ✅ PageRank:+0.000284 (+0.74%) | ➖ Ranks: 648↗ 1073↘ 120↔
+Sim  93: ✅ PageRank:+0.000275 (+0.71%) | ➖ Ranks: 647↗ 1075↘ 119↔
+Sim  94: ✅ PageRank:+0.000450 (+1.17%) | ➖ Ranks: 604↗ 1145↘ 92↔
+Sim  95: ✅ PageRank:+0.000302 (+0.78%) | ➖ Ranks: 707↗ 975↘ 159↔
+⚡ Processing batch 20: simulations 96-100
+    ✅ Completed 5 simulations in batch
+Sim  96: ✅ PageRank:+0.000266 (+0.69%) | ➖ Ranks: 574↗ 1164↘ 103↔
+Sim  97: ✅ PageRank:+0.000207 (+0.54%) | ➖ Ranks: 700↗ 1027↘ 114↔
+Sim  98: ✅ PageRank:+0.000140 (+0.36%) | ➖ Ranks: 752↗ 982↘ 107↔
+Sim  99: ✅ PageRank:+0.000308 (+0.80%) | ➖ Ranks: 630↗ 1075↘ 136↔
+Sim 100: ✅ PageRank:+0.000266 (+0.69%) | ➖ Ranks: 732↗ 985↘ 124↔
+✅ All NetworKit simulations completed in 67.59 seconds!
+⚡ Average time per simulation: 0.68 seconds
+
+------ BATCH 3 ------
+
+🔄 Running 100 NetworKit simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✅ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000139 (+0.36%) | ➖ Ranks: 613↗ 1083↘ 145↔
+Sim   2: ✅ PageRank:+0.000232 (+0.60%) | ➖ Ranks: 670↗ 1035↘ 136↔
+Sim   3: ✅ PageRank:+0.000361 (+0.94%) | ➖ Ranks: 736↗ 966↘ 139↔
+Sim   4: ✅ PageRank:+0.000254 (+0.66%) | ➖ Ranks: 580↗ 1150↘ 111↔
+Sim   5: ✅ PageRank:+0.000294 (+0.76%) | ➖ Ranks: 663↗ 1047↘ 131↔
+⚡ Processing batch 2: simulations 6-10
+    ✅ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000269 (+0.70%) | ➖ Ranks: 807↗ 904↘ 130↔
+Sim   7: ✅ PageRank:+0.000266 (+0.69%) | ➖ Ranks: 652↗ 1059↘ 130↔
+Sim   8: ✅ PageRank:+0.000264 (+0.69%) | ➖ Ranks: 655↗ 1071↘ 115↔
+Sim   9: ✅ PageRank:+0.000231 (+0.60%) | ➖ Ranks: 644↗ 1072↘ 125↔
+Sim  10: ✅ PageRank:+0.000283 (+0.74%) | ➖ Ranks: 597↗ 1137↘ 107↔
+⚡ Processing batch 3: simulations 11-15
+    ✅ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000298 (+0.78%) | ➖ Ranks: 773↗ 912↘ 156↔
+Sim  12: ✅ PageRank:+0.000353 (+0.91%) | ➖ Ranks: 572↗ 1167↘ 102↔
+Sim  13: ✅ PageRank:+0.000210 (+0.54%) | ➖ Ranks: 620↗ 1087↘ 134↔
+Sim  14: ✅ PageRank:+0.000399 (+1.04%) | ➖ Ranks: 710↗ 999↘ 132↔
+Sim  15: ✅ PageRank:+0.000329 (+0.85%) | ➖ Ranks: 732↗ 992↘ 117↔
+⚡ Processing batch 4: simulations 16-20
+    ✅ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000228 (+0.59%) | ➖ Ranks: 665↗ 1076↘ 100↔
+Sim  17: ✅ PageRank:+0.000373 (+0.97%) | ➖ Ranks: 709↗ 978↘ 154↔
+Sim  18: ✅ PageRank:+0.000367 (+0.95%) | ➖ Ranks: 765↗ 951↘ 125↔
+Sim  19: ✅ PageRank:+0.000191 (+0.49%) | ➖ Ranks: 772↗ 929↘ 140↔
+Sim  20: ✅ PageRank:+0.000284 (+0.74%) | ➖ Ranks: 829↗ 882↘ 130↔
+⚡ Processing batch 5: simulations 21-25
+    ✅ Completed 5 simulations in batch
+Sim  21: ✅ PageRank:+0.000287 (+0.74%) | ➖ Ranks: 722↗ 999↘ 120↔
+Sim  22: ✅ PageRank:+0.000232 (+0.60%) | ➖ Ranks: 685↗ 1021↘ 135↔
+Sim  23: ✅ PageRank:+0.000275 (+0.71%) | ➖ Ranks: 601↗ 1108↘ 132↔
+Sim  24: ✅ PageRank:+0.000288 (+0.75%) | ➖ Ranks: 650↗ 1016↘ 175↔
+Sim  25: ✅ PageRank:+0.000287 (+0.75%) | ➖ Ranks: 645↗ 1038↘ 158↔
+⚡ Processing batch 6: simulations 26-30
+    ✅ Completed 5 simulations in batch
+Sim  26: ✅ PageRank:+0.000317 (+0.82%) | ➖ Ranks: 629↗ 1076↘ 136↔
+Sim  27: ✅ PageRank:+0.000243 (+0.63%) | ➖ Ranks: 587↗ 1133↘ 121↔
+Sim  28: ✅ PageRank:+0.000269 (+0.70%) | ➖ Ranks: 652↗ 1087↘ 102↔
+Sim  29: ✅ PageRank:+0.000268 (+0.70%) | ➖ Ranks: 613↗ 1102↘ 126↔
+Sim  30: ✅ PageRank:+0.000264 (+0.68%) | ➖ Ranks: 667↗ 1046↘ 128↔
+⚡ Processing batch 7: simulations 31-35
+    ✅ Completed 5 simulations in batch
+Sim  31: ✅ PageRank:+0.000322 (+0.84%) | ➖ Ranks: 686↗ 1029↘ 126↔
+Sim  32: ✅ PageRank:+0.000431 (+1.12%) | ➖ Ranks: 754↗ 952↘ 135↔
+Sim  33: ✅ PageRank:+0.000278 (+0.72%) | ➖ Ranks: 594↗ 1128↘ 119↔
+Sim  34: ✅ PageRank:+0.000255 (+0.66%) | ➖ Ranks: 606↗ 1112↘ 123↔
+Sim  35: ✅ PageRank:+0.000464 (+1.21%) | ➖ Ranks: 777↗ 939↘ 125↔
+⚡ Processing batch 8: simulations 36-40
+    ✅ Completed 5 simulations in batch
+Sim  36: ✅ PageRank:+0.000517 (+1.34%) | ➖ Ranks: 660↗ 1078↘ 103↔
+Sim  37: ✅ PageRank:+0.000199 (+0.52%) | ➖ Ranks: 696↗ 1010↘ 135↔
+Sim  38: ✅ PageRank:+0.000167 (+0.43%) | ➖ Ranks: 697↗ 1008↘ 136↔
+Sim  39: ✅ PageRank:+0.000416 (+1.08%) | ➖ Ranks: 824↗ 867↘ 150↔
+Sim  40: ✅ PageRank:+0.000323 (+0.84%) | ➖ Ranks: 700↗ 1008↘ 133↔
+⚡ Processing batch 9: simulations 41-45
+    ✅ Completed 5 simulations in batch
+Sim  41: ✅ PageRank:+0.000230 (+0.60%) | ➖ Ranks: 637↗ 1096↘ 108↔
+Sim  42: ✅ PageRank:+0.000326 (+0.85%) | ➖ Ranks: 591↗ 1146↘ 104↔
+Sim  43: ✅ PageRank:+0.000217 (+0.56%) | ➖ Ranks: 850↗ 861↘ 130↔
+Sim  44: ✅ PageRank:+0.000348 (+0.91%) | ➖ Ranks: 749↗ 947↘ 145↔
+Sim  45: ✅ PageRank:+0.000366 (+0.95%) | ➖ Ranks: 521↗ 1238↘ 82↔
+⚡ Processing batch 10: simulations 46-50
+    ✅ Completed 5 simulations in batch
+Sim  46: ✅ PageRank:+0.000243 (+0.63%) | ➖ Ranks: 675↗ 1028↘ 138↔
+Sim  47: ✅ PageRank:+0.000230 (+0.60%) | ➖ Ranks: 653↗ 1038↘ 150↔
+Sim  48: ✅ PageRank:+0.000356 (+0.92%) | ➖ Ranks: 659↗ 1076↘ 106↔
+Sim  49: ✅ PageRank:+0.000333 (+0.87%) | ➖ Ranks: 785↗ 893↘ 163↔
+Sim  50: ✅ PageRank:+0.000330 (+0.86%) | ➖ Ranks: 576↗ 1127↘ 138↔
+⚡ Processing batch 11: simulations 51-55
+    ✅ Completed 5 simulations in batch
+Sim  51: ✅ PageRank:+0.000416 (+1.08%) | ➖ Ranks: 779↗ 925↘ 137↔
+Sim  52: ✅ PageRank:+0.000401 (+1.04%) | ➖ Ranks: 812↗ 894↘ 135↔
+Sim  53: ✅ PageRank:+0.000384 (+1.00%) | ➖ Ranks: 694↗ 1024↘ 123↔
+Sim  54: ✅ PageRank:+0.000358 (+0.93%) | ➖ Ranks: 663↗ 1054↘ 124↔
+Sim  55: ✅ PageRank:+0.000254 (+0.66%) | ➖ Ranks: 729↗ 963↘ 149↔
+⚡ Processing batch 12: simulations 56-60
+    ✅ Completed 5 simulations in batch
+Sim  56: ✅ PageRank:+0.000326 (+0.85%) | ➖ Ranks: 679↗ 1040↘ 122↔
+Sim  57: ✅ PageRank:+0.000139 (+0.36%) | ➖ Ranks: 743↗ 978↘ 120↔
+Sim  58: ✅ PageRank:+0.000206 (+0.53%) | ➖ Ranks: 636↗ 1083↘ 122↔
+Sim  59: ✅ PageRank:+0.000225 (+0.58%) | ➖ Ranks: 703↗ 996↘ 142↔
+Sim  60: ✅ PageRank:+0.000306 (+0.80%) | ➖ Ranks: 668↗ 1038↘ 135↔
+⚡ Processing batch 13: simulations 61-65
+    ✅ Completed 5 simulations in batch
+Sim  61: ✅ PageRank:+0.000266 (+0.69%) | ➖ Ranks: 676↗ 1041↘ 124↔
+Sim  62: ✅ PageRank:+0.000291 (+0.76%) | ➖ Ranks: 691↗ 1046↘ 104↔
+Sim  63: ✅ PageRank:+0.000223 (+0.58%) | ➖ Ranks: 663↗ 1038↘ 140↔
+Sim  64: ✅ PageRank:+0.000363 (+0.94%) | ➖ Ranks: 764↗ 926↘ 151↔
+Sim  65: ✅ PageRank:+0.000252 (+0.65%) | ➖ Ranks: 699↗ 1013↘ 129↔
+⚡ Processing batch 14: simulations 66-70
+    ✅ Completed 5 simulations in batch
+Sim  66: ✅ PageRank:+0.000354 (+0.92%) | ➖ Ranks: 696↗ 1014↘ 131↔
+Sim  67: ✅ PageRank:+0.000345 (+0.89%) | ➖ Ranks: 587↗ 1127↘ 127↔
+Sim  68: ✅ PageRank:+0.000373 (+0.97%) | ➖ Ranks: 626↗ 1076↘ 139↔
+Sim  69: ✅ PageRank:+0.000156 (+0.40%) | ➖ Ranks: 707↗ 999↘ 135↔
+Sim  70: ✅ PageRank:+0.000356 (+0.93%) | ➖ Ranks: 685↗ 1016↘ 140↔
+⚡ Processing batch 15: simulations 71-75
+    ✅ Completed 5 simulations in batch
+Sim  71: ✅ PageRank:+0.000309 (+0.80%) | ➖ Ranks: 861↗ 848↘ 132↔
+Sim  72: ✅ PageRank:+0.000344 (+0.89%) | ➖ Ranks: 800↗ 924↘ 117↔
+Sim  73: ✅ PageRank:+0.000479 (+1.24%) | ➖ Ranks: 761↗ 943↘ 137↔
+Sim  74: ✅ PageRank:+0.000307 (+0.80%) | ➖ Ranks: 789↗ 891↘ 161↔
+Sim  75: ✅ PageRank:+0.000304 (+0.79%) | ➖ Ranks: 539↗ 1216↘ 86↔
+⚡ Processing batch 16: simulations 76-80
+    ✅ Completed 5 simulations in batch
+Sim  76: ✅ PageRank:+0.000238 (+0.62%) | ➖ Ranks: 640↗ 1090↘ 111↔
+Sim  77: ✅ PageRank:+0.000138 (+0.36%) | ➖ Ranks: 759↗ 960↘ 122↔
+Sim  78: ✅ PageRank:+0.000437 (+1.13%) | ➖ Ranks: 633↗ 1088↘ 120↔
+Sim  79: ✅ PageRank:+0.000396 (+1.03%) | ➖ Ranks: 592↗ 1131↘ 118↔
+Sim  80: ✅ PageRank:+0.000214 (+0.55%) | ➖ Ranks: 667↗ 1056↘ 118↔
+⚡ Processing batch 17: simulations 81-85
+    ✅ Completed 5 simulations in batch
+Sim  81: ✅ PageRank:+0.000249 (+0.65%) | ➖ Ranks: 558↗ 1190↘ 93↔
+Sim  82: ✅ PageRank:+0.000405 (+1.05%) | ➖ Ranks: 744↗ 964↘ 133↔
+Sim  83: ✅ PageRank:+0.000311 (+0.81%) | ➖ Ranks: 647↗ 1063↘ 131↔
+Sim  84: ✅ PageRank:+0.000322 (+0.84%) | ➖ Ranks: 519↗ 1228↘ 94↔
+Sim  85: ✅ PageRank:+0.000249 (+0.65%) | ➖ Ranks: 709↗ 1005↘ 127↔
+⚡ Processing batch 18: simulations 86-90
+    ✅ Completed 5 simulations in batch
+Sim  86: ✅ PageRank:+0.000363 (+0.94%) | ➖ Ranks: 597↗ 1110↘ 134↔
+Sim  87: ✅ PageRank:+0.000172 (+0.45%) | ➖ Ranks: 589↗ 1141↘ 111↔
+Sim  88: ✅ PageRank:+0.000325 (+0.84%) | ➖ Ranks: 621↗ 1092↘ 128↔
+Sim  89: ✅ PageRank:+0.000229 (+0.59%) | ➖ Ranks: 645↗ 1085↘ 111↔
+Sim  90: ✅ PageRank:+0.000411 (+1.07%) | ➖ Ranks: 626↗ 1090↘ 125↔
+⚡ Processing batch 19: simulations 91-95
+    ✅ Completed 5 simulations in batch
+Sim  91: ✅ PageRank:+0.000375 (+0.97%) | ➖ Ranks: 584↗ 1134↘ 123↔
+Sim  92: ✅ PageRank:+0.000313 (+0.81%) | ➖ Ranks: 628↗ 1073↘ 140↔
+Sim  93: ✅ PageRank:+0.000304 (+0.79%) | ➖ Ranks: 621↗ 1098↘ 122↔
+Sim  94: ✅ PageRank:+0.000479 (+1.24%) | ➖ Ranks: 581↗ 1146↘ 114↔
+Sim  95: ✅ PageRank:+0.000331 (+0.86%) | ➖ Ranks: 732↗ 974↘ 135↔
+⚡ Processing batch 20: simulations 96-100
+    ✅ Completed 5 simulations in batch
+Sim  96: ✅ PageRank:+0.000295 (+0.77%) | ➖ Ranks: 563↗ 1160↘ 118↔
+Sim  97: ✅ PageRank:+0.000236 (+0.61%) | ➖ Ranks: 678↗ 1057↘ 106↔
+Sim  98: ✅ PageRank:+0.000168 (+0.44%) | ➖ Ranks: 712↗ 1017↘ 112↔
+Sim  99: ✅ PageRank:+0.000336 (+0.87%) | ➖ Ranks: 647↗ 1075↘ 119↔
+Sim 100: ✅ PageRank:+0.000295 (+0.77%) | ➖ Ranks: 689↗ 1030↘ 122↔
+✅ All NetworKit simulations completed in 60.61 seconds!
+⚡ Average time per simulation: 0.61 seconds
+
+------ BATCH 4 ------
+
+    ✅ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000202 (+0.52%) | ➖ Ranks: 613↗ 1161↘ 67↔
+Sim   2: ✅ PageRank:+0.000295 (+0.76%) | ➖ Ranks: 619↗ 1132↘ 90↔
+Sim   3: ✅ PageRank:+0.000424 (+1.10%) | ➖ Ranks: 707↗ 1059↘ 75↔
+Sim   4: ✅ PageRank:+0.000317 (+0.82%) | ➖ Ranks: 585↗ 1178↘ 78↔
+Sim   5: ✅ PageRank:+0.000357 (+0.93%) | ➖ Ranks: 646↗ 1115↘ 80↔
+⚡ Processing batch 2: simulations 6-10
+    ✅ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000332 (+0.86%) | ➖ Ranks: 700↗ 1030↘ 111↔
+Sim   7: ✅ PageRank:+0.000329 (+0.85%) | ➖ Ranks: 632↗ 1119↘ 90↔
+Sim   8: ✅ PageRank:+0.000327 (+0.85%) | ➖ Ranks: 661↗ 1098↘ 82↔
+Sim   9: ✅ PageRank:+0.000294 (+0.76%) | ➖ Ranks: 645↗ 1110↘ 86↔
+Sim  10: ✅ PageRank:+0.000346 (+0.90%) | ➖ Ranks: 586↗ 1180↘ 75↔
+⚡ Processing batch 3: simulations 11-15
+    ✅ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000361 (+0.94%) | ➖ Ranks: 693↗ 1022↘ 126↔
+Sim  12: ✅ PageRank:+0.000416 (+1.08%) | ➖ Ranks: 605↗ 1161↘ 75↔
+Sim  13: ✅ PageRank:+0.000273 (+0.71%) | ➖ Ranks: 609↗ 1153↘ 79↔
+Sim  14: ✅ PageRank:+0.000462 (+1.20%) | ➖ Ranks: 698↗ 1054↘ 89↔
+Sim  15: ✅ PageRank:+0.000392 (+1.02%) | ➖ Ranks: 675↗ 1069↘ 97↔
+⚡ Processing batch 4: simulations 16-20
+    ✅ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000291 (+0.75%) | ➖ Ranks: 673↗ 1080↘ 88↔
+Sim  17: ✅ PageRank:+0.000436 (+1.13%) | ➖ Ranks: 662↗ 1079↘ 100↔
+Sim  18: ✅ PageRank:+0.000430 (+1.12%) | ➖ Ranks: 690↗ 1038↘ 113↔
+Sim  19: ✅ PageRank:+0.000254 (+0.66%) | ➖ Ranks: 715↗ 1012↘ 114↔
+Sim  20: ✅ PageRank:+0.000361 (+0.94%) | ➖ Ranks: 734↗ 1013↘ 94↔
+⚡ Processing batch 5: simulations 21-25
+    ✅ Completed 5 simulations in batch
+Sim  21: ✅ PageRank:+0.000350 (+0.91%) | ➖ Ranks: 654↗ 1117↘ 70↔
+Sim  22: ✅ PageRank:+0.000295 (+0.76%) | ➖ Ranks: 591↗ 1148↘ 102↔
+Sim  23: ✅ PageRank:+0.000338 (+0.88%) | ➖ Ranks: 605↗ 1169↘ 67↔
+Sim  24: ✅ PageRank:+0.000351 (+0.91%) | ➖ Ranks: 630↗ 1104↘ 107↔
+Sim  25: ✅ PageRank:+0.000351 (+0.91%) | ➖ Ranks: 644↗ 1115↘ 82↔
+⚡ Processing batch 6: simulations 26-30
+    ✅ Completed 5 simulations in batch
+Sim  26: ✅ PageRank:+0.000380 (+0.99%) | ➖ Ranks: 616↗ 1128↘ 97↔
+Sim  27: ✅ PageRank:+0.000306 (+0.79%) | ➖ Ranks: 610↗ 1160↘ 71↔
+Sim  28: ✅ PageRank:+0.000332 (+0.86%) | ➖ Ranks: 661↗ 1110↘ 70↔
+Sim  29: ✅ PageRank:+0.000332 (+0.86%) | ➖ Ranks: 625↗ 1140↘ 76↔
+Sim  30: ✅ PageRank:+0.000327 (+0.85%) | ➖ Ranks: 637↗ 1091↘ 113↔
+⚡ Processing batch 7: simulations 31-35
+    ✅ Completed 5 simulations in batch
+Sim  31: ✅ PageRank:+0.000385 (+1.00%) | ➖ Ranks: 684↗ 1070↘ 87↔
+Sim  32: ✅ PageRank:+0.000494 (+1.29%) | ➖ Ranks: 707↗ 1042↘ 92↔
+Sim  33: ✅ PageRank:+0.000341 (+0.89%) | ➖ Ranks: 623↗ 1158↘ 60↔
+Sim  34: ✅ PageRank:+0.000318 (+0.82%) | ➖ Ranks: 616↗ 1149↘ 76↔
+Sim  35: ✅ PageRank:+0.000527 (+1.37%) | ➖ Ranks: 707↗ 1039↘ 95↔
+⚡ Processing batch 8: simulations 36-40
+    ✅ Completed 5 simulations in batch
+Sim  36: ✅ PageRank:+0.000581 (+1.51%) | ➖ Ranks: 631↗ 1130↘ 80↔
+Sim  37: ✅ PageRank:+0.000262 (+0.68%) | ➖ Ranks: 684↗ 1047↘ 110↔
+Sim  38: ✅ PageRank:+0.000230 (+0.60%) | ➖ Ranks: 684↗ 1043↘ 114↔
+Sim  39: ✅ PageRank:+0.000479 (+1.25%) | ➖ Ranks: 732↗ 1014↘ 95↔
+Sim  40: ✅ PageRank:+0.000386 (+1.00%) | ➖ Ranks: 667↗ 1085↘ 89↔
+⚡ Processing batch 9: simulations 41-45
+    ✅ Completed 5 simulations in batch
+Sim  41: ✅ PageRank:+0.000293 (+0.76%) | ➖ Ranks: 643↗ 1120↘ 78↔
+Sim  42: ✅ PageRank:+0.000389 (+1.01%) | ➖ Ranks: 599↗ 1160↘ 82↔
+Sim  43: ✅ PageRank:+0.000280 (+0.73%) | ➖ Ranks: 760↗ 1003↘ 78↔
+Sim  44: ✅ PageRank:+0.000411 (+1.07%) | ➖ Ranks: 689↗ 1037↘ 115↔
+Sim  45: ✅ PageRank:+0.000429 (+1.11%) | ➖ Ranks: 558↗ 1222↘ 61↔
+⚡ Processing batch 10: simulations 46-50
+    ✅ Completed 5 simulations in batch
+Sim  46: ✅ PageRank:+0.000306 (+0.79%) | ➖ Ranks: 640↗ 1101↘ 100↔
+Sim  47: ✅ PageRank:+0.000300 (+0.78%) | ➖ Ranks: 632↗ 1125↘ 84↔
+Sim  48: ✅ PageRank:+0.000425 (+1.10%) | ➖ Ranks: 599↗ 1172↘ 70↔
+Sim  49: ✅ PageRank:+0.000396 (+1.03%) | ➖ Ranks: 689↗ 1050↘ 102↔
+Sim  50: ✅ PageRank:+0.000393 (+1.02%) | ➖ Ranks: 615↗ 1148↘ 78↔
+⚡ Processing batch 11: simulations 51-55
+    ✅ Completed 5 simulations in batch
+Sim  51: ✅ PageRank:+0.000479 (+1.25%) | ➖ Ranks: 694↗ 1049↘ 98↔
+Sim  52: ✅ PageRank:+0.000464 (+1.21%) | ➖ Ranks: 732↗ 1024↘ 85↔
+Sim  53: ✅ PageRank:+0.000448 (+1.16%) | ➖ Ranks: 687↗ 1063↘ 91↔
+Sim  54: ✅ PageRank:+0.000446 (+1.16%) | ➖ Ranks: 581↗ 1193↘ 67↔
+Sim  55: ✅ PageRank:+0.000317 (+0.82%) | ➖ Ranks: 726↗ 1007↘ 108↔
+⚡ Processing batch 12: simulations 56-60
+    ✅ Completed 5 simulations in batch
+Sim  56: ✅ PageRank:+0.000389 (+1.01%) | ➖ Ranks: 638↗ 1101↘ 102↔
+Sim  57: ✅ PageRank:+0.000202 (+0.52%) | ➖ Ranks: 701↗ 1049↘ 91↔
+Sim  58: ✅ PageRank:+0.000270 (+0.70%) | ➖ Ranks: 616↗ 1138↘ 87↔
+Sim  59: ✅ PageRank:+0.000286 (+0.74%) | ➖ Ranks: 673↗ 1063↘ 105↔
+Sim  60: ✅ PageRank:+0.000369 (+0.96%) | ➖ Ranks: 657↗ 1095↘ 89↔
+⚡ Processing batch 13: simulations 61-65
+    ✅ Completed 5 simulations in batch
+Sim  61: ✅ PageRank:+0.000329 (+0.85%) | ➖ Ranks: 650↗ 1090↘ 101↔
+Sim  62: ✅ PageRank:+0.000354 (+0.92%) | ➖ Ranks: 629↗ 1136↘ 76↔
+Sim  63: ✅ PageRank:+0.000314 (+0.81%) | ➖ Ranks: 601↗ 1169↘ 71↔
+Sim  64: ✅ PageRank:+0.000426 (+1.11%) | ➖ Ranks: 714↗ 1017↘ 110↔
+Sim  65: ✅ PageRank:+0.000316 (+0.82%) | ➖ Ranks: 638↗ 1094↘ 109↔
+⚡ Processing batch 14: simulations 66-70
+    ✅ Completed 5 simulations in batch
+Sim  66: ✅ PageRank:+0.000423 (+1.10%) | ➖ Ranks: 637↗ 1114↘ 90↔
+Sim  67: ✅ PageRank:+0.000408 (+1.06%) | ➖ Ranks: 594↗ 1154↘ 93↔
+Sim  68: ✅ PageRank:+0.000436 (+1.13%) | ➖ Ranks: 620↗ 1143↘ 78↔
+Sim  69: ✅ PageRank:+0.000220 (+0.57%) | ➖ Ranks: 682↗ 1064↘ 95↔
+Sim  70: ✅ PageRank:+0.000419 (+1.09%) | ➖ Ranks: 671↗ 1092↘ 78↔
+⚡ Processing batch 15: simulations 71-75
+    ✅ Completed 5 simulations in batch
+Sim  71: ✅ PageRank:+0.000372 (+0.97%) | ➖ Ranks: 765↗ 974↘ 102↔
+Sim  72: ✅ PageRank:+0.000406 (+1.06%) | ➖ Ranks: 719↗ 1031↘ 91↔
+Sim  73: ✅ PageRank:+0.000542 (+1.41%) | ➖ Ranks: 716↗ 1037↘ 88↔
+Sim  74: ✅ PageRank:+0.000370 (+0.96%) | ➖ Ranks: 730↗ 1020↘ 91↔
+Sim  75: ✅ PageRank:+0.000367 (+0.95%) | ➖ Ranks: 581↗ 1195↘ 65↔
+⚡ Processing batch 16: simulations 76-80
+    ✅ Completed 5 simulations in batch
+Sim  76: ✅ PageRank:+0.000301 (+0.78%) | ➖ Ranks: 634↗ 1133↘ 74↔
+Sim  77: ✅ PageRank:+0.000201 (+0.52%) | ➖ Ranks: 708↗ 1051↘ 82↔
+Sim  78: ✅ PageRank:+0.000500 (+1.30%) | ➖ Ranks: 633↗ 1124↘ 84↔
+Sim  79: ✅ PageRank:+0.000459 (+1.20%) | ➖ Ranks: 591↗ 1173↘ 77↔
+Sim  80: ✅ PageRank:+0.000277 (+0.72%) | ➖ Ranks: 630↗ 1111↘ 100↔
+⚡ Processing batch 17: simulations 81-85
+    ✅ Completed 5 simulations in batch
+Sim  81: ✅ PageRank:+0.000313 (+0.81%) | ➖ Ranks: 576↗ 1197↘ 68↔
+Sim  82: ✅ PageRank:+0.000468 (+1.22%) | ➖ Ranks: 683↗ 1081↘ 77↔
+Sim  83: ✅ PageRank:+0.000375 (+0.97%) | ➖ Ranks: 623↗ 1120↘ 98↔
+Sim  84: ✅ PageRank:+0.000385 (+1.00%) | ➖ Ranks: 559↗ 1216↘ 66↔
+Sim  85: ✅ PageRank:+0.000312 (+0.81%) | ➖ Ranks: 687↗ 1073↘ 81↔
+⚡ Processing batch 18: simulations 86-90
+    ✅ Completed 5 simulations in batch
+Sim  86: ✅ PageRank:+0.000426 (+1.11%) | ➖ Ranks: 604↗ 1158↘ 79↔
+Sim  87: ✅ PageRank:+0.000236 (+0.61%) | ➖ Ranks: 619↗ 1155↘ 67↔
+Sim  88: ✅ PageRank:+0.000388 (+1.01%) | ➖ Ranks: 640↗ 1115↘ 86↔
+Sim  89: ✅ PageRank:+0.000293 (+0.76%) | ➖ Ranks: 630↗ 1125↘ 86↔
+Sim  90: ✅ PageRank:+0.000475 (+1.23%) | ➖ Ranks: 617↗ 1142↘ 82↔
+⚡ Processing batch 19: simulations 91-95
+    ✅ Completed 5 simulations in batch
+Sim  91: ✅ PageRank:+0.000439 (+1.14%) | ➖ Ranks: 600↗ 1162↘ 79↔
+Sim  92: ✅ PageRank:+0.000376 (+0.98%) | ➖ Ranks: 618↗ 1142↘ 81↔
+Sim  93: ✅ PageRank:+0.000367 (+0.95%) | ➖ Ranks: 625↗ 1125↘ 91↔
+Sim  94: ✅ PageRank:+0.000543 (+1.41%) | ➖ Ranks: 581↗ 1179↘ 81↔
+Sim  95: ✅ PageRank:+0.000395 (+1.02%) | ➖ Ranks: 684↗ 1058↘ 99↔
+⚡ Processing batch 20: simulations 96-100
+    ✅ Completed 5 simulations in batch
+Sim  96: ✅ PageRank:+0.000358 (+0.93%) | ➖ Ranks: 574↗ 1189↘ 78↔
+Sim  97: ✅ PageRank:+0.000299 (+0.78%) | ➖ Ranks: 661↗ 1089↘ 91↔
+Sim  98: ✅ PageRank:+0.000232 (+0.60%) | ➖ Ranks: 687↗ 1079↘ 75↔
+Sim  99: ✅ PageRank:+0.000400 (+1.04%) | ➖ Ranks: 626↗ 1129↘ 86↔
+Sim 100: ✅ PageRank:+0.000358 (+0.93%) | ➖ Ranks: 690↗ 1066↘ 85↔
+✅ All NetworKit simulations completed in 62.95 seconds!
+⚡ Average time per simulation: 0.63 seconds
+
+------ BATCH 5 ------
+
+🔄 Running 100 NetworKit simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✅ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000198 (+0.51%) | ➖ Ranks: 628↗ 1119↘ 94↔
+Sim   2: ✅ PageRank:+0.000292 (+0.75%) | ➖ Ranks: 648↗ 1080↘ 113↔
+Sim   3: ✅ PageRank:+0.000421 (+1.09%) | ➖ Ranks: 731↗ 1027↘ 83↔
+Sim   4: ✅ PageRank:+0.000314 (+0.81%) | ➖ Ranks: 579↗ 1169↘ 93↔
+Sim   5: ✅ PageRank:+0.000354 (+0.92%) | ➖ Ranks: 647↗ 1086↘ 108↔
+⚡ Processing batch 2: simulations 6-10
+    ✅ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000328 (+0.85%) | ➖ Ranks: 755↗ 988↘ 98↔
+Sim   7: ✅ PageRank:+0.000326 (+0.84%) | ➖ Ranks: 647↗ 1085↘ 109↔
+Sim   8: ✅ PageRank:+0.000324 (+0.84%) | ➖ Ranks: 679↗ 1061↘ 101↔
+Sim   9: ✅ PageRank:+0.000291 (+0.75%) | ➖ Ranks: 640↗ 1100↘ 101↔
+Sim  10: ✅ PageRank:+0.000343 (+0.89%) | ➖ Ranks: 588↗ 1152↘ 101↔
+⚡ Processing batch 3: simulations 11-15
+    ✅ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000358 (+0.93%) | ➖ Ranks: 732↗ 998↘ 111↔
+Sim  12: ✅ PageRank:+0.000413 (+1.07%) | ➖ Ranks: 587↗ 1166↘ 88↔
+Sim  13: ✅ PageRank:+0.000270 (+0.70%) | ➖ Ranks: 616↗ 1138↘ 87↔
+Sim  14: ✅ PageRank:+0.000459 (+1.19%) | ➖ Ranks: 701↗ 1049↘ 91↔
+Sim  15: ✅ PageRank:+0.000388 (+1.01%) | ➖ Ranks: 713↗ 1035↘ 93↔
+⚡ Processing batch 4: simulations 16-20
+    ✅ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000288 (+0.75%) | ➖ Ranks: 672↗ 1078↘ 91↔
+Sim  17: ✅ PageRank:+0.000433 (+1.12%) | ➖ Ranks: 704↗ 1044↘ 93↔
+Sim  18: ✅ PageRank:+0.000427 (+1.11%) | ➖ Ranks: 739↗ 986↘ 116↔
+Sim  19: ✅ PageRank:+0.000251 (+0.65%) | ➖ Ranks: 742↗ 976↘ 123↔
+Sim  20: ✅ PageRank:+0.000350 (+0.91%) | ➖ Ranks: 777↗ 962↘ 102↔
+⚡ Processing batch 5: simulations 21-25
+    ✅ Completed 5 simulations in batch
+Sim  21: ✅ PageRank:+0.000347 (+0.90%) | ➖ Ranks: 666↗ 1073↘ 102↔
+Sim  22: ✅ PageRank:+0.000291 (+0.76%) | ➖ Ranks: 653↗ 1076↘ 112↔
+Sim  23: ✅ PageRank:+0.000334 (+0.87%) | ➖ Ranks: 602↗ 1156↘ 83↔
+Sim  24: ✅ PageRank:+0.000348 (+0.90%) | ➖ Ranks: 641↗ 1087↘ 113↔
+Sim  25: ✅ PageRank:+0.000348 (+0.90%) | ➖ Ranks: 652↗ 1081↘ 108↔
+⚡ Processing batch 6: simulations 26-30
+    ✅ Completed 5 simulations in batch
+Sim  26: ✅ PageRank:+0.000377 (+0.98%) | ➖ Ranks: 642↗ 1100↘ 99↔
+Sim  27: ✅ PageRank:+0.000303 (+0.79%) | ➖ Ranks: 624↗ 1125↘ 92↔
+Sim  28: ✅ PageRank:+0.000329 (+0.85%) | ➖ Ranks: 665↗ 1079↘ 97↔
+Sim  29: ✅ PageRank:+0.000328 (+0.85%) | ➖ Ranks: 627↗ 1103↘ 111↔
+Sim  30: ✅ PageRank:+0.000324 (+0.84%) | ➖ Ranks: 664↗ 1077↘ 100↔
+⚡ Processing batch 7: simulations 31-35
+    ✅ Completed 5 simulations in batch
+Sim  31: ✅ PageRank:+0.000382 (+0.99%) | ➖ Ranks: 693↗ 1045↘ 103↔
+Sim  32: ✅ PageRank:+0.000491 (+1.28%) | ➖ Ranks: 736↗ 1003↘ 102↔
+Sim  33: ✅ PageRank:+0.000338 (+0.88%) | ➖ Ranks: 597↗ 1151↘ 93↔
+Sim  34: ✅ PageRank:+0.000314 (+0.81%) | ➖ Ranks: 611↗ 1139↘ 91↔
+Sim  35: ✅ PageRank:+0.000524 (+1.36%) | ➖ Ranks: 739↗ 1016↘ 86↔
+⚡ Processing batch 8: simulations 36-40
+    ✅ Completed 5 simulations in batch
+Sim  36: ✅ PageRank:+0.000577 (+1.50%) | ➖ Ranks: 648↗ 1103↘ 90↔
+Sim  37: ✅ PageRank:+0.000259 (+0.67%) | ➖ Ranks: 673↗ 1057↘ 111↔
+Sim  38: ✅ PageRank:+0.000226 (+0.59%) | ➖ Ranks: 687↗ 1038↘ 116↔
+Sim  39: ✅ PageRank:+0.000476 (+1.24%) | ➖ Ranks: 752↗ 979↘ 110↔
+Sim  40: ✅ PageRank:+0.000383 (+1.00%) | ➖ Ranks: 682↗ 1071↘ 88↔
+⚡ Processing batch 9: simulations 41-45
+    ✅ Completed 5 simulations in batch
+Sim  41: ✅ PageRank:+0.000290 (+0.75%) | ➖ Ranks: 642↗ 1115↘ 84↔
+Sim  42: ✅ PageRank:+0.000385 (+1.00%) | ➖ Ranks: 618↗ 1130↘ 93↔
+Sim  43: ✅ PageRank:+0.000277 (+0.72%) | ➖ Ranks: 765↗ 989↘ 87↔
+Sim  44: ✅ PageRank:+0.000408 (+1.06%) | ➖ Ranks: 729↗ 1015↘ 97↔
+Sim  45: ✅ PageRank:+0.000426 (+1.11%) | ➖ Ranks: 540↗ 1246↘ 55↔
+⚡ Processing batch 10: simulations 46-50
+    ✅ Completed 5 simulations in batch
+Sim  46: ✅ PageRank:+0.000302 (+0.79%) | ➖ Ranks: 673↗ 1075↘ 93↔
+Sim  47: ✅ PageRank:+0.000299 (+0.78%) | ➖ Ranks: 650↗ 1088↘ 103↔
+Sim  48: ✅ PageRank:+0.000422 (+1.09%) | ➖ Ranks: 600↗ 1150↘ 91↔
+Sim  49: ✅ PageRank:+0.000393 (+1.02%) | ➖ Ranks: 729↗ 1021↘ 91↔
+Sim  50: ✅ PageRank:+0.000390 (+1.01%) | ➖ Ranks: 620↗ 1127↘ 94↔
+⚡ Processing batch 11: simulations 51-55
+    ✅ Completed 5 simulations in batch
+Sim  51: ✅ PageRank:+0.000476 (+1.24%) | ➖ Ranks: 724↗ 1028↘ 89↔
+Sim  52: ✅ PageRank:+0.000461 (+1.20%) | ➖ Ranks: 757↗ 975↘ 109↔
+Sim  53: ✅ PageRank:+0.000444 (+1.16%) | ➖ Ranks: 710↗ 1050↘ 81↔
+Sim  54: ✅ PageRank:+0.000418 (+1.09%) | ➖ Ranks: 636↗ 1093↘ 112↔
+Sim  55: ✅ PageRank:+0.000314 (+0.82%) | ➖ Ranks: 726↗ 1006↘ 109↔
+⚡ Processing batch 12: simulations 56-60
+    ✅ Completed 5 simulations in batch
+Sim  56: ✅ PageRank:+0.000386 (+1.00%) | ➖ Ranks: 679↗ 1071↘ 91↔
+Sim  57: ✅ PageRank:+0.000199 (+0.51%) | ➖ Ranks: 708↗ 1031↘ 102↔
+Sim  58: ✅ PageRank:+0.000266 (+0.69%) | ➖ Ranks: 653↗ 1103↘ 85↔
+Sim  59: ✅ PageRank:+0.000285 (+0.74%) | ➖ Ranks: 702↗ 1053↘ 86↔
+Sim  60: ✅ PageRank:+0.000365 (+0.95%) | ➖ Ranks: 641↗ 1090↘ 110↔
+⚡ Processing batch 13: simulations 61-65
+    ✅ Completed 5 simulations in batch
+Sim  61: ✅ PageRank:+0.000326 (+0.85%) | ➖ Ranks: 688↗ 1043↘ 110↔
+Sim  62: ✅ PageRank:+0.000351 (+0.91%) | ➖ Ranks: 621↗ 1125↘ 95↔
+Sim  63: ✅ PageRank:+0.000319 (+0.83%) | ➖ Ranks: 657↗ 1094↘ 90↔
+Sim  64: ✅ PageRank:+0.000423 (+1.10%) | ➖ Ranks: 756↗ 980↘ 105↔
+Sim  65: ✅ PageRank:+0.000312 (+0.81%) | ➖ Ranks: 647↗ 1074↘ 120↔
+⚡ Processing batch 14: simulations 66-70
+    ✅ Completed 5 simulations in batch
+Sim  66: ✅ PageRank:+0.000417 (+1.08%) | ➖ Ranks: 685↗ 1046↘ 110↔
+Sim  67: ✅ PageRank:+0.000405 (+1.05%) | ➖ Ranks: 575↗ 1170↘ 96↔
+Sim  68: ✅ PageRank:+0.000433 (+1.12%) | ➖ Ranks: 638↗ 1094↘ 109↔
+Sim  69: ✅ PageRank:+0.000216 (+0.56%) | ➖ Ranks: 677↗ 1056↘ 108↔
+Sim  70: ✅ PageRank:+0.000416 (+1.08%) | ➖ Ranks: 691↗ 1047↘ 103↔
+⚡ Processing batch 15: simulations 71-75
+    ✅ Completed 5 simulations in batch
+Sim  71: ✅ PageRank:+0.000369 (+0.96%) | ➖ Ranks: 782↗ 934↘ 125↔
+Sim  72: ✅ PageRank:+0.000403 (+1.05%) | ➖ Ranks: 741↗ 1003↘ 97↔
+Sim  73: ✅ PageRank:+0.000539 (+1.40%) | ➖ Ranks: 733↗ 1023↘ 85↔
+Sim  74: ✅ PageRank:+0.000367 (+0.95%) | ➖ Ranks: 741↗ 996↘ 104↔
+Sim  75: ✅ PageRank:+0.000364 (+0.94%) | ➖ Ranks: 573↗ 1185↘ 83↔
+⚡ Processing batch 16: simulations 76-80
+    ✅ Completed 5 simulations in batch
+Sim  76: ✅ PageRank:+0.000298 (+0.77%) | ➖ Ranks: 642↗ 1095↘ 104↔
+Sim  77: ✅ PageRank:+0.000198 (+0.51%) | ➖ Ranks: 678↗ 1053↘ 110↔
+Sim  78: ✅ PageRank:+0.000497 (+1.29%) | ➖ Ranks: 656↗ 1100↘ 85↔
+Sim  79: ✅ PageRank:+0.000456 (+1.19%) | ➖ Ranks: 599↗ 1171↘ 71↔
+Sim  80: ✅ PageRank:+0.000274 (+0.71%) | ➖ Ranks: 646↗ 1087↘ 108↔
+⚡ Processing batch 17: simulations 81-85
+    ✅ Completed 5 simulations in batch
+Sim  81: ✅ PageRank:+0.000309 (+0.80%) | ➖ Ranks: 578↗ 1175↘ 88↔
+Sim  82: ✅ PageRank:+0.000465 (+1.21%) | ➖ Ranks: 701↗ 1057↘ 83↔
+Sim  83: ✅ PageRank:+0.000371 (+0.96%) | ➖ Ranks: 634↗ 1107↘ 100↔
+Sim  84: ✅ PageRank:+0.000382 (+0.99%) | ➖ Ranks: 538↗ 1220↘ 83↔
+Sim  85: ✅ PageRank:+0.000309 (+0.80%) | ➖ Ranks: 740↗ 1020↘ 81↔
+⚡ Processing batch 18: simulations 86-90
+    ✅ Completed 5 simulations in batch
+Sim  86: ✅ PageRank:+0.000422 (+1.10%) | ➖ Ranks: 602↗ 1139↘ 100↔
+Sim  87: ✅ PageRank:+0.000232 (+0.60%) | ➖ Ranks: 582↗ 1160↘ 99↔
+Sim  88: ✅ PageRank:+0.000385 (+1.00%) | ➖ Ranks: 642↗ 1086↘ 113↔
+Sim  89: ✅ PageRank:+0.000289 (+0.75%) | ➖ Ranks: 624↗ 1124↘ 93↔
+Sim  90: ✅ PageRank:+0.000471 (+1.22%) | ➖ Ranks: 603↗ 1152↘ 86↔
+⚡ Processing batch 19: simulations 91-95
+    ✅ Completed 5 simulations in batch
+Sim  91: ✅ PageRank:+0.000435 (+1.13%) | ➖ Ranks: 628↗ 1136↘ 77↔
+Sim  92: ✅ PageRank:+0.000373 (+0.97%) | ➖ Ranks: 646↗ 1106↘ 89↔
+Sim  93: ✅ PageRank:+0.000364 (+0.95%) | ➖ Ranks: 627↗ 1097↘ 117↔
+Sim  94: ✅ PageRank:+0.000539 (+1.40%) | ➖ Ranks: 587↗ 1175↘ 79↔
+Sim  95: ✅ PageRank:+0.000391 (+1.01%) | ➖ Ranks: 712↗ 1032↘ 97↔
+⚡ Processing batch 20: simulations 96-100
+    ✅ Completed 5 simulations in batch
+Sim  96: ✅ PageRank:+0.000355 (+0.92%) | ➖ Ranks: 582↗ 1166↘ 93↔
+Sim  97: ✅ PageRank:+0.000295 (+0.77%) | ➖ Ranks: 685↗ 1065↘ 91↔
+Sim  98: ✅ PageRank:+0.000228 (+0.59%) | ➖ Ranks: 704↗ 1038↘ 99↔
+Sim  99: ✅ PageRank:+0.000386 (+1.00%) | ➖ Ranks: 632↗ 1118↘ 91↔
+Sim 100: ✅ PageRank:+0.000355 (+0.92%) | ➖ Ranks: 706↗ 1042↘ 93↔
+✅ All NetworKit simulations completed in 56.30 seconds!
+⚡ Average time per simulation: 0.56 seconds
+
+------ BATCH 6 ------
+
+🔄 Running 100 NetworKit simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✅ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000127 (+0.33%) | ➖ Ranks: 659↗ 1041↘ 141↔
+Sim   2: ✅ PageRank:+0.000220 (+0.57%) | ➖ Ranks: 703↗ 1013↘ 125↔
+Sim   3: ✅ PageRank:+0.000349 (+0.91%) | ➖ Ranks: 760↗ 960↘ 121↔
+Sim   4: ✅ PageRank:+0.000242 (+0.63%) | ➖ Ranks: 609↗ 1110↘ 122↔
+Sim   5: ✅ PageRank:+0.000282 (+0.73%) | ➖ Ranks: 656↗ 1062↘ 123↔
+⚡ Processing batch 2: simulations 6-10
+    ✅ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000257 (+0.67%) | ➖ Ranks: 844↗ 852↘ 145↔
+Sim   7: ✅ PageRank:+0.000254 (+0.66%) | ➖ Ranks: 683↗ 1023↘ 135↔
+Sim   8: ✅ PageRank:+0.000252 (+0.66%) | ➖ Ranks: 711↗ 1014↘ 116↔
+Sim   9: ✅ PageRank:+0.000219 (+0.57%) | ➖ Ranks: 680↗ 1037↘ 124↔
+Sim  10: ✅ PageRank:+0.000272 (+0.71%) | ➖ Ranks: 613↗ 1114↘ 114↔
+⚡ Processing batch 3: simulations 11-15
+    ✅ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000286 (+0.75%) | ➖ Ranks: 799↗ 873↘ 169↔
+Sim  12: ✅ PageRank:+0.000341 (+0.88%) | ➖ Ranks: 592↗ 1143↘ 106↔
+Sim  13: ✅ PageRank:+0.000198 (+0.51%) | ➖ Ranks: 659↗ 1036↘ 146↔
+Sim  14: ✅ PageRank:+0.000388 (+1.01%) | ➖ Ranks: 746↗ 976↘ 119↔
+Sim  15: ✅ PageRank:+0.000317 (+0.82%) | ➖ Ranks: 793↗ 914↘ 134↔
+⚡ Processing batch 4: simulations 16-20
+    ✅ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000216 (+0.56%) | ➖ Ranks: 693↗ 1041↘ 107↔
+Sim  17: ✅ PageRank:+0.000361 (+0.94%) | ➖ Ranks: 738↗ 945↘ 158↔
+Sim  18: ✅ PageRank:+0.000356 (+0.92%) | ➖ Ranks: 796↗ 901↘ 144↔
+Sim  19: ✅ PageRank:+0.000179 (+0.46%) | ➖ Ranks: 782↗ 911↘ 148↔
+Sim  20: ✅ PageRank:+0.000272 (+0.71%) | ➖ Ranks: 842↗ 849↘ 150↔
+⚡ Processing batch 5: simulations 21-25
+    ✅ Completed 5 simulations in batch
+Sim  21: ✅ PageRank:+0.000275 (+0.72%) | ➖ Ranks: 694↗ 1015↘ 132↔
+Sim  22: ✅ PageRank:+0.000220 (+0.57%) | ➖ Ranks: 700↗ 1004↘ 137↔
+Sim  23: ✅ PageRank:+0.000263 (+0.68%) | ➖ Ranks: 616↗ 1100↘ 125↔
+Sim  24: ✅ PageRank:+0.000277 (+0.72%) | ➖ Ranks: 678↗ 985↘ 178↔
+Sim  25: ✅ PageRank:+0.000276 (+0.72%) | ➖ Ranks: 686↗ 1007↘ 148↔
+⚡ Processing batch 6: simulations 26-30
+    ✅ Completed 5 simulations in batch
+Sim  26: ✅ PageRank:+0.000305 (+0.79%) | ➖ Ranks: 646↗ 1054↘ 141↔
+Sim  27: ✅ PageRank:+0.000231 (+0.60%) | ➖ Ranks: 622↗ 1093↘ 126↔
+Sim  28: ✅ PageRank:+0.000257 (+0.67%) | ➖ Ranks: 680↗ 1042↘ 119↔
+Sim  29: ✅ PageRank:+0.000257 (+0.67%) | ➖ Ranks: 625↗ 1077↘ 139↔
+Sim  30: ✅ PageRank:+0.000252 (+0.65%) | ➖ Ranks: 675↗ 1013↘ 153↔
+⚡ Processing batch 7: simulations 31-35
+    ✅ Completed 5 simulations in batch
+Sim  31: ✅ PageRank:+0.000311 (+0.81%) | ➖ Ranks: 720↗ 988↘ 133↔
+Sim  32: ✅ PageRank:+0.000420 (+1.09%) | ➖ Ranks: 778↗ 931↘ 132↔
+Sim  33: ✅ PageRank:+0.000266 (+0.69%) | ➖ Ranks: 602↗ 1119↘ 120↔
+Sim  34: ✅ PageRank:+0.000243 (+0.63%) | ➖ Ranks: 634↗ 1069↘ 138↔
+Sim  35: ✅ PageRank:+0.000452 (+1.18%) | ➖ Ranks: 788↗ 916↘ 137↔
+⚡ Processing batch 8: simulations 36-40
+    ✅ Completed 5 simulations in batch
+Sim  36: ✅ PageRank:+0.000506 (+1.31%) | ➖ Ranks: 686↗ 1038↘ 117↔
+Sim  37: ✅ PageRank:+0.000187 (+0.49%) | ➖ Ranks: 723↗ 973↘ 145↔
+Sim  38: ✅ PageRank:+0.000155 (+0.40%) | ➖ Ranks: 711↗ 973↘ 157↔
+Sim  39: ✅ PageRank:+0.000405 (+1.05%) | ➖ Ranks: 853↗ 851↘ 137↔
+Sim  40: ✅ PageRank:+0.000312 (+0.81%) | ➖ Ranks: 728↗ 987↘ 126↔
+⚡ Processing batch 9: simulations 41-45
+    ✅ Completed 5 simulations in batch
+Sim  41: ✅ PageRank:+0.000219 (+0.57%) | ➖ Ranks: 696↗ 1031↘ 114↔
+Sim  42: ✅ PageRank:+0.000314 (+0.82%) | ➖ Ranks: 603↗ 1116↘ 122↔
+Sim  43: ✅ PageRank:+0.000206 (+0.53%) | ➖ Ranks: 871↗ 829↘ 141↔
+Sim  44: ✅ PageRank:+0.000337 (+0.88%) | ➖ Ranks: 785↗ 909↘ 147↔
+Sim  45: ✅ PageRank:+0.000354 (+0.92%) | ➖ Ranks: 547↗ 1189↘ 105↔
+⚡ Processing batch 10: simulations 46-50
+    ✅ Completed 5 simulations in batch
+Sim  46: ✅ PageRank:+0.000231 (+0.60%) | ➖ Ranks: 716↗ 987↘ 138↔
+Sim  47: ✅ PageRank:+0.000218 (+0.57%) | ➖ Ranks: 689↗ 1017↘ 135↔
+Sim  48: ✅ PageRank:+0.000346 (+0.90%) | ➖ Ranks: 696↗ 1059↘ 86↔
+Sim  49: ✅ PageRank:+0.000321 (+0.84%) | ➖ Ranks: 806↗ 900↘ 135↔
+Sim  50: ✅ PageRank:+0.000318 (+0.83%) | ➖ Ranks: 619↗ 1097↘ 125↔
+⚡ Processing batch 11: simulations 51-55
+    ✅ Completed 5 simulations in batch
+Sim  51: ✅ PageRank:+0.000404 (+1.05%) | ➖ Ranks: 789↗ 911↘ 141↔
+Sim  52: ✅ PageRank:+0.000389 (+1.01%) | ➖ Ranks: 850↗ 838↘ 153↔
+Sim  53: ✅ PageRank:+0.000373 (+0.97%) | ➖ Ranks: 736↗ 957↘ 148↔
+Sim  54: ✅ PageRank:+0.000347 (+0.90%) | ➖ Ranks: 654↗ 1043↘ 144↔
+Sim  55: ✅ PageRank:+0.000243 (+0.63%) | ➖ Ranks: 768↗ 913↘ 160↔
+⚡ Processing batch 12: simulations 56-60
+    ✅ Completed 5 simulations in batch
+Sim  56: ✅ PageRank:+0.000314 (+0.82%) | ➖ Ranks: 713↗ 992↘ 136↔
+Sim  57: ✅ PageRank:+0.000128 (+0.33%) | ➖ Ranks: 787↗ 932↘ 122↔
+Sim  58: ✅ PageRank:+0.000195 (+0.50%) | ➖ Ranks: 644↗ 1068↘ 129↔
+Sim  59: ✅ PageRank:+0.000209 (+0.54%) | ➖ Ranks: 709↗ 978↘ 154↔
+Sim  60: ✅ PageRank:+0.000294 (+0.77%) | ➖ Ranks: 686↗ 1019↘ 136↔
+⚡ Processing batch 13: simulations 61-65
+    ✅ Completed 5 simulations in batch
+Sim  61: ✅ PageRank:+0.000254 (+0.66%) | ➖ Ranks: 699↗ 1014↘ 128↔
+Sim  62: ✅ PageRank:+0.000279 (+0.73%) | ➖ Ranks: 708↗ 1010↘ 123↔
+Sim  63: ✅ PageRank:+0.000211 (+0.55%) | ➖ Ranks: 668↗ 1039↘ 134↔
+Sim  64: ✅ PageRank:+0.000352 (+0.91%) | ➖ Ranks: 778↗ 893↘ 170↔
+Sim  65: ✅ PageRank:+0.000241 (+0.62%) | ➖ Ranks: 698↗ 986↘ 157↔
+⚡ Processing batch 14: simulations 66-70
+    ✅ Completed 5 simulations in batch
+Sim  66: ✅ PageRank:+0.000343 (+0.89%) | ➖ Ranks: 711↗ 977↘ 153↔
+Sim  67: ✅ PageRank:+0.000333 (+0.86%) | ➖ Ranks: 607↗ 1109↘ 125↔
+Sim  68: ✅ PageRank:+0.000361 (+0.94%) | ➖ Ranks: 655↗ 1053↘ 133↔
+Sim  69: ✅ PageRank:+0.000145 (+0.37%) | ➖ Ranks: 721↗ 983↘ 137↔
+Sim  70: ✅ PageRank:+0.000344 (+0.90%) | ➖ Ranks: 683↗ 1010↘ 148↔
+⚡ Processing batch 15: simulations 71-75
+    ✅ Completed 5 simulations in batch
+Sim  71: ✅ PageRank:+0.000298 (+0.77%) | ➖ Ranks: 930↗ 763↘ 148↔
+Sim  72: ✅ PageRank:+0.000332 (+0.86%) | ➖ Ranks: 822↗ 883↘ 136↔
+Sim  73: ✅ PageRank:+0.000468 (+1.21%) | ➖ Ranks: 790↗ 908↘ 143↔
+Sim  74: ✅ PageRank:+0.000295 (+0.77%) | ➖ Ranks: 839↗ 858↘ 144↔
+Sim  75: ✅ PageRank:+0.000293 (+0.76%) | ➖ Ranks: 563↗ 1191↘ 87↔
+⚡ Processing batch 16: simulations 76-80
+    ✅ Completed 5 simulations in batch
+Sim  76: ✅ PageRank:+0.000226 (+0.59%) | ➖ Ranks: 678↗ 1024↘ 139↔
+Sim  77: ✅ PageRank:+0.000127 (+0.33%) | ➖ Ranks: 748↗ 961↘ 132↔
+Sim  78: ✅ PageRank:+0.000426 (+1.10%) | ➖ Ranks: 660↗ 1073↘ 108↔
+Sim  79: ✅ PageRank:+0.000384 (+1.00%) | ➖ Ranks: 611↗ 1103↘ 127↔
+Sim  80: ✅ PageRank:+0.000202 (+0.52%) | ➖ Ranks: 664↗ 1047↘ 130↔
+⚡ Processing batch 17: simulations 81-85
+    ✅ Completed 5 simulations in batch
+Sim  81: ✅ PageRank:+0.000238 (+0.62%) | ➖ Ranks: 565↗ 1180↘ 96↔
+Sim  82: ✅ PageRank:+0.000393 (+1.02%) | ➖ Ranks: 750↗ 936↘ 155↔
+Sim  83: ✅ PageRank:+0.000300 (+0.78%) | ➖ Ranks: 636↗ 1046↘ 159↔
+Sim  84: ✅ PageRank:+0.000311 (+0.81%) | ➖ Ranks: 541↗ 1201↘ 99↔
+Sim  85: ✅ PageRank:+0.000238 (+0.62%) | ➖ Ranks: 741↗ 981↘ 119↔
+⚡ Processing batch 18: simulations 86-90
+    ✅ Completed 5 simulations in batch
+Sim  86: ✅ PageRank:+0.000351 (+0.91%) | ➖ Ranks: 634↗ 1062↘ 145↔
+Sim  87: ✅ PageRank:+0.000161 (+0.42%) | ➖ Ranks: 595↗ 1137↘ 109↔
+Sim  88: ✅ PageRank:+0.000313 (+0.81%) | ➖ Ranks: 628↗ 1077↘ 136↔
+Sim  89: ✅ PageRank:+0.000218 (+0.56%) | ➖ Ranks: 651↗ 1052↘ 138↔
+Sim  90: ✅ PageRank:+0.000400 (+1.04%) | ➖ Ranks: 649↗ 1070↘ 122↔
+⚡ Processing batch 19: simulations 91-95
+    ✅ Completed 5 simulations in batch
+Sim  91: ✅ PageRank:+0.000364 (+0.94%) | ➖ Ranks: 617↗ 1100↘ 124↔
+Sim  92: ✅ PageRank:+0.000302 (+0.78%) | ➖ Ranks: 639↗ 1060↘ 142↔
+Sim  93: ✅ PageRank:+0.000293 (+0.76%) | ➖ Ranks: 641↗ 1081↘ 119↔
+Sim  94: ✅ PageRank:+0.000468 (+1.21%) | ➖ Ranks: 607↗ 1110↘ 124↔
+Sim  95: ✅ PageRank:+0.000320 (+0.83%) | ➖ Ranks: 729↗ 954↘ 158↔
+⚡ Processing batch 20: simulations 96-100
+    ✅ Completed 5 simulations in batch
+Sim  96: ✅ PageRank:+0.000284 (+0.74%) | ➖ Ranks: 572↗ 1167↘ 102↔
+Sim  97: ✅ PageRank:+0.000224 (+0.58%) | ➖ Ranks: 688↗ 1023↘ 130↔
+Sim  98: ✅ PageRank:+0.000157 (+0.41%) | ➖ Ranks: 733↗ 976↘ 132↔
+Sim  99: ✅ PageRank:+0.000312 (+0.81%) | ➖ Ranks: 655↗ 1054↘ 132↔
+Sim 100: ✅ PageRank:+0.000283 (+0.74%) | ➖ Ranks: 737↗ 975↘ 129↔
+✅ All NetworKit simulations completed in 66.64 seconds!
+⚡ Average time per simulation: 0.67 seconds
+
+------ BATCH 7 ------
+
+🔄 Running 100 NetworKit simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✅ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000225 (+0.58%) | ➖ Ranks: 628↗ 1118↘ 95↔
+Sim   2: ✅ PageRank:+0.000318 (+0.82%) | ➖ Ranks: 641↗ 1093↘ 107↔
+Sim   3: ✅ PageRank:+0.000448 (+1.16%) | ➖ Ranks: 697↗ 1054↘ 90↔
+Sim   4: ✅ PageRank:+0.000341 (+0.88%) | ➖ Ranks: 578↗ 1170↘ 93↔
+Sim   5: ✅ PageRank:+0.000381 (+0.99%) | ➖ Ranks: 620↗ 1120↘ 101↔
+⚡ Processing batch 2: simulations 6-10
+    ✅ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000355 (+0.92%) | ➖ Ranks: 706↗ 1016↘ 119↔
+Sim   7: ✅ PageRank:+0.000353 (+0.91%) | ➖ Ranks: 642↗ 1118↘ 81↔
+Sim   8: ✅ PageRank:+0.000350 (+0.91%) | ➖ Ranks: 638↗ 1103↘ 100↔
+Sim   9: ✅ PageRank:+0.000318 (+0.82%) | ➖ Ranks: 606↗ 1135↘ 100↔
+Sim  10: ✅ PageRank:+0.000370 (+0.96%) | ➖ Ranks: 582↗ 1178↘ 81↔
+⚡ Processing batch 3: simulations 11-15
+    ✅ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000385 (+1.00%) | ➖ Ranks: 709↗ 1021↘ 111↔
+Sim  12: ✅ PageRank:+0.000440 (+1.14%) | ➖ Ranks: 585↗ 1182↘ 74↔
+Sim  13: ✅ PageRank:+0.000296 (+0.77%) | ➖ Ranks: 602↗ 1151↘ 88↔
+Sim  14: ✅ PageRank:+0.000486 (+1.26%) | ➖ Ranks: 679↗ 1062↘ 100↔
+Sim  15: ✅ PageRank:+0.000415 (+1.08%) | ➖ Ranks: 686↗ 1052↘ 103↔
+⚡ Processing batch 4: simulations 16-20
+    ✅ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000315 (+0.82%) | ➖ Ranks: 620↗ 1143↘ 78↔
+Sim  17: ✅ PageRank:+0.000460 (+1.19%) | ➖ Ranks: 674↗ 1065↘ 102↔
+Sim  18: ✅ PageRank:+0.000454 (+1.18%) | ➖ Ranks: 704↗ 1030↘ 107↔
+Sim  19: ✅ PageRank:+0.000277 (+0.72%) | ➖ Ranks: 713↗ 1021↘ 107↔
+Sim  20: ✅ PageRank:+0.000384 (+1.00%) | ➖ Ranks: 767↗ 960↘ 114↔
+⚡ Processing batch 5: simulations 21-25
+    ✅ Completed 5 simulations in batch
+Sim  21: ✅ PageRank:+0.000373 (+0.97%) | ➖ Ranks: 660↗ 1083↘ 98↔
+Sim  22: ✅ PageRank:+0.000318 (+0.83%) | ➖ Ranks: 613↗ 1115↘ 113↔
+Sim  23: ✅ PageRank:+0.000361 (+0.94%) | ➖ Ranks: 594↗ 1152↘ 95↔
+Sim  24: ✅ PageRank:+0.000375 (+0.97%) | ➖ Ranks: 640↗ 1084↘ 117↔
+Sim  25: ✅ PageRank:+0.000374 (+0.97%) | ➖ Ranks: 623↗ 1124↘ 94↔
+⚡ Processing batch 6: simulations 26-30
+    ✅ Completed 5 simulations in batch
+Sim  26: ✅ PageRank:+0.000403 (+1.05%) | ➖ Ranks: 594↗ 1118↘ 129↔
+Sim  27: ✅ PageRank:+0.000330 (+0.85%) | ➖ Ranks: 587↗ 1160↘ 94↔
+Sim  28: ✅ PageRank:+0.000356 (+0.92%) | ➖ Ranks: 613↗ 1126↘ 102↔
+Sim  29: ✅ PageRank:+0.000355 (+0.92%) | ➖ Ranks: 612↗ 1142↘ 87↔
+Sim  30: ✅ PageRank:+0.000351 (+0.91%) | ➖ Ranks: 654↗ 1086↘ 101↔
+⚡ Processing batch 7: simulations 31-35
+    ✅ Completed 5 simulations in batch
+Sim  31: ✅ PageRank:+0.000408 (+1.06%) | ➖ Ranks: 673↗ 1078↘ 90↔
+Sim  32: ✅ PageRank:+0.000518 (+1.35%) | ➖ Ranks: 680↗ 1048↘ 113↔
+Sim  33: ✅ PageRank:+0.000365 (+0.95%) | ➖ Ranks: 584↗ 1154↘ 103↔
+Sim  34: ✅ PageRank:+0.000341 (+0.88%) | ➖ Ranks: 598↗ 1167↘ 76↔
+Sim  35: ✅ PageRank:+0.000551 (+1.43%) | ➖ Ranks: 686↗ 1053↘ 102↔
+⚡ Processing batch 8: simulations 36-40
+    ✅ Completed 5 simulations in batch
+Sim  36: ✅ PageRank:+0.000604 (+1.57%) | ➖ Ranks: 621↗ 1138↘ 82↔
+Sim  37: ✅ PageRank:+0.000286 (+0.74%) | ➖ Ranks: 647↗ 1086↘ 108↔
+Sim  38: ✅ PageRank:+0.000253 (+0.66%) | ➖ Ranks: 651↗ 1086↘ 104↔
+Sim  39: ✅ PageRank:+0.000503 (+1.31%) | ➖ Ranks: 689↗ 1020↘ 132↔
+Sim  40: ✅ PageRank:+0.000410 (+1.06%) | ➖ Ranks: 634↗ 1111↘ 96↔
+⚡ Processing batch 9: simulations 41-45
+    ✅ Completed 5 simulations in batch
+Sim  41: ✅ PageRank:+0.000317 (+0.82%) | ➖ Ranks: 644↗ 1109↘ 88↔
+Sim  42: ✅ PageRank:+0.000412 (+1.07%) | ➖ Ranks: 580↗ 1169↘ 92↔
+Sim  43: ✅ PageRank:+0.000304 (+0.79%) | ➖ Ranks: 785↗ 960↘ 96↔
+Sim  44: ✅ PageRank:+0.000435 (+1.13%) | ➖ Ranks: 693↗ 1036↘ 112↔
+Sim  45: ✅ PageRank:+0.000453 (+1.18%) | ➖ Ranks: 526↗ 1241↘ 74↔
+⚡ Processing batch 10: simulations 46-50
+    ✅ Completed 5 simulations in batch
+Sim  46: ✅ PageRank:+0.000329 (+0.85%) | ➖ Ranks: 658↗ 1087↘ 96↔
+Sim  47: ✅ PageRank:+0.000326 (+0.85%) | ➖ Ranks: 637↗ 1121↘ 83↔
+Sim  48: ✅ PageRank:+0.000449 (+1.16%) | ➖ Ranks: 650↗ 1107↘ 84↔
+Sim  49: ✅ PageRank:+0.000419 (+1.09%) | ➖ Ranks: 693↗ 1032↘ 116↔
+Sim  50: ✅ PageRank:+0.000416 (+1.08%) | ➖ Ranks: 599↗ 1155↘ 87↔
+⚡ Processing batch 11: simulations 51-55
+    ✅ Completed 5 simulations in batch
+Sim  51: ✅ PageRank:+0.000502 (+1.31%) | ➖ Ranks: 681↗ 1053↘ 107↔
+Sim  52: ✅ PageRank:+0.000488 (+1.27%) | ➖ Ranks: 727↗ 1011↘ 103↔
+Sim  53: ✅ PageRank:+0.000471 (+1.22%) | ➖ Ranks: 647↗ 1089↘ 105↔
+Sim  54: ✅ PageRank:+0.000470 (+1.22%) | ➖ Ranks: 574↗ 1162↘ 105↔
+Sim  55: ✅ PageRank:+0.000341 (+0.88%) | ➖ Ranks: 694↗ 1032↘ 115↔
+⚡ Processing batch 12: simulations 56-60
+    ✅ Completed 5 simulations in batch
+Sim  56: ✅ PageRank:+0.000412 (+1.07%) | ➖ Ranks: 627↗ 1088↘ 126↔
+Sim  57: ✅ PageRank:+0.000226 (+0.58%) | ➖ Ranks: 697↗ 1038↘ 106↔
+Sim  58: ✅ PageRank:+0.000293 (+0.76%) | ➖ Ranks: 588↗ 1155↘ 98↔
+Sim  59: ✅ PageRank:+0.000312 (+0.81%) | ➖ Ranks: 647↗ 1092↘ 102↔
+Sim  60: ✅ PageRank:+0.000393 (+1.02%) | ➖ Ranks: 616↗ 1123↘ 102↔
+⚡ Processing batch 13: simulations 61-65
+    ✅ Completed 5 simulations in batch
+Sim  61: ✅ PageRank:+0.000353 (+0.92%) | ➖ Ranks: 662↗ 1101↘ 78↔
+Sim  62: ✅ PageRank:+0.000378 (+0.98%) | ➖ Ranks: 640↗ 1096↘ 105↔
+Sim  63: ✅ PageRank:+0.000345 (+0.90%) | ➖ Ranks: 589↗ 1155↘ 97↔
+Sim  64: ✅ PageRank:+0.000450 (+1.17%) | ➖ Ranks: 708↗ 1014↘ 119↔
+Sim  65: ✅ PageRank:+0.000339 (+0.88%) | ➖ Ranks: 640↗ 1082↘ 119↔
+⚡ Processing batch 14: simulations 66-70
+    ✅ Completed 5 simulations in batch
+Sim  66: ✅ PageRank:+0.000446 (+1.16%) | ➖ Ranks: 641↗ 1079↘ 121↔
+Sim  67: ✅ PageRank:+0.000432 (+1.12%) | ➖ Ranks: 561↗ 1170↘ 110↔
+Sim  68: ✅ PageRank:+0.000459 (+1.19%) | ➖ Ranks: 608↗ 1146↘ 87↔
+Sim  69: ✅ PageRank:+0.000243 (+0.63%) | ➖ Ranks: 646↗ 1070↘ 125↔
+Sim  70: ✅ PageRank:+0.000442 (+1.15%) | ➖ Ranks: 640↗ 1101↘ 100↔
+⚡ Processing batch 15: simulations 71-75
+    ✅ Completed 5 simulations in batch
+Sim  71: ✅ PageRank:+0.000396 (+1.03%) | ➖ Ranks: 771↗ 936↘ 134↔
+Sim  72: ✅ PageRank:+0.000429 (+1.12%) | ➖ Ranks: 701↗ 1023↘ 117↔
+Sim  73: ✅ PageRank:+0.000566 (+1.47%) | ➖ Ranks: 688↗ 1051↘ 102↔
+Sim  74: ✅ PageRank:+0.000393 (+1.02%) | ➖ Ranks: 711↗ 1012↘ 118↔
+Sim  75: ✅ PageRank:+0.000391 (+1.01%) | ➖ Ranks: 536↗ 1216↘ 89↔
+⚡ Processing batch 16: simulations 76-80
+    ✅ Completed 5 simulations in batch
+Sim  76: ✅ PageRank:+0.000324 (+0.84%) | ➖ Ranks: 632↗ 1119↘ 90↔
+Sim  77: ✅ PageRank:+0.000225 (+0.58%) | ➖ Ranks: 693↗ 1059↘ 89↔
+Sim  78: ✅ PageRank:+0.000524 (+1.36%) | ➖ Ranks: 601↗ 1147↘ 93↔
+Sim  79: ✅ PageRank:+0.000482 (+1.26%) | ➖ Ranks: 608↗ 1149↘ 84↔
+Sim  80: ✅ PageRank:+0.000301 (+0.78%) | ➖ Ranks: 618↗ 1127↘ 96↔
+⚡ Processing batch 17: simulations 81-85
+    ✅ Completed 5 simulations in batch
+Sim  81: ✅ PageRank:+0.000336 (+0.87%) | ➖ Ranks: 554↗ 1196↘ 91↔
+Sim  82: ✅ PageRank:+0.000492 (+1.28%) | ➖ Ranks: 652↗ 1093↘ 96↔
+Sim  83: ✅ PageRank:+0.000398 (+1.03%) | ➖ Ranks: 626↗ 1116↘ 99↔
+Sim  84: ✅ PageRank:+0.000409 (+1.06%) | ➖ Ranks: 540↗ 1210↘ 91↔
+Sim  85: ✅ PageRank:+0.000336 (+0.87%) | ➖ Ranks: 672↗ 1074↘ 95↔
+⚡ Processing batch 18: simulations 86-90
+    ✅ Completed 5 simulations in batch
+Sim  86: ✅ PageRank:+0.000449 (+1.17%) | ➖ Ranks: 600↗ 1147↘ 94↔
+Sim  87: ✅ PageRank:+0.000259 (+0.67%) | ➖ Ranks: 584↗ 1159↘ 98↔
+Sim  88: ✅ PageRank:+0.000412 (+1.07%) | ➖ Ranks: 597↗ 1139↘ 105↔
+Sim  89: ✅ PageRank:+0.000316 (+0.82%) | ➖ Ranks: 602↗ 1135↘ 104↔
+Sim  90: ✅ PageRank:+0.000498 (+1.29%) | ➖ Ranks: 611↗ 1138↘ 92↔
+⚡ Processing batch 19: simulations 91-95
+    ✅ Completed 5 simulations in batch
+Sim  91: ✅ PageRank:+0.000462 (+1.20%) | ➖ Ranks: 576↗ 1177↘ 88↔
+Sim  92: ✅ PageRank:+0.000400 (+1.04%) | ➖ Ranks: 593↗ 1149↘ 99↔
+Sim  93: ✅ PageRank:+0.000391 (+1.01%) | ➖ Ranks: 603↗ 1138↘ 100↔
+Sim  94: ✅ PageRank:+0.000566 (+1.47%) | ➖ Ranks: 570↗ 1173↘ 98↔
+Sim  95: ✅ PageRank:+0.000418 (+1.08%) | ➖ Ranks: 664↗ 1040↘ 137↔
+⚡ Processing batch 20: simulations 96-100
+    ✅ Completed 5 simulations in batch
+Sim  96: ✅ PageRank:+0.000382 (+0.99%) | ➖ Ranks: 563↗ 1191↘ 87↔
+Sim  97: ✅ PageRank:+0.000322 (+0.84%) | ➖ Ranks: 636↗ 1106↘ 99↔
+Sim  98: ✅ PageRank:+0.000255 (+0.66%) | ➖ Ranks: 677↗ 1077↘ 87↔
+Sim  99: ✅ PageRank:+0.000423 (+1.10%) | ➖ Ranks: 609↗ 1145↘ 87↔
+Sim 100: ✅ PageRank:+0.000381 (+0.99%) | ➖ Ranks: 637↗ 1096↘ 108↔
+✅ All NetworKit simulations completed in 58.97 seconds!
+⚡ Average time per simulation: 0.59 seconds
+
+------ BATCH 8 ------
+
+🔄 Running 100 NetworKit simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✅ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000074 (+0.19%) | ➖ Ranks: 627↗ 1076↘ 138↔
+Sim   2: ✅ PageRank:+0.000167 (+0.43%) | ➖ Ranks: 668↗ 1045↘ 128↔
+Sim   3: ✅ PageRank:+0.000296 (+0.77%) | ➖ Ranks: 699↗ 1026↘ 116↔
+Sim   4: ✅ PageRank:+0.000189 (+0.49%) | ➖ Ranks: 558↗ 1178↘ 105↔
+Sim   5: ✅ PageRank:+0.000229 (+0.60%) | ➖ Ranks: 642↗ 1093↘ 106↔
+⚡ Processing batch 2: simulations 6-10
+    ✅ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000204 (+0.53%) | ➖ Ranks: 777↗ 916↘ 148↔
+Sim   7: ✅ PageRank:+0.000201 (+0.52%) | ➖ Ranks: 652↗ 1045↘ 144↔
+Sim   8: ✅ PageRank:+0.000199 (+0.52%) | ➖ Ranks: 642↗ 1095↘ 104↔
+Sim   9: ✅ PageRank:+0.000166 (+0.43%) | ➖ Ranks: 627↗ 1093↘ 121↔
+Sim  10: ✅ PageRank:+0.000219 (+0.57%) | ➖ Ranks: 585↗ 1174↘ 82↔
+⚡ Processing batch 3: simulations 11-15
+    ✅ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000234 (+0.61%) | ➖ Ranks: 739↗ 951↘ 151↔
+Sim  12: ✅ PageRank:+0.000288 (+0.75%) | ➖ Ranks: 562↗ 1186↘ 93↔
+Sim  13: ✅ PageRank:+0.000145 (+0.38%) | ➖ Ranks: 624↗ 1090↘ 127↔
+Sim  14: ✅ PageRank:+0.000335 (+0.87%) | ➖ Ranks: 701↗ 992↘ 148↔
+Sim  15: ✅ PageRank:+0.000264 (+0.69%) | ➖ Ranks: 723↗ 1000↘ 118↔
+⚡ Processing batch 4: simulations 16-20
+    ✅ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000163 (+0.42%) | ➖ Ranks: 615↗ 1115↘ 111↔
+Sim  17: ✅ PageRank:+0.000308 (+0.80%) | ➖ Ranks: 718↗ 982↘ 141↔
+Sim  18: ✅ PageRank:+0.000302 (+0.78%) | ➖ Ranks: 769↗ 944↘ 128↔
+Sim  19: ✅ PageRank:+0.000126 (+0.33%) | ➖ Ranks: 716↗ 976↘ 149↔
+Sim  20: ✅ PageRank:+0.000234 (+0.61%) | ➖ Ranks: 811↗ 899↘ 131↔
+⚡ Processing batch 5: simulations 21-25
+    ✅ Completed 5 simulations in batch
+Sim  21: ✅ PageRank:+0.000222 (+0.58%) | ➖ Ranks: 695↗ 1049↘ 97↔
+Sim  22: ✅ PageRank:+0.000167 (+0.43%) | ➖ Ranks: 630↗ 1077↘ 134↔
+Sim  23: ✅ PageRank:+0.000210 (+0.54%) | ➖ Ranks: 575↗ 1158↘ 108↔
+Sim  24: ✅ PageRank:+0.000224 (+0.58%) | ➖ Ranks: 649↗ 1044↘ 148↔
+Sim  25: ✅ PageRank:+0.000223 (+0.58%) | ➖ Ranks: 658↗ 1037↘ 146↔
+⚡ Processing batch 6: simulations 26-30
+    ✅ Completed 5 simulations in batch
+Sim  26: ✅ PageRank:+0.000252 (+0.65%) | ➖ Ranks: 621↗ 1091↘ 129↔
+Sim  27: ✅ PageRank:+0.000178 (+0.46%) | ➖ Ranks: 593↗ 1159↘ 89↔
+Sim  28: ✅ PageRank:+0.000204 (+0.53%) | ➖ Ranks: 621↗ 1104↘ 116↔
+Sim  29: ✅ PageRank:+0.000204 (+0.53%) | ➖ Ranks: 607↗ 1128↘ 106↔
+Sim  30: ✅ PageRank:+0.000199 (+0.52%) | ➖ Ranks: 637↗ 1066↘ 138↔
+⚡ Processing batch 7: simulations 31-35
+    ✅ Completed 5 simulations in batch
+Sim  31: ✅ PageRank:+0.000257 (+0.67%) | ➖ Ranks: 661↗ 1064↘ 116↔
+Sim  32: ✅ PageRank:+0.000366 (+0.95%) | ➖ Ranks: 730↗ 979↘ 132↔
+Sim  33: ✅ PageRank:+0.000213 (+0.55%) | ➖ Ranks: 594↗ 1140↘ 107↔
+Sim  34: ✅ PageRank:+0.000190 (+0.49%) | ➖ Ranks: 606↗ 1127↘ 108↔
+Sim  35: ✅ PageRank:+0.000399 (+1.04%) | ➖ Ranks: 755↗ 982↘ 104↔
+⚡ Processing batch 8: simulations 36-40
+    ✅ Completed 5 simulations in batch
+Sim  36: ✅ PageRank:+0.000453 (+1.18%) | ➖ Ranks: 609↗ 1114↘ 118↔
+Sim  37: ✅ PageRank:+0.000134 (+0.35%) | ➖ Ranks: 686↗ 1002↘ 153↔
+Sim  38: ✅ PageRank:+0.000102 (+0.27%) | ➖ Ranks: 677↗ 1047↘ 117↔
+Sim  39: ✅ PageRank:+0.000351 (+0.91%) | ➖ Ranks: 786↗ 925↘ 130↔
+Sim  40: ✅ PageRank:+0.000259 (+0.67%) | ➖ Ranks: 674↗ 1032↘ 135↔
+⚡ Processing batch 9: simulations 41-45
+    ✅ Completed 5 simulations in batch
+Sim  41: ✅ PageRank:+0.000166 (+0.43%) | ➖ Ranks: 634↗ 1103↘ 104↔
+Sim  42: ✅ PageRank:+0.000261 (+0.68%) | ➖ Ranks: 578↗ 1155↘ 108↔
+Sim  43: ✅ PageRank:+0.000153 (+0.40%) | ➖ Ranks: 821↗ 889↘ 131↔
+Sim  44: ✅ PageRank:+0.000284 (+0.74%) | ➖ Ranks: 732↗ 980↘ 129↔
+Sim  45: ✅ PageRank:+0.000301 (+0.78%) | ➖ Ranks: 533↗ 1222↘ 86↔
+⚡ Processing batch 10: simulations 46-50
+    ✅ Completed 5 simulations in batch
+Sim  46: ✅ PageRank:+0.000178 (+0.46%) | ➖ Ranks: 643↗ 1063↘ 135↔
+Sim  47: ✅ PageRank:+0.000165 (+0.43%) | ➖ Ranks: 659↗ 1057↘ 125↔
+Sim  48: ✅ PageRank:+0.000291 (+0.75%) | ➖ Ranks: 661↗ 1096↘ 84↔
+Sim  49: ✅ PageRank:+0.000269 (+0.70%) | ➖ Ranks: 763↗ 956↘ 122↔
+Sim  50: ✅ PageRank:+0.000265 (+0.69%) | ➖ Ranks: 587↗ 1143↘ 111↔
+⚡ Processing batch 11: simulations 51-55
+    ✅ Completed 5 simulations in batch
+Sim  51: ✅ PageRank:+0.000352 (+0.91%) | ➖ Ranks: 746↗ 977↘ 118↔
+Sim  52: ✅ PageRank:+0.000336 (+0.87%) | ➖ Ranks: 767↗ 934↘ 140↔
+Sim  53: ✅ PageRank:+0.000320 (+0.83%) | ➖ Ranks: 680↗ 1049↘ 112↔
+Sim  54: ✅ PageRank:+0.000294 (+0.76%) | ➖ Ranks: 607↗ 1084↘ 150↔
+Sim  55: ✅ PageRank:+0.000190 (+0.49%) | ➖ Ranks: 733↗ 967↘ 141↔
+⚡ Processing batch 12: simulations 56-60
+    ✅ Completed 5 simulations in batch
+Sim  56: ✅ PageRank:+0.000261 (+0.68%) | ➖ Ranks: 664↗ 1053↘ 124↔
+Sim  57: ✅ PageRank:+0.000075 (+0.19%) | ➖ Ranks: 701↗ 1011↘ 129↔
+Sim  58: ✅ PageRank:+0.000142 (+0.37%) | ➖ Ranks: 614↗ 1109↘ 118↔
+Sim  59: ✅ PageRank:+0.000155 (+0.40%) | ➖ Ranks: 668↗ 1051↘ 122↔
+Sim  60: ✅ PageRank:+0.000241 (+0.63%) | ➖ Ranks: 615↗ 1092↘ 134↔
+⚡ Processing batch 13: simulations 61-65
+    ✅ Completed 5 simulations in batch
+Sim  61: ✅ PageRank:+0.000201 (+0.52%) | ➖ Ranks: 632↗ 1072↘ 137↔
+Sim  62: ✅ PageRank:+0.000226 (+0.59%) | ➖ Ranks: 653↗ 1083↘ 105↔
+Sim  63: ✅ PageRank:+0.000158 (+0.41%) | ➖ Ranks: 652↗ 1083↘ 106↔
+Sim  64: ✅ PageRank:+0.000299 (+0.78%) | ➖ Ranks: 707↗ 986↘ 148↔
+Sim  65: ✅ PageRank:+0.000188 (+0.49%) | ➖ Ranks: 674↗ 1037↘ 130↔
+⚡ Processing batch 14: simulations 66-70
+    ✅ Completed 5 simulations in batch
+Sim  66: ✅ PageRank:+0.000295 (+0.77%) | ➖ Ranks: 678↗ 1034↘ 129↔
+Sim  67: ✅ PageRank:+0.000280 (+0.72%) | ➖ Ranks: 575↗ 1157↘ 109↔
+Sim  68: ✅ PageRank:+0.000308 (+0.80%) | ➖ Ranks: 606↗ 1101↘ 134↔
+Sim  69: ✅ PageRank:+0.000092 (+0.24%) | ➖ Ranks: 658↗ 1044↘ 139↔
+Sim  70: ✅ PageRank:+0.000291 (+0.76%) | ➖ Ranks: 665↗ 1055↘ 121↔
+⚡ Processing batch 15: simulations 71-75
+    ✅ Completed 5 simulations in batch
+Sim  71: ✅ PageRank:+0.000245 (+0.64%) | ➖ Ranks: 851↗ 844↘ 146↔
+Sim  72: ✅ PageRank:+0.000279 (+0.73%) | ➖ Ranks: 752↗ 954↘ 135↔
+Sim  73: ✅ PageRank:+0.000415 (+1.08%) | ➖ Ranks: 744↗ 974↘ 123↔
+Sim  74: ✅ PageRank:+0.000242 (+0.63%) | ➖ Ranks: 775↗ 915↘ 151↔
+Sim  75: ✅ PageRank:+0.000239 (+0.62%) | ➖ Ranks: 539↗ 1230↘ 72↔
+⚡ Processing batch 16: simulations 76-80
+    ✅ Completed 5 simulations in batch
+Sim  76: ✅ PageRank:+0.000173 (+0.45%) | ➖ Ranks: 637↗ 1097↘ 107↔
+Sim  77: ✅ PageRank:+0.000074 (+0.19%) | ➖ Ranks: 745↗ 980↘ 116↔
+Sim  78: ✅ PageRank:+0.000372 (+0.97%) | ➖ Ranks: 602↗ 1144↘ 95↔
+Sim  79: ✅ PageRank:+0.000331 (+0.86%) | ➖ Ranks: 601↗ 1124↘ 116↔
+Sim  80: ✅ PageRank:+0.000149 (+0.39%) | ➖ Ranks: 612↗ 1100↘ 129↔
+⚡ Processing batch 17: simulations 81-85
+    ✅ Completed 5 simulations in batch
+Sim  81: ✅ PageRank:+0.000185 (+0.48%) | ➖ Ranks: 537↗ 1244↘ 60↔
+Sim  82: ✅ PageRank:+0.000340 (+0.88%) | ➖ Ranks: 714↗ 1007↘ 120↔
+Sim  83: ✅ PageRank:+0.000247 (+0.64%) | ➖ Ranks: 625↗ 1082↘ 134↔
+Sim  84: ✅ PageRank:+0.000258 (+0.67%) | ➖ Ranks: 530↗ 1228↘ 83↔
+Sim  85: ✅ PageRank:+0.000185 (+0.48%) | ➖ Ranks: 674↗ 1060↘ 107↔
+⚡ Processing batch 18: simulations 86-90
+    ✅ Completed 5 simulations in batch
+Sim  86: ✅ PageRank:+0.000298 (+0.78%) | ➖ Ranks: 605↗ 1103↘ 133↔
+Sim  87: ✅ PageRank:+0.000108 (+0.28%) | ➖ Ranks: 561↗ 1171↘ 109↔
+Sim  88: ✅ PageRank:+0.000260 (+0.68%) | ➖ Ranks: 613↗ 1121↘ 107↔
+Sim  89: ✅ PageRank:+0.000165 (+0.43%) | ➖ Ranks: 630↗ 1104↘ 107↔
+Sim  90: ✅ PageRank:+0.000347 (+0.90%) | ➖ Ranks: 630↗ 1109↘ 102↔
+⚡ Processing batch 19: simulations 91-95
+    ✅ Completed 5 simulations in batch
+Sim  91: ✅ PageRank:+0.000311 (+0.80%) | ➖ Ranks: 591↗ 1130↘ 120↔
+Sim  92: ✅ PageRank:+0.000249 (+0.64%) | ➖ Ranks: 614↗ 1121↘ 106↔
+Sim  93: ✅ PageRank:+0.000240 (+0.62%) | ➖ Ranks: 580↗ 1140↘ 121↔
+Sim  94: ✅ PageRank:+0.000415 (+1.08%) | ➖ Ranks: 556↗ 1156↘ 129↔
+Sim  95: ✅ PageRank:+0.000267 (+0.69%) | ➖ Ranks: 685↗ 1020↘ 136↔
+⚡ Processing batch 20: simulations 96-100
+    ✅ Completed 5 simulations in batch
+Sim  96: ✅ PageRank:+0.000231 (+0.60%) | ➖ Ranks: 541↗ 1185↘ 115↔
+Sim  97: ✅ PageRank:+0.000171 (+0.44%) | ➖ Ranks: 640↗ 1074↘ 127↔
+Sim  98: ✅ PageRank:+0.000104 (+0.27%) | ➖ Ranks: 683↗ 1045↘ 113↔
+Sim  99: ✅ PageRank:+0.000265 (+0.69%) | ➖ Ranks: 637↗ 1106↘ 98↔
+Sim 100: ✅ PageRank:+0.000231 (+0.60%) | ➖ Ranks: 680↗ 1040↘ 121↔
+✅ All NetworKit simulations completed in 56.96 seconds!
+⚡ Average time per simulation: 0.57 seconds
+
+------ BATCH 9 ------
+
+🔄 Running 100 NetworKit simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✅ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000098 (+0.25%) | ➖ Ranks: 637↗ 1098↘ 106↔
+Sim   2: ✅ PageRank:+0.000191 (+0.49%) | ➖ Ranks: 680↗ 1033↘ 128↔
+Sim   3: ✅ PageRank:+0.000320 (+0.83%) | ➖ Ranks: 702↗ 1017↘ 122↔
+Sim   4: ✅ PageRank:+0.000213 (+0.55%) | ➖ Ranks: 552↗ 1183↘ 106↔
+Sim   5: ✅ PageRank:+0.000253 (+0.66%) | ➖ Ranks: 629↗ 1082↘ 130↔
+⚡ Processing batch 2: simulations 6-10
+    ✅ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000228 (+0.59%) | ➖ Ranks: 756↗ 942↘ 143↔
+Sim   7: ✅ PageRank:+0.000225 (+0.58%) | ➖ Ranks: 633↗ 1081↘ 127↔
+Sim   8: ✅ PageRank:+0.000223 (+0.58%) | ➖ Ranks: 646↗ 1107↘ 88↔
+Sim   9: ✅ PageRank:+0.000190 (+0.49%) | ➖ Ranks: 608↗ 1104↘ 129↔
+Sim  10: ✅ PageRank:+0.000242 (+0.63%) | ➖ Ranks: 581↗ 1168↘ 92↔
+⚡ Processing batch 3: simulations 11-15
+    ✅ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000257 (+0.67%) | ➖ Ranks: 734↗ 956↘ 151↔
+Sim  12: ✅ PageRank:+0.000312 (+0.81%) | ➖ Ranks: 582↗ 1182↘ 77↔
+Sim  13: ✅ PageRank:+0.000169 (+0.44%) | ➖ Ranks: 627↗ 1103↘ 111↔
+Sim  14: ✅ PageRank:+0.000358 (+0.93%) | ➖ Ranks: 704↗ 1015↘ 122↔
+Sim  15: ✅ PageRank:+0.000288 (+0.75%) | ➖ Ranks: 685↗ 1013↘ 143↔
+⚡ Processing batch 4: simulations 16-20
+    ✅ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000187 (+0.48%) | ➖ Ranks: 630↗ 1113↘ 98↔
+Sim  17: ✅ PageRank:+0.000332 (+0.86%) | ➖ Ranks: 684↗ 1023↘ 134↔
+Sim  18: ✅ PageRank:+0.000326 (+0.85%) | ➖ Ranks: 747↗ 952↘ 142↔
+Sim  19: ✅ PageRank:+0.000150 (+0.39%) | ➖ Ranks: 735↗ 975↘ 131↔
+Sim  20: ✅ PageRank:+0.000253 (+0.66%) | ➖ Ranks: 806↗ 908↘ 127↔
+⚡ Processing batch 5: simulations 21-25
+    ✅ Completed 5 simulations in batch
+Sim  21: ✅ PageRank:+0.000246 (+0.64%) | ➖ Ranks: 666↗ 1064↘ 111↔
+Sim  22: ✅ PageRank:+0.000191 (+0.50%) | ➖ Ranks: 650↗ 1064↘ 127↔
+Sim  23: ✅ PageRank:+0.000234 (+0.61%) | ➖ Ranks: 578↗ 1164↘ 99↔
+Sim  24: ✅ PageRank:+0.000247 (+0.64%) | ➖ Ranks: 641↗ 1066↘ 134↔
+Sim  25: ✅ PageRank:+0.000247 (+0.64%) | ➖ Ranks: 646↗ 1057↘ 138↔
+⚡ Processing batch 6: simulations 26-30
+    ✅ Completed 5 simulations in batch
+Sim  26: ✅ PageRank:+0.000276 (+0.72%) | ➖ Ranks: 592↗ 1114↘ 135↔
+Sim  27: ✅ PageRank:+0.000202 (+0.52%) | ➖ Ranks: 585↗ 1152↘ 104↔
+Sim  28: ✅ PageRank:+0.000228 (+0.59%) | ➖ Ranks: 644↗ 1089↘ 108↔
+Sim  29: ✅ PageRank:+0.000228 (+0.59%) | ➖ Ranks: 608↗ 1121↘ 112↔
+Sim  30: ✅ PageRank:+0.000223 (+0.58%) | ➖ Ranks: 659↗ 1060↘ 122↔
+⚡ Processing batch 7: simulations 31-35
+    ✅ Completed 5 simulations in batch
+Sim  31: ✅ PageRank:+0.000281 (+0.73%) | ➖ Ranks: 651↗ 1071↘ 119↔
+Sim  32: ✅ PageRank:+0.000390 (+1.01%) | ➖ Ranks: 716↗ 1002↘ 123↔
+Sim  33: ✅ PageRank:+0.000237 (+0.62%) | ➖ Ranks: 556↗ 1182↘ 103↔
+Sim  34: ✅ PageRank:+0.000214 (+0.55%) | ➖ Ranks: 602↗ 1129↘ 110↔
+Sim  35: ✅ PageRank:+0.000423 (+1.10%) | ➖ Ranks: 722↗ 976↘ 143↔
+⚡ Processing batch 8: simulations 36-40
+    ✅ Completed 5 simulations in batch
+Sim  36: ✅ PageRank:+0.000476 (+1.24%) | ➖ Ranks: 625↗ 1102↘ 114↔
+Sim  37: ✅ PageRank:+0.000158 (+0.41%) | ➖ Ranks: 683↗ 1025↘ 133↔
+Sim  38: ✅ PageRank:+0.000126 (+0.33%) | ➖ Ranks: 679↗ 1039↘ 123↔
+Sim  39: ✅ PageRank:+0.000375 (+0.97%) | ➖ Ranks: 781↗ 917↘ 143↔
+Sim  40: ✅ PageRank:+0.000282 (+0.73%) | ➖ Ranks: 662↗ 1045↘ 134↔
+⚡ Processing batch 9: simulations 41-45
+    ✅ Completed 5 simulations in batch
+Sim  41: ✅ PageRank:+0.000189 (+0.49%) | ➖ Ranks: 639↗ 1083↘ 119↔
+Sim  42: ✅ PageRank:+0.000285 (+0.74%) | ➖ Ranks: 581↗ 1164↘ 96↔
+Sim  43: ✅ PageRank:+0.000176 (+0.46%) | ➖ Ranks: 826↗ 896↘ 119↔
+Sim  44: ✅ PageRank:+0.000307 (+0.80%) | ➖ Ranks: 730↗ 969↘ 142↔
+Sim  45: ✅ PageRank:+0.000325 (+0.84%) | ➖ Ranks: 509↗ 1254↘ 78↔
+⚡ Processing batch 10: simulations 46-50
+    ✅ Completed 5 simulations in batch
+Sim  46: ✅ PageRank:+0.000202 (+0.52%) | ➖ Ranks: 655↗ 1066↘ 120↔
+Sim  47: ✅ PageRank:+0.000189 (+0.49%) | ➖ Ranks: 660↗ 1057↘ 124↔
+Sim  48: ✅ PageRank:+0.000313 (+0.81%) | ➖ Ranks: 645↗ 1088↘ 108↔
+Sim  49: ✅ PageRank:+0.000292 (+0.76%) | ➖ Ranks: 761↗ 928↘ 152↔
+Sim  50: ✅ PageRank:+0.000289 (+0.75%) | ➖ Ranks: 602↗ 1129↘ 110↔
+⚡ Processing batch 11: simulations 51-55
+    ✅ Completed 5 simulations in batch
+Sim  51: ✅ PageRank:+0.000375 (+0.97%) | ➖ Ranks: 709↗ 991↘ 141↔
+Sim  52: ✅ PageRank:+0.000360 (+0.94%) | ➖ Ranks: 765↗ 922↘ 154↔
+Sim  53: ✅ PageRank:+0.000344 (+0.89%) | ➖ Ranks: 677↗ 1030↘ 134↔
+Sim  54: ✅ PageRank:+0.000317 (+0.82%) | ➖ Ranks: 603↗ 1084↘ 154↔
+Sim  55: ✅ PageRank:+0.000213 (+0.55%) | ➖ Ranks: 747↗ 966↘ 128↔
+⚡ Processing batch 12: simulations 56-60
+    ✅ Completed 5 simulations in batch
+Sim  56: ✅ PageRank:+0.000285 (+0.74%) | ➖ Ranks: 646↗ 1063↘ 132↔
+Sim  57: ✅ PageRank:+0.000098 (+0.25%) | ➖ Ranks: 726↗ 996↘ 119↔
+Sim  58: ✅ PageRank:+0.000165 (+0.43%) | ➖ Ranks: 623↗ 1114↘ 104↔
+Sim  59: ✅ PageRank:+0.000182 (+0.47%) | ➖ Ranks: 649↗ 1060↘ 132↔
+Sim  60: ✅ PageRank:+0.000265 (+0.69%) | ➖ Ranks: 620↗ 1111↘ 110↔
+⚡ Processing batch 13: simulations 61-65
+    ✅ Completed 5 simulations in batch
+Sim  61: ✅ PageRank:+0.000225 (+0.58%) | ➖ Ranks: 660↗ 1062↘ 119↔
+Sim  62: ✅ PageRank:+0.000250 (+0.65%) | ➖ Ranks: 623↗ 1108↘ 110↔
+Sim  63: ✅ PageRank:+0.000182 (+0.47%) | ➖ Ranks: 642↗ 1076↘ 123↔
+Sim  64: ✅ PageRank:+0.000322 (+0.84%) | ➖ Ranks: 730↗ 964↘ 147↔
+Sim  65: ✅ PageRank:+0.000211 (+0.55%) | ➖ Ranks: 653↗ 1051↘ 137↔
+⚡ Processing batch 14: simulations 66-70
+    ✅ Completed 5 simulations in batch
+Sim  66: ✅ PageRank:+0.000317 (+0.82%) | ➖ Ranks: 660↗ 1063↘ 118↔
+Sim  67: ✅ PageRank:+0.000304 (+0.79%) | ➖ Ranks: 558↗ 1159↘ 124↔
+Sim  68: ✅ PageRank:+0.000332 (+0.86%) | ➖ Ranks: 602↗ 1117↘ 122↔
+Sim  69: ✅ PageRank:+0.000115 (+0.30%) | ➖ Ranks: 679↗ 1037↘ 125↔
+Sim  70: ✅ PageRank:+0.000315 (+0.82%) | ➖ Ranks: 649↗ 1072↘ 120↔
+⚡ Processing batch 15: simulations 71-75
+    ✅ Completed 5 simulations in batch
+Sim  71: ✅ PageRank:+0.000268 (+0.70%) | ➖ Ranks: 849↗ 835↘ 157↔
+Sim  72: ✅ PageRank:+0.000302 (+0.78%) | ➖ Ranks: 737↗ 964↘ 140↔
+Sim  73: ✅ PageRank:+0.000438 (+1.14%) | ➖ Ranks: 739↗ 959↘ 143↔
+Sim  74: ✅ PageRank:+0.000266 (+0.69%) | ➖ Ranks: 742↗ 942↘ 157↔
+Sim  75: ✅ PageRank:+0.000263 (+0.68%) | ➖ Ranks: 530↗ 1204↘ 107↔
+⚡ Processing batch 16: simulations 76-80
+    ✅ Completed 5 simulations in batch
+Sim  76: ✅ PageRank:+0.000197 (+0.51%) | ➖ Ranks: 607↗ 1131↘ 103↔
+Sim  77: ✅ PageRank:+0.000097 (+0.25%) | ➖ Ranks: 723↗ 1000↘ 118↔
+Sim  78: ✅ PageRank:+0.000396 (+1.03%) | ➖ Ranks: 621↗ 1117↘ 103↔
+Sim  79: ✅ PageRank:+0.000355 (+0.93%) | ➖ Ranks: 584↗ 1142↘ 115↔
+Sim  80: ✅ PageRank:+0.000173 (+0.45%) | ➖ Ranks: 621↗ 1117↘ 103↔
+⚡ Processing batch 17: simulations 81-85
+    ✅ Completed 5 simulations in batch
+Sim  81: ✅ PageRank:+0.000209 (+0.54%) | ➖ Ranks: 527↗ 1229↘ 85↔
+Sim  82: ✅ PageRank:+0.000364 (+0.95%) | ➖ Ranks: 675↗ 1034↘ 132↔
+Sim  83: ✅ PageRank:+0.000271 (+0.70%) | ➖ Ranks: 625↗ 1098↘ 118↔
+Sim  84: ✅ PageRank:+0.000281 (+0.73%) | ➖ Ranks: 524↗ 1222↘ 95↔
+Sim  85: ✅ PageRank:+0.000208 (+0.54%) | ➖ Ranks: 675↗ 1048↘ 118↔
+⚡ Processing batch 18: simulations 86-90
+    ✅ Completed 5 simulations in batch
+Sim  86: ✅ PageRank:+0.000322 (+0.84%) | ➖ Ranks: 586↗ 1141↘ 114↔
+Sim  87: ✅ PageRank:+0.000132 (+0.34%) | ➖ Ranks: 586↗ 1149↘ 106↔
+Sim  88: ✅ PageRank:+0.000284 (+0.74%) | ➖ Ranks: 602↗ 1122↘ 117↔
+Sim  89: ✅ PageRank:+0.000188 (+0.49%) | ➖ Ranks: 605↗ 1132↘ 104↔
+Sim  90: ✅ PageRank:+0.000370 (+0.96%) | ➖ Ranks: 584↗ 1137↘ 120↔
+⚡ Processing batch 19: simulations 91-95
+    ✅ Completed 5 simulations in batch
+Sim  91: ✅ PageRank:+0.000334 (+0.87%) | ➖ Ranks: 588↗ 1147↘ 106↔
+Sim  92: ✅ PageRank:+0.000272 (+0.71%) | ➖ Ranks: 590↗ 1134↘ 117↔
+Sim  93: ✅ PageRank:+0.000263 (+0.68%) | ➖ Ranks: 606↗ 1142↘ 93↔
+Sim  94: ✅ PageRank:+0.000438 (+1.14%) | ➖ Ranks: 554↗ 1186↘ 101↔
+Sim  95: ✅ PageRank:+0.000290 (+0.75%) | ➖ Ranks: 670↗ 1009↘ 162↔
+⚡ Processing batch 20: simulations 96-100
+    ✅ Completed 5 simulations in batch
+Sim  96: ✅ PageRank:+0.000254 (+0.66%) | ➖ Ranks: 541↗ 1189↘ 111↔
+Sim  97: ✅ PageRank:+0.000195 (+0.51%) | ➖ Ranks: 640↗ 1079↘ 122↔
+Sim  98: ✅ PageRank:+0.000128 (+0.33%) | ➖ Ranks: 665↗ 1059↘ 117↔
+Sim  99: ✅ PageRank:+0.000296 (+0.77%) | ➖ Ranks: 598↗ 1124↘ 119↔
+Sim 100: ✅ PageRank:+0.000254 (+0.66%) | ➖ Ranks: 672↗ 1045↘ 124↔
+✅ All NetworKit simulations completed in 56.78 seconds!
+⚡ Average time per simulation: 0.57 seconds
+
+------ BATCH 10 ------
+
+🔄 Running 100 NetworKit simulations...
+⚡ Processing batch 1: simulations 1-5
+    ✅ Completed 5 simulations in batch
+Sim   1: ✅ PageRank:+0.000163 (+0.42%) | ➖ Ranks: 653↗ 1056↘ 132↔
+Sim   2: ✅ PageRank:+0.000257 (+0.66%) | ➖ Ranks: 683↗ 1028↘ 130↔
+Sim   3: ✅ PageRank:+0.000386 (+1.00%) | ➖ Ranks: 706↗ 1006↘ 129↔
+Sim   4: ✅ PageRank:+0.000279 (+0.72%) | ➖ Ranks: 597↗ 1147↘ 97↔
+Sim   5: ✅ PageRank:+0.000319 (+0.83%) | ➖ Ranks: 654↗ 1062↘ 125↔
+⚡ Processing batch 2: simulations 6-10
+    ✅ Completed 5 simulations in batch
+Sim   6: ✅ PageRank:+0.000293 (+0.76%) | ➖ Ranks: 785↗ 887↘ 169↔
+Sim   7: ✅ PageRank:+0.000291 (+0.75%) | ➖ Ranks: 650↗ 1046↘ 145↔
+Sim   8: ✅ PageRank:+0.000289 (+0.75%) | ➖ Ranks: 675↗ 1067↘ 99↔
+Sim   9: ✅ PageRank:+0.000256 (+0.66%) | ➖ Ranks: 637↗ 1049↘ 155↔
+Sim  10: ✅ PageRank:+0.000308 (+0.80%) | ➖ Ranks: 580↗ 1146↘ 115↔
+⚡ Processing batch 3: simulations 11-15
+    ✅ Completed 5 simulations in batch
+Sim  11: ✅ PageRank:+0.000323 (+0.84%) | ➖ Ranks: 786↗ 914↘ 141↔
+Sim  12: ✅ PageRank:+0.000378 (+0.98%) | ➖ Ranks: 599↗ 1158↘ 84↔
+Sim  13: ✅ PageRank:+0.000235 (+0.61%) | ➖ Ranks: 641↗ 1070↘ 130↔
+Sim  14: ✅ PageRank:+0.000424 (+1.10%) | ➖ Ranks: 729↗ 988↘ 124↔
+Sim  15: ✅ PageRank:+0.000353 (+0.92%) | ➖ Ranks: 703↗ 974↘ 164↔
+⚡ Processing batch 4: simulations 16-20
+    ✅ Completed 5 simulations in batch
+Sim  16: ✅ PageRank:+0.000253 (+0.66%) | ➖ Ranks: 659↗ 1074↘ 108↔
+Sim  17: ✅ PageRank:+0.000398 (+1.03%) | ➖ Ranks: 683↗ 1029↘ 129↔
+Sim  18: ✅ PageRank:+0.000392 (+1.02%) | ➖ Ranks: 783↗ 926↘ 132↔
+Sim  19: ✅ PageRank:+0.000215 (+0.56%) | ➖ Ranks: 760↗ 922↘ 159↔
+Sim  20: ✅ PageRank:+0.000324 (+0.84%) | ➖ Ranks: 848↗ 855↘ 138↔
+⚡ Processing batch 5: simulations 21-25
+    ✅ Completed 5 simulations in batch
+Sim  21: ✅ PageRank:+0.000312 (+0.81%) | ➖ Ranks: 684↗ 1044↘ 113↔
+Sim  22: ✅ PageRank:+0.000256 (+0.67%) | ➖ Ranks: 645↗ 1049↘ 147↔
+Sim  23: ✅ PageRank:+0.000299 (+0.78%) | ➖ Ranks: 596↗ 1148↘ 97↔
+Sim  24: ✅ PageRank:+0.000313 (+0.81%) | ➖ Ranks: 654↗ 1041↘ 146↔
+Sim  25: ✅ PageRank:+0.000312 (+0.81%) | ➖ Ranks: 663↗ 1056↘ 122↔
+⚡ Processing batch 6: simulations 26-30
+    ✅ Completed 5 simulations in batch
+Sim  26: ✅ PageRank:+0.000341 (+0.89%) | ➖ Ranks: 665↗ 1042↘ 134↔
+Sim  27: ✅ PageRank:+0.000268 (+0.69%) | ➖ Ranks: 594↗ 1133↘ 114↔
+Sim  28: ✅ PageRank:+0.000294 (+0.76%) | ➖ Ranks: 649↗ 1065↘ 127↔
+Sim  29: ✅ PageRank:+0.000293 (+0.76%) | ➖ Ranks: 617↗ 1102↘ 122↔
+Sim  30: ✅ PageRank:+0.000288 (+0.75%) | ➖ Ranks: 663↗ 1043↘ 135↔
+⚡ Processing batch 7: simulations 31-35
+    ✅ Completed 5 simulations in batch
+Sim  31: ✅ PageRank:+0.000347 (+0.90%) | ➖ Ranks: 684↗ 1036↘ 121↔
+Sim  32: ✅ PageRank:+0.000456 (+1.19%) | ➖ Ranks: 748↗ 955↘ 138↔
+Sim  33: ✅ PageRank:+0.000303 (+0.79%) | ➖ Ranks: 613↗ 1109↘ 119↔
+Sim  34: ✅ PageRank:+0.000280 (+0.72%) | ➖ Ranks: 619↗ 1106↘ 116↔
+Sim  35: ✅ PageRank:+0.000489 (+1.27%) | ➖ Ranks: 760↗ 951↘ 130↔
+⚡ Processing batch 8: simulations 36-40
+    ✅ Completed 5 simulations in batch
+Sim  36: ✅ PageRank:+0.000542 (+1.41%) | ➖ Ranks: 645↗ 1080↘ 116↔
+Sim  37: ✅ PageRank:+0.000224 (+0.58%) | ➖ Ranks: 729↗ 986↘ 126↔
+Sim  38: ✅ PageRank:+0.000191 (+0.50%) | ➖ Ranks: 713↗ 1021↘ 107↔
+Sim  39: ✅ PageRank:+0.000441 (+1.15%) | ➖ Ranks: 830↗ 881↘ 130↔
+Sim  40: ✅ PageRank:+0.000348 (+0.90%) | ➖ Ranks: 694↗ 1011↘ 136↔
+⚡ Processing batch 9: simulations 41-45
+    ✅ Completed 5 simulations in batch
+Sim  41: ✅ PageRank:+0.000255 (+0.66%) | ➖ Ranks: 655↗ 1063↘ 123↔
+Sim  42: ✅ PageRank:+0.000350 (+0.91%) | ➖ Ranks: 600↗ 1150↘ 91↔
+Sim  43: ✅ PageRank:+0.000242 (+0.63%) | ➖ Ranks: 824↗ 886↘ 131↔
+Sim  44: ✅ PageRank:+0.000373 (+0.97%) | ➖ Ranks: 739↗ 950↘ 152↔
+Sim  45: ✅ PageRank:+0.000391 (+1.02%) | ➖ Ranks: 555↗ 1201↘ 85↔
+⚡ Processing batch 10: simulations 46-50
+    ✅ Completed 5 simulations in batch
+Sim  46: ✅ PageRank:+0.000267 (+0.69%) | ➖ Ranks: 661↗ 1042↘ 138↔
+Sim  47: ✅ PageRank:+0.000254 (+0.66%) | ➖ Ranks: 674↗ 1037↘ 130↔
+Sim  48: ✅ PageRank:+0.000382 (+0.99%) | ➖ Ranks: 671↗ 1076↘ 94↔
+Sim  49: ✅ PageRank:+0.000358 (+0.93%) | ➖ Ranks: 770↗ 919↘ 152↔
+Sim  50: ✅ PageRank:+0.000354 (+0.92%) | ➖ Ranks: 603↗ 1136↘ 102↔
+⚡ Processing batch 11: simulations 51-55
+    ✅ Completed 5 simulations in batch
+Sim  51: ✅ PageRank:+0.000441 (+1.15%) | ➖ Ranks: 758↗ 960↘ 123↔
+Sim  52: ✅ PageRank:+0.000426 (+1.11%) | ➖ Ranks: 798↗ 887↘ 156↔
+Sim  53: ✅ PageRank:+0.000409 (+1.06%) | ➖ Ranks: 694↗ 1029↘ 118↔
+Sim  54: ✅ PageRank:+0.000383 (+1.00%) | ➖ Ranks: 644↗ 1077↘ 120↔
+Sim  55: ✅ PageRank:+0.000279 (+0.72%) | ➖ Ranks: 759↗ 968↘ 114↔
+⚡ Processing batch 12: simulations 56-60
+    ✅ Completed 5 simulations in batch
+Sim  56: ✅ PageRank:+0.000351 (+0.91%) | ➖ Ranks: 696↗ 1015↘ 130↔
+Sim  57: ✅ PageRank:+0.000164 (+0.42%) | ➖ Ranks: 742↗ 979↘ 120↔
+Sim  58: ✅ PageRank:+0.000231 (+0.60%) | ➖ Ranks: 633↗ 1086↘ 122↔
+Sim  59: ✅ PageRank:+0.000247 (+0.64%) | ➖ Ranks: 687↗ 1020↘ 134↔
+Sim  60: ✅ PageRank:+0.000331 (+0.86%) | ➖ Ranks: 633↗ 1068↘ 140↔
+⚡ Processing batch 13: simulations 61-65
+    ✅ Completed 5 simulations in batch
+Sim  61: ✅ PageRank:+0.000291 (+0.76%) | ➖ Ranks: 678↗ 1012↘ 151↔
+Sim  62: ✅ PageRank:+0.000316 (+0.82%) | ➖ Ranks: 653↗ 1069↘ 119↔
+Sim  63: ✅ PageRank:+0.000248 (+0.64%) | ➖ Ranks: 677↗ 1042↘ 122↔
+Sim  64: ✅ PageRank:+0.000388 (+1.01%) | ➖ Ranks: 768↗ 922↘ 151↔
+Sim  65: ✅ PageRank:+0.000277 (+0.72%) | ➖ Ranks: 674↗ 1024↘ 143↔
+⚡ Processing batch 14: simulations 66-70
+    ✅ Completed 5 simulations in batch
+Sim  66: ✅ PageRank:+0.000385 (+1.00%) | ➖ Ranks: 688↗ 1024↘ 129↔
+Sim  67: ✅ PageRank:+0.000370 (+0.96%) | ➖ Ranks: 600↗ 1129↘ 112↔
+Sim  68: ✅ PageRank:+0.000398 (+1.03%) | ➖ Ranks: 620↗ 1097↘ 124↔
+Sim  69: ✅ PageRank:+0.000181 (+0.47%) | ➖ Ranks: 676↗ 1031↘ 134↔
+Sim  70: ✅ PageRank:+0.000381 (+0.99%) | ➖ Ranks: 667↗ 1038↘ 136↔
+⚡ Processing batch 15: simulations 71-75
+    ✅ Completed 5 simulations in batch
+Sim  71: ✅ PageRank:+0.000334 (+0.87%) | ➖ Ranks: 875↗ 833↘ 133↔
+Sim  72: ✅ PageRank:+0.000368 (+0.96%) | ➖ Ranks: 770↗ 897↘ 174↔
+Sim  73: ✅ PageRank:+0.000504 (+1.31%) | ➖ Ranks: 747↗ 949↘ 145↔
+Sim  74: ✅ PageRank:+0.000332 (+0.86%) | ➖ Ranks: 790↗ 884↘ 167↔
+Sim  75: ✅ PageRank:+0.000329 (+0.85%) | ➖ Ranks: 573↗ 1172↘ 96↔
+⚡ Processing batch 16: simulations 76-80
+    ✅ Completed 5 simulations in batch
+Sim  76: ✅ PageRank:+0.000263 (+0.68%) | ➖ Ranks: 651↗ 1088↘ 102↔
+Sim  77: ✅ PageRank:+0.000163 (+0.42%) | ➖ Ranks: 732↗ 978↘ 131↔
+Sim  78: ✅ PageRank:+0.000462 (+1.20%) | ➖ Ranks: 652↗ 1076↘ 113↔
+Sim  79: ✅ PageRank:+0.000421 (+1.10%) | ➖ Ranks: 605↗ 1115↘ 121↔
+Sim  80: ✅ PageRank:+0.000239 (+0.62%) | ➖ Ranks: 620↗ 1100↘ 121↔
+⚡ Processing batch 17: simulations 81-85
+    ✅ Completed 5 simulations in batch
+Sim  81: ✅ PageRank:+0.000274 (+0.71%) | ➖ Ranks: 558↗ 1196↘ 87↔
+Sim  82: ✅ PageRank:+0.000430 (+1.12%) | ➖ Ranks: 718↗ 977↘ 146↔
+Sim  83: ✅ PageRank:+0.000336 (+0.87%) | ➖ Ranks: 664↗ 1054↘ 123↔
+Sim  84: ✅ PageRank:+0.000347 (+0.90%) | ➖ Ranks: 551↗ 1189↘ 101↔
+Sim  85: ✅ PageRank:+0.000274 (+0.71%) | ➖ Ranks: 701↗ 1016↘ 124↔
+⚡ Processing batch 18: simulations 86-90
+    ✅ Completed 5 simulations in batch
+Sim  86: ✅ PageRank:+0.000387 (+1.01%) | ➖ Ranks: 613↗ 1104↘ 124↔
+Sim  87: ✅ PageRank:+0.000197 (+0.51%) | ➖ Ranks: 600↗ 1133↘ 108↔
+Sim  88: ✅ PageRank:+0.000350 (+0.91%) | ➖ Ranks: 627↗ 1084↘ 130↔
+Sim  89: ✅ PageRank:+0.000254 (+0.66%) | ➖ Ranks: 623↗ 1101↘ 117↔
+Sim  90: ✅ PageRank:+0.000436 (+1.13%) | ➖ Ranks: 618↗ 1088↘ 135↔
+⚡ Processing batch 19: simulations 91-95
+    ✅ Completed 5 simulations in batch
+Sim  91: ✅ PageRank:+0.000400 (+1.04%) | ➖ Ranks: 592↗ 1138↘ 111↔
+Sim  92: ✅ PageRank:+0.000338 (+0.88%) | ➖ Ranks: 625↗ 1093↘ 123↔
+Sim  93: ✅ PageRank:+0.000329 (+0.85%) | ➖ Ranks: 624↗ 1100↘ 117↔
+Sim  94: ✅ PageRank:+0.000504 (+1.31%) | ➖ Ranks: 592↗ 1124↘ 125↔
+Sim  95: ✅ PageRank:+0.000356 (+0.92%) | ➖ Ranks: 695↗ 982↘ 164↔
+⚡ Processing batch 20: simulations 96-100
+    ✅ Completed 5 simulations in batch
+Sim  96: ✅ PageRank:+0.000320 (+0.83%) | ➖ Ranks: 574↗ 1161↘ 106↔
+Sim  97: ✅ PageRank:+0.000260 (+0.68%) | ➖ Ranks: 681↗ 1058↘ 102↔
+Sim  98: ✅ PageRank:+0.000193 (+0.50%) | ➖ Ranks: 709↗ 1015↘ 117↔
+Sim  99: ✅ PageRank:+0.000354 (+0.92%) | ➖ Ranks: 626↗ 1108↘ 107↔
+Sim 100: ✅ PageRank:+0.000320 (+0.83%) | ➖ Ranks: 697↗ 1016↘ 128↔
+✅ All NetworKit simulations completed in 70.15 seconds!
+⚡ Average time per simulation: 0.70 seconds
