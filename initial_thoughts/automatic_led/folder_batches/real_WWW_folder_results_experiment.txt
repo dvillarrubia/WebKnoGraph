@@ -1,0 +1,1443 @@
+==== EXPERIMENT: FOLDER CANDIDATES AUTOMATIC ====
+
+------ BATCH 1 ------
+
+    Completed 5 simulations in batch
+Sim   1: + PageRank:+0.000257 (+0.95%) | Ranks: 634up 1102down 105same
+Sim   2: + PageRank:+0.000297 (+1.10%) | Ranks: 634up 1094down 113same
+Sim   3: + PageRank:+0.000334 (+1.23%) | Ranks: 820up 921down 100same
+Sim   4: + PageRank:+0.000179 (+0.66%) | Ranks: 813up 897down 131same
+Sim   5: + PageRank:+0.000255 (+0.94%) | Ranks: 683up 1059down 99same
+Processing batch 2: simulations 6-10
+    Completed 5 simulations in batch
+Sim   6: + PageRank:+0.000153 (+0.57%) | Ranks: 631up 1079down 131same
+Sim   7: + PageRank:+0.000284 (+1.05%) | Ranks: 672up 1070down 99same
+Sim   8: + PageRank:+0.000253 (+0.94%) | Ranks: 630up 1117down 94same
+Sim   9: + PageRank:+0.000176 (+0.65%) | Ranks: 645up 1090down 106same
+Sim  10: + PageRank:+0.000357 (+1.32%) | Ranks: 733up 1022down 86same
+Processing batch 3: simulations 11-15
+    Completed 5 simulations in batch
+Sim  11: + PageRank:+0.000263 (+0.97%) | Ranks: 650up 1115down 76same
+Sim  12: + PageRank:+0.000122 (+0.45%) | Ranks: 713up 1018down 110same
+Sim  13: + PageRank:+0.000270 (+1.00%) | Ranks: 694up 1050down 97same
+Sim  14: + PageRank:+0.000133 (+0.49%) | Ranks: 653up 1082down 106same
+Sim  15: + PageRank:+0.000034 (+0.13%) | Ranks: 609up 1142down 90same
+Processing batch 4: simulations 16-20
+    Completed 5 simulations in batch
+Sim  16: + PageRank:+0.000213 (+0.79%) | Ranks: 663up 1063down 115same
+Sim  17: + PageRank:+0.000315 (+1.17%) | Ranks: 811up 938down 92same
+Sim  18: + PageRank:+0.000243 (+0.90%) | Ranks: 802up 920down 119same
+Sim  19: + PageRank:+0.000228 (+0.84%) | Ranks: 565up 1165down 111same
+Sim  20: + PageRank:+0.000258 (+0.95%) | Ranks: 582up 1160down 99same
+Processing batch 5: simulations 21-25
+    Completed 5 simulations in batch
+Sim  21: + PageRank:+0.000191 (+0.70%) | Ranks: 615up 1128down 98same
+Sim  22: + PageRank:+0.000252 (+0.93%) | Ranks: 668up 1071down 102same
+Sim  23: + PageRank:+0.000208 (+0.77%) | Ranks: 587up 1173down 81same
+Sim  24: + PageRank:+0.000274 (+1.01%) | Ranks: 855up 928down 58same
+Sim  25: + PageRank:+0.000293 (+1.08%) | Ranks: 590up 1155down 96same
+Processing batch 6: simulations 26-30
+    Completed 5 simulations in batch
+Sim  26: + PageRank:+0.000185 (+0.68%) | Ranks: 702up 1033down 106same
+Sim  27: + PageRank:+0.000242 (+0.90%) | Ranks: 663up 1069down 109same
+Sim  28: + PageRank:+0.000167 (+0.62%) | Ranks: 894up 830down 117same
+Sim  29: + PageRank:+0.000177 (+0.66%) | Ranks: 637up 1101down 103same
+Sim  30: + PageRank:+0.000216 (+0.80%) | Ranks: 643up 1082down 116same
+Processing batch 7: simulations 31-35
+    Completed 5 simulations in batch
+Sim  31: + PageRank:+0.000213 (+0.79%) | Ranks: 608up 1147down 86same
+Sim  32: + PageRank:+0.000247 (+0.91%) | Ranks: 726up 994down 121same
+Sim  33: + PageRank:+0.000168 (+0.62%) | Ranks: 656up 1078down 107same
+Sim  34: + PageRank:+0.000293 (+1.08%) | Ranks: 547up 1213down 81same
+Sim  35: + PageRank:+0.000148 (+0.55%) | Ranks: 586up 1145down 110same
+Processing batch 8: simulations 36-40
+    Completed 5 simulations in batch
+Sim  36: + PageRank:+0.000269 (+0.99%) | Ranks: 612up 1142down 87same
+Sim  37: + PageRank:+0.000249 (+0.92%) | Ranks: 795up 928down 118same
+Sim  38: + PageRank:+0.000234 (+0.86%) | Ranks: 657up 1077down 107same
+Sim  39: + PageRank:+0.000208 (+0.77%) | Ranks: 677up 1080down 84same
+Sim  40: + PageRank:+0.000228 (+0.84%) | Ranks: 571up 1164down 106same
+Processing batch 9: simulations 41-45
+    Completed 5 simulations in batch
+Sim  41: + PageRank:+0.000210 (+0.78%) | Ranks: 639up 1089down 113same
+Sim  42: + PageRank:+0.000215 (+0.80%) | Ranks: 570up 1178down 93same
+Sim  43: + PageRank:+0.000207 (+0.76%) | Ranks: 666up 1081down 94same
+Sim  44: + PageRank:+0.000286 (+1.06%) | Ranks: 727up 1004down 110same
+Sim  45: + PageRank:+0.000157 (+0.58%) | Ranks: 673up 1065down 103same
+Processing batch 10: simulations 46-50
+    Completed 5 simulations in batch
+Sim  46: + PageRank:+0.000171 (+0.63%) | Ranks: 797up 924down 120same
+Sim  47: + PageRank:+0.000218 (+0.80%) | Ranks: 626up 1111down 104same
+Sim  48: + PageRank:+0.000249 (+0.92%) | Ranks: 653up 1073down 115same
+Sim  49: + PageRank:+0.000202 (+0.75%) | Ranks: 656up 1091down 94same
+Sim  50: + PageRank:+0.000223 (+0.82%) | Ranks: 725up 1021down 95same
+Processing batch 11: simulations 51-55
+    Completed 5 simulations in batch
+Sim  51: + PageRank:+0.000185 (+0.68%) | Ranks: 655up 1088down 98same
+Sim  52: + PageRank:+0.000248 (+0.92%) | Ranks: 648up 1089down 104same
+Sim  53: + PageRank:+0.000059 (+0.22%) | Ranks: 768up 979down 94same
+Sim  54: + PageRank:+0.000125 (+0.46%) | Ranks: 835up 904down 102same
+Sim  55: + PageRank:+0.000236 (+0.88%) | Ranks: 638up 1090down 113same
+Processing batch 12: simulations 56-60
+    Completed 5 simulations in batch
+Sim  56: + PageRank:+0.000191 (+0.70%) | Ranks: 631up 1096down 114same
+Sim  57: + PageRank:+0.000255 (+0.94%) | Ranks: 601up 1126down 114same
+Sim  58: + PageRank:+0.000290 (+1.07%) | Ranks: 689up 1064down 88same
+Sim  59: + PageRank:+0.000247 (+0.91%) | Ranks: 604up 1141down 96same
+Sim  60: + PageRank:+0.000236 (+0.87%) | Ranks: 610up 1129down 102same
+Processing batch 13: simulations 61-65
+    Completed 5 simulations in batch
+Sim  61: + PageRank:+0.000265 (+0.98%) | Ranks: 652up 1083down 106same
+Sim  62: + PageRank:+0.000290 (+1.07%) | Ranks: 754up 999down 88same
+Sim  63: + PageRank:+0.000320 (+1.18%) | Ranks: 657up 1077down 107same
+Sim  64: + PageRank:+0.000305 (+1.13%) | Ranks: 671up 1070down 100same
+Sim  65: + PageRank:+0.000226 (+0.84%) | Ranks: 678up 1041down 122same
+Processing batch 14: simulations 66-70
+    Completed 5 simulations in batch
+Sim  66: + PageRank:+0.000154 (+0.57%) | Ranks: 695up 1033down 113same
+Sim  67: + PageRank:+0.000195 (+0.72%) | Ranks: 646up 1096down 99same
+Sim  68: + PageRank:+0.000131 (+0.48%) | Ranks: 669up 1073down 99same
+Sim  69: + PageRank:+0.000196 (+0.72%) | Ranks: 764up 969down 108same
+Sim  70: + PageRank:+0.000280 (+1.04%) | Ranks: 633up 1077down 131same
+Processing batch 15: simulations 71-75
+    Completed 5 simulations in batch
+Sim  71: + PageRank:+0.000211 (+0.78%) | Ranks: 551up 1204down 86same
+Sim  72: + PageRank:+0.000373 (+1.38%) | Ranks: 561up 1181down 99same
+Sim  73: + PageRank:+0.000280 (+1.04%) | Ranks: 731up 993down 117same
+Sim  74: + PageRank:+0.000204 (+0.75%) | Ranks: 712up 1036down 93same
+Sim  75: + PageRank:+0.000151 (+0.56%) | Ranks: 751up 980down 110same
+Processing batch 16: simulations 76-80
+    Completed 5 simulations in batch
+Sim  76: + PageRank:+0.000243 (+0.90%) | Ranks: 764up 977down 100same
+Sim  77: + PageRank:+0.000317 (+1.17%) | Ranks: 715up 1017down 109same
+Sim  78: + PageRank:+0.000190 (+0.70%) | Ranks: 668up 1070down 103same
+Sim  79: + PageRank:+0.000308 (+1.14%) | Ranks: 596up 1126down 119same
+Sim  80: + PageRank:+0.000206 (+0.76%) | Ranks: 539up 1195down 107same
+Processing batch 17: simulations 81-85
+    Completed 5 simulations in batch
+Sim  81: + PageRank:+0.000255 (+0.94%) | Ranks: 657up 1070down 114same
+Sim  82: + PageRank:+0.000254 (+0.94%) | Ranks: 627up 1106down 108same
+Sim  83: + PageRank:+0.000285 (+1.06%) | Ranks: 733up 1009down 99same
+Sim  84: + PageRank:+0.000145 (+0.53%) | Ranks: 852up 891down 98same
+Sim  85: + PageRank:+0.000331 (+1.23%) | Ranks: 562up 1176down 103same
+Processing batch 18: simulations 86-90
+    Completed 5 simulations in batch
+Sim  86: + PageRank:+0.000331 (+1.23%) | Ranks: 687up 1072down 82same
+Sim  87: + PageRank:+0.000286 (+1.06%) | Ranks: 565up 1183down 93same
+Sim  88: + PageRank:+0.000235 (+0.87%) | Ranks: 628up 1106down 107same
+Sim  89: + PageRank:+0.000256 (+0.95%) | Ranks: 615up 1114down 112same
+Sim  90: + PageRank:+0.000213 (+0.79%) | Ranks: 674up 1049down 118same
+Processing batch 19: simulations 91-95
+    Completed 5 simulations in batch
+Sim  91: + PageRank:+0.000262 (+0.97%) | Ranks: 578up 1164down 99same
+Sim  92: + PageRank:+0.000176 (+0.65%) | Ranks: 652up 1094down 95same
+Sim  93: + PageRank:+0.000262 (+0.97%) | Ranks: 768up 966down 107same
+Sim  94: + PageRank:+0.000254 (+0.94%) | Ranks: 685up 1063down 93same
+Sim  95: + PageRank:+0.000284 (+1.05%) | Ranks: 600up 1145down 96same
+Processing batch 20: simulations 96-100
+    Completed 5 simulations in batch
+Sim  96: + PageRank:+0.000202 (+0.75%) | Ranks: 687up 1035down 119same
+Sim  97: + PageRank:+0.000265 (+0.98%) | Ranks: 697up 1031down 113same
+Sim  98: + PageRank:+0.000283 (+1.05%) | Ranks: 640up 1114down 87same
+Sim  99: + PageRank:+0.000233 (+0.86%) | Ranks: 776up 962down 103same
+Sim 100: + PageRank:+0.000239 (+0.89%) | Ranks: 752up 970down 119same
+All REAL WEB simulations completed in 86.89 seconds!
+Average time per simulation: 0.87 seconds
+
+------ BATCH 2 ------
+
+    Completed 5 simulations in batch
+Sim   1: + PageRank:+0.000217 (+0.80%) | Ranks: 657up 1059down 125same
+Sim   2: + PageRank:+0.000257 (+0.95%) | Ranks: 625up 1089down 127same
+Sim   3: + PageRank:+0.000293 (+1.09%) | Ranks: 884up 798down 159same
+Sim   4: + PageRank:+0.000138 (+0.51%) | Ranks: 887up 785down 169same
+Sim   5: + PageRank:+0.000215 (+0.79%) | Ranks: 696up 1009down 136same
+Processing batch 2: simulations 6-10
+    Completed 5 simulations in batch
+Sim   6: + PageRank:+0.000113 (+0.42%) | Ranks: 684up 1005down 152same
+Sim   7: + PageRank:+0.000244 (+0.90%) | Ranks: 663up 1047down 131same
+Sim   8: + PageRank:+0.000213 (+0.79%) | Ranks: 629up 1103down 109same
+Sim   9: + PageRank:+0.000136 (+0.50%) | Ranks: 657up 1035down 149same
+Sim  10: + PageRank:+0.000316 (+1.17%) | Ranks: 770up 931down 140same
+Processing batch 3: simulations 11-15
+    Completed 5 simulations in batch
+Sim  11: + PageRank:+0.000223 (+0.82%) | Ranks: 680up 1052down 109same
+Sim  12: + PageRank:+0.000082 (+0.30%) | Ranks: 747up 934down 160same
+Sim  13: + PageRank:+0.000230 (+0.85%) | Ranks: 713up 1001down 127same
+Sim  14: + PageRank:+0.000093 (+0.34%) | Ranks: 667up 1033down 141same
+Sim  15: - PageRank:-0.000007 (-0.02%) | Ranks: 608up 1141down 92same
+Processing batch 4: simulations 16-20
+    Completed 5 simulations in batch
+Sim  16: + PageRank:+0.000173 (+0.64%) | Ranks: 725up 966down 150same
+Sim  17: + PageRank:+0.000274 (+1.02%) | Ranks: 902up 787down 152same
+Sim  18: + PageRank:+0.000203 (+0.75%) | Ranks: 852up 840down 149same
+Sim  19: + PageRank:+0.000187 (+0.69%) | Ranks: 581up 1138down 122same
+Sim  20: + PageRank:+0.000217 (+0.80%) | Ranks: 606up 1113down 122same
+Processing batch 5: simulations 21-25
+    Completed 5 simulations in batch
+Sim  21: + PageRank:+0.000151 (+0.55%) | Ranks: 645up 1074down 122same
+Sim  22: + PageRank:+0.000212 (+0.78%) | Ranks: 678up 1041down 122same
+Sim  23: + PageRank:+0.000168 (+0.62%) | Ranks: 599up 1144down 98same
+Sim  24: + PageRank:+0.000234 (+0.86%) | Ranks: 927up 811down 103same
+Sim  25: + PageRank:+0.000252 (+0.93%) | Ranks: 596up 1121down 124same
+Processing batch 6: simulations 26-30
+    Completed 5 simulations in batch
+Sim  26: + PageRank:+0.000145 (+0.53%) | Ranks: 748up 945down 148same
+Sim  27: + PageRank:+0.000201 (+0.74%) | Ranks: 665up 1048down 128same
+Sim  28: + PageRank:+0.000127 (+0.47%) | Ranks: 970up 743down 128same
+Sim  29: + PageRank:+0.000137 (+0.51%) | Ranks: 641up 1064down 136same
+Sim  30: + PageRank:+0.000176 (+0.65%) | Ranks: 690up 1004down 147same
+Processing batch 7: simulations 31-35
+    Completed 5 simulations in batch
+Sim  31: + PageRank:+0.000173 (+0.64%) | Ranks: 605up 1125down 111same
+Sim  32: + PageRank:+0.000207 (+0.76%) | Ranks: 725up 957down 159same
+Sim  33: + PageRank:+0.000128 (+0.47%) | Ranks: 666up 1039down 136same
+Sim  34: + PageRank:+0.000253 (+0.94%) | Ranks: 577up 1151down 113same
+Sim  35: + PageRank:+0.000108 (+0.40%) | Ranks: 621up 1096down 124same
+Processing batch 8: simulations 36-40
+    Completed 5 simulations in batch
+Sim  36: + PageRank:+0.000228 (+0.84%) | Ranks: 637up 1107down 97same
+Sim  37: + PageRank:+0.000209 (+0.77%) | Ranks: 829up 838down 174same
+Sim  38: + PageRank:+0.000193 (+0.72%) | Ranks: 675up 1022down 144same
+Sim  39: + PageRank:+0.000168 (+0.62%) | Ranks: 685up 1037down 119same
+Sim  40: + PageRank:+0.000188 (+0.70%) | Ranks: 597up 1137down 107same
+Processing batch 9: simulations 41-45
+    Completed 5 simulations in batch
+Sim  41: + PageRank:+0.000170 (+0.63%) | Ranks: 621up 1063down 157same
+Sim  42: + PageRank:+0.000175 (+0.65%) | Ranks: 598up 1120down 123same
+Sim  43: + PageRank:+0.000167 (+0.62%) | Ranks: 699up 1026down 116same
+Sim  44: + PageRank:+0.000246 (+0.91%) | Ranks: 743up 961down 137same
+Sim  45: + PageRank:+0.000127 (+0.47%) | Ranks: 665up 1037down 139same
+Processing batch 10: simulations 46-50
+    Completed 5 simulations in batch
+Sim  46: + PageRank:+0.000131 (+0.48%) | Ranks: 828up 880down 133same
+Sim  47: + PageRank:+0.000177 (+0.66%) | Ranks: 651up 1073down 117same
+Sim  48: + PageRank:+0.000208 (+0.77%) | Ranks: 699up 1013down 129same
+Sim  49: + PageRank:+0.000162 (+0.60%) | Ranks: 702up 1002down 137same
+Sim  50: + PageRank:+0.000183 (+0.67%) | Ranks: 784up 913down 144same
+Processing batch 11: simulations 51-55
+    Completed 5 simulations in batch
+Sim  51: + PageRank:+0.000145 (+0.54%) | Ranks: 658up 1065down 118same
+Sim  52: + PageRank:+0.000208 (+0.77%) | Ranks: 650up 1083down 108same
+Sim  53: + PageRank:+0.000018 (+0.07%) | Ranks: 811up 911down 119same
+Sim  54: + PageRank:+0.000084 (+0.31%) | Ranks: 888up 793down 160same
+Sim  55: + PageRank:+0.000196 (+0.73%) | Ranks: 682up 1028down 131same
+Processing batch 12: simulations 56-60
+    Completed 5 simulations in batch
+Sim  56: + PageRank:+0.000151 (+0.56%) | Ranks: 644up 1059down 138same
+Sim  57: + PageRank:+0.000215 (+0.79%) | Ranks: 650up 1072down 119same
+Sim  58: + PageRank:+0.000249 (+0.92%) | Ranks: 682up 1054down 105same
+Sim  59: + PageRank:+0.000207 (+0.77%) | Ranks: 596up 1123down 122same
+Sim  60: + PageRank:+0.000196 (+0.72%) | Ranks: 629up 1092down 120same
+Processing batch 13: simulations 61-65
+    Completed 5 simulations in batch
+Sim  61: + PageRank:+0.000225 (+0.83%) | Ranks: 696up 1032down 113same
+Sim  62: + PageRank:+0.000250 (+0.92%) | Ranks: 802up 911down 128same
+Sim  63: + PageRank:+0.000279 (+1.03%) | Ranks: 648up 1080down 113same
+Sim  64: + PageRank:+0.000265 (+0.98%) | Ranks: 706up 1012down 123same
+Sim  65: + PageRank:+0.000186 (+0.69%) | Ranks: 721up 979down 141same
+Processing batch 14: simulations 66-70
+    Completed 5 simulations in batch
+Sim  66: + PageRank:+0.000113 (+0.42%) | Ranks: 752up 992down 97same
+Sim  67: + PageRank:+0.000154 (+0.57%) | Ranks: 651up 1064down 126same
+Sim  68: + PageRank:+0.000091 (+0.33%) | Ranks: 669up 1040down 132same
+Sim  69: + PageRank:+0.000155 (+0.57%) | Ranks: 828up 861down 152same
+Sim  70: + PageRank:+0.000239 (+0.89%) | Ranks: 677up 1045down 119same
+Processing batch 15: simulations 71-75
+    Completed 5 simulations in batch
+Sim  71: + PageRank:+0.000170 (+0.63%) | Ranks: 568up 1181down 92same
+Sim  72: + PageRank:+0.000333 (+1.23%) | Ranks: 545up 1196down 100same
+Sim  73: + PageRank:+0.000240 (+0.89%) | Ranks: 742up 961down 138same
+Sim  74: + PageRank:+0.000163 (+0.60%) | Ranks: 746up 998down 97same
+Sim  75: + PageRank:+0.000110 (+0.41%) | Ranks: 792up 900down 149same
+Processing batch 16: simulations 76-80
+    Completed 5 simulations in batch
+Sim  76: + PageRank:+0.000203 (+0.75%) | Ranks: 800up 900down 141same
+Sim  77: + PageRank:+0.000276 (+1.02%) | Ranks: 728up 971down 142same
+Sim  78: + PageRank:+0.000150 (+0.55%) | Ranks: 693up 997down 151same
+Sim  79: + PageRank:+0.000268 (+0.99%) | Ranks: 616up 1110down 115same
+Sim  80: + PageRank:+0.000166 (+0.61%) | Ranks: 575up 1162down 104same
+Processing batch 17: simulations 81-85
+    Completed 5 simulations in batch
+Sim  81: + PageRank:+0.000214 (+0.79%) | Ranks: 670up 1040down 131same
+Sim  82: + PageRank:+0.000214 (+0.79%) | Ranks: 616up 1079down 146same
+Sim  83: + PageRank:+0.000245 (+0.91%) | Ranks: 766up 930down 145same
+Sim  84: + PageRank:+0.000105 (+0.39%) | Ranks: 988up 750down 103same
+Sim  85: + PageRank:+0.000291 (+1.08%) | Ranks: 588up 1147down 106same
+Processing batch 18: simulations 86-90
+    Completed 5 simulations in batch
+Sim  86: + PageRank:+0.000291 (+1.08%) | Ranks: 675up 1029down 137same
+Sim  87: + PageRank:+0.000246 (+0.91%) | Ranks: 582up 1157down 102same
+Sim  88: + PageRank:+0.000193 (+0.71%) | Ranks: 632up 1106down 103same
+Sim  89: + PageRank:+0.000215 (+0.80%) | Ranks: 616up 1106down 119same
+Sim  90: + PageRank:+0.000173 (+0.64%) | Ranks: 706up 992down 143same
+Processing batch 19: simulations 91-95
+    Completed 5 simulations in batch
+Sim  91: + PageRank:+0.000222 (+0.82%) | Ranks: 585up 1161down 95same
+Sim  92: + PageRank:+0.000135 (+0.50%) | Ranks: 668up 1060down 113same
+Sim  93: + PageRank:+0.000221 (+0.82%) | Ranks: 825up 860down 156same
+Sim  94: + PageRank:+0.000214 (+0.79%) | Ranks: 700up 1026down 115same
+Sim  95: + PageRank:+0.000243 (+0.90%) | Ranks: 624up 1114down 103same
+Processing batch 20: simulations 96-100
+    Completed 5 simulations in batch
+Sim  96: + PageRank:+0.000162 (+0.60%) | Ranks: 683up 1003down 155same
+Sim  97: + PageRank:+0.000224 (+0.83%) | Ranks: 749up 963down 129same
+Sim  98: + PageRank:+0.000243 (+0.90%) | Ranks: 675up 1048down 118same
+Sim  99: + PageRank:+0.000193 (+0.72%) | Ranks: 814up 887down 140same
+Sim 100: + PageRank:+0.000199 (+0.74%) | Ranks: 795up 889down 157same
+All REAL WEB simulations completed in 84.21 seconds!
+Average time per simulation: 0.84 seconds
+
+------ BATCH 3 ------
+
+Sim   1: + PageRank:+0.000237 (+0.88%) | Ranks: 636up 1093down 112same
+Sim   2: + PageRank:+0.000278 (+1.03%) | Ranks: 607up 1117down 117same
+Sim   3: + PageRank:+0.000314 (+1.16%) | Ranks: 867up 837down 137same
+Sim   4: + PageRank:+0.000159 (+0.59%) | Ranks: 856up 834down 151same
+Sim   5: + PageRank:+0.000235 (+0.87%) | Ranks: 681up 1013down 147same
+Processing batch 2: simulations 6-10
+    Completed 5 simulations in batch
+Sim   6: + PageRank:+0.000134 (+0.49%) | Ranks: 656up 1045down 140same
+Sim   7: + PageRank:+0.000264 (+0.98%) | Ranks: 641up 1078down 122same
+Sim   8: + PageRank:+0.000233 (+0.86%) | Ranks: 620up 1098down 123same
+Sim   9: + PageRank:+0.000157 (+0.58%) | Ranks: 601up 1083down 157same
+Sim  10: + PageRank:+0.000337 (+1.25%) | Ranks: 726up 980down 135same
+Processing batch 3: simulations 11-15
+    Completed 5 simulations in batch
+Sim  11: + PageRank:+0.000243 (+0.90%) | Ranks: 657up 1076down 108same
+Sim  12: + PageRank:+0.000103 (+0.38%) | Ranks: 749up 950down 142same
+Sim  13: + PageRank:+0.000250 (+0.93%) | Ranks: 683up 1040down 118same
+Sim  14: + PageRank:+0.000114 (+0.42%) | Ranks: 668up 1044down 129same
+Sim  15: + PageRank:+0.000012 (+0.04%) | Ranks: 602up 1148down 91same
+Processing batch 4: simulations 16-20
+    Completed 5 simulations in batch
+Sim  16: + PageRank:+0.000194 (+0.72%) | Ranks: 694up 989down 158same
+Sim  17: + PageRank:+0.000295 (+1.09%) | Ranks: 867up 836down 138same
+Sim  18: + PageRank:+0.000223 (+0.83%) | Ranks: 837up 838down 166same
+Sim  19: + PageRank:+0.000208 (+0.77%) | Ranks: 560up 1156down 125same
+Sim  20: + PageRank:+0.000238 (+0.88%) | Ranks: 576up 1138down 127same
+Processing batch 5: simulations 21-25
+    Completed 5 simulations in batch
+Sim  21: + PageRank:+0.000171 (+0.63%) | Ranks: 626up 1089down 126same
+Sim  22: + PageRank:+0.000232 (+0.86%) | Ranks: 691up 1027down 123same
+Sim  23: + PageRank:+0.000188 (+0.70%) | Ranks: 564up 1176down 101same
+Sim  24: + PageRank:+0.000254 (+0.94%) | Ranks: 924up 827down 90same
+Sim  25: + PageRank:+0.000273 (+1.01%) | Ranks: 588up 1108down 145same
+Processing batch 6: simulations 26-30
+    Completed 5 simulations in batch
+Sim  26: + PageRank:+0.000165 (+0.61%) | Ranks: 703up 953down 185same
+Sim  27: + PageRank:+0.000222 (+0.82%) | Ranks: 658up 1055down 128same
+Sim  28: + PageRank:+0.000147 (+0.54%) | Ranks: 960up 760down 121same
+Sim  29: + PageRank:+0.000158 (+0.58%) | Ranks: 607up 1107down 127same
+Sim  30: + PageRank:+0.000197 (+0.73%) | Ranks: 669up 1011down 161same
+Processing batch 7: simulations 31-35
+    Completed 5 simulations in batch
+Sim  31: + PageRank:+0.000193 (+0.71%) | Ranks: 601up 1148down 92same
+Sim  32: + PageRank:+0.000227 (+0.84%) | Ranks: 734up 963down 144same
+Sim  33: + PageRank:+0.000148 (+0.55%) | Ranks: 671up 1030down 140same
+Sim  34: + PageRank:+0.000273 (+1.01%) | Ranks: 535up 1205down 101same
+Sim  35: + PageRank:+0.000128 (+0.47%) | Ranks: 610up 1118down 113same
+Processing batch 8: simulations 36-40
+    Completed 5 simulations in batch
+Sim  36: + PageRank:+0.000249 (+0.92%) | Ranks: 612up 1133down 96same
+Sim  37: + PageRank:+0.000229 (+0.85%) | Ranks: 823up 847down 171same
+Sim  38: + PageRank:+0.000214 (+0.79%) | Ranks: 647up 1044down 150same
+Sim  39: + PageRank:+0.000189 (+0.70%) | Ranks: 646up 1069down 126same
+Sim  40: + PageRank:+0.000209 (+0.77%) | Ranks: 589up 1138down 114same
+Processing batch 9: simulations 41-45
+    Completed 5 simulations in batch
+Sim  41: + PageRank:+0.000190 (+0.70%) | Ranks: 656up 1067down 118same
+Sim  42: + PageRank:+0.000196 (+0.72%) | Ranks: 580up 1153down 108same
+Sim  43: + PageRank:+0.000187 (+0.69%) | Ranks: 684up 1050down 107same
+Sim  44: + PageRank:+0.000266 (+0.99%) | Ranks: 731up 984down 126same
+Sim  45: + PageRank:+0.000146 (+0.54%) | Ranks: 658up 1059down 124same
+Processing batch 10: simulations 46-50
+    Completed 5 simulations in batch
+Sim  46: + PageRank:+0.000152 (+0.56%) | Ranks: 824up 851down 166same
+Sim  47: + PageRank:+0.000198 (+0.73%) | Ranks: 602up 1100down 139same
+Sim  48: + PageRank:+0.000229 (+0.85%) | Ranks: 677up 1029down 135same
+Sim  49: + PageRank:+0.000182 (+0.67%) | Ranks: 667up 1048down 126same
+Sim  50: + PageRank:+0.000203 (+0.75%) | Ranks: 734up 977down 130same
+Processing batch 11: simulations 51-55
+    Completed 5 simulations in batch
+Sim  51: + PageRank:+0.000166 (+0.61%) | Ranks: 659up 1041down 141same
+Sim  52: + PageRank:+0.000229 (+0.85%) | Ranks: 626up 1098down 117same
+Sim  53: + PageRank:+0.000039 (+0.14%) | Ranks: 800up 905down 136same
+Sim  54: + PageRank:+0.000105 (+0.39%) | Ranks: 843up 852down 146same
+Sim  55: + PageRank:+0.000217 (+0.80%) | Ranks: 663up 1072down 106same
+Processing batch 12: simulations 56-60
+    Completed 5 simulations in batch
+Sim  56: + PageRank:+0.000172 (+0.63%) | Ranks: 632up 1084down 125same
+Sim  57: + PageRank:+0.000235 (+0.87%) | Ranks: 648up 1069down 124same
+Sim  58: + PageRank:+0.000270 (+1.00%) | Ranks: 670up 1044down 127same
+Sim  59: + PageRank:+0.000228 (+0.84%) | Ranks: 576up 1144down 121same
+Sim  60: + PageRank:+0.000216 (+0.80%) | Ranks: 610up 1121down 110same
+Processing batch 13: simulations 61-65
+    Completed 5 simulations in batch
+Sim  61: + PageRank:+0.000246 (+0.91%) | Ranks: 655up 1063down 123same
+Sim  62: + PageRank:+0.000270 (+1.00%) | Ranks: 788up 939down 114same
+Sim  63: + PageRank:+0.000300 (+1.11%) | Ranks: 639up 1083down 119same
+Sim  64: + PageRank:+0.000286 (+1.06%) | Ranks: 666up 1050down 125same
+Sim  65: + PageRank:+0.000206 (+0.76%) | Ranks: 676up 1021down 144same
+Processing batch 14: simulations 66-70
+    Completed 5 simulations in batch
+Sim  66: + PageRank:+0.000134 (+0.49%) | Ranks: 695up 1030down 116same
+Sim  67: + PageRank:+0.000175 (+0.65%) | Ranks: 636up 1084down 121same
+Sim  68: + PageRank:+0.000111 (+0.41%) | Ranks: 670up 1034down 137same
+Sim  69: + PageRank:+0.000176 (+0.65%) | Ranks: 798up 887down 156same
+Sim  70: + PageRank:+0.000260 (+0.96%) | Ranks: 656up 1053down 132same
+Processing batch 15: simulations 71-75
+    Completed 5 simulations in batch
+Sim  71: + PageRank:+0.000192 (+0.71%) | Ranks: 533up 1203down 105same
+Sim  72: + PageRank:+0.000354 (+1.31%) | Ranks: 541up 1210down 90same
+Sim  73: + PageRank:+0.000260 (+0.96%) | Ranks: 718up 985down 138same
+Sim  74: + PageRank:+0.000184 (+0.68%) | Ranks: 702up 1020down 119same
+Sim  75: + PageRank:+0.000131 (+0.48%) | Ranks: 773up 927down 141same
+Processing batch 16: simulations 76-80
+    Completed 5 simulations in batch
+Sim  76: + PageRank:+0.000224 (+0.83%) | Ranks: 789up 904down 148same
+Sim  77: + PageRank:+0.000297 (+1.10%) | Ranks: 721up 978down 142same
+Sim  78: + PageRank:+0.000171 (+0.63%) | Ranks: 692up 1014down 135same
+Sim  79: + PageRank:+0.000288 (+1.07%) | Ranks: 565up 1164down 112same
+Sim  80: + PageRank:+0.000187 (+0.69%) | Ranks: 545up 1189down 107same
+Processing batch 17: simulations 81-85
+    Completed 5 simulations in batch
+Sim  81: + PageRank:+0.000235 (+0.87%) | Ranks: 657up 1038down 146same
+Sim  82: + PageRank:+0.000234 (+0.87%) | Ranks: 606up 1108down 127same
+Sim  83: + PageRank:+0.000266 (+0.98%) | Ranks: 738up 964down 139same
+Sim  84: + PageRank:+0.000126 (+0.46%) | Ranks: 952up 784down 105same
+Sim  85: + PageRank:+0.000312 (+1.15%) | Ranks: 563up 1164down 114same
+Processing batch 18: simulations 86-90
+    Completed 5 simulations in batch
+Sim  86: + PageRank:+0.000311 (+1.15%) | Ranks: 632up 1071down 138same
+Sim  87: + PageRank:+0.000266 (+0.99%) | Ranks: 564up 1178down 99same
+Sim  88: + PageRank:+0.000214 (+0.79%) | Ranks: 607up 1110down 124same
+Sim  89: + PageRank:+0.000236 (+0.87%) | Ranks: 611up 1114down 116same
+Sim  90: + PageRank:+0.000193 (+0.71%) | Ranks: 721up 973down 147same
+Processing batch 19: simulations 91-95
+    Completed 5 simulations in batch
+Sim  91: + PageRank:+0.000243 (+0.90%) | Ranks: 540up 1173down 128same
+Sim  92: + PageRank:+0.000156 (+0.58%) | Ranks: 637up 1063down 141same
+Sim  93: + PageRank:+0.000242 (+0.90%) | Ranks: 793up 907down 141same
+Sim  94: + PageRank:+0.000235 (+0.87%) | Ranks: 686up 1022down 133same
+Sim  95: + PageRank:+0.000264 (+0.98%) | Ranks: 589up 1134down 118same
+Processing batch 20: simulations 96-100
+    Completed 5 simulations in batch
+Sim  96: + PageRank:+0.000183 (+0.68%) | Ranks: 716up 989down 136same
+Sim  97: + PageRank:+0.000245 (+0.91%) | Ranks: 694up 1001down 146same
+Sim  98: + PageRank:+0.000264 (+0.97%) | Ranks: 642up 1077down 122same
+Sim  99: + PageRank:+0.000214 (+0.79%) | Ranks: 769up 917down 155same
+Sim 100: + PageRank:+0.000220 (+0.81%) | Ranks: 789up 907down 145same
+All REAL WEB simulations completed in 87.27 seconds!
+Average time per simulation: 0.87 seconds
+
+------ BATCH 4 ------
+
+    Completed 5 simulations in batch
+Sim   1: + PageRank:+0.000282 (+1.05%) | Ranks: 621up 1131down 89same
+Sim   2: + PageRank:+0.000323 (+1.20%) | Ranks: 602up 1167down 72same
+Sim   3: + PageRank:+0.000359 (+1.33%) | Ranks: 782up 958down 101same
+Sim   4: + PageRank:+0.000204 (+0.75%) | Ranks: 760up 973down 108same
+Sim   5: + PageRank:+0.000281 (+1.04%) | Ranks: 641up 1106down 94same
+Processing batch 2: simulations 6-10
+    Completed 5 simulations in batch
+Sim   6: + PageRank:+0.000179 (+0.66%) | Ranks: 657up 1086down 98same
+Sim   7: + PageRank:+0.000310 (+1.15%) | Ranks: 645up 1109down 87same
+Sim   8: + PageRank:+0.000278 (+1.03%) | Ranks: 619up 1137down 85same
+Sim   9: + PageRank:+0.000202 (+0.74%) | Ranks: 624up 1106down 111same
+Sim  10: + PageRank:+0.000382 (+1.42%) | Ranks: 715up 1042down 84same
+Processing batch 3: simulations 11-15
+    Completed 5 simulations in batch
+Sim  11: + PageRank:+0.000288 (+1.07%) | Ranks: 653up 1111down 77same
+Sim  12: + PageRank:+0.000148 (+0.54%) | Ranks: 670up 1081down 90same
+Sim  13: + PageRank:+0.000295 (+1.09%) | Ranks: 667up 1095down 79same
+Sim  14: + PageRank:+0.000159 (+0.59%) | Ranks: 638up 1099down 104same
+Sim  15: + PageRank:+0.000059 (+0.22%) | Ranks: 636up 1153down 52same
+Processing batch 4: simulations 16-20
+    Completed 5 simulations in batch
+Sim  16: + PageRank:+0.000239 (+0.88%) | Ranks: 635up 1100down 106same
+Sim  17: + PageRank:+0.000340 (+1.26%) | Ranks: 762up 990down 89same
+Sim  18: + PageRank:+0.000268 (+0.99%) | Ranks: 788up 961down 92same
+Sim  19: + PageRank:+0.000253 (+0.94%) | Ranks: 587up 1167down 87same
+Sim  20: + PageRank:+0.000283 (+1.05%) | Ranks: 599up 1174down 68same
+Processing batch 5: simulations 21-25
+    Completed 5 simulations in batch
+Sim  21: + PageRank:+0.000216 (+0.80%) | Ranks: 605up 1143down 93same
+Sim  22: + PageRank:+0.000277 (+1.03%) | Ranks: 657up 1100down 84same
+Sim  23: + PageRank:+0.000233 (+0.86%) | Ranks: 611up 1167down 63same
+Sim  24: + PageRank:+0.000299 (+1.11%) | Ranks: 827up 947down 67same
+Sim  25: + PageRank:+0.000318 (+1.18%) | Ranks: 586up 1176down 79same
+Processing batch 6: simulations 26-30
+    Completed 5 simulations in batch
+Sim  26: + PageRank:+0.000210 (+0.78%) | Ranks: 648up 1079down 114same
+Sim  27: + PageRank:+0.000267 (+0.99%) | Ranks: 627up 1128down 86same
+Sim  28: + PageRank:+0.000192 (+0.71%) | Ranks: 841up 884down 116same
+Sim  29: + PageRank:+0.000203 (+0.75%) | Ranks: 628up 1148down 65same
+Sim  30: + PageRank:+0.000242 (+0.89%) | Ranks: 656up 1091down 94same
+Processing batch 7: simulations 31-35
+    Completed 5 simulations in batch
+Sim  31: + PageRank:+0.000238 (+0.88%) | Ranks: 610up 1148down 83same
+Sim  32: + PageRank:+0.000272 (+1.01%) | Ranks: 661up 1089down 91same
+Sim  33: + PageRank:+0.000193 (+0.71%) | Ranks: 648up 1112down 81same
+Sim  34: + PageRank:+0.000319 (+1.18%) | Ranks: 576up 1206down 59same
+Sim  35: + PageRank:+0.000173 (+0.64%) | Ranks: 603up 1156down 82same
+Processing batch 8: simulations 36-40
+    Completed 5 simulations in batch
+Sim  36: + PageRank:+0.000294 (+1.09%) | Ranks: 610up 1160down 71same
+Sim  37: + PageRank:+0.000274 (+1.02%) | Ranks: 746up 1005down 90same
+Sim  38: + PageRank:+0.000259 (+0.96%) | Ranks: 629up 1133down 79same
+Sim  39: + PageRank:+0.000234 (+0.86%) | Ranks: 658up 1099down 84same
+Sim  40: + PageRank:+0.000254 (+0.94%) | Ranks: 607up 1158down 76same
+Processing batch 9: simulations 41-45
+    Completed 5 simulations in batch
+Sim  41: + PageRank:+0.000235 (+0.87%) | Ranks: 624up 1128down 89same
+Sim  42: + PageRank:+0.000241 (+0.89%) | Ranks: 613up 1159down 69same
+Sim  43: + PageRank:+0.000232 (+0.86%) | Ranks: 668up 1093down 80same
+Sim  44: + PageRank:+0.000311 (+1.15%) | Ranks: 666up 1078down 97same
+Sim  45: + PageRank:+0.000173 (+0.64%) | Ranks: 653up 1105down 83same
+Processing batch 10: simulations 46-50
+    Completed 5 simulations in batch
+Sim  46: + PageRank:+0.000197 (+0.73%) | Ranks: 743up 976down 122same
+Sim  47: + PageRank:+0.000243 (+0.90%) | Ranks: 620up 1145down 76same
+Sim  48: + PageRank:+0.000274 (+1.01%) | Ranks: 653up 1077down 111same
+Sim  49: + PageRank:+0.000227 (+0.84%) | Ranks: 632up 1105down 104same
+Sim  50: + PageRank:+0.000248 (+0.92%) | Ranks: 699up 1048down 94same
+Processing batch 11: simulations 51-55
+    Completed 5 simulations in batch
+Sim  51: + PageRank:+0.000211 (+0.78%) | Ranks: 643up 1116down 82same
+Sim  52: + PageRank:+0.000274 (+1.01%) | Ranks: 616up 1154down 71same
+Sim  53: + PageRank:+0.000084 (+0.31%) | Ranks: 730up 1023down 88same
+Sim  54: + PageRank:+0.000150 (+0.55%) | Ranks: 780up 961down 100same
+Sim  55: + PageRank:+0.000262 (+0.97%) | Ranks: 643up 1118down 80same
+Processing batch 12: simulations 56-60
+    Completed 5 simulations in batch
+Sim  56: + PageRank:+0.000216 (+0.80%) | Ranks: 639up 1136down 66same
+Sim  57: + PageRank:+0.000281 (+1.04%) | Ranks: 663up 1108down 70same
+Sim  58: + PageRank:+0.000315 (+1.16%) | Ranks: 650up 1121down 70same
+Sim  59: + PageRank:+0.000273 (+1.01%) | Ranks: 607up 1156down 78same
+Sim  60: + PageRank:+0.000261 (+0.97%) | Ranks: 611up 1148down 82same
+Processing batch 13: simulations 61-65
+    Completed 5 simulations in batch
+Sim  61: + PageRank:+0.000291 (+1.08%) | Ranks: 656up 1100down 85same
+Sim  62: + PageRank:+0.000316 (+1.17%) | Ranks: 717up 1046down 78same
+Sim  63: + PageRank:+0.000345 (+1.28%) | Ranks: 638up 1120down 83same
+Sim  64: + PageRank:+0.000331 (+1.22%) | Ranks: 635up 1110down 96same
+Sim  65: + PageRank:+0.000251 (+0.93%) | Ranks: 651up 1096down 94same
+Processing batch 14: simulations 66-70
+    Completed 5 simulations in batch
+Sim  66: + PageRank:+0.000179 (+0.66%) | Ranks: 683up 1052down 106same
+Sim  67: + PageRank:+0.000220 (+0.81%) | Ranks: 625up 1137down 79same
+Sim  68: + PageRank:+0.000156 (+0.58%) | Ranks: 634up 1122down 85same
+Sim  69: + PageRank:+0.000221 (+0.82%) | Ranks: 734up 1022down 85same
+Sim  70: + PageRank:+0.000305 (+1.13%) | Ranks: 646up 1109down 86same
+Processing batch 15: simulations 71-75
+    Completed 5 simulations in batch
+Sim  71: + PageRank:+0.000236 (+0.87%) | Ranks: 566up 1210down 65same
+Sim  72: + PageRank:+0.000399 (+1.48%) | Ranks: 569up 1202down 70same
+Sim  73: + PageRank:+0.000305 (+1.13%) | Ranks: 681up 1064down 96same
+Sim  74: + PageRank:+0.000229 (+0.85%) | Ranks: 689up 1080down 72same
+Sim  75: + PageRank:+0.000176 (+0.65%) | Ranks: 721up 1018down 102same
+Processing batch 16: simulations 76-80
+    Completed 5 simulations in batch
+Sim  76: + PageRank:+0.000269 (+0.99%) | Ranks: 704up 1028down 109same
+Sim  77: + PageRank:+0.000342 (+1.27%) | Ranks: 697up 1058down 86same
+Sim  78: + PageRank:+0.000216 (+0.80%) | Ranks: 654up 1097down 90same
+Sim  79: + PageRank:+0.000333 (+1.23%) | Ranks: 573up 1180down 88same
+Sim  80: + PageRank:+0.000232 (+0.86%) | Ranks: 556up 1220down 65same
+Processing batch 17: simulations 81-85
+    Completed 5 simulations in batch
+Sim  81: + PageRank:+0.000280 (+1.04%) | Ranks: 646up 1099down 96same
+Sim  82: + PageRank:+0.000280 (+1.03%) | Ranks: 621up 1135down 85same
+Sim  83: + PageRank:+0.000311 (+1.15%) | Ranks: 715up 1032down 94same
+Sim  84: + PageRank:+0.000171 (+0.63%) | Ranks: 812up 930down 99same
+Sim  85: + PageRank:+0.000357 (+1.32%) | Ranks: 573up 1184down 84same
+Processing batch 18: simulations 86-90
+    Completed 5 simulations in batch
+Sim  86: + PageRank:+0.000356 (+1.32%) | Ranks: 671up 1091down 79same
+Sim  87: + PageRank:+0.000312 (+1.15%) | Ranks: 565up 1192down 84same
+Sim  88: + PageRank:+0.000259 (+0.96%) | Ranks: 619up 1153down 69same
+Sim  89: + PageRank:+0.000281 (+1.04%) | Ranks: 588up 1173down 80same
+Sim  90: + PageRank:+0.000238 (+0.88%) | Ranks: 650up 1094down 97same
+Processing batch 19: simulations 91-95
+    Completed 5 simulations in batch
+Sim  91: + PageRank:+0.000288 (+1.07%) | Ranks: 575up 1173down 93same
+Sim  92: + PageRank:+0.000201 (+0.74%) | Ranks: 666up 1101down 74same
+Sim  93: + PageRank:+0.000287 (+1.06%) | Ranks: 711up 1030down 100same
+Sim  94: + PageRank:+0.000280 (+1.03%) | Ranks: 640up 1105down 96same
+Sim  95: + PageRank:+0.000309 (+1.14%) | Ranks: 610up 1151down 80same
+Processing batch 20: simulations 96-100
+    Completed 5 simulations in batch
+Sim  96: + PageRank:+0.000228 (+0.84%) | Ranks: 651up 1097down 93same
+Sim  97: + PageRank:+0.000290 (+1.07%) | Ranks: 699up 1063down 79same
+Sim  98: + PageRank:+0.000308 (+1.14%) | Ranks: 641up 1131down 69same
+Sim  99: + PageRank:+0.000259 (+0.96%) | Ranks: 718up 1013down 110same
+Sim 100: + PageRank:+0.000265 (+0.98%) | Ranks: 708up 1028down 105same
+All REAL WEB simulations completed in 85.22 seconds!
+Average time per simulation: 0.85 seconds
+
+------ BATCH 5 ------
+
+    Completed 5 simulations in batch
+Sim   1: + PageRank:+0.000280 (+1.04%) | Ranks: 634up 1111down 96same
+Sim   2: + PageRank:+0.000321 (+1.19%) | Ranks: 627up 1130down 84same
+Sim   3: + PageRank:+0.000357 (+1.32%) | Ranks: 810up 922down 109same
+Sim   4: + PageRank:+0.000202 (+0.74%) | Ranks: 807up 921down 113same
+Sim   5: + PageRank:+0.000279 (+1.03%) | Ranks: 644up 1085down 112same
+Processing batch 2: simulations 6-10
+    Completed 5 simulations in batch
+Sim   6: + PageRank:+0.000177 (+0.65%) | Ranks: 654up 1088down 99same
+Sim   7: + PageRank:+0.000307 (+1.14%) | Ranks: 652up 1107down 82same
+Sim   8: + PageRank:+0.000276 (+1.02%) | Ranks: 643up 1109down 89same
+Sim   9: + PageRank:+0.000200 (+0.74%) | Ranks: 615up 1119down 107same
+Sim  10: + PageRank:+0.000380 (+1.41%) | Ranks: 728up 1028down 85same
+Processing batch 3: simulations 11-15
+    Completed 5 simulations in batch
+Sim  11: + PageRank:+0.000286 (+1.06%) | Ranks: 652up 1103down 86same
+Sim  12: + PageRank:+0.000146 (+0.54%) | Ranks: 689up 1037down 115same
+Sim  13: + PageRank:+0.000293 (+1.09%) | Ranks: 666up 1066down 109same
+Sim  14: + PageRank:+0.000157 (+0.58%) | Ranks: 657up 1066down 118same
+Sim  15: + PageRank:+0.000056 (+0.20%) | Ranks: 635up 1133down 73same
+Processing batch 4: simulations 16-20
+    Completed 5 simulations in batch
+Sim  16: + PageRank:+0.000237 (+0.88%) | Ranks: 676up 1055down 110same
+Sim  17: + PageRank:+0.000338 (+1.25%) | Ranks: 796up 936down 109same
+Sim  18: + PageRank:+0.000266 (+0.99%) | Ranks: 808up 922down 111same
+Sim  19: + PageRank:+0.000251 (+0.93%) | Ranks: 587up 1160down 94same
+Sim  20: + PageRank:+0.000281 (+1.04%) | Ranks: 603up 1152down 86same
+Processing batch 5: simulations 21-25
+    Completed 5 simulations in batch
+Sim  21: + PageRank:+0.000214 (+0.79%) | Ranks: 608up 1134down 99same
+Sim  22: + PageRank:+0.000275 (+1.02%) | Ranks: 681up 1062down 98same
+Sim  23: + PageRank:+0.000231 (+0.86%) | Ranks: 597up 1162down 82same
+Sim  24: + PageRank:+0.000297 (+1.10%) | Ranks: 848up 930down 63same
+Sim  25: + PageRank:+0.000316 (+1.17%) | Ranks: 592up 1151down 98same
+Processing batch 6: simulations 26-30
+    Completed 5 simulations in batch
+Sim  26: + PageRank:+0.000208 (+0.77%) | Ranks: 679up 1047down 115same
+Sim  27: + PageRank:+0.000265 (+0.98%) | Ranks: 675up 1050down 116same
+Sim  28: + PageRank:+0.000190 (+0.70%) | Ranks: 895up 852down 94same
+Sim  29: + PageRank:+0.000201 (+0.74%) | Ranks: 651up 1100down 90same
+Sim  30: + PageRank:+0.000240 (+0.89%) | Ranks: 688up 1047down 106same
+Processing batch 7: simulations 31-35
+    Completed 5 simulations in batch
+Sim  31: + PageRank:+0.000236 (+0.87%) | Ranks: 636up 1128down 77same
+Sim  32: + PageRank:+0.000270 (+1.00%) | Ranks: 688up 1042down 111same
+Sim  33: + PageRank:+0.000191 (+0.71%) | Ranks: 685up 1063down 93same
+Sim  34: + PageRank:+0.000317 (+1.17%) | Ranks: 556up 1201down 84same
+Sim  35: + PageRank:+0.000171 (+0.63%) | Ranks: 603up 1156down 82same
+Processing batch 8: simulations 36-40
+    Completed 5 simulations in batch
+Sim  36: + PageRank:+0.000292 (+1.08%) | Ranks: 613up 1149down 79same
+Sim  37: + PageRank:+0.000272 (+1.01%) | Ranks: 761up 973down 107same
+Sim  38: + PageRank:+0.000257 (+0.95%) | Ranks: 624up 1104down 113same
+Sim  39: + PageRank:+0.000232 (+0.86%) | Ranks: 664up 1081down 96same
+Sim  40: + PageRank:+0.000252 (+0.93%) | Ranks: 596up 1139down 106same
+Processing batch 9: simulations 41-45
+    Completed 5 simulations in batch
+Sim  41: + PageRank:+0.000233 (+0.86%) | Ranks: 649up 1087down 105same
+Sim  42: + PageRank:+0.000239 (+0.88%) | Ranks: 590up 1160down 91same
+Sim  43: + PageRank:+0.000230 (+0.85%) | Ranks: 663up 1094down 84same
+Sim  44: + PageRank:+0.000309 (+1.15%) | Ranks: 701up 1040down 100same
+Sim  45: + PageRank:+0.000178 (+0.65%) | Ranks: 669up 1073down 99same
+Processing batch 10: simulations 46-50
+    Completed 5 simulations in batch
+Sim  46: + PageRank:+0.000195 (+0.72%) | Ranks: 773up 962down 106same
+Sim  47: + PageRank:+0.000241 (+0.89%) | Ranks: 619up 1133down 89same
+Sim  48: + PageRank:+0.000272 (+1.01%) | Ranks: 673up 1065down 103same
+Sim  49: + PageRank:+0.000225 (+0.83%) | Ranks: 641up 1090down 110same
+Sim  50: + PageRank:+0.000246 (+0.91%) | Ranks: 724up 1020down 97same
+Processing batch 11: simulations 51-55
+    Completed 5 simulations in batch
+Sim  51: + PageRank:+0.000209 (+0.77%) | Ranks: 655up 1088down 98same
+Sim  52: + PageRank:+0.000272 (+1.01%) | Ranks: 634up 1115down 92same
+Sim  53: + PageRank:+0.000082 (+0.30%) | Ranks: 744up 1002down 95same
+Sim  54: + PageRank:+0.000148 (+0.55%) | Ranks: 806up 920down 115same
+Sim  55: + PageRank:+0.000260 (+0.96%) | Ranks: 646up 1092down 103same
+Processing batch 12: simulations 56-60
+    Completed 5 simulations in batch
+Sim  56: + PageRank:+0.000215 (+0.79%) | Ranks: 637up 1125down 79same
+Sim  57: + PageRank:+0.000279 (+1.03%) | Ranks: 639up 1119down 83same
+Sim  58: + PageRank:+0.000313 (+1.16%) | Ranks: 650up 1104down 87same
+Sim  59: + PageRank:+0.000271 (+1.00%) | Ranks: 607up 1128down 106same
+Sim  60: + PageRank:+0.000259 (+0.96%) | Ranks: 633up 1109down 99same
+Processing batch 13: simulations 61-65
+    Completed 5 simulations in batch
+Sim  61: + PageRank:+0.000289 (+1.07%) | Ranks: 659up 1081down 101same
+Sim  62: + PageRank:+0.000314 (+1.16%) | Ranks: 744up 1001down 96same
+Sim  63: + PageRank:+0.000343 (+1.27%) | Ranks: 661up 1090down 90same
+Sim  64: + PageRank:+0.000329 (+1.22%) | Ranks: 672up 1067down 102same
+Sim  65: + PageRank:+0.000249 (+0.92%) | Ranks: 669up 1056down 116same
+Processing batch 14: simulations 66-70
+    Completed 5 simulations in batch
+Sim  66: + PageRank:+0.000177 (+0.65%) | Ranks: 697up 1032down 112same
+Sim  67: + PageRank:+0.000218 (+0.81%) | Ranks: 622up 1124down 95same
+Sim  68: + PageRank:+0.000154 (+0.57%) | Ranks: 657up 1090down 94same
+Sim  69: + PageRank:+0.000219 (+0.81%) | Ranks: 745up 990down 106same
+Sim  70: + PageRank:+0.000303 (+1.12%) | Ranks: 646up 1112down 83same
+Processing batch 15: simulations 71-75
+    Completed 5 simulations in batch
+Sim  71: + PageRank:+0.000234 (+0.86%) | Ranks: 582up 1188down 71same
+Sim  72: + PageRank:+0.000397 (+1.47%) | Ranks: 565up 1210down 66same
+Sim  73: + PageRank:+0.000303 (+1.12%) | Ranks: 703up 1036down 102same
+Sim  74: + PageRank:+0.000227 (+0.84%) | Ranks: 682up 1079down 80same
+Sim  75: + PageRank:+0.000174 (+0.64%) | Ranks: 736up 997down 108same
+Processing batch 16: simulations 76-80
+    Completed 5 simulations in batch
+Sim  76: + PageRank:+0.000267 (+0.99%) | Ranks: 741up 982down 118same
+Sim  77: + PageRank:+0.000340 (+1.26%) | Ranks: 699up 1035down 107same
+Sim  78: + PageRank:+0.000214 (+0.79%) | Ranks: 681up 1055down 105same
+Sim  79: + PageRank:+0.000331 (+1.23%) | Ranks: 583up 1159down 99same
+Sim  80: + PageRank:+0.000230 (+0.85%) | Ranks: 568up 1189down 84same
+Processing batch 17: simulations 81-85
+    Completed 5 simulations in batch
+Sim  81: + PageRank:+0.000278 (+1.03%) | Ranks: 656up 1072down 113same
+Sim  82: + PageRank:+0.000278 (+1.03%) | Ranks: 629up 1110down 102same
+Sim  83: + PageRank:+0.000309 (+1.14%) | Ranks: 736up 1003down 102same
+Sim  84: + PageRank:+0.000169 (+0.62%) | Ranks: 858up 887down 96same
+Sim  85: + PageRank:+0.000355 (+1.31%) | Ranks: 596up 1156down 89same
+Processing batch 18: simulations 86-90
+    Completed 5 simulations in batch
+Sim  86: + PageRank:+0.000355 (+1.31%) | Ranks: 687up 1070down 84same
+Sim  87: + PageRank:+0.000310 (+1.14%) | Ranks: 585up 1172down 84same
+Sim  88: + PageRank:+0.000257 (+0.95%) | Ranks: 619up 1144down 78same
+Sim  89: + PageRank:+0.000279 (+1.03%) | Ranks: 595up 1143down 103same
+Sim  90: + PageRank:+0.000236 (+0.87%) | Ranks: 708up 1033down 100same
+Processing batch 19: simulations 91-95
+    Completed 5 simulations in batch
+Sim  91: + PageRank:+0.000286 (+1.06%) | Ranks: 565up 1169down 107same
+Sim  92: + PageRank:+0.000199 (+0.74%) | Ranks: 666up 1079down 96same
+Sim  93: + PageRank:+0.000285 (+1.06%) | Ranks: 737up 989down 115same
+Sim  94: + PageRank:+0.000278 (+1.03%) | Ranks: 692up 1066down 83same
+Sim  95: + PageRank:+0.000307 (+1.14%) | Ranks: 604up 1148down 89same
+Processing batch 20: simulations 96-100
+    Completed 5 simulations in batch
+Sim  96: + PageRank:+0.000226 (+0.83%) | Ranks: 679up 1054down 108same
+Sim  97: + PageRank:+0.000288 (+1.07%) | Ranks: 716up 1029down 96same
+Sim  98: + PageRank:+0.000306 (+1.13%) | Ranks: 654up 1108down 79same
+Sim  99: + PageRank:+0.000257 (+0.95%) | Ranks: 738up 997down 106same
+Sim 100: + PageRank:+0.000263 (+0.97%) | Ranks: 718up 1008down 115same
+All REAL WEB simulations completed in 85.71 seconds!
+Average time per simulation: 0.86 seconds
+Saved REAL WEB simulation results:
+ - simulation_summary_real_web.csv: Overall metrics
+ - all_simulations_detailed_real_web.csv: Detailed results
+
+------ BATCH 6 ------
+
+    Completed 5 simulations in batch
+Sim   1: + PageRank:+0.000230 (+0.85%) | Ranks: 628up 1076down 137same
+Sim   2: + PageRank:+0.000270 (+1.00%) | Ranks: 620up 1076down 145same
+Sim   3: + PageRank:+0.000307 (+1.13%) | Ranks: 905up 785down 151same
+Sim   4: + PageRank:+0.000151 (+0.56%) | Ranks: 900up 804down 137same
+Sim   5: + PageRank:+0.000228 (+0.84%) | Ranks: 717up 995down 129same
+Processing batch 2: simulations 6-10
+    Completed 5 simulations in batch
+Sim   6: + PageRank:+0.000126 (+0.47%) | Ranks: 682up 1024down 135same
+Sim   7: + PageRank:+0.000257 (+0.95%) | Ranks: 687up 1035down 119same
+Sim   8: + PageRank:+0.000226 (+0.84%) | Ranks: 646up 1051down 144same
+Sim   9: + PageRank:+0.000149 (+0.55%) | Ranks: 632up 1045down 164same
+Sim  10: + PageRank:+0.000330 (+1.22%) | Ranks: 770up 942down 129same
+Processing batch 3: simulations 11-15
+    Completed 5 simulations in batch
+Sim  11: + PageRank:+0.000236 (+0.87%) | Ranks: 669up 1082down 90same
+Sim  12: + PageRank:+0.000095 (+0.35%) | Ranks: 764up 933down 144same
+Sim  13: + PageRank:+0.000243 (+0.90%) | Ranks: 725up 985down 131same
+Sim  14: + PageRank:+0.000106 (+0.39%) | Ranks: 690up 1009down 142same
+Sim  15: + PageRank:+0.000004 (+0.01%) | Ranks: 634up 1117down 90same
+Processing batch 4: simulations 16-20
+    Completed 5 simulations in batch
+Sim  16: + PageRank:+0.000186 (+0.69%) | Ranks: 724up 970down 147same
+Sim  17: + PageRank:+0.000287 (+1.06%) | Ranks: 902up 790down 149same
+Sim  18: + PageRank:+0.000216 (+0.80%) | Ranks: 888up 806down 147same
+Sim  19: + PageRank:+0.000200 (+0.74%) | Ranks: 577up 1145down 119same
+Sim  20: + PageRank:+0.000230 (+0.85%) | Ranks: 611up 1097down 133same
+Processing batch 5: simulations 21-25
+    Completed 5 simulations in batch
+Sim  21: + PageRank:+0.000164 (+0.60%) | Ranks: 621up 1084down 136same
+Sim  22: + PageRank:+0.000224 (+0.83%) | Ranks: 697up 1006down 138same
+Sim  23: + PageRank:+0.000180 (+0.67%) | Ranks: 611up 1138down 92same
+Sim  24: + PageRank:+0.000247 (+0.91%) | Ranks: 924up 836down 81same
+Sim  25: + PageRank:+0.000265 (+0.98%) | Ranks: 598up 1131down 112same
+Processing batch 6: simulations 26-30
+    Completed 5 simulations in batch
+Sim  26: + PageRank:+0.000158 (+0.58%) | Ranks: 767up 920down 154same
+Sim  27: + PageRank:+0.000212 (+0.78%) | Ranks: 676up 1023down 142same
+Sim  28: + PageRank:+0.000140 (+0.52%) | Ranks: 963up 740down 138same
+Sim  29: + PageRank:+0.000150 (+0.55%) | Ranks: 608up 1105down 128same
+Sim  30: + PageRank:+0.000190 (+0.70%) | Ranks: 683up 1009down 149same
+Processing batch 7: simulations 31-35
+    Completed 5 simulations in batch
+Sim  31: + PageRank:+0.000186 (+0.69%) | Ranks: 642up 1083down 116same
+Sim  32: + PageRank:+0.000220 (+0.81%) | Ranks: 746up 937down 158same
+Sim  33: + PageRank:+0.000141 (+0.52%) | Ranks: 674up 1028down 139same
+Sim  34: + PageRank:+0.000267 (+0.99%) | Ranks: 530up 1207down 104same
+Sim  35: + PageRank:+0.000121 (+0.45%) | Ranks: 629up 1095down 117same
+Processing batch 8: simulations 36-40
+    Completed 5 simulations in batch
+Sim  36: + PageRank:+0.000242 (+0.89%) | Ranks: 630up 1100down 111same
+Sim  37: + PageRank:+0.000222 (+0.82%) | Ranks: 872up 822down 147same
+Sim  38: + PageRank:+0.000206 (+0.76%) | Ranks: 670up 1021down 150same
+Sim  39: + PageRank:+0.000181 (+0.67%) | Ranks: 688up 1032down 121same
+Sim  40: + PageRank:+0.000201 (+0.74%) | Ranks: 585up 1142down 114same
+Processing batch 9: simulations 41-45
+    Completed 5 simulations in batch
+Sim  41: + PageRank:+0.000183 (+0.68%) | Ranks: 673up 1028down 140same
+Sim  42: + PageRank:+0.000188 (+0.70%) | Ranks: 576up 1156down 109same
+Sim  43: + PageRank:+0.000180 (+0.66%) | Ranks: 700up 1022down 119same
+Sim  44: + PageRank:+0.000259 (+0.96%) | Ranks: 749up 937down 155same
+Sim  45: + PageRank:+0.000140 (+0.52%) | Ranks: 715up 1014down 112same
+Processing batch 10: simulations 46-50
+    Completed 5 simulations in batch
+Sim  46: + PageRank:+0.000144 (+0.53%) | Ranks: 870up 831down 140same
+Sim  47: + PageRank:+0.000190 (+0.70%) | Ranks: 616up 1090down 135same
+Sim  48: + PageRank:+0.000221 (+0.82%) | Ranks: 681up 999down 161same
+Sim  49: + PageRank:+0.000175 (+0.65%) | Ranks: 686up 1015down 140same
+Sim  50: + PageRank:+0.000196 (+0.72%) | Ranks: 764up 947down 130same
+Processing batch 11: simulations 51-55
+    Completed 5 simulations in batch
+Sim  51: + PageRank:+0.000158 (+0.58%) | Ranks: 697up 1008down 136same
+Sim  52: + PageRank:+0.000221 (+0.82%) | Ranks: 628up 1100down 113same
+Sim  53: + PageRank:+0.000031 (+0.11%) | Ranks: 815up 895down 131same
+Sim  54: + PageRank:+0.000097 (+0.36%) | Ranks: 897up 794down 150same
+Sim  55: + PageRank:+0.000209 (+0.77%) | Ranks: 680up 1046down 115same
+Processing batch 12: simulations 56-60
+    Completed 5 simulations in batch
+Sim  56: + PageRank:+0.000164 (+0.61%) | Ranks: 665up 1039down 137same
+Sim  57: + PageRank:+0.000228 (+0.84%) | Ranks: 677up 1041down 123same
+Sim  58: + PageRank:+0.000263 (+0.97%) | Ranks: 682up 1042down 117same
+Sim  59: + PageRank:+0.000220 (+0.81%) | Ranks: 606up 1123down 112same
+Sim  60: + PageRank:+0.000209 (+0.77%) | Ranks: 641up 1089down 111same
+Processing batch 13: simulations 61-65
+    Completed 5 simulations in batch
+Sim  61: + PageRank:+0.000238 (+0.88%) | Ranks: 684up 1023down 134same
+Sim  62: + PageRank:+0.000263 (+0.97%) | Ranks: 804up 907down 130same
+Sim  63: + PageRank:+0.000292 (+1.08%) | Ranks: 653up 1070down 118same
+Sim  64: + PageRank:+0.000278 (+1.03%) | Ranks: 693up 1023down 125same
+Sim  65: + PageRank:+0.000199 (+0.73%) | Ranks: 722up 970down 149same
+Processing batch 14: simulations 66-70
+    Completed 5 simulations in batch
+Sim  66: + PageRank:+0.000126 (+0.47%) | Ranks: 729up 992down 120same
+Sim  67: + PageRank:+0.000167 (+0.62%) | Ranks: 670up 1025down 146same
+Sim  68: + PageRank:+0.000104 (+0.38%) | Ranks: 688up 1031down 122same
+Sim  69: + PageRank:+0.000168 (+0.62%) | Ranks: 838up 873down 130same
+Sim  70: + PageRank:+0.000252 (+0.93%) | Ranks: 649up 1066down 126same
+Processing batch 15: simulations 71-75
+    Completed 5 simulations in batch
+Sim  71: + PageRank:+0.000184 (+0.68%) | Ranks: 548up 1194down 99same
+Sim  72: + PageRank:+0.000347 (+1.28%) | Ranks: 547up 1171down 123same
+Sim  73: + PageRank:+0.000253 (+0.94%) | Ranks: 757up 925down 159same
+Sim  74: + PageRank:+0.000177 (+0.65%) | Ranks: 725up 1002down 114same
+Sim  75: + PageRank:+0.000124 (+0.46%) | Ranks: 814up 885down 142same
+Processing batch 16: simulations 76-80
+    Completed 5 simulations in batch
+Sim  76: + PageRank:+0.000216 (+0.80%) | Ranks: 835up 869down 137same
+Sim  77: + PageRank:+0.000289 (+1.07%) | Ranks: 744up 942down 155same
+Sim  78: + PageRank:+0.000163 (+0.60%) | Ranks: 708up 979down 154same
+Sim  79: + PageRank:+0.000281 (+1.04%) | Ranks: 599up 1112down 130same
+Sim  80: + PageRank:+0.000179 (+0.66%) | Ranks: 560up 1170down 111same
+Processing batch 17: simulations 81-85
+    Completed 5 simulations in batch
+Sim  81: + PageRank:+0.000227 (+0.84%) | Ranks: 662up 1020down 159same
+Sim  82: + PageRank:+0.000227 (+0.84%) | Ranks: 629up 1076down 136same
+Sim  83: + PageRank:+0.000258 (+0.96%) | Ranks: 775up 934down 132same
+Sim  84: + PageRank:+0.000118 (+0.43%) | Ranks: 969up 760down 112same
+Sim  85: + PageRank:+0.000304 (+1.13%) | Ranks: 603up 1128down 110same
+Processing batch 18: simulations 86-90
+    Completed 5 simulations in batch
+Sim  86: + PageRank:+0.000303 (+1.12%) | Ranks: 688up 1041down 112same
+Sim  87: + PageRank:+0.000259 (+0.96%) | Ranks: 586up 1164down 91same
+Sim  88: + PageRank:+0.000208 (+0.77%) | Ranks: 632up 1102down 107same
+Sim  89: + PageRank:+0.000228 (+0.85%) | Ranks: 646up 1068down 127same
+Sim  90: + PageRank:+0.000186 (+0.69%) | Ranks: 716up 986down 139same
+Processing batch 19: simulations 91-95
+    Completed 5 simulations in batch
+Sim  91: + PageRank:+0.000235 (+0.87%) | Ranks: 577up 1154down 110same
+Sim  92: + PageRank:+0.000149 (+0.55%) | Ranks: 664up 1057down 120same
+Sim  93: + PageRank:+0.000235 (+0.87%) | Ranks: 839up 854down 148same
+Sim  94: + PageRank:+0.000227 (+0.84%) | Ranks: 731up 990down 120same
+Sim  95: + PageRank:+0.000257 (+0.95%) | Ranks: 627up 1098down 116same
+Processing batch 20: simulations 96-100
+    Completed 5 simulations in batch
+Sim  96: + PageRank:+0.000175 (+0.65%) | Ranks: 715up 969down 157same
+Sim  97: + PageRank:+0.000238 (+0.88%) | Ranks: 765up 941down 135same
+Sim  98: + PageRank:+0.000256 (+0.95%) | Ranks: 682up 1042down 117same
+Sim  99: + PageRank:+0.000206 (+0.76%) | Ranks: 831up 851down 159same
+Sim 100: + PageRank:+0.000212 (+0.78%) | Ranks: 811up 889down 141same
+All REAL WEB simulations completed in 84.78 seconds!
+Average time per simulation: 0.85 seconds
+
+------ BATCH 7 ------
+
+    Completed 5 simulations in batch
+Sim   1: + PageRank:+0.000299 (+1.11%) | Ranks: 614up 1128down 99same
+Sim   2: + PageRank:+0.000340 (+1.26%) | Ranks: 596up 1151down 94same
+Sim   3: + PageRank:+0.000376 (+1.39%) | Ranks: 761up 962down 118same
+Sim   4: + PageRank:+0.000221 (+0.82%) | Ranks: 746up 991down 104same
+Sim   5: + PageRank:+0.000298 (+1.10%) | Ranks: 614up 1117down 110same
+Processing batch 2: simulations 6-10
+    Completed 5 simulations in batch
+Sim   6: + PageRank:+0.000196 (+0.72%) | Ranks: 616up 1124down 101same
+Sim   7: + PageRank:+0.000327 (+1.21%) | Ranks: 598up 1150down 93same
+Sim   8: + PageRank:+0.000295 (+1.09%) | Ranks: 600up 1162down 79same
+Sim   9: + PageRank:+0.000219 (+0.81%) | Ranks: 597up 1135down 109same
+Sim  10: + PageRank:+0.000399 (+1.48%) | Ranks: 665up 1075down 101same
+Processing batch 3: simulations 11-15
+    Completed 5 simulations in batch
+Sim  11: + PageRank:+0.000305 (+1.13%) | Ranks: 606up 1139down 96same
+Sim  12: + PageRank:+0.000165 (+0.61%) | Ranks: 675up 1075down 91same
+Sim  13: + PageRank:+0.000312 (+1.16%) | Ranks: 642up 1073down 126same
+Sim  14: + PageRank:+0.000176 (+0.65%) | Ranks: 612up 1124down 105same
+Sim  15: + PageRank:+0.000076 (+0.28%) | Ranks: 613up 1148down 80same
+Processing batch 4: simulations 16-20
+    Completed 5 simulations in batch
+Sim  16: + PageRank:+0.000256 (+0.95%) | Ranks: 616up 1097down 128same
+Sim  17: + PageRank:+0.000357 (+1.32%) | Ranks: 748up 958down 135same
+Sim  18: + PageRank:+0.000285 (+1.06%) | Ranks: 728up 975down 138same
+Sim  19: + PageRank:+0.000270 (+1.00%) | Ranks: 566up 1192down 83same
+Sim  20: + PageRank:+0.000300 (+1.11%) | Ranks: 568up 1176down 97same
+Processing batch 5: simulations 21-25
+    Completed 5 simulations in batch
+Sim  21: + PageRank:+0.000233 (+0.86%) | Ranks: 611up 1139down 91same
+Sim  22: + PageRank:+0.000294 (+1.09%) | Ranks: 658up 1086down 97same
+Sim  23: + PageRank:+0.000250 (+0.93%) | Ranks: 575up 1193down 73same
+Sim  24: + PageRank:+0.000316 (+1.17%) | Ranks: 855up 900down 86same
+Sim  25: + PageRank:+0.000335 (+1.24%) | Ranks: 568up 1184down 89same
+Processing batch 6: simulations 26-30
+    Completed 5 simulations in batch
+Sim  26: + PageRank:+0.000227 (+0.84%) | Ranks: 665up 1081down 95same
+Sim  27: + PageRank:+0.000284 (+1.05%) | Ranks: 630up 1103down 108same
+Sim  28: + PageRank:+0.000209 (+0.77%) | Ranks: 851up 878down 112same
+Sim  29: + PageRank:+0.000220 (+0.81%) | Ranks: 623up 1108down 110same
+Sim  30: + PageRank:+0.000259 (+0.96%) | Ranks: 627up 1099down 115same
+Processing batch 7: simulations 31-35
+    Completed 5 simulations in batch
+Sim  31: + PageRank:+0.000255 (+0.94%) | Ranks: 586up 1185down 70same
+Sim  32: + PageRank:+0.000289 (+1.07%) | Ranks: 668up 1067down 106same
+Sim  33: + PageRank:+0.000210 (+0.78%) | Ranks: 615up 1143down 83same
+Sim  34: + PageRank:+0.000335 (+1.24%) | Ranks: 562up 1186down 93same
+Sim  35: + PageRank:+0.000190 (+0.70%) | Ranks: 597up 1162down 82same
+Processing batch 8: simulations 36-40
+    Completed 5 simulations in batch
+Sim  36: + PageRank:+0.000311 (+1.15%) | Ranks: 588up 1187down 66same
+Sim  37: + PageRank:+0.000291 (+1.08%) | Ranks: 718up 1022down 101same
+Sim  38: + PageRank:+0.000276 (+1.02%) | Ranks: 609up 1132down 100same
+Sim  39: + PageRank:+0.000251 (+0.93%) | Ranks: 640up 1114down 87same
+Sim  40: + PageRank:+0.000271 (+1.00%) | Ranks: 573up 1164down 104same
+Processing batch 9: simulations 41-45
+    Completed 5 simulations in batch
+Sim  41: + PageRank:+0.000252 (+0.93%) | Ranks: 594up 1149down 98same
+Sim  42: + PageRank:+0.000258 (+0.95%) | Ranks: 581up 1170down 90same
+Sim  43: + PageRank:+0.000249 (+0.92%) | Ranks: 652up 1101down 88same
+Sim  44: + PageRank:+0.000328 (+1.22%) | Ranks: 656up 1073down 112same
+Sim  45: + PageRank:+0.000208 (+0.77%) | Ranks: 642up 1102down 97same
+Processing batch 10: simulations 46-50
+    Completed 5 simulations in batch
+Sim  46: + PageRank:+0.000214 (+0.79%) | Ranks: 751up 971down 119same
+Sim  47: + PageRank:+0.000260 (+0.96%) | Ranks: 589up 1161down 91same
+Sim  48: + PageRank:+0.000291 (+1.08%) | Ranks: 634up 1106down 101same
+Sim  49: + PageRank:+0.000244 (+0.90%) | Ranks: 621up 1122down 98same
+Sim  50: + PageRank:+0.000265 (+0.98%) | Ranks: 680up 1054down 107same
+Processing batch 11: simulations 51-55
+    Completed 5 simulations in batch
+Sim  51: + PageRank:+0.000228 (+0.84%) | Ranks: 636up 1127down 78same
+Sim  52: + PageRank:+0.000291 (+1.08%) | Ranks: 606up 1150down 85same
+Sim  53: + PageRank:+0.000101 (+0.37%) | Ranks: 719up 1021down 101same
+Sim  54: + PageRank:+0.000167 (+0.62%) | Ranks: 769up 961down 111same
+Sim  55: + PageRank:+0.000279 (+1.03%) | Ranks: 614up 1146down 81same
+Processing batch 12: simulations 56-60
+    Completed 5 simulations in batch
+Sim  56: + PageRank:+0.000234 (+0.86%) | Ranks: 607up 1130down 104same
+Sim  57: + PageRank:+0.000298 (+1.10%) | Ranks: 629up 1146down 66same
+Sim  58: + PageRank:+0.000332 (+1.23%) | Ranks: 659up 1104down 78same
+Sim  59: + PageRank:+0.000290 (+1.07%) | Ranks: 596up 1144down 101same
+Sim  60: + PageRank:+0.000278 (+1.03%) | Ranks: 594up 1162down 85same
+Processing batch 13: simulations 61-65
+    Completed 5 simulations in batch
+Sim  61: + PageRank:+0.000308 (+1.14%) | Ranks: 614up 1127down 100same
+Sim  62: + PageRank:+0.000333 (+1.23%) | Ranks: 721up 1022down 98same
+Sim  63: + PageRank:+0.000362 (+1.34%) | Ranks: 601up 1161down 79same
+Sim  64: + PageRank:+0.000348 (+1.29%) | Ranks: 604up 1143down 94same
+Sim  65: + PageRank:+0.000268 (+0.99%) | Ranks: 634up 1102down 105same
+Processing batch 14: simulations 66-70
+    Completed 5 simulations in batch
+Sim  66: + PageRank:+0.000196 (+0.72%) | Ranks: 682up 1057down 102same
+Sim  67: + PageRank:+0.000237 (+0.88%) | Ranks: 608up 1141down 92same
+Sim  68: + PageRank:+0.000173 (+0.64%) | Ranks: 617up 1126down 98same
+Sim  69: + PageRank:+0.000238 (+0.88%) | Ranks: 734up 987down 120same
+Sim  70: + PageRank:+0.000322 (+1.19%) | Ranks: 629up 1125down 87same
+Processing batch 15: simulations 71-75
+    Completed 5 simulations in batch
+Sim  71: + PageRank:+0.000253 (+0.94%) | Ranks: 540up 1232down 69same
+Sim  72: + PageRank:+0.000416 (+1.54%) | Ranks: 565up 1209down 67same
+Sim  73: + PageRank:+0.000322 (+1.19%) | Ranks: 659up 1066down 116same
+Sim  74: + PageRank:+0.000246 (+0.91%) | Ranks: 664up 1079down 98same
+Sim  75: + PageRank:+0.000193 (+0.71%) | Ranks: 712up 1009down 120same
+Processing batch 16: simulations 76-80
+    Completed 5 simulations in batch
+Sim  76: + PageRank:+0.000286 (+1.06%) | Ranks: 737up 1013down 91same
+Sim  77: + PageRank:+0.000359 (+1.33%) | Ranks: 656up 1078down 107same
+Sim  78: + PageRank:+0.000233 (+0.86%) | Ranks: 647up 1099down 95same
+Sim  79: + PageRank:+0.000350 (+1.30%) | Ranks: 564up 1202down 75same
+Sim  80: + PageRank:+0.000249 (+0.92%) | Ranks: 542up 1196down 103same
+Processing batch 17: simulations 81-85
+    Completed 5 simulations in batch
+Sim  81: + PageRank:+0.000297 (+1.10%) | Ranks: 610up 1127down 104same
+Sim  82: + PageRank:+0.000297 (+1.10%) | Ranks: 594up 1153down 94same
+Sim  83: + PageRank:+0.000328 (+1.21%) | Ranks: 648up 1083down 110same
+Sim  84: + PageRank:+0.000188 (+0.69%) | Ranks: 877up 873down 91same
+Sim  85: + PageRank:+0.000374 (+1.38%) | Ranks: 592up 1163down 86same
+Processing batch 18: simulations 86-90
+    Completed 5 simulations in batch
+Sim  86: + PageRank:+0.000374 (+1.38%) | Ranks: 630up 1115down 96same
+Sim  87: + PageRank:+0.000329 (+1.22%) | Ranks: 565up 1216down 60same
+Sim  88: + PageRank:+0.000273 (+1.01%) | Ranks: 609up 1146down 86same
+Sim  89: + PageRank:+0.000298 (+1.10%) | Ranks: 594up 1161down 86same
+Sim  90: + PageRank:+0.000256 (+0.95%) | Ranks: 672up 1063down 106same
+Processing batch 19: simulations 91-95
+    Completed 5 simulations in batch
+Sim  91: + PageRank:+0.000305 (+1.13%) | Ranks: 558up 1197down 86same
+Sim  92: + PageRank:+0.000218 (+0.81%) | Ranks: 627up 1115down 99same
+Sim  93: + PageRank:+0.000304 (+1.13%) | Ranks: 714up 1003down 124same
+Sim  94: + PageRank:+0.000297 (+1.10%) | Ranks: 665up 1090down 86same
+Sim  95: + PageRank:+0.000326 (+1.21%) | Ranks: 590up 1173down 78same
+Processing batch 20: simulations 96-100
+    Completed 5 simulations in batch
+Sim  96: + PageRank:+0.000245 (+0.91%) | Ranks: 649up 1084down 108same
+Sim  97: + PageRank:+0.000307 (+1.14%) | Ranks: 665up 1071down 105same
+Sim  98: + PageRank:+0.000325 (+1.20%) | Ranks: 625up 1140down 76same
+Sim  99: + PageRank:+0.000276 (+1.02%) | Ranks: 686up 1021down 134same
+Sim 100: + PageRank:+0.000282 (+1.04%) | Ranks: 686up 1034down 121same
+All REAL WEB simulations completed in 85.00 seconds!
+Average time per simulation: 0.85 seconds
+
+------ BATCH 8 ------
+
+    Completed 5 simulations in batch
+Sim   1: + PageRank:+0.000191 (+0.71%) | Ranks: 600up 1133down 108same
+Sim   2: + PageRank:+0.000231 (+0.86%) | Ranks: 598up 1122down 121same
+Sim   3: + PageRank:+0.000267 (+0.99%) | Ranks: 850up 872down 119same
+Sim   4: + PageRank:+0.000112 (+0.41%) | Ranks: 846up 823down 172same
+Sim   5: + PageRank:+0.000189 (+0.70%) | Ranks: 662up 1053down 126same
+Processing batch 2: simulations 6-10
+    Completed 5 simulations in batch
+Sim   6: + PageRank:+0.000087 (+0.32%) | Ranks: 666up 1054down 121same
+Sim   7: + PageRank:+0.000218 (+0.81%) | Ranks: 635up 1085down 121same
+Sim   8: + PageRank:+0.000187 (+0.69%) | Ranks: 592up 1122down 127same
+Sim   9: + PageRank:+0.000110 (+0.41%) | Ranks: 617up 1080down 144same
+Sim  10: + PageRank:+0.000290 (+1.08%) | Ranks: 719up 988down 134same
+Processing batch 3: simulations 11-15
+    Completed 5 simulations in batch
+Sim  11: + PageRank:+0.000197 (+0.73%) | Ranks: 605up 1145down 91same
+Sim  12: + PageRank:+0.000056 (+0.21%) | Ranks: 705up 993down 143same
+Sim  13: + PageRank:+0.000204 (+0.75%) | Ranks: 694up 1033down 114same
+Sim  14: + PageRank:+0.000067 (+0.25%) | Ranks: 668up 1041down 132same
+Sim  15: - PageRank:-0.000037 (-0.14%) | Ranks: 620up 1133down 88same
+Processing batch 4: simulations 16-20
+    Completed 5 simulations in batch
+Sim  16: + PageRank:+0.000147 (+0.54%) | Ranks: 673up 1046down 122same
+Sim  17: + PageRank:+0.000248 (+0.92%) | Ranks: 834up 854down 153same
+Sim  18: + PageRank:+0.000177 (+0.65%) | Ranks: 823up 879down 139same
+Sim  19: + PageRank:+0.000161 (+0.60%) | Ranks: 531up 1196down 114same
+Sim  20: + PageRank:+0.000191 (+0.71%) | Ranks: 564up 1171down 106same
+Processing batch 5: simulations 21-25
+    Completed 5 simulations in batch
+Sim  21: + PageRank:+0.000125 (+0.46%) | Ranks: 626up 1103down 112same
+Sim  22: + PageRank:+0.000186 (+0.69%) | Ranks: 655up 1059down 127same
+Sim  23: + PageRank:+0.000142 (+0.52%) | Ranks: 554up 1209down 78same
+Sim  24: + PageRank:+0.000208 (+0.77%) | Ranks: 871up 885down 85same
+Sim  25: + PageRank:+0.000226 (+0.84%) | Ranks: 576up 1154down 111same
+Processing batch 6: simulations 26-30
+    Completed 5 simulations in batch
+Sim  26: + PageRank:+0.000119 (+0.44%) | Ranks: 717up 968down 156same
+Sim  27: + PageRank:+0.000175 (+0.65%) | Ranks: 627up 1088down 126same
+Sim  28: + PageRank:+0.000101 (+0.37%) | Ranks: 912up 765down 164same
+Sim  29: + PageRank:+0.000111 (+0.41%) | Ranks: 613up 1101down 127same
+Sim  30: + PageRank:+0.000150 (+0.55%) | Ranks: 650up 1034down 157same
+Processing batch 7: simulations 31-35
+    Completed 5 simulations in batch
+Sim  31: + PageRank:+0.000147 (+0.54%) | Ranks: 562up 1177down 102same
+Sim  32: + PageRank:+0.000181 (+0.67%) | Ranks: 720up 993down 128same
+Sim  33: + PageRank:+0.000102 (+0.38%) | Ranks: 636up 1080down 125same
+Sim  34: + PageRank:+0.000227 (+0.84%) | Ranks: 552up 1197down 92same
+Sim  35: + PageRank:+0.000082 (+0.30%) | Ranks: 597up 1139down 105same
+Processing batch 8: simulations 36-40
+    Completed 5 simulations in batch
+Sim  36: + PageRank:+0.000202 (+0.75%) | Ranks: 584up 1147down 110same
+Sim  37: + PageRank:+0.000183 (+0.68%) | Ranks: 809up 878down 154same
+Sim  38: + PageRank:+0.000167 (+0.62%) | Ranks: 628up 1070down 143same
+Sim  39: + PageRank:+0.000142 (+0.53%) | Ranks: 609up 1118down 114same
+Sim  40: + PageRank:+0.000162 (+0.60%) | Ranks: 545up 1205down 91same
+Processing batch 9: simulations 41-45
+    Completed 5 simulations in batch
+Sim  41: + PageRank:+0.000144 (+0.53%) | Ranks: 621up 1097down 123same
+Sim  42: + PageRank:+0.000149 (+0.55%) | Ranks: 547up 1205down 89same
+Sim  43: + PageRank:+0.000141 (+0.52%) | Ranks: 656up 1054down 131same
+Sim  44: + PageRank:+0.000220 (+0.81%) | Ranks: 698up 1019down 124same
+Sim  45: + PageRank:+0.000093 (+0.34%) | Ranks: 648up 1073down 120same
+Processing batch 10: simulations 46-50
+    Completed 5 simulations in batch
+Sim  46: + PageRank:+0.000105 (+0.39%) | Ranks: 822up 863down 156same
+Sim  47: + PageRank:+0.000151 (+0.56%) | Ranks: 561up 1157down 123same
+Sim  48: + PageRank:+0.000182 (+0.68%) | Ranks: 629up 1087down 125same
+Sim  49: + PageRank:+0.000136 (+0.50%) | Ranks: 629up 1057down 155same
+Sim  50: + PageRank:+0.000157 (+0.58%) | Ranks: 678up 997down 166same
+Processing batch 11: simulations 51-55
+    Completed 5 simulations in batch
+Sim  51: + PageRank:+0.000119 (+0.44%) | Ranks: 656up 1082down 103same
+Sim  52: + PageRank:+0.000182 (+0.67%) | Ranks: 600up 1132down 109same
+Sim  53: - PageRank:-0.000008 (-0.03%) | Ranks: 721up 987down 133same
+Sim  54: + PageRank:+0.000058 (+0.22%) | Ranks: 843up 852down 146same
+Sim  55: + PageRank:+0.000170 (+0.63%) | Ranks: 626up 1088down 127same
+Processing batch 12: simulations 56-60
+    Completed 5 simulations in batch
+Sim  56: + PageRank:+0.000124 (+0.46%) | Ranks: 605up 1124down 112same
+Sim  57: + PageRank:+0.000189 (+0.70%) | Ranks: 631up 1095down 115same
+Sim  58: + PageRank:+0.000223 (+0.83%) | Ranks: 690up 1056down 95same
+Sim  59: + PageRank:+0.000181 (+0.67%) | Ranks: 562up 1171down 108same
+Sim  60: + PageRank:+0.000170 (+0.63%) | Ranks: 604up 1134down 103same
+Processing batch 13: simulations 61-65
+    Completed 5 simulations in batch
+Sim  61: + PageRank:+0.000199 (+0.74%) | Ranks: 626up 1104down 111same
+Sim  62: + PageRank:+0.000224 (+0.83%) | Ranks: 790up 953down 98same
+Sim  63: + PageRank:+0.000253 (+0.94%) | Ranks: 602up 1138down 101same
+Sim  64: + PageRank:+0.000239 (+0.88%) | Ranks: 655up 1063down 123same
+Sim  65: + PageRank:+0.000160 (+0.59%) | Ranks: 665up 1047down 129same
+Processing batch 14: simulations 66-70
+    Completed 5 simulations in batch
+Sim  66: + PageRank:+0.000087 (+0.32%) | Ranks: 665up 1050down 126same
+Sim  67: + PageRank:+0.000128 (+0.48%) | Ranks: 614up 1113down 114same
+Sim  68: + PageRank:+0.000065 (+0.24%) | Ranks: 660up 1068down 113same
+Sim  69: + PageRank:+0.000129 (+0.48%) | Ranks: 785up 912down 144same
+Sim  70: + PageRank:+0.000213 (+0.79%) | Ranks: 641up 1072down 128same
+Processing batch 15: simulations 71-75
+    Completed 5 simulations in batch
+Sim  71: + PageRank:+0.000145 (+0.54%) | Ranks: 528up 1231down 82same
+Sim  72: + PageRank:+0.000305 (+1.13%) | Ranks: 558up 1177down 106same
+Sim  73: + PageRank:+0.000214 (+0.79%) | Ranks: 674up 1024down 143same
+Sim  74: + PageRank:+0.000138 (+0.51%) | Ranks: 669up 1066down 106same
+Sim  75: + PageRank:+0.000084 (+0.31%) | Ranks: 755up 953down 133same
+Processing batch 16: simulations 76-80
+    Completed 5 simulations in batch
+Sim  76: + PageRank:+0.000177 (+0.65%) | Ranks: 784up 950down 107same
+Sim  77: + PageRank:+0.000250 (+0.93%) | Ranks: 677up 1040down 124same
+Sim  78: + PageRank:+0.000124 (+0.46%) | Ranks: 668up 1037down 136same
+Sim  79: + PageRank:+0.000242 (+0.90%) | Ranks: 581up 1149down 111same
+Sim  80: + PageRank:+0.000140 (+0.52%) | Ranks: 534up 1216down 91same
+Processing batch 17: simulations 81-85
+    Completed 5 simulations in batch
+Sim  81: + PageRank:+0.000188 (+0.70%) | Ranks: 641up 1058down 142same
+Sim  82: + PageRank:+0.000188 (+0.70%) | Ranks: 623up 1116down 102same
+Sim  83: + PageRank:+0.000219 (+0.81%) | Ranks: 715up 1014down 112same
+Sim  84: + PageRank:+0.000079 (+0.29%) | Ranks: 940up 797down 104same
+Sim  85: + PageRank:+0.000265 (+0.98%) | Ranks: 571up 1175down 95same
+Processing batch 18: simulations 86-90
+    Completed 5 simulations in batch
+Sim  86: + PageRank:+0.000265 (+0.98%) | Ranks: 634up 1085down 122same
+Sim  87: + PageRank:+0.000220 (+0.81%) | Ranks: 548up 1203down 90same
+Sim  88: + PageRank:+0.000167 (+0.62%) | Ranks: 618up 1120down 103same
+Sim  89: + PageRank:+0.000189 (+0.70%) | Ranks: 609up 1114down 118same
+Sim  90: + PageRank:+0.000147 (+0.54%) | Ranks: 700up 1013down 128same
+Processing batch 19: simulations 91-95
+    Completed 5 simulations in batch
+Sim  91: + PageRank:+0.000196 (+0.73%) | Ranks: 542up 1203down 96same
+Sim  92: + PageRank:+0.000110 (+0.40%) | Ranks: 607up 1132down 102same
+Sim  93: + PageRank:+0.000196 (+0.72%) | Ranks: 791up 908down 142same
+Sim  94: + PageRank:+0.000188 (+0.69%) | Ranks: 644up 1073down 124same
+Sim  95: + PageRank:+0.000217 (+0.80%) | Ranks: 583up 1138down 120same
+Processing batch 20: simulations 96-100
+    Completed 5 simulations in batch
+Sim  96: + PageRank:+0.000136 (+0.50%) | Ranks: 669up 1038down 134same
+Sim  97: + PageRank:+0.000198 (+0.73%) | Ranks: 711up 995down 135same
+Sim  98: + PageRank:+0.000215 (+0.80%) | Ranks: 656up 1092down 93same
+Sim  99: + PageRank:+0.000167 (+0.62%) | Ranks: 750up 960down 131same
+Sim 100: + PageRank:+0.000173 (+0.64%) | Ranks: 758up 952down 131same
+All REAL WEB simulations completed in 95.34 seconds!
+Average time per simulation: 0.95 seconds
+
+------ BATCH 9 ------
+
+    Completed 5 simulations in batch
+Sim   1: + PageRank:+0.000208 (+0.77%) | Ranks: 614up 1108down 119same
+Sim   2: + PageRank:+0.000248 (+0.92%) | Ranks: 566up 1149down 126same
+Sim   3: + PageRank:+0.000285 (+1.05%) | Ranks: 821up 896down 124same
+Sim   4: + PageRank:+0.000129 (+0.48%) | Ranks: 846up 848down 147same
+Sim   5: + PageRank:+0.000206 (+0.76%) | Ranks: 667up 1047down 127same
+Processing batch 2: simulations 6-10
+    Completed 5 simulations in batch
+Sim   6: + PageRank:+0.000104 (+0.38%) | Ranks: 629up 1076down 136same
+Sim   7: + PageRank:+0.000235 (+0.87%) | Ranks: 631up 1107down 103same
+Sim   8: + PageRank:+0.000204 (+0.75%) | Ranks: 584up 1157down 100same
+Sim   9: + PageRank:+0.000127 (+0.47%) | Ranks: 588up 1116down 137same
+Sim  10: + PageRank:+0.000308 (+1.14%) | Ranks: 725up 993down 123same
+Processing batch 3: simulations 11-15
+    Completed 5 simulations in batch
+Sim  11: + PageRank:+0.000214 (+0.79%) | Ranks: 616up 1116down 109same
+Sim  12: + PageRank:+0.000073 (+0.27%) | Ranks: 693up 995down 153same
+Sim  13: + PageRank:+0.000221 (+0.82%) | Ranks: 626up 1082down 133same
+Sim  14: + PageRank:+0.000084 (+0.31%) | Ranks: 643up 1069down 129same
+Sim  15: - PageRank:-0.000016 (-0.06%) | Ranks: 601up 1159down 81same
+Processing batch 4: simulations 16-20
+    Completed 5 simulations in batch
+Sim  16: + PageRank:+0.000164 (+0.61%) | Ranks: 652up 1045down 144same
+Sim  17: + PageRank:+0.000265 (+0.98%) | Ranks: 806up 847down 188same
+Sim  18: + PageRank:+0.000194 (+0.72%) | Ranks: 770up 898down 173same
+Sim  19: + PageRank:+0.000178 (+0.66%) | Ranks: 536up 1208down 97same
+Sim  20: + PageRank:+0.000209 (+0.77%) | Ranks: 554up 1159down 128same
+Processing batch 5: simulations 21-25
+    Completed 5 simulations in batch
+Sim  21: + PageRank:+0.000142 (+0.52%) | Ranks: 622up 1110down 109same
+Sim  22: + PageRank:+0.000203 (+0.75%) | Ranks: 643up 1077down 121same
+Sim  23: + PageRank:+0.000159 (+0.59%) | Ranks: 557up 1209down 75same
+Sim  24: + PageRank:+0.000225 (+0.83%) | Ranks: 872up 875down 94same
+Sim  25: + PageRank:+0.000243 (+0.90%) | Ranks: 560up 1164down 117same
+Processing batch 6: simulations 26-30
+    Completed 5 simulations in batch
+Sim  26: + PageRank:+0.000136 (+0.50%) | Ranks: 716up 997down 128same
+Sim  27: + PageRank:+0.000189 (+0.70%) | Ranks: 643up 1060down 138same
+Sim  28: + PageRank:+0.000118 (+0.43%) | Ranks: 934up 774down 133same
+Sim  29: + PageRank:+0.000128 (+0.47%) | Ranks: 620up 1090down 131same
+Sim  30: + PageRank:+0.000168 (+0.62%) | Ranks: 653up 1069down 119same
+Processing batch 7: simulations 31-35
+    Completed 5 simulations in batch
+Sim  31: + PageRank:+0.000164 (+0.60%) | Ranks: 606up 1130down 105same
+Sim  32: + PageRank:+0.000198 (+0.73%) | Ranks: 721up 986down 134same
+Sim  33: + PageRank:+0.000119 (+0.44%) | Ranks: 601up 1120down 120same
+Sim  34: + PageRank:+0.000244 (+0.90%) | Ranks: 534up 1207down 100same
+Sim  35: + PageRank:+0.000099 (+0.36%) | Ranks: 598up 1145down 98same
+Processing batch 8: simulations 36-40
+    Completed 5 simulations in batch
+Sim  36: + PageRank:+0.000220 (+0.81%) | Ranks: 602up 1143down 96same
+Sim  37: + PageRank:+0.000200 (+0.74%) | Ranks: 778up 901down 162same
+Sim  38: + PageRank:+0.000184 (+0.68%) | Ranks: 626up 1078down 137same
+Sim  39: + PageRank:+0.000159 (+0.59%) | Ranks: 643up 1099down 99same
+Sim  40: + PageRank:+0.000179 (+0.66%) | Ranks: 550up 1177down 114same
+Processing batch 9: simulations 41-45
+    Completed 5 simulations in batch
+Sim  41: + PageRank:+0.000161 (+0.60%) | Ranks: 629up 1079down 133same
+Sim  42: + PageRank:+0.000166 (+0.61%) | Ranks: 559up 1182down 100same
+Sim  43: + PageRank:+0.000158 (+0.58%) | Ranks: 643up 1083down 115same
+Sim  44: + PageRank:+0.000237 (+0.88%) | Ranks: 664up 1026down 151same
+Sim  45: + PageRank:+0.000082 (+0.30%) | Ranks: 651up 1058down 132same
+Processing batch 10: simulations 46-50
+    Completed 5 simulations in batch
+Sim  46: + PageRank:+0.000122 (+0.45%) | Ranks: 744up 935down 162same
+Sim  47: + PageRank:+0.000168 (+0.62%) | Ranks: 591up 1137down 113same
+Sim  48: + PageRank:+0.000200 (+0.74%) | Ranks: 648up 1064down 129same
+Sim  49: + PageRank:+0.000153 (+0.57%) | Ranks: 642up 1068down 131same
+Sim  50: + PageRank:+0.000174 (+0.64%) | Ranks: 705up 1014down 122same
+Processing batch 11: simulations 51-55
+    Completed 5 simulations in batch
+Sim  51: + PageRank:+0.000136 (+0.50%) | Ranks: 668up 1057down 116same
+Sim  52: + PageRank:+0.000199 (+0.74%) | Ranks: 597up 1143down 101same
+Sim  53: + PageRank:+0.000009 (+0.03%) | Ranks: 728up 981down 132same
+Sim  54: + PageRank:+0.000076 (+0.28%) | Ranks: 834up 873down 134same
+Sim  55: + PageRank:+0.000187 (+0.69%) | Ranks: 650up 1082down 109same
+Processing batch 12: simulations 56-60
+    Completed 5 simulations in batch
+Sim  56: + PageRank:+0.000142 (+0.52%) | Ranks: 570up 1151down 120same
+Sim  57: + PageRank:+0.000206 (+0.76%) | Ranks: 635up 1118down 88same
+Sim  58: + PageRank:+0.000241 (+0.89%) | Ranks: 639up 1078down 124same
+Sim  59: + PageRank:+0.000198 (+0.73%) | Ranks: 577up 1164down 100same
+Sim  60: + PageRank:+0.000187 (+0.69%) | Ranks: 586up 1152down 103same
+Processing batch 13: simulations 61-65
+    Completed 5 simulations in batch
+Sim  61: + PageRank:+0.000216 (+0.80%) | Ranks: 618up 1098down 125same
+Sim  62: + PageRank:+0.000241 (+0.89%) | Ranks: 745up 983down 113same
+Sim  63: + PageRank:+0.000270 (+1.00%) | Ranks: 621up 1123down 97same
+Sim  64: + PageRank:+0.000256 (+0.95%) | Ranks: 637up 1088down 116same
+Sim  65: + PageRank:+0.000177 (+0.65%) | Ranks: 674up 1029down 138same
+Processing batch 14: simulations 66-70
+    Completed 5 simulations in batch
+Sim  66: + PageRank:+0.000104 (+0.39%) | Ranks: 680up 1017down 144same
+Sim  67: + PageRank:+0.000145 (+0.54%) | Ranks: 616up 1116down 109same
+Sim  68: + PageRank:+0.000082 (+0.30%) | Ranks: 650up 1069down 122same
+Sim  69: + PageRank:+0.000146 (+0.54%) | Ranks: 799up 913down 129same
+Sim  70: + PageRank:+0.000231 (+0.85%) | Ranks: 629up 1123down 89same
+Processing batch 15: simulations 71-75
+    Completed 5 simulations in batch
+Sim  71: + PageRank:+0.000161 (+0.60%) | Ranks: 527up 1230down 84same
+Sim  72: + PageRank:+0.000323 (+1.20%) | Ranks: 512up 1229down 100same
+Sim  73: + PageRank:+0.000231 (+0.85%) | Ranks: 694up 1009down 138same
+Sim  74: + PageRank:+0.000155 (+0.57%) | Ranks: 682up 1034down 125same
+Sim  75: + PageRank:+0.000102 (+0.37%) | Ranks: 735up 974down 132same
+Processing batch 16: simulations 76-80
+    Completed 5 simulations in batch
+Sim  76: + PageRank:+0.000194 (+0.72%) | Ranks: 748up 945down 148same
+Sim  77: + PageRank:+0.000267 (+0.99%) | Ranks: 665up 1031down 145same
+Sim  78: + PageRank:+0.000141 (+0.52%) | Ranks: 664up 1059down 118same
+Sim  79: + PageRank:+0.000259 (+0.96%) | Ranks: 590up 1155down 96same
+Sim  80: + PageRank:+0.000157 (+0.58%) | Ranks: 565up 1186down 90same
+Processing batch 17: simulations 81-85
+    Completed 5 simulations in batch
+Sim  81: + PageRank:+0.000206 (+0.76%) | Ranks: 650up 1066down 125same
+Sim  82: + PageRank:+0.000205 (+0.76%) | Ranks: 592up 1115down 134same
+Sim  83: + PageRank:+0.000236 (+0.87%) | Ranks: 687up 1022down 132same
+Sim  84: + PageRank:+0.000096 (+0.35%) | Ranks: 937up 811down 93same
+Sim  85: + PageRank:+0.000282 (+1.05%) | Ranks: 575up 1177down 89same
+Processing batch 18: simulations 86-90
+    Completed 5 simulations in batch
+Sim  86: + PageRank:+0.000282 (+1.04%) | Ranks: 654up 1090down 97same
+Sim  87: + PageRank:+0.000237 (+0.88%) | Ranks: 524up 1214down 103same
+Sim  88: + PageRank:+0.000184 (+0.68%) | Ranks: 612up 1138down 91same
+Sim  89: + PageRank:+0.000207 (+0.76%) | Ranks: 591up 1142down 108same
+Sim  90: + PageRank:+0.000164 (+0.61%) | Ranks: 700up 1000down 141same
+Processing batch 19: simulations 91-95
+    Completed 5 simulations in batch
+Sim  91: + PageRank:+0.000213 (+0.79%) | Ranks: 531up 1212down 98same
+Sim  92: + PageRank:+0.000127 (+0.47%) | Ranks: 627up 1096down 118same
+Sim  93: + PageRank:+0.000213 (+0.79%) | Ranks: 741up 943down 157same
+Sim  94: + PageRank:+0.000205 (+0.76%) | Ranks: 656up 1054down 131same
+Sim  95: + PageRank:+0.000235 (+0.87%) | Ranks: 595up 1153down 93same
+Processing batch 20: simulations 96-100
+    Completed 5 simulations in batch
+Sim  96: + PageRank:+0.000153 (+0.57%) | Ranks: 641up 1056down 144same
+Sim  97: + PageRank:+0.000216 (+0.80%) | Ranks: 696up 1011down 134same
+Sim  98: + PageRank:+0.000233 (+0.86%) | Ranks: 629up 1116down 96same
+Sim  99: + PageRank:+0.000184 (+0.68%) | Ranks: 752up 928down 161same
+Sim 100: + PageRank:+0.000190 (+0.70%) | Ranks: 723up 956down 162same
+All REAL WEB simulations completed in 87.92 seconds!
+Average time per simulation: 0.88 seconds
+
+------ BATCH 10 ------
+
+    Completed 5 simulations in batch
+Sim   1: + PageRank:+0.000256 (+0.95%) | Ranks: 632up 1099down 110same
+Sim   2: + PageRank:+0.000296 (+1.10%) | Ranks: 617up 1101down 123same
+Sim   3: + PageRank:+0.000333 (+1.23%) | Ranks: 855up 861down 125same
+Sim   4: + PageRank:+0.000177 (+0.65%) | Ranks: 855up 821down 165same
+Sim   5: + PageRank:+0.000254 (+0.94%) | Ranks: 691up 1033down 117same
+Processing batch 2: simulations 6-10
+    Completed 5 simulations in batch
+Sim   6: + PageRank:+0.000152 (+0.56%) | Ranks: 673up 1055down 113same
+Sim   7: + PageRank:+0.000283 (+1.05%) | Ranks: 663up 1067down 111same
+Sim   8: + PageRank:+0.000252 (+0.93%) | Ranks: 606up 1124down 111same
+Sim   9: + PageRank:+0.000175 (+0.65%) | Ranks: 638up 1063down 140same
+Sim  10: + PageRank:+0.000356 (+1.32%) | Ranks: 768up 949down 124same
+Processing batch 3: simulations 11-15
+    Completed 5 simulations in batch
+Sim  11: + PageRank:+0.000262 (+0.97%) | Ranks: 656up 1087down 98same
+Sim  12: + PageRank:+0.000121 (+0.45%) | Ranks: 721up 968down 152same
+Sim  13: + PageRank:+0.000269 (+1.00%) | Ranks: 670up 1050down 121same
+Sim  14: + PageRank:+0.000132 (+0.49%) | Ranks: 664up 1018down 159same
+Sim  15: + PageRank:+0.000032 (+0.12%) | Ranks: 600up 1148down 93same
+Processing batch 4: simulations 16-20
+    Completed 5 simulations in batch
+Sim  16: + PageRank:+0.000212 (+0.79%) | Ranks: 681up 1010down 150same
+Sim  17: + PageRank:+0.000313 (+1.16%) | Ranks: 870up 809down 162same
+Sim  18: + PageRank:+0.000242 (+0.89%) | Ranks: 829up 865down 147same
+Sim  19: + PageRank:+0.000226 (+0.84%) | Ranks: 558up 1164down 119same
+Sim  20: + PageRank:+0.000257 (+0.95%) | Ranks: 583up 1151down 107same
+Processing batch 5: simulations 21-25
+    Completed 5 simulations in batch
+Sim  21: + PageRank:+0.000190 (+0.70%) | Ranks: 640up 1088down 113same
+Sim  22: + PageRank:+0.000251 (+0.93%) | Ranks: 679up 1042down 120same
+Sim  23: + PageRank:+0.000207 (+0.76%) | Ranks: 577up 1171down 93same
+Sim  24: + PageRank:+0.000273 (+1.01%) | Ranks: 903up 850down 88same
+Sim  25: + PageRank:+0.000291 (+1.08%) | Ranks: 589up 1137down 115same
+Processing batch 6: simulations 26-30
+    Completed 5 simulations in batch
+Sim  26: + PageRank:+0.000184 (+0.68%) | Ranks: 729up 951down 161same
+Sim  27: + PageRank:+0.000238 (+0.88%) | Ranks: 677up 1052down 112same
+Sim  28: + PageRank:+0.000166 (+0.61%) | Ranks: 952up 766down 123same
+Sim  29: + PageRank:+0.000176 (+0.65%) | Ranks: 626up 1098down 117same
+Sim  30: + PageRank:+0.000215 (+0.80%) | Ranks: 651up 1056down 134same
+Processing batch 7: simulations 31-35
+    Completed 5 simulations in batch
+Sim  31: + PageRank:+0.000212 (+0.78%) | Ranks: 597up 1137down 107same
+Sim  32: + PageRank:+0.000246 (+0.91%) | Ranks: 714up 978down 149same
+Sim  33: + PageRank:+0.000167 (+0.62%) | Ranks: 653up 1067down 121same
+Sim  34: + PageRank:+0.000292 (+1.08%) | Ranks: 554up 1193down 94same
+Sim  35: + PageRank:+0.000147 (+0.54%) | Ranks: 599up 1128down 114same
+Processing batch 8: simulations 36-40
+    Completed 5 simulations in batch
+Sim  36: + PageRank:+0.000268 (+0.99%) | Ranks: 592up 1145down 104same
+Sim  37: + PageRank:+0.000248 (+0.92%) | Ranks: 824up 847down 170same
+Sim  38: + PageRank:+0.000232 (+0.86%) | Ranks: 656up 1043down 142same
+Sim  39: + PageRank:+0.000207 (+0.77%) | Ranks: 700up 1022down 119same
+Sim  40: + PageRank:+0.000227 (+0.84%) | Ranks: 560up 1165down 116same
+Processing batch 9: simulations 41-45
+    Completed 5 simulations in batch
+Sim  41: + PageRank:+0.000209 (+0.77%) | Ranks: 655up 1053down 133same
+Sim  42: + PageRank:+0.000214 (+0.79%) | Ranks: 575up 1159down 107same
+Sim  43: + PageRank:+0.000206 (+0.76%) | Ranks: 686up 1030down 125same
+Sim  44: + PageRank:+0.000285 (+1.05%) | Ranks: 737up 976down 128same
+Sim  45: + PageRank:+0.000158 (+0.58%) | Ranks: 674up 1046down 121same
+Processing batch 10: simulations 46-50
+    Completed 5 simulations in batch
+Sim  46: + PageRank:+0.000170 (+0.63%) | Ranks: 832up 860down 149same
+Sim  47: + PageRank:+0.000216 (+0.80%) | Ranks: 626up 1086down 129same
+Sim  48: + PageRank:+0.000247 (+0.92%) | Ranks: 661up 1042down 138same
+Sim  49: + PageRank:+0.000201 (+0.74%) | Ranks: 668up 1047down 126same
+Sim  50: + PageRank:+0.000222 (+0.82%) | Ranks: 746up 945down 150same
+Processing batch 11: simulations 51-55
+    Completed 5 simulations in batch
+Sim  51: + PageRank:+0.000184 (+0.68%) | Ranks: 672up 1053down 116same
+Sim  52: + PageRank:+0.000247 (+0.92%) | Ranks: 629up 1111down 101same
+Sim  53: + PageRank:+0.000057 (+0.21%) | Ranks: 769up 957down 115same
+Sim  54: + PageRank:+0.000123 (+0.46%) | Ranks: 868up 838down 135same
+Sim  55: + PageRank:+0.000235 (+0.87%) | Ranks: 651up 1069down 121same
+Processing batch 12: simulations 56-60
+    Completed 5 simulations in batch
+Sim  56: + PageRank:+0.000189 (+0.70%) | Ranks: 580up 1143down 118same
+Sim  57: + PageRank:+0.000254 (+0.94%) | Ranks: 628up 1107down 106same
+Sim  58: + PageRank:+0.000289 (+1.07%) | Ranks: 693up 1050down 98same
+Sim  59: + PageRank:+0.000246 (+0.91%) | Ranks: 609up 1117down 115same
+Sim  60: + PageRank:+0.000235 (+0.87%) | Ranks: 614up 1105down 122same
+Processing batch 13: simulations 61-65
+    Completed 5 simulations in batch
+Sim  61: + PageRank:+0.000264 (+0.98%) | Ranks: 647up 1073down 121same
+Sim  62: + PageRank:+0.000289 (+1.07%) | Ranks: 787up 932down 122same
+Sim  63: + PageRank:+0.000319 (+1.18%) | Ranks: 628up 1099down 114same
+Sim  64: + PageRank:+0.000304 (+1.13%) | Ranks: 672up 1056down 113same
+Sim  65: + PageRank:+0.000225 (+0.83%) | Ranks: 697up 1010down 134same
+Processing batch 14: simulations 66-70
+    Completed 5 simulations in batch
+Sim  66: + PageRank:+0.000152 (+0.56%) | Ranks: 717up 1015down 109same
+Sim  67: + PageRank:+0.000193 (+0.72%) | Ranks: 662up 1072down 107same
+Sim  68: + PageRank:+0.000130 (+0.48%) | Ranks: 678up 1041down 122same
+Sim  69: + PageRank:+0.000194 (+0.72%) | Ranks: 775up 911down 155same
+Sim  70: + PageRank:+0.000278 (+1.03%) | Ranks: 656up 1071down 114same
+Processing batch 15: simulations 71-75
+    Completed 5 simulations in batch
+Sim  71: + PageRank:+0.000209 (+0.77%) | Ranks: 579up 1183down 79same
+Sim  72: + PageRank:+0.000373 (+1.38%) | Ranks: 575up 1156down 110same
+Sim  73: + PageRank:+0.000279 (+1.03%) | Ranks: 711up 981down 149same
+Sim  74: + PageRank:+0.000203 (+0.75%) | Ranks: 736up 1009down 96same
+Sim  75: + PageRank:+0.000150 (+0.55%) | Ranks: 776up 934down 131same
+Processing batch 16: simulations 76-80
+    Completed 5 simulations in batch
+Sim  76: + PageRank:+0.000242 (+0.90%) | Ranks: 813up 898down 130same
+Sim  77: + PageRank:+0.000315 (+1.17%) | Ranks: 723up 977down 141same
+Sim  78: + PageRank:+0.000189 (+0.70%) | Ranks: 682up 1001down 158same
+Sim  79: + PageRank:+0.000307 (+1.14%) | Ranks: 602up 1125down 114same
+Sim  80: + PageRank:+0.000205 (+0.76%) | Ranks: 550up 1194down 97same
+Processing batch 17: simulations 81-85
+    Completed 5 simulations in batch
+Sim  81: + PageRank:+0.000253 (+0.94%) | Ranks: 649up 1047down 145same
+Sim  82: + PageRank:+0.000253 (+0.94%) | Ranks: 602up 1115down 124same
+Sim  83: + PageRank:+0.000284 (+1.05%) | Ranks: 737up 973down 131same
+Sim  84: + PageRank:+0.000144 (+0.53%) | Ranks: 983up 777down 81same
+Sim  85: + PageRank:+0.000330 (+1.22%) | Ranks: 582up 1159down 100same
+Processing batch 18: simulations 86-90
+    Completed 5 simulations in batch
+Sim  86: + PageRank:+0.000330 (+1.22%) | Ranks: 655up 1067down 119same
+Sim  87: + PageRank:+0.000285 (+1.05%) | Ranks: 572up 1171down 98same
+Sim  88: + PageRank:+0.000234 (+0.86%) | Ranks: 626up 1110down 105same
+Sim  89: + PageRank:+0.000255 (+0.94%) | Ranks: 593up 1134down 114same
+Sim  90: + PageRank:+0.000212 (+0.78%) | Ranks: 718up 986down 137same
+Processing batch 19: simulations 91-95
+    Completed 5 simulations in batch
+Sim  91: + PageRank:+0.000261 (+0.97%) | Ranks: 565up 1174down 102same
+Sim  92: + PageRank:+0.000175 (+0.64%) | Ranks: 648up 1075down 118same
+Sim  93: + PageRank:+0.000261 (+0.96%) | Ranks: 806up 868down 167same
+Sim  94: + PageRank:+0.000253 (+0.94%) | Ranks: 681up 1028down 132same
+Sim  95: + PageRank:+0.000283 (+1.05%) | Ranks: 605up 1115down 121same
+Processing batch 20: simulations 96-100
+    Completed 5 simulations in batch
+Sim  96: + PageRank:+0.000201 (+0.74%) | Ranks: 686up 1008down 147same
+Sim  97: + PageRank:+0.000264 (+0.98%) | Ranks: 732up 977down 132same
+Sim  98: + PageRank:+0.000282 (+1.04%) | Ranks: 665up 1075down 101same
+Sim  99: + PageRank:+0.000232 (+0.86%) | Ranks: 785up 918down 138same
+Sim 100: + PageRank:+0.000238 (+0.88%) | Ranks: 796up 903down 142same
+All REAL WEB simulations completed in 87.15 seconds!
+Average time per simulation: 0.87 seconds

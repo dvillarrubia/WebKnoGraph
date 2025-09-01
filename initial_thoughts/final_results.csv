@@ -1,16 +1,16 @@
 Experiment type,Mean overall delta,Mean delta percentage,Average Up,Average Down,Average Neutral
-best_batches,0.000559,1.45%,722.9,867.2,250.9
-folder_batches,0.000355,0.92%,659.5,1071.6,110
-mixed_batches,0.000366,0.95%,378,"1,346",117
-random_batches,0.000258,0.67%,368.5,"1,400.60",71.9
-worst_batches,0.000434,1.13%,401.2,"1,305",134.8
+best_batches,0.000375,1.39%,774.3,822.8,243.9
+folder_batches,0.000221,0.82%,671.3,1056.3,113.4
+mixed_batches,0.000283,1.05%,371.8,1358,111.2
+random_batches,0.000185,0.68%,365.4,1410.1,65.5
+worst_batches,0.000309,1.14%,401.2,1314.1,125.7
+best_boosted,0.000254,0.94%,615.2,1078,147.8
 automatic,,,,,
 ,,,,,
-,,,,,
 Experiment type,Mean overall delta,Mean delta percentage,Average Up,Average Down,Average Neutral
-best_batches,0.000284,0.74%,625.4,"1,070.70",144.9
-folder_batches,0.000102,0.27%,678.3,"1,051.20",111.5
-mixed_batches,0.000047,0.12%,327.1,"1,447",67.2
-random_batches,0.000302,0.78%,363,"1,423.60",54.4
-worst_batches,-0.000109,-0.28%,433.1,"1,310",97.8
+best_batches,0.000198,0.73%,614.76,1084.95,141.3
+folder_batches,0.0000695,0.26%,682.37,1051.05,107.59
+mixed_batches,0.0000276,0.10%,326.36,1449.59,65.05
+random_batches,0.000216,0.80%,362.06,1427.94,51
+worst_batches,-0.0000718,-0.27%,424.65,1322.63,93.73
 human,,,,,
