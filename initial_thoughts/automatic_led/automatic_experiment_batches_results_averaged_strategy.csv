@@ -1,6 +1,0 @@
-Experiment type,Mean overall delta,Mean delta percentage,Positive outcomes,Negative outcomes,Neutral outcomes,Average Up,Average Down,Average Neutral
-best_batches,0.000215,1.39%,95.00%,5.00%,0.00%,737.38,827.63,275.98
-folder_batches,0.000133,0.86%,95.00%,5.00%,0.00%,655.83,1070.33,110.22
-mixed_batches,-0.00319,-18.73%,50.00%,50.00%,0.00%,520.19,1007.41,82.26
-random_batches,0.000101,0.65%,92.50%,7.50%,0.00%,351.49,1416.73,73.19
-worst_batches,0.000183,1.18%,95.00%,5.00%,0.00%,379.76,1323.01,137.66
