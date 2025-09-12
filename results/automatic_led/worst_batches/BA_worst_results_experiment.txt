@@ -1316,7 +1316,7 @@ Sim  99: ✅ PageRank:+0.000454 (+1.18%) | ➖ Ranks: 366↗ 1390↘ 85↔
 Sim 100: ✅ PageRank:+0.000439 (+1.14%) | ➖ Ranks: 379↗ 1286↘ 176↔
 ✅ All NetworKit simulations completed in 76.06 seconds!
 ⚡ Average time per simulation: 0.76 seconds
- 
+
 ------ BATCH 10 ------
 
 🔄 Running 100 NetworKit simulations...
