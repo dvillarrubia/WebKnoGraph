@@ -37,7 +37,7 @@ We're enabling **the first publicly available and transparent research for acade
 The project is organized into a modular structure to promote maintainability, reusability, and clear separation of concerns. This is the current folder layout but can change over time:
 
 ```
-WebKnoGraph/  (Your project root)
+WebKnoGraph/  (Project root)
 ├── assets/             # Project assets (images, etc.)
 │   ├── 01_crawler.png
 │   ├── 02_embeddings.png
