@@ -37,92 +37,86 @@ We're enabling **the first publicly available and transparent research for acade
 The project is organized into a modular structure to promote maintainability, reusability, and clear separation of concerns. This is the current folder layout but can change over time:
 
 ```
-WebKnoGraph/  (Project root)
-├── assets/             # Project assets (images, etc.)
-│   ├── 01_crawler.png
-│   ├── 02_embeddings.png
+WebKnoGraph/ (Project Root)
+├── .github/
+│   └── workflows/
+│       ├── lint_and_format.yaml
+│       └── python_tests.yaml
+├── assets/
 │   ├── 03_link_graph.png
 │   ├── 04_graphsage_01.png
 │   ├── 04_graphsage_02.png
-│   ├── 06_HITS_PageRank_Sorted_URLs.png
-│   ├── WL_logo.png
+│   ├── bmc-brand-logo.png
+│   ├── crawler_ui.png
+│   ├── embeddings_ui.png
 │   ├── fcse_logo.png
-│   └── kalicube.com.png
-├── data/               # (This directory should typically be empty in the repo, used for runtime output)
-│   ├── link_graph_edges.csv  # Example of existing data files
+│   ├── internal-linking-seo-roi-cropped.png
+│   ├── kalicube.com.png
+│   ├── pagerank_ui.png
+│   ├── product_roadmap.png
+│   ├── test_completed_1.png
+│   ├── test_completed_2.png
+│   ├── WebKnoGraph.png
+│   └── WL_logo.png
+├── data/
+│   ├── crawled_data_parquet/
+│   │   └── crawl_date=2025-06-28/
 │   ├── prediction_model/
-│   │   └── model_metadata.json # Example of existing data files
-│   └── url_analysis_results.csv # Example of existing data files
-├── notebooks/          # Jupyter notebooks, each acting as a UI entry point
-│   ├── crawler_ui.ipynb      # UI for Content Crawler
-│   ├── embeddings_ui.ipynb   # UI for Embeddings Pipeline
-│   ├── link_crawler_ui.ipynb # UI for Link Graph Extractor
-│   ├── link_prediction_ui.ipynb # UI for GNN Link Prediction & Recommendation
-│   └── pagerank_ui.ipynb     # UI for PageRank & HITS Analysis (Newly added)
-├── src/                # Core source code for the application
-│   ├── backend/        # Backend logic for various functionalities
-│   │   ├── __init__.py
-│   │   ├── config/           # Configuration settings for each module
-│   │   │   ├── __init__.py
-│   │   │   ├── crawler_config.py
-│   │   │   ├── embeddings_config.py
-│   │   │   ├── link_crawler_config.py
-│   │   │   ├── link_prediction_config.py
-│   │   │   └── pagerank_config.py
-│   │   ├── data/             # Data loading, saving, and state management components
-│   │   │   ├── __init__.py
-│   │   │   ├── repositories.py       # For Content Crawler state (SQLite)
-│   │   │   ├── embeddings_loader.py
-│   │   │   ├── embeddings_saver.py
-│   │   │   ├── embedding_state_manager.py
-│   │   │   ├── graph_dataloader.py     # For Link Prediction data loading
-│   │   │   ├── graph_processor.py      # For Link Prediction data processing
-│   │   │   └── link_graph_repository.py # For Link Graph Extractor state (SQLite) & CSV saving
-│   │   ├── graph/            # Graph-specific algorithms and analysis
-│   │   │   ├── __init__.py
-│   │   │   └── analyzer.py
-│   │   ├── models/           # Machine learning model definitions
-│   │   │   ├── __init__.py
-│   │   │   └── graph_models.py       # For GNN Link Prediction (GraphSAGE)
-│   │   ├── services/         # Orchestrators and core business logic for each module
-│   │   │   ├── __init__.py
-│   │   │   ├── crawler_service.py
-│   │   │   ├── embeddings_service.py
-│   │   │   ├── graph_training_service.py
-│   │   │   ├── link_crawler_service.py
-│   │   │   ├── pagerank_service.py
-│   │   │   └── recommendation_engine.py
-│   │   └── utils/            # General utility functions
-│   │       ├── __init__.py
-│   │       ├── http.py             # HTTP client utilities (reusable)
-│   │       ├── url.py              # URL filtering/extraction for Content Crawler
-│   │       ├── link_url.py         # URL filtering/extraction for Link Graph Extractor
-│   │       ├── strategies.py       # Crawling strategies (BFS/DFS), generalized for both crawlers
-│   │       ├── text_processing.py      # Text extraction from HTML
-│   │       ├── embedding_generation.py # Embedding model loading & generation
-│   │       └── url_processing.py       # URL path processing (e.g., folder depth)
-│   └── shared/         # Components shared across frontend and backend
+│   │   ├── edge_index.pt
+│   │   ├── final_node_embeddings.pt
+│   │   ├── graphsage_link_predictor.pth
+│   │   └── model_metadata.json
+│   ├── url_embeddings/
+├── notebooks/
+│   ├── automatic_link_recommendation_ui.ipynb
+│   ├── crawler_ui.ipynb
+│   ├── embeddings_ui.ipynb
+│   ├── link_crawler_ui.ipynb
+│   ├── link_prediction_ui.ipynb
+│   └── pagerank_ui.ipynb
+├── results/
+│   ├── automatic_led/
+│   │   ├── folder_batches/
+│   │   ├── high_batches/
+│   │   ├── high_boosters/
+│   │   ├── low_batches/
+│   │   ├── mixed_batches/
+│   │   └── random_batches/
+│   ├── base_file_types/
+│   ├── expert_led/
+│   │   ├── folder_batches/
+│   │   ├── high_batches/
+│   │   ├── low_batches/
+│   │   ├── mixed_batches/
+│   │   └── random_batches/
+├── src/
+│   ├── backend/
+│   │   ├── config/
+│   │   ├── data/
+│   │   ├── graph/
+│   │   ├── models/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   └── __init__.py
+│   └── shared/
 │       ├── __init__.py
-│       ├── interfaces.py     # Abstract interfaces (e.g., ILogger)
-│       └── logging_config.py # Standardized logging setup
-├── tests/              # Top-level directory for all unit tests
-│   ├── backend/        # Mirrors src/backend
-│   │   ├── services/       # Mirrors src/backend/services
-│   │   │   ├── test_crawler_service.py       # Unit tests for crawler_service
-│   │   │   ├── test_embeddings_service.py      # Unit tests for embeddings_service
-│   │   │   ├── test_link_crawler_service.py      # Unit tests for link_crawler_service
-│   │   │   ├── test_graph_training_service.py    # Unit tests for graph_training_service
-│   │   │   └── test_pagerank_service.py          # Unit tests for pagerank_service (Newly added)
-│   │   └── __init__.py       # Makes 'services' a Python package
-│   └── __init__.py         # Makes 'backend' a Python package
-├── .github/
-│   └── workflows/
-│       └── python_tests.yaml # GitHub Actions workflow for automated tests
+│       ├── interfaces.py
+│       └── logging_config.py
+├── tests/
+│   ├── backend/
+│   │   ├── services/
+│   │   └── __init__.py
+│   └── __init__.py
+├── .gitignore
+├── .pre-commit-config.yaml
+├── CHANGELOG.md
+├── CITATION.cff
+├── generate_structure_insightful.py
+├── HOW-IT-WORKS.md
 ├── LICENSE
 ├── README.md
 ├── requirements.txt
-└── technical_report/         # Placeholder for documentation
-    └── WebKnoGraph_Technical_Report.pdf
+└── trim_ws.py
 ```
 
 ## Starting a Fresh Crawl
