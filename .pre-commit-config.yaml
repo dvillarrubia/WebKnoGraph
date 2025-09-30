@@ -1,17 +1,46 @@
 # .pre-commit-config.yaml
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0 # Or the version you updated to with 'autoupdate'
+    rev: v5.0.0
     hooks:
       - id: trailing-whitespace
+        files: >
+          (?x)^(
+            src/.*\.(py|txt|rst|md|yaml|yml|toml|ini|cfg|json|tex)$|
+            tests/.*\.(py|txt|rst|md|yaml|yml|toml|ini|cfg|json|tex)$|
+            README\.md|
+            \.github/.*\.(yml|yaml)$
+          )$
+        exclude: >
+          (?x)(
+            ^results/|
+            .*\.ipynb$|
+            .*\.png$|.*\.jpg$|.*\.jpeg$|.*\.gif$|.*\.svg$|
+            .*\.pdf$|.*\.zip$|.*\.bin$|.*\.pt$|.*\.onnx$|
+            .*\.csv$|.*\.tsv$|.*\.jsonl$|.*\.ndjson$
+          )
       - id: end-of-file-fixer
+        files: >
+          (?x)^(
+            src/.*\.(py|txt|rst|md|yaml|yml|toml|ini|cfg|json|tex)$|
+            tests/.*\.(py|txt|rst|md|yaml|yml|toml|ini|cfg|json|tex)$|
+            README\.md|
+            \.github/.*\.(yml|yaml)$
+          )$
+        exclude: ^results/
       - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: debug-statements
       - id: check-added-large-files
+        args: [--maxkb=5120]
+        exclude: ^results/
 
-  - repo: https://github.com/astral-sh/ruff-pre-commit # <--- CHANGE THIS BACK TO THIS URL!
-    rev: v0.4.8 # Or the latest stable version from astral-sh/ruff-pre-commit releases
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
       - id: ruff-format
-        args: [--check]
