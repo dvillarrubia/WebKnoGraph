@@ -1,4 +1,4 @@
-# This CITATION.cff file was generated with the help of claude.ai/claude
+# This CITATION.cff file was generated and enriched for completeness
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
@@ -14,9 +14,14 @@ abstract: >-
 authors:
   - family-names: "Gjorgjevska"
     given-names: "Emilija"
-    orcid: # Add your ORCID if available
     affiliation: "Independent Researcher"
     website: "https://www.linkedin.com/in/emilijagjorgjevska/"
+  - family-names: "Mirceva"
+    given-names: "Georgina"
+    affiliation: "Faculty of Computer Science and Engineering (FCSE), Skopje"
+  - family-names: "Mirchev"
+    given-names: "Miroslav"
+    affiliation: "Faculty of Computer Science and Engineering (FCSE), Skopje"
 keywords:
   - "SEO"
   - "internal linking"
@@ -33,6 +38,13 @@ keywords:
 license: "Apache-2.0"
 url: "https://github.com/martech-engineer/WebKnoGraph"
 repository-code: "https://github.com/martech-engineer/WebKnoGraph"
+sponsors:
+  - name: "WordLift"
+    url: "https://wordlift.io"
+  - name: "Faculty of Computer Science and Engineering (FCSE), Skopje"
+    url: "https://www.finki.ukim.mk"
+  - name: "Kalicube"
+    url: "https://kalicube.com"
 # version: "1.0.0"  # Uncomment and update when you tag a release
 # date-released: "2024-12-01"  # Uncomment and update with actual release date
 # doi: "10.5281/zenodo.XXXXXXX"  # Uncomment and add DOI when available
@@ -42,6 +54,10 @@ preferred-citation:
   authors:
     - family-names: "Gjorgjevska"
       given-names: "Emilija"
+    - family-names: "Mirceva"
+      given-names: "Georgina"
+    - family-names: "Mirchev"
+      given-names: "Miroslav"
   year: 2024
   url: "https://github.com/martech-engineer/WebKnoGraph"
   abstract: >-
