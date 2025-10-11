@@ -1,0 +1,115 @@
+================================================================================
+MULTI-RANGE PAGERANK ANALYSIS - DETAILED REPORT
+================================================================================
+
+OVERALL STATISTICS
+--------------------------------------------------------------------------------
+Total Runs: 15
+Overall Mean Delta: 2.0981%
+Overall Std Dev: 0.4580%
+Range: [1.4357%, 2.7053%]
+
+BEST OVERALL COMBINATION
+--------------------------------------------------------------------------------
+Strategy: Mixed Candidates
+Range: Range_65-95 (65-95)
+Mean Delta: 2.7053% ± 0.0301%
+Efficiency: 0.03382% per connection
+Pages Up: 798.4
+Pages Down: 692.2
+Total Simulations: 1,000
+
+ANALYSIS BY CONNECTION RANGE
+================================================================================
+
+Range_35-65
+--------------------------------------------------------------------------------
+  1. Mixed Candidates            2.1980% ± 0.0228%  Eff: 0.04396  ↑781.9 ↓618.6
+  2. Low Candidates              2.1540% ± 0.0228%  Eff: 0.04308  ↑808.8 ↓586.4
+  3. High Candidates             2.1366% ± 0.0227%  Eff: 0.04273  ↑814.7 ↓563.4
+  4. Folder Candidates           2.1210% ± 0.0231%  Eff: 0.04242  ↑1123.5 ↓419.9
+  5. Random Candidates           2.0426% ± 0.0228%  Eff: 0.04085  ↑1020.6 ↓430.8
+
+Range_5-35
+--------------------------------------------------------------------------------
+  1. Mixed Candidates            1.5920% ± 0.0165%  Eff: 0.07960  ↑696.5 ↓576.1
+  2. Low Candidates              1.5485% ± 0.0165%  Eff: 0.07743  ↑737.2 ↓527.6
+  3. High Candidates             1.5320% ± 0.0164%  Eff: 0.07660  ↑750.5 ↓492.2
+  4. Folder Candidates           1.5169% ± 0.0165%  Eff: 0.07585  ↑1166.1 ↓334.1
+  5. Random Candidates           1.4357% ± 0.0165%  Eff: 0.07178  ↑1039.0 ↓319.1
+
+Range_65-95
+--------------------------------------------------------------------------------
+  1. Mixed Candidates            2.7053% ± 0.0301%  Eff: 0.03382  ↑798.4 ↓692.2
+  2. Low Candidates              2.6607% ± 0.0302%  Eff: 0.03326  ↑819.9 ↓666.6
+  3. High Candidates             2.6424% ± 0.0301%  Eff: 0.03303  ↑820.8 ↓654.4
+  4. Folder Candidates           2.6338% ± 0.0308%  Eff: 0.03292  ↑1076.6 ↓504.5
+  5. Random Candidates           2.5513% ± 0.0301%  Eff: 0.03189  ↑967.2 ↓545.3
+
+STRATEGY TRENDS ACROSS RANGES
+================================================================================
+
+Folder Candidates
+--------------------------------------------------------------------------------
+  Delta Trend: Increasing
+  Efficiency Trend: Decreasing
+  Performance:
+    Range_5-35: 1.5169% (Eff: 0.07585)
+    Range_35-65: 2.1210% (Eff: 0.04242)
+    Range_65-95: 2.6338% (Eff: 0.03292)
+
+High Candidates
+--------------------------------------------------------------------------------
+  Delta Trend: Increasing
+  Efficiency Trend: Decreasing
+  Performance:
+    Range_5-35: 1.5320% (Eff: 0.07660)
+    Range_35-65: 2.1366% (Eff: 0.04273)
+    Range_65-95: 2.6424% (Eff: 0.03303)
+
+Low Candidates
+--------------------------------------------------------------------------------
+  Delta Trend: Increasing
+  Efficiency Trend: Decreasing
+  Performance:
+    Range_5-35: 1.5485% (Eff: 0.07743)
+    Range_35-65: 2.1540% (Eff: 0.04308)
+    Range_65-95: 2.6607% (Eff: 0.03326)
+
+Mixed Candidates
+--------------------------------------------------------------------------------
+  Delta Trend: Increasing
+  Efficiency Trend: Decreasing
+  Performance:
+    Range_5-35: 1.5920% (Eff: 0.07960)
+    Range_35-65: 2.1980% (Eff: 0.04396)
+    Range_65-95: 2.7053% (Eff: 0.03382)
+
+Random Candidates
+--------------------------------------------------------------------------------
+  Delta Trend: Increasing
+  Efficiency Trend: Decreasing
+  Performance:
+    Range_5-35: 1.4357% (Eff: 0.07178)
+    Range_35-65: 2.0426% (Eff: 0.04085)
+    Range_65-95: 2.5513% (Eff: 0.03189)
+
+================================================================================
+RECOMMENDATIONS
+================================================================================
+
+1. Most Efficient: Mixed Candidates @ Range_5-35
+   Efficiency: 0.07960% per connection
+   Mean Delta: 1.5920%
+
+2. Best Strategy per Range:
+   Range_35-65: Mixed Candidates (2.1980%)
+   Range_5-35: Mixed Candidates (1.5920%)
+   Range_65-95: Mixed Candidates (2.7053%)
+
+3. Scalability Analysis:
+   Folder Candidates: +73.6% change from low to high range
+   High Candidates: +72.5% change from low to high range
+   Low Candidates: +71.8% change from low to high range
+   Mixed Candidates: +69.9% change from low to high range
+   Random Candidates: +77.7% change from low to high range
