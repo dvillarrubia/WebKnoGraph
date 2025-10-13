@@ -21,7 +21,6 @@ We're enabling **the first publicly available and transparent research for acade
     <a href="#-app-uis">App UIs</a> &bull;
     <a href="#%EF%B8%8F-product-roadmap">Product Roadmap</a> &bull;
     <a href="#-license">License</a> &bull;
-    <a href="#-about-the-creator">About the Creator</a>
 </h3>
 
 ---
@@ -408,26 +407,3 @@ This interactive calculator estimates the potential **cost savings and ROI** fro
 
 ---
 
-# 👩‍💻 About the Creator
-
-[**Emilija Gjorgjevska**](https://www.linkedin.com/in/emilijagjorgjevska/) brings a rare blend of technical depth, product strategy, and marketing insight to the development of **WebKnoGraph**. She operates at the intersection of applied AI, SEO engineering, and knowledge representation, crafting solutions that are performant and deeply aligned with the real-world needs of digital platforms.
-
-Beyond code, Emilija’s background in marketing technology and ontology engineering empowers her to translate abstract research into actionable tooling for SEO professionals, SaaS teams, and content-heavy enterprises. She is a strong advocate for cross-disciplinary collaboration, and her leadership in the WebKnoGraph project signals a new paradigm in how we architect, evaluate, and scale intelligent linking systems, anchored in open science, responsible automation, and strategic real-world value.
-
-In her free time, Emilija co-leads [**Women in AI & Digital DACH**](https://www.linkedin.com/company/womeninaianddigital/), a community committed to increasing visibility and opportunity for women shaping the future of AI and digital work across the DACH region.
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=martech-engineer&show_icons=true&theme=default&hide=issues&count_private=true)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=martech-engineer&layout=compact)
-
-<div align="left">
-
-# ☕ Support Future Work
-
-If this project sparked ideas or saved you time, consider buying me a coffee to support future work:
-
-<a href="https://coff.ee/emiliagjorgjevska" target="_blank">
-  <img src="https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/bmc-brand-logo.png" alt="Buy Me a Coffee" height="45">
-</a>
-
-</div>
