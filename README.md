@@ -8,12 +8,6 @@ We're enabling **the first publicly available and transparent research for acade
 
 **Note:** We’ve implemented clearer separation between frontend, backend, testing, and data logic, and are now conducting **rigorous stress tests** with the SEO community.
 
-## ✅ TO-DOs
-
-- [x] Manual testing confirms module stability
-- [x] Initial test cases are provided
-- [ ] Implement deep test automation
-
 ---
 
 <h1 align="center">
