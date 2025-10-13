@@ -9,7 +9,6 @@ We're enabling **the first publicly available and transparent research for acade
 **Note:** We’ve implemented clearer separation between frontend, backend, testing, and data logic, and are now conducting **rigorous stress tests** with the SEO community.
 
 ---
-
 <h1 align="center">
     Quick Tour
 </h1>
@@ -24,7 +23,6 @@ We're enabling **the first publicly available and transparent research for acade
 </h3>
 
 ---
-
 # 📂 Project Structure
 
 The project is organized into a modular structure to promote maintainability, reusability, and clear separation of concerns. This is the current folder layout but can change over time:
@@ -131,7 +129,6 @@ To begin a new crawl for a different website, delete the entire `data/` folder. 
 For additional details about how this fits into the full project workflow, refer to the [Project Structure](#-project-structure) section of the README.
 
 ---
-
 # 💪 Sponsors
 
 We are incredibly grateful to our sponsors for their continued support in making this project possible. Their contributions have been vital in pushing the boundaries of what can be achieved through data-driven internal linking solutions.
@@ -149,7 +146,6 @@ Without the contributions from these amazing sponsors, WebKnoGraph would not hav
 </p>
 
 ---
-
 # 📷 App UIs
 
 The project is composed of six modules, illustrated in the images below.
@@ -175,11 +171,9 @@ The project is composed of six modules, illustrated in the images below.
 ![Link Prediction Engine](https://github.com/martech-engineer/WebKnoGraph/blob/main/assets/04_graphsage_02.png)
 
 ---
-
 We welcome more sponsors and partners who are passionate about driving innovation in SEO and website optimization. If you're interested in collaborating or sponsoring, feel free to reach out!
 
 ---
-
 # 👐 Who is WebKnoGraph for?
 
 WebKnoGraph is created for companies where content plays a central role in business growth. It is suited for mid to large-sized organizations that manage high volumes of content, often exceeding 1,000 unique pages within each structured folder, such as a blog, help center, or product documentation section.
@@ -205,7 +199,6 @@ The tool is especially relevant for the following types of companies:
 WebKnoGraph empowers these organizations to scale internal linking with precision, consistency, and clarity, while keeping full control over their infrastructure.
 
 ---
-
 # 📖 Target Reading Audience
 
 WebKnoGraph is designed for **tech-savvy marketers and marketing engineers** with a strong understanding of advanced data analytics and data-driven marketing strategies. Our ideal users are professionals who have experience with Python or have access to development support within their teams.
@@ -215,7 +208,6 @@ These individuals are skilled in interpreting and utilizing data, as well as wor
 If you're a data-driven marketer comfortable with using cutting-edge tools to push the boundaries of SEO, WebKnoGraph is built for you.
 
 ---
-
 # ⚡️ Getting Started
 
 To explore and utilize WebKnoGraph, follow the instructions below to get started with the code, data, and documentation provided in the repository:
@@ -347,7 +339,6 @@ A successful test run will typically show a series of dots (.) indicating passed
 This output confirms that all tests in the tests/backend/services/ directory were found and executed, and the final summary will indicate if all of them passed successfully.
 
 ---
-
 # ⚠️ Troubleshooting Tips
 
 ## ModuleNotFoundError: No module named 'src':
@@ -389,7 +380,6 @@ You can contribute by improving the codebase, refining documentation, testing wo
 Clone the repo, start a branch, and share your expertise. Progress happens when people build together.
 
 ---
-
 # 📄 License
 
 WebKnoGraph is released under the **Apache License 2.0**.
@@ -406,4 +396,3 @@ This interactive calculator estimates the potential **cost savings and ROI** fro
 [![Try the Internal Linking SEO ROI Calculator](https://raw.githubusercontent.com/martech-engineer/WebKnoGraph/refs/heads/main/assets/internal-linking-seo-roi-cropped.png)](https://huggingface.co/spaces/Em4e/internal-linking-seo-roi-calculator)
 
 ---
-
