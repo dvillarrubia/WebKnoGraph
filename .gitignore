@@ -17,3 +17,20 @@ dist/
 # Editors
 .DS_Store
 .vscode/
+
+# Data directories (contain crawled data - too large for git)
+data/crawl4ai_data/
+data/crawled_data_parquet/
+data/test_crawl/
+data/*.db
+
+# Environment files (contain secrets)
+.env
+graph_rag/.env
+
+# Claude Code config (personal)
+.claude/
+
+# Obsolete service files
+graph_rag/services/cleaning_service_v2.py
+graph_rag/services/cleaning_service_v3.py

@@ -1,0 +1,28 @@
+# WebKnoGraph Graph-RAG Requirements
+
+# FastAPI
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Database clients
+asyncpg>=0.29.0
+neo4j>=5.15.0
+
+# Embeddings
+sentence-transformers>=2.2.2
+torch>=2.1.0
+
+# OpenAI
+openai>=1.10.0
+
+# Data processing
+pandas>=2.1.0
+pyarrow>=14.0.0
+tqdm>=4.66.0
+
+# Utils
+python-multipart>=0.0.6
+semchunk>=3.0
+tiktoken>=0.5

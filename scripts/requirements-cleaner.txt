@@ -1,0 +1,25 @@
+# Smart Cleaner - Requirements
+# pip install -r requirements-cleaner.txt
+
+# Data Processing
+pandas>=2.1.0
+pyarrow>=14.0.0
+
+# HTML Parsing
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# AI-powered selector discovery
+scrapegraphai>=1.0.0
+
+# Environment management
+python-dotenv>=1.0.0
+
+# Async support
+nest_asyncio>=1.5.0
+
+# Progress bars
+tqdm>=4.66.0
+
+# Playwright (required by scrapegraphai)
+playwright>=1.40.0
