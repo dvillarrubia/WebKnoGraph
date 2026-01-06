@@ -31,6 +31,9 @@ class CrawlJob:
     urls_list: list = field(default_factory=list)  # URLs to crawl from file/API
     urls_only: bool = False  # Only crawl URLs from list, don't discover new links
     exclude_selectors: list = field(default_factory=list)  # Additional CSS selectors to exclude
+    respect_robots: bool = True  # Respect robots.txt rules
+    skip_noindex: bool = True  # Skip pages with noindex meta tag
+    sitemap_only: bool = False  # Only crawl URLs from sitemap, don't follow discovered links
     started_at: Optional[str] = None
     completed_at: Optional[str] = None
     pages_crawled: int = 0
@@ -87,6 +90,9 @@ class CrawlerService:
         urls_list: list = None,  # List of URLs to crawl
         urls_only: bool = False,  # Only crawl URLs from list, don't discover new links
         exclude_selectors: list = None,  # Additional CSS selectors to exclude (cookies, etc.)
+        respect_robots: bool = True,  # Respect robots.txt rules
+        skip_noindex: bool = True,  # Skip pages with noindex meta tag
+        sitemap_only: bool = False,  # Only crawl URLs from sitemap, don't follow discovered links
     ) -> CrawlJob:
         """Start a new crawl job."""
         # Check if already running
@@ -123,6 +129,9 @@ class CrawlerService:
             urls_list=urls_list,
             urls_only=urls_only,
             exclude_selectors=exclude_selectors,
+            respect_robots=respect_robots,
+            skip_noindex=skip_noindex,
+            sitemap_only=sitemap_only,
             started_at=datetime.now().isoformat(),
             output_dir=str(output_dir),
             pages_previously_crawled=pages_previously_crawled,
@@ -168,6 +177,14 @@ class CrawlerService:
         # Add exclude selectors
         if exclude_selectors and len(exclude_selectors) > 0:
             cmd.extend(["--exclude-selectors", ",".join(exclude_selectors)])
+
+        # Add robots.txt, noindex and sitemap-only flags (script uses inverted flags)
+        if not respect_robots:
+            cmd.append("--no-robots")
+        if not skip_noindex:
+            cmd.append("--no-skip-noindex")
+        if sitemap_only:
+            cmd.append("--sitemap-only")
 
         # Start process
         env = os.environ.copy()

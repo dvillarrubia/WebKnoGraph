@@ -109,6 +109,7 @@ class SupabaseClient:
         client_id: str,
         url: str,
         title: Optional[str] = None,
+        meta_description: Optional[str] = None,
         content: Optional[str] = None,
         content_hash: Optional[str] = None,
         embedding: Optional[list[float]] = None,
@@ -127,12 +128,13 @@ class SupabaseClient:
             row = await conn.fetchrow(
                 """
                 INSERT INTO rag_pages (
-                    client_id, url, title, content, content_hash, embedding,
+                    client_id, url, title, meta_description, content, content_hash, embedding,
                     pagerank, hub_score, authority_score, folder_depth, last_crawled_at
                 )
-                VALUES ($1, $2, $3, $4, $5, $6::vector, $7, $8, $9, $10, NOW())
+                VALUES ($1, $2, $3, $4, $5, $6, $7::vector, $8, $9, $10, $11, NOW())
                 ON CONFLICT (client_id, url) DO UPDATE SET
                     title = COALESCE(EXCLUDED.title, rag_pages.title),
+                    meta_description = COALESCE(EXCLUDED.meta_description, rag_pages.meta_description),
                     content = COALESCE(EXCLUDED.content, rag_pages.content),
                     content_hash = COALESCE(EXCLUDED.content_hash, rag_pages.content_hash),
                     embedding = COALESCE(EXCLUDED.embedding, rag_pages.embedding),
@@ -142,11 +144,12 @@ class SupabaseClient:
                     folder_depth = EXCLUDED.folder_depth,
                     last_crawled_at = NOW(),
                     updated_at = NOW()
-                RETURNING id, url, title, pagerank
+                RETURNING id, url, title, meta_description, pagerank
                 """,
                 client_id,
                 url,
                 title,
+                meta_description,
                 content,
                 content_hash,
                 embedding_str,
@@ -170,6 +173,7 @@ class SupabaseClient:
                     client_id,
                     page["url"],
                     page.get("title"),
+                    page.get("meta_description"),
                     page.get("content"),
                     page.get("content_hash"),
                     embedding_str,
@@ -183,12 +187,13 @@ class SupabaseClient:
             await conn.executemany(
                 """
                 INSERT INTO rag_pages (
-                    client_id, url, title, content, content_hash, embedding,
+                    client_id, url, title, meta_description, content, content_hash, embedding,
                     pagerank, hub_score, authority_score, folder_depth, last_crawled_at
                 )
-                VALUES ($1, $2, $3, $4, $5, $6::vector, $7, $8, $9, $10, NOW())
+                VALUES ($1, $2, $3, $4, $5, $6, $7::vector, $8, $9, $10, $11, NOW())
                 ON CONFLICT (client_id, url) DO UPDATE SET
                     title = COALESCE(EXCLUDED.title, rag_pages.title),
+                    meta_description = COALESCE(EXCLUDED.meta_description, rag_pages.meta_description),
                     content = COALESCE(EXCLUDED.content, rag_pages.content),
                     content_hash = COALESCE(EXCLUDED.content_hash, rag_pages.content_hash),
                     embedding = COALESCE(EXCLUDED.embedding, rag_pages.embedding),

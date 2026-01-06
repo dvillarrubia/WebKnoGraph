@@ -45,13 +45,14 @@ class Settings(BaseSettings):
     openai_embedding_model: str = Field(default="text-embedding-3-large", env="OPENAI_EMBEDDING_MODEL")
 
     # ==========================================================================
-    # EMBEDDING MODEL (Local - multilingual-e5-large)
+    # EMBEDDING MODEL (Local - Spanish optimized)
+    # Using hiiamsid/sentence_similarity_spanish_es for better Spanish results
     # ==========================================================================
     embedding_model_name: str = Field(
-        default="intfloat/multilingual-e5-large",
+        default="hiiamsid/sentence_similarity_spanish_es",
         env="EMBEDDING_MODEL_NAME"
     )
-    embedding_dimension: int = Field(default=1024, env="EMBEDDING_DIMENSION")
+    embedding_dimension: int = Field(default=768, env="EMBEDDING_DIMENSION")
     embedding_batch_size: int = Field(default=32, env="EMBEDDING_BATCH_SIZE")
 
     # ==========================================================================

@@ -1,6 +1,6 @@
 """
 Embedding Service for Graph-RAG.
-Uses multilingual-e5-large for Spanish content.
+Uses hiiamsid/sentence_similarity_spanish_es for Spanish content.
 """
 
 import torch
@@ -12,12 +12,14 @@ from graph_rag.config.settings import Settings
 
 class EmbeddingService:
     """
-    Generates embeddings using multilingual-e5-large.
-    Optimized for Spanish (castellano de Espana).
+    Generates embeddings using sentence-transformers.
 
-    Note: multilingual-e5 requires query prefix for queries:
-    - For queries: "query: <text>"
-    - For documents: "passage: <text>"
+    Default model: hiiamsid/sentence_similarity_spanish_es
+    - Optimized for Spanish (castellano de España)
+    - 768 dimensions
+    - Based on BERT Spanish, trained on Spanish STS datasets
+
+    Alternative: intfloat/multilingual-e5-large (1024 dims, multilingual)
     """
 
     def __init__(self, settings: Settings):
@@ -27,6 +29,9 @@ class EmbeddingService:
         self.batch_size = settings.embedding_batch_size
         self._model: Optional[SentenceTransformer] = None
         self._device: Optional[str] = None
+
+        # Check if model requires prefixes (e5 models do)
+        self._use_prefixes = "e5" in self.model_name.lower()
 
     def _load_model(self) -> None:
         """Lazy load the model."""
@@ -47,28 +52,28 @@ class EmbeddingService:
     def embed_query(self, query: str) -> list[float]:
         """
         Generate embedding for a search query.
-        Adds 'query: ' prefix for multilingual-e5.
         """
-        # multilingual-e5 requires query prefix
-        prefixed_query = f"query: {query}"
+        # Add prefix only for e5 models
+        text = f"query: {query}" if self._use_prefixes else query
         embedding = self.model.encode(
-            prefixed_query,
+            text,
             convert_to_numpy=True,
             show_progress_bar=False,
+            normalize_embeddings=True,  # Normalize for better cosine similarity
         )
         return embedding.tolist()
 
     def embed_document(self, text: str) -> list[float]:
         """
         Generate embedding for a document/passage.
-        Adds 'passage: ' prefix for multilingual-e5.
         """
-        # multilingual-e5 requires passage prefix for documents
-        prefixed_text = f"passage: {text}"
+        # Add prefix only for e5 models
+        prefixed_text = f"passage: {text}" if self._use_prefixes else text
         embedding = self.model.encode(
             prefixed_text,
             convert_to_numpy=True,
             show_progress_bar=False,
+            normalize_embeddings=True,  # Normalize for better cosine similarity
         )
         return embedding.tolist()
 
@@ -81,14 +86,18 @@ class EmbeddingService:
         Generate embeddings for multiple documents.
         More efficient for bulk operations.
         """
-        # Add passage prefix to all texts
-        prefixed_texts = [f"passage: {text}" for text in texts]
+        # Add prefix only for e5 models
+        if self._use_prefixes:
+            processed_texts = [f"passage: {text}" for text in texts]
+        else:
+            processed_texts = texts
 
         embeddings = self.model.encode(
-            prefixed_texts,
+            processed_texts,
             batch_size=self.batch_size,
             convert_to_numpy=True,
             show_progress_bar=show_progress,
+            normalize_embeddings=True,  # Normalize for better cosine similarity
         )
         return [emb.tolist() for emb in embeddings]
 

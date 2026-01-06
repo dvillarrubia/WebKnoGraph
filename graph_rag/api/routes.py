@@ -535,7 +535,7 @@ async def dashboard_search(
     supabase: SupabaseClient = Depends(get_supabase_client),
     embedding_service: EmbeddingService = Depends(get_embedding_service),
 ):
-    """Vector search from the dashboard (no API key required)."""
+    """Vector search from the dashboard using chunks (no API key required)."""
     client_id = request.get("client_id")
     query = request.get("query")
 
@@ -547,23 +547,43 @@ async def dashboard_search(
     # Generate query embedding
     query_embedding = embedding_service.embed_query(query)
 
-    # Search
-    results = await supabase.search_similar_pages(
+    # Search in chunks (more granular than pages)
+    # Lower min_similarity to 0.2 to get more results, then filter by normalized score
+    results = await supabase.search_similar_chunks(
         client_id=client_id,
         query_embedding=query_embedding,
         limit=request.get("top_k", 10),
-        min_similarity=request.get("min_similarity", 0.3),
+        min_similarity=request.get("min_similarity", 0.2),
     )
+
+    def normalize_similarity(raw_sim: float) -> float:
+        """
+        Normalize cosine similarity to a more intuitive 0-100% scale.
+        For Spanish sentence-transformers models, typical useful range is 0.25-0.55.
+        We map: 0.25 -> 0%, 0.4 -> 50%, 0.55+ -> 100%
+        This gives more intuitive scores where 0.47 (match exacto) -> ~73%
+        """
+        min_threshold = 0.25
+        max_threshold = 0.55
+        if raw_sim <= min_threshold:
+            return 0.0
+        if raw_sim >= max_threshold:
+            return 1.0
+        return (raw_sim - min_threshold) / (max_threshold - min_threshold)
 
     return {
         "results": [
             {
+                "chunk_id": r.get("id"),
+                "chunk_index": r.get("chunk_index"),
+                "chunk_content": r.get("content", ""),
+                "heading_context": r.get("heading_context"),
+                "page_id": r.get("page_id"),
                 "url": r["url"],
                 "title": r.get("title"),
-                "content_preview": r.get("content", "")[:300] + "..." if r.get("content") else None,
-                "content_full": r.get("content", ""),
                 "pagerank": r.get("pagerank", 0),
-                "similarity": r.get("similarity", 0),
+                "similarity": normalize_similarity(r.get("similarity", 0)),
+                "raw_similarity": r.get("similarity", 0),
             }
             for r in results
         ],
@@ -781,6 +801,9 @@ async def dashboard_start_crawl(request: dict):
     - urls_list: List of specific URLs to crawl (optional). Can be array or newline-separated string.
     - urls_only: Only crawl URLs from urls_list, don't discover new links (default false).
     - exclude_selectors: Additional CSS selectors to exclude (cookies, popups, etc.). Can be array or comma-separated string.
+    - respect_robots: Respect robots.txt rules (default true).
+    - skip_noindex: Skip pages with noindex meta tag (default true).
+    - sitemap_only: Only crawl URLs from sitemap, don't follow discovered links (default false).
     """
     from graph_rag.services.crawler_service import get_crawler_service
     from dataclasses import asdict
@@ -815,6 +838,9 @@ async def dashboard_start_crawl(request: dict):
             urls_list=urls_list,
             urls_only=request.get("urls_only", False),
             exclude_selectors=exclude_selectors if exclude_selectors else None,
+            respect_robots=request.get("respect_robots", True),
+            skip_noindex=request.get("skip_noindex", True),
+            sitemap_only=request.get("sitemap_only", False),
         )
         return asdict(job)
     except ValueError as e:
@@ -849,6 +875,47 @@ async def dashboard_crawler_status():
     if job:
         return asdict(job)
     return {"status": "idle"}
+
+
+@dashboard_router.get("/crawler/logs")
+async def dashboard_crawler_logs(last_n: int = 100):
+    """
+    Get crawler logs from the log file.
+
+    Args:
+        last_n: Number of last log entries to return (default 100)
+    """
+    from graph_rag.services.crawler_service import get_crawler_service
+    from pathlib import Path
+    import json
+
+    crawler = get_crawler_service()
+    job = crawler.get_status()
+
+    if not job or not job.output_dir:
+        return {"logs": [], "count": 0}
+
+    # Log file is in the base output directory (parent of domain-specific folder)
+    log_file = Path(job.output_dir).parent / ".crawl_log.jsonl"
+
+    if not log_file.exists():
+        return {"logs": [], "count": 0}
+
+    try:
+        with open(log_file, "r") as f:
+            lines = f.readlines()
+
+        # Get last N lines
+        logs = []
+        for line in lines[-last_n:]:
+            try:
+                logs.append(json.loads(line.strip()))
+            except:
+                pass
+
+        return {"logs": logs, "count": len(lines)}
+    except Exception as e:
+        return {"logs": [], "count": 0, "error": str(e)}
 
 
 @dashboard_router.get("/crawler/crawls")
@@ -986,7 +1053,32 @@ async def dashboard_get_crawl_page(crawl_name: str, url: str):
         except Exception:
             continue
 
-    # Second, try pages_clean/ (smart cleaner results)
+    # Second, try auto_clean/ (auto cleaner results)
+    auto_clean_file = base_dir / "auto_clean" / "all_pages.parquet"
+    if auto_clean_file.exists():
+        try:
+            df = pd.read_parquet(auto_clean_file)
+            match = df[df['url'] == url]
+            if not match.empty:
+                row = match.iloc[0]
+                clean_text = row.get("markdown_clean", "")
+                if clean_text and len(str(clean_text).strip()) > 0:
+                    word_count = len(clean_text.split()) if clean_text else 0
+                    return {
+                        "url": row.get("url", ""),
+                        "title": row.get("title", ""),
+                        "markdown": clean_text,
+                        "word_count": int(word_count),
+                        "content_hash": "",
+                        "crawled_at": "",
+                        "links_count": 0,
+                        "is_cleaned": True,
+                        "template_group": "auto_clean",
+                    }
+        except Exception:
+            pass
+
+    # Third, try pages_clean/ (smart cleaner results)
     clean_pattern = str(base_dir / "pages_clean" / "*.parquet")
     clean_files = sorted(glob(clean_pattern), reverse=True)
 
@@ -1181,7 +1273,6 @@ async def dashboard_ingest_data(
     request: dict,
     supabase: SupabaseClient = Depends(get_supabase_client),
     neo4j: Neo4jClient = Depends(get_neo4j_client),
-    embedding_service: EmbeddingService = Depends(get_embedding_service),
 ):
     """
     Ingest crawled data into the database.
@@ -1197,14 +1288,18 @@ async def dashboard_ingest_data(
         - "full_refresh": Delete all existing data and re-import
     - delete_after: Delete crawl data after ingestion (default false).
     - min_word_count: Minimum word count for pages (default 50).
+    - embedding_model: Model name for embeddings (default: hiiamsid/sentence_similarity_spanish_es)
+    - embedding_dimension: Embedding vector dimension (default: 768)
     """
     from graph_rag.services.ingest_service import IngestService
-    from graph_rag.config.settings import get_settings
+    from graph_rag.config.settings import get_settings, Settings
 
     crawl_path = request.get("crawl_path")
     client_name = request.get("client_name")
     client_domain = request.get("client_domain")
     ingest_mode = request.get("ingest_mode", "new_only")
+    embedding_model = request.get("embedding_model", "hiiamsid/sentence_similarity_spanish_es")
+    embedding_dimension = request.get("embedding_dimension", 768)
 
     if not crawl_path:
         raise HTTPException(status_code=400, detail="crawl_path is required")
@@ -1220,7 +1315,22 @@ async def dashboard_ingest_data(
             detail=f"ingest_mode must be one of: {', '.join(valid_modes)}"
         )
 
+    # Get base settings and create custom embedding service with selected model
     settings = get_settings()
+
+    # Create a custom settings object with the selected embedding model
+    custom_settings = Settings(
+        supabase_url=settings.supabase_url,
+        supabase_db_password=settings.supabase_db_password,
+        neo4j_password=settings.neo4j_password,
+        openai_api_key=settings.openai_api_key,
+        embedding_model_name=embedding_model,
+        embedding_dimension=embedding_dimension,
+    )
+
+    # Create embedding service with the selected model
+    embedding_service = EmbeddingService(custom_settings)
+
     ingest_service = IngestService(
         settings=settings,
         supabase_client=supabase,
@@ -1248,6 +1358,8 @@ async def dashboard_ingest_data(
             "chunks_created": result.chunks_created,
             "links_migrated": result.links_migrated,
             "ingest_mode": ingest_mode,
+            "embedding_model": embedding_model,
+            "embedding_dimension": embedding_dimension,
             "errors": result.errors,
             "error_messages": result.error_messages,
         }
@@ -1894,6 +2006,18 @@ async def manual_cleaner_remove_pattern(crawl_name: str, template_id: str, patte
         raise HTTPException(status_code=404, detail=str(e))
 
 
+@dashboard_router.get("/manual-cleaner/available-patterns/{crawl_name}/{template_id}")
+async def manual_cleaner_available_patterns(crawl_name: str, template_id: str):
+    """Get patterns from other templates that can be reused."""
+    from graph_rag.services.manual_cleaner_service import get_manual_cleaner_service
+
+    cleaner = get_manual_cleaner_service()
+    try:
+        return cleaner.get_available_patterns(crawl_name, template_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
 @dashboard_router.get("/manual-cleaner/preview/{crawl_name}/{template_id}")
 async def manual_cleaner_preview(crawl_name: str, template_id: str):
     """
@@ -1910,15 +2034,27 @@ async def manual_cleaner_preview(crawl_name: str, template_id: str):
 
 
 @dashboard_router.post("/manual-cleaner/apply/{crawl_name}/{template_id}")
-async def manual_cleaner_apply(crawl_name: str, template_id: str):
+async def manual_cleaner_apply(crawl_name: str, template_id: str, request: dict = None):
     """
     Apply cleaning patterns to all pages in a template and save.
+
+    Optional body (for auto-cleaning):
+    - auto_clean_options: Dict with toggleable options:
+        - extract_from_first_heading: bool (default True) - Extraer desde primer H1/H2
+        - remove_footer_content: bool (default True) - Eliminar contenido de footer
+        - remove_empty_lines: bool (default True) - Limpiar líneas vacías excesivas
+        - remove_nav_patterns: bool (default True) - Eliminar patrones de navegación
+        - min_heading_level: int (default 1) - Nivel mínimo de heading
     """
     from graph_rag.services.manual_cleaner_service import get_manual_cleaner_service
 
     cleaner = get_manual_cleaner_service()
+    auto_clean_options = None
+    if request:
+        auto_clean_options = request.get("auto_clean_options")
+
     try:
-        return cleaner.apply_cleaning(crawl_name, template_id)
+        return cleaner.apply_cleaning(crawl_name, template_id, auto_clean_options)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -1933,6 +2069,126 @@ async def manual_cleaner_status(crawl_name: str):
         return cleaner.get_cleaning_status(crawl_name)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+
+# =============================================================================
+# AUTO-CLEAN ENDPOINTS (Quick cleaning without manual patterns)
+# =============================================================================
+
+@dashboard_router.post("/manual-cleaner/auto-clean/{crawl_name}")
+async def manual_cleaner_auto_clean_all(crawl_name: str, request: dict = None):
+    """
+    Apply auto-cleaning to ALL pages in a crawl without manual patterns.
+    This is a quick way to clean an entire crawl with sensible defaults.
+
+    Optional body:
+    - extract_from_first_heading: bool (default True) - Extraer desde primer H1/H2
+    - remove_footer_content: bool (default True) - Eliminar contenido de footer
+    - remove_empty_lines: bool (default True) - Limpiar líneas vacías excesivas
+    - remove_nav_patterns: bool (default True) - Eliminar patrones de navegación
+    - min_heading_level: int (default 1) - Nivel mínimo de heading (1=H1, 2=H2)
+    """
+    from graph_rag.services.manual_cleaner_service import get_manual_cleaner_service
+
+    cleaner = get_manual_cleaner_service()
+    auto_clean_options = request if request else None
+
+    try:
+        return cleaner.auto_clean_all(crawl_name, auto_clean_options)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@dashboard_router.get("/manual-cleaner/auto-clean/preview/{crawl_name}")
+async def manual_cleaner_preview_auto_clean(
+    crawl_name: str,
+    sample_url: str = None,
+    extract_from_first_heading: bool = True,
+    remove_footer_content: bool = True,
+    remove_empty_lines: bool = True,
+    remove_nav_patterns: bool = True,
+    min_heading_level: int = 1,
+):
+    """
+    Preview auto-cleaning on a sample page before applying to all.
+
+    Query params:
+    - sample_url: Optional URL to preview (uses first page if not provided)
+    - extract_from_first_heading: bool (default True)
+    - remove_footer_content: bool (default True)
+    - remove_empty_lines: bool (default True)
+    - remove_nav_patterns: bool (default True)
+    - min_heading_level: int (default 1)
+
+    Returns original and cleaned content for comparison.
+    """
+    from graph_rag.services.manual_cleaner_service import get_manual_cleaner_service
+
+    cleaner = get_manual_cleaner_service()
+    auto_clean_options = {
+        "extract_from_first_heading": extract_from_first_heading,
+        "remove_footer_content": remove_footer_content,
+        "remove_empty_lines": remove_empty_lines,
+        "remove_nav_patterns": remove_nav_patterns,
+        "min_heading_level": min_heading_level,
+    }
+
+    try:
+        return cleaner.preview_auto_clean(crawl_name, sample_url, auto_clean_options)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+@dashboard_router.get("/manual-cleaner/auto-clean/options")
+async def manual_cleaner_auto_clean_options():
+    """
+    Get available auto-clean options with descriptions.
+    Useful for building UI forms.
+    """
+    return {
+        "options": [
+            {
+                "name": "extract_from_first_heading",
+                "type": "bool",
+                "default": True,
+                "description": "Extraer contenido desde el primer heading (H1, H2...). Elimina todo el contenido anterior al primer título.",
+            },
+            {
+                "name": "remove_footer_content",
+                "type": "bool",
+                "default": True,
+                "description": "Eliminar contenido de footer. Detecta patrones como '©', 'política de privacidad', 'síguenos', etc.",
+            },
+            {
+                "name": "remove_empty_lines",
+                "type": "bool",
+                "default": True,
+                "description": "Limpiar líneas vacías excesivas. Máximo 2 líneas vacías seguidas.",
+            },
+            {
+                "name": "remove_nav_patterns",
+                "type": "bool",
+                "default": True,
+                "description": "Eliminar patrones de navegación. Breadcrumbs, menús, 'Ir al contenido', etc.",
+            },
+            {
+                "name": "min_heading_level",
+                "type": "int",
+                "default": 1,
+                "min": 1,
+                "max": 6,
+                "description": "Nivel mínimo de heading para extract_from_first_heading. 1=H1, 2=H2, etc.",
+            },
+        ],
+        "nav_patterns": [
+            "Inicio >", "Home >", "Breadcrumb", "Ir al contenido",
+            "Skip to content", "Menú principal", "Main menu", "Buscar", "Search",
+        ],
+        "footer_patterns": [
+            "## navegación", "## footer", "© ", "política de privacidad",
+            "aviso legal", "términos y condiciones", "síguenos", "redes sociales",
+        ],
+    }
 
 
 @dashboard_router.get("/cleaner/cleaned/{crawl_name}/pages")

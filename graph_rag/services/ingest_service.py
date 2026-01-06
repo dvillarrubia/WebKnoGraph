@@ -183,6 +183,7 @@ class IngestService:
                 # Use manually cleaned markdown if available, otherwise use original
                 markdown = manual_clean_map.get(url) or row.get("markdown", "")
                 title = row.get("title", "")
+                meta_description = row.get("meta_description", "")
                 content_hash = row.get("content_hash", "")
                 word_count = row.get("word_count", 0)
 
@@ -222,6 +223,7 @@ class IngestService:
                         client_id=client_id,
                         url=url,
                         title=title[:500] if title else None,
+                        meta_description=meta_description[:1000] if meta_description else None,
                         content=markdown if markdown else None,  # Full content, no truncation
                         content_hash=content_hash,
                         embedding=page_embedding,  # Page-level embedding for fallback searches

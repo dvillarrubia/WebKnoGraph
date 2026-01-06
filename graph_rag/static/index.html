@@ -362,15 +362,50 @@
             line-height: 1.5;
         }
 
-        .result-score {
-            display: inline-block;
+        .result-heading {
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        .result-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .result-score,
+        .result-chunk-index,
+        .result-pagerank {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
             background: var(--bg-card-hover);
             color: var(--text-primary);
             padding: 0.25rem 0.5rem;
             border-radius: 4px;
             font-size: 0.75rem;
-            margin-top: 0.5rem;
             border: 1px solid var(--border-color);
+        }
+
+        .result-score {
+            background: rgba(52, 211, 153, 0.1);
+            border-color: rgba(52, 211, 153, 0.3);
+            color: #34d399;
+        }
+
+        .result-chunk-index {
+            background: rgba(96, 165, 250, 0.1);
+            border-color: rgba(96, 165, 250, 0.3);
+            color: #60a5fa;
+        }
+
+        .result-pagerank {
+            background: rgba(251, 191, 36, 0.1);
+            border-color: rgba(251, 191, 36, 0.3);
+            color: #fbbf24;
         }
 
         .result-expand-btn {
@@ -618,16 +653,96 @@
             font-weight: 600;
         }
 
+        /* Preview Modal - Force Fullscreen */
+        #previewModal.modal {
+            padding: 0 !important;
+        }
+
+        #previewModal .modal-dialog {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            height: 100vh !important;
+            margin: 0 !important;
+        }
+
         #previewModal .modal-content {
-            color: var(--text-primary);
+            background: #ffffff !important;
+            color: #1a1a2e;
+            height: 100vh !important;
+            border: none !important;
+            border-radius: 0 !important;
         }
 
         #previewModal .modal-header {
-            background: var(--bg-card);
+            background: #f8f9fa !important;
+            border-bottom: 1px solid #dee2e6 !important;
+            padding: 1rem 2rem;
+            flex-shrink: 0;
+        }
+
+        #previewModal .modal-body {
+            background: #ffffff !important;
+            padding: 2rem 4rem;
+            overflow-y: auto;
+            flex: 1;
         }
 
         #previewModal .modal-footer {
-            background: var(--bg-card);
+            background: #f8f9fa !important;
+            border-top: 1px solid #dee2e6 !important;
+            flex-shrink: 0;
+        }
+
+        #previewModal .preview-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #1a1a2e !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            border: none !important;
+            border-radius: 0 !important;
+        }
+
+        #previewModal .preview-content h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        #previewModal .preview-content h2 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        #previewModal .preview-content h3 {
+            font-size: 1.25rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        #previewModal .preview-content p {
+            margin-bottom: 1rem;
+        }
+
+        #previewModal .preview-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        #previewModal .preview-content ul,
+        #previewModal .preview-content ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        #previewModal .preview-content li {
+            margin-bottom: 0.5rem;
         }
 
         /* Graph Section */
@@ -748,23 +863,38 @@
 
         .crawl-log {
             margin-top: 1.5rem;
-            background: var(--bg-dark);
+            background: #0d1117;
             border-radius: 8px;
             padding: 1rem;
             max-height: 300px;
             overflow-y: auto;
-            font-family: 'Fira Code', monospace;
+            font-family: 'Fira Code', 'Consolas', monospace;
             font-size: 0.8rem;
+            border: 1px solid #30363d;
         }
 
         .log-entry {
-            padding: 0.25rem 0;
-            border-bottom: 1px solid var(--border-color);
+            padding: 0.35rem 0.5rem;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            color: #c9d1d9;
+            line-height: 1.4;
         }
 
-        .log-entry.success { color: var(--text-primary); font-weight: 500; }
-        .log-entry.warning { color: var(--text-secondary); }
-        .log-entry.error { color: #333333; font-weight: 600; }
+        .log-entry:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Log colors with good contrast on dark bg */
+        .log-entry.text-success { color: #3fb950 !important; }
+        .log-entry.text-danger { color: #f85149 !important; font-weight: 600; }
+        .log-entry.text-warning { color: #d29922 !important; }
+        .log-entry.text-info { color: #58a6ff !important; }
+        .log-entry.text-muted { color: #8b949e !important; }
+
+        .log-entry.success { color: #3fb950; font-weight: 500; }
+        .log-entry.warning { color: #d29922; }
+        .log-entry.error { color: #f85149; font-weight: 600; }
 
         /* Admin Section */
         .clients-table {
@@ -1402,18 +1532,18 @@
             </div>
 
             <div class="nav-section">
-                <div class="nav-section-title">Herramientas</div>
+                <div class="nav-section-title">Pipeline</div>
                 <a class="nav-item" data-section="crawler">
                     <i class="bi bi-globe"></i>
-                    <span>Crawler</span>
-                </a>
-                <a class="nav-item" data-section="ingest">
-                    <i class="bi bi-database-add"></i>
-                    <span>Ingestión</span>
+                    <span>1. Crawler</span>
                 </a>
                 <a class="nav-item" data-section="cleaner">
                     <i class="bi bi-magic"></i>
-                    <span>Smart Cleaner</span>
+                    <span>2. Limpieza</span>
+                </a>
+                <a class="nav-item" data-section="ingest">
+                    <i class="bi bi-database-add"></i>
+                    <span>3. Ingestión</span>
                 </a>
             </div>
 
@@ -1712,10 +1842,35 @@
                             </label>
                         </div>
                         <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="respectRobots" checked>
+                            <label class="form-check-label" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="Respeta las reglas del archivo robots.txt del sitio. Recomendado para cumplir con las políticas del sitio.">
+                                <i class="bi bi-shield-check"></i> Respetar robots.txt
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="skipNoindex" checked>
+                            <label class="form-check-label" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="Salta páginas marcadas con meta noindex. Estas páginas no se indexan en buscadores y suelen tener contenido no relevante.">
+                                <i class="bi bi-eye-slash"></i> Saltar noindex
+                            </label>
+                        </div>
+                        <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="resumeCrawl">
                             <label class="form-check-label" data-bs-toggle="tooltip" data-bs-placement="top"
                                    title="Si ya existe un crawl previo de este dominio, continúa desde donde se quedó sin re-crawlear páginas ya visitadas.">
                                 <i class="bi bi-arrow-repeat"></i> Continuar anterior
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Segunda fila de opciones -->
+                    <div class="d-flex flex-wrap gap-4 mb-2">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="sitemapOnly">
+                            <label class="form-check-label" data-bs-toggle="tooltip" data-bs-placement="top"
+                                   title="Solo crawlea las URLs encontradas en el sitemap. No sigue enlaces descubiertos en las páginas. Ideal para sitios con sitemap completo.">
+                                <i class="bi bi-list-check"></i> Solo URLs del sitemap
                             </label>
                         </div>
                     </div>
@@ -1758,16 +1913,29 @@
                                         <label class="form-label">
                                             Selectores CSS a excluir
                                             <i class="bi bi-question-circle text-muted ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                               title="Elementos HTML a ignorar (popups, banners de cookies, etc.). Ya incluye selectores comunes de cookies por defecto."></i>
+                                               title="Elementos HTML a ignorar (menús, footers, popups, formularios, etc.). Un selector por línea. Ya incluye selectores de cookies por defecto."></i>
                                         </label>
-                                        <input type="text" class="form-control form-control-sm" id="excludeSelectors" placeholder="#mi-popup, .banner-cookies">
+                                        <textarea class="form-control form-control-sm" id="excludeSelectors" rows="8"
+                                            placeholder="#header-mobile
+.menu
+.footer
+.form
+[id*='cookie']
+[class*='chat']"
+                                            style="font-family: monospace; font-size: 0.85rem;"></textarea>
                                         <small class="text-muted">
-                                            <a href="#" onclick="event.preventDefault(); document.getElementById('excludeSelectorsHelp').style.display = document.getElementById('excludeSelectorsHelp').style.display === 'none' ? 'block' : 'none';">
-                                                Ver selectores por defecto
-                                            </a>
+                                            Un selector por línea. Acepta: <code>#id</code>, <code>.clase</code>, <code>tag</code>, <code>[atributo*='valor']</code>
                                         </small>
-                                        <div id="excludeSelectorsHelp" style="display: none;" class="alert alert-secondary mt-2 mb-0 py-2" style="font-size: 0.8rem;">
-                                            <code style="font-size: 0.75rem;">#CybotCookiebotDialog, #onetrust-consent-sdk, [id*='cookie'], [class*='gdpr']</code>
+                                        <div class="mt-2">
+                                            <small>
+                                                <a href="#" onclick="event.preventDefault(); document.getElementById('excludeSelectorsHelp').style.display = document.getElementById('excludeSelectorsHelp').style.display === 'none' ? 'block' : 'none';">
+                                                    <i class="bi bi-info-circle"></i> Ver selectores de cookies incluidos por defecto
+                                                </a>
+                                            </small>
+                                        </div>
+                                        <div id="excludeSelectorsHelp" style="display: none;" class="alert alert-secondary mt-2 mb-0 py-2">
+                                            <small><strong>Selectores de cookies incluidos automáticamente:</strong></small>
+                                            <code style="font-size: 0.7rem; display: block; white-space: pre-wrap; margin-top: 5px;">#CybotCookiebotDialog, #onetrust-consent-sdk, #didomi-host, [id*='cookie'], [class*='cookie'], [id*='gdpr'], [class*='gdpr']</code>
                                         </div>
                                     </div>
                                 </div>
@@ -1862,8 +2030,8 @@
                         </div>
                     </div>
 
-                    <!-- Log compacto -->
-                    <div class="crawl-log mt-2" id="crawlLog" style="max-height: 100px; overflow-y: auto; font-size: 0.8rem;">
+                    <!-- Log detallado -->
+                    <div class="crawl-log mt-2" id="crawlLog">
                         <div class="log-entry text-muted">Esperando inicio de crawl...</div>
                     </div>
                 </div>
@@ -2029,6 +2197,15 @@
                                 <small class="text-muted">Controla cómo se manejan páginas existentes</small>
                             </div>
                             <div class="form-group mb-3">
+                                <label>Modelo de Embeddings</label>
+                                <select class="form-control" id="ingestEmbeddingModel">
+                                    <option value="hiiamsid/sentence_similarity_spanish_es" data-dim="768">Español (hiiamsid) - 768 dims</option>
+                                    <option value="intfloat/multilingual-e5-large" data-dim="1024">Multilingüe E5 - 1024 dims</option>
+                                    <option value="sentence-transformers/paraphrase-multilingual-mpnet-base-v2" data-dim="768">Multilingüe MPNet - 768 dims</option>
+                                </select>
+                                <small class="text-muted">Modelo para generar vectores semánticos</small>
+                            </div>
+                            <div class="form-group mb-3">
                                 <label>Palabras mínimas</label>
                                 <input type="number" class="form-control" id="ingestMinWordCount" value="50" min="0" />
                                 <small class="text-muted">Páginas con menos palabras se ignoran</small>
@@ -2050,25 +2227,27 @@
             </div>
         </section>
 
-        <!-- Preview Modal (Emergente Grande) -->
+        <!-- Preview Modal (Fullscreen) -->
         <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content" style="background: var(--bg-card); border: 1px solid var(--border-color); max-height: 90vh;">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content" style="background: var(--bg-card); border: none;">
                     <div class="modal-header" style="border-bottom: 1px solid var(--border-color);">
-                        <div class="flex-grow-1">
-                            <h5 class="modal-title" id="previewModalLabel">
-                                <i class="bi bi-eye me-2"></i>
-                                <span id="previewTitle">Preview del documento</span>
-                            </h5>
-                            <small class="text-muted d-block mt-1" id="previewUrl"></small>
+                        <div class="d-flex flex-column flex-grow-1">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <i class="bi bi-file-text text-primary"></i>
+                                <h5 class="modal-title mb-0" id="previewModalLabel">
+                                    <span id="previewTitle">Preview del documento</span>
+                                </h5>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <small class="text-muted text-truncate" id="previewUrl" style="max-width: 500px;"></small>
+                                <span id="previewWords" class="ms-2"></span>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <span class="badge bg-primary" id="previewWords">0 palabras</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar" style="filter: var(--bs-btn-close-white-filter);"></button>
-                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
-                    <div class="modal-body" style="overflow-y: auto; padding: 2rem;">
-                        <div id="previewContent" class="preview-content" style="font-size: 0.95rem; line-height: 1.7;">
+                    <div class="modal-body">
+                        <div id="previewContent" class="preview-content">
                             <div class="text-center py-5">
                                 <div class="spinner-border text-primary" role="status">
                                     <span class="visually-hidden">Cargando...</span>
@@ -2078,10 +2257,12 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="border-top: 1px solid var(--border-color);">
-                        <a href="#" id="previewOpenUrl" target="_blank" class="btn btn-outline-primary">
-                            <i class="bi bi-box-arrow-up-right me-1"></i> Abrir URL original
+                        <a href="#" id="previewOpenUrl" target="_blank" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Abrir URL
                         </a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">
+                            <i class="bi bi-x-lg me-1"></i> Cerrar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -2205,8 +2386,42 @@
                                 </button>
                             </div>
                             <div class="card-body py-2">
+                                <!-- Quick Auto-Clean for all pages -->
+                                <div class="border rounded mb-3 p-2" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <span class="fw-semibold" style="font-size: 0.85rem;">
+                                            <i class="bi bi-magic text-primary"></i> Auto-limpiar
+                                        </span>
+                                        <button class="btn btn-sm btn-primary px-3" id="autoCleanAllBtn">
+                                            <i class="bi bi-lightning-fill"></i> Aplicar
+                                        </button>
+                                    </div>
+                                    <div class="d-flex gap-3" style="font-size: 0.75rem;">
+                                        <label class="d-flex align-items-center gap-1 mb-0" style="cursor: pointer;">
+                                            <input type="checkbox" id="acAllHeading" checked class="form-check-input m-0" style="width: 14px; height: 14px;">
+                                            <span>Desde H1</span>
+                                        </label>
+                                        <label class="d-flex align-items-center gap-1 mb-0" style="cursor: pointer;">
+                                            <input type="checkbox" id="acAllFooter" checked class="form-check-input m-0" style="width: 14px; height: 14px;">
+                                            <span>Sin footer</span>
+                                        </label>
+                                        <label class="d-flex align-items-center gap-1 mb-0" style="cursor: pointer;">
+                                            <input type="checkbox" id="acAllNav" checked class="form-check-input m-0" style="width: 14px; height: 14px;">
+                                            <span>Sin nav</span>
+                                        </label>
+                                    </div>
+                                    <!-- Status indicator -->
+                                    <div id="autoCleanStatus" class="mt-2 pt-2 border-top border-primary-subtle" style="display: none;">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-success d-flex align-items-center gap-1">
+                                                <i class="bi bi-check-circle-fill"></i> Aplicado
+                                            </span>
+                                            <small class="text-muted" id="autoCleanStats"></small>
+                                        </div>
+                                    </div>
+                                </div>
                                 <small class="text-muted d-block mb-2">
-                                    <i class="bi bi-info-circle"></i> Las páginas se agrupan por estructura HTML similar
+                                    <i class="bi bi-info-circle"></i> O selecciona plantilla para limpieza manual:
                                 </small>
                                 <div id="cleanerTemplatesList" style="max-height: 500px; overflow-y: auto;"></div>
                             </div>
@@ -2252,25 +2467,45 @@
                                     <small><i class="bi bi-percent"></i> Reducción: <strong id="reductionPct">0%</strong></small>
                                 </div>
 
-                                <!-- Add Pattern Form -->
+                                <!-- Instrucciones -->
+                                <div class="alert alert-info py-1 px-2 mb-2" style="font-size: 0.75rem;">
+                                    <i class="bi bi-info-circle"></i> <strong>Selecciona texto</strong> en el panel "Original" para crear patrones
+                                </div>
+
+                                <!-- Reutilizar patrones de otras plantillas -->
+                                <div class="mb-2" id="availablePatternsSection" style="display: none;">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <small class="text-muted"><i class="bi bi-arrow-repeat"></i> Reutilizar de otras plantillas:</small>
+                                        <button class="btn btn-link btn-sm p-0" onclick="window.refreshAvailablePatterns()" title="Recargar">
+                                            <i class="bi bi-arrow-clockwise" style="font-size: 0.7rem;"></i>
+                                        </button>
+                                    </div>
+                                    <div id="availablePatternsList" class="d-flex flex-wrap gap-1" style="max-height: 80px; overflow-y: auto;">
+                                        <!-- Se llena dinámicamente -->
+                                    </div>
+                                </div>
+
+                                <!-- Add Pattern Form - Simplificado -->
                                 <div class="border rounded p-2 mb-2 bg-light">
                                     <div class="row g-2">
                                         <div class="col-12">
-                                            <label class="form-label small mb-1">
-                                                Tipo de patrón
-                                                <i class="bi bi-question-circle text-muted ms-1" data-bs-toggle="tooltip"
-                                                   title="contains: elimina líneas que contienen el texto. prefix: líneas que empiezan con. line_range: todo entre dos textos."></i>
-                                            </label>
-                                            <select class="form-select form-select-sm" id="patternType">
-                                                <option value="contains">Contiene texto</option>
-                                                <option value="prefix">Empieza con</option>
-                                                <option value="line_range">Rango (desde...hasta)</option>
-                                                <option value="exact">Texto exacto</option>
-                                                <option value="regex">Regex</option>
-                                            </select>
+                                            <div class="btn-group btn-group-sm w-100" role="group" id="patternTypeButtons">
+                                                <input type="radio" class="btn-check" name="patternType" id="pt_contains" value="contains" checked>
+                                                <label class="btn btn-outline-primary" for="pt_contains" title="Eliminar líneas que contienen este texto">Contiene</label>
+
+                                                <input type="radio" class="btn-check" name="patternType" id="pt_exact" value="exact">
+                                                <label class="btn btn-outline-primary" for="pt_exact" title="Eliminar exactamente este texto">Exacto</label>
+
+                                                <input type="radio" class="btn-check" name="patternType" id="pt_line_range" value="line_range">
+                                                <label class="btn btn-outline-primary" for="pt_line_range" title="Eliminar desde...hasta (primera ocurrencia)">Rango</label>
+
+                                                <input type="radio" class="btn-check" name="patternType" id="pt_text_range" value="text_range">
+                                                <label class="btn btn-outline-primary" for="pt_text_range" title="Eliminar desde...hasta (TODAS las ocurrencias)">Rango x N</label>
+                                            </div>
                                         </div>
                                         <div class="col-12">
-                                            <input type="text" class="form-control form-control-sm" id="patternValue" placeholder="Texto a buscar...">
+                                            <textarea class="form-control form-control-sm" id="patternValue" placeholder="Selecciona texto del original o escribe aquí... (puedes pegar bloques grandes de texto)" rows="4" style="resize: vertical; min-height: 80px; max-height: 300px;"></textarea>
+                                            <small class="text-muted" id="patternCharCount"></small>
                                         </div>
                                         <div class="col-12" id="patternEndContainer" style="display: none;">
                                             <input type="text" class="form-control form-control-sm" id="patternValueEnd" placeholder="Texto final del rango...">
@@ -2289,6 +2524,32 @@
                                 </div>
                                 <div id="patternsList" style="max-height: 200px; overflow-y: auto;">
                                     <p class="text-muted small text-center py-2">Sin patrones</p>
+                                </div>
+
+                                <!-- Auto-Clean Options -->
+                                <div class="border rounded p-2 mb-2 bg-light">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <small class="fw-bold"><i class="bi bi-magic"></i> Auto-limpieza</small>
+                                        <input type="checkbox" class="form-check-input" id="enableAutoClean" checked>
+                                    </div>
+                                    <div id="autoCleanOptions" style="font-size: 0.75rem;">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="acExtractHeading" checked>
+                                            <label class="form-check-label" for="acExtractHeading" title="Elimina todo antes del primer título H1/H2">Desde H1</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="acRemoveFooter" checked>
+                                            <label class="form-check-label" for="acRemoveFooter" title="Elimina footer, copyright, redes sociales">Sin footer</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="acRemoveNav" checked>
+                                            <label class="form-check-label" for="acRemoveNav" title="Elimina breadcrumbs y menús">Sin nav</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="acCleanLines" checked>
+                                            <label class="form-check-label" for="acCleanLines" title="Máximo 2 líneas vacías">Limpiar</label>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- Actions -->
@@ -2323,29 +2584,53 @@
                         </div>
                     </div>
 
-                    <!-- Columna derecha: Preview del markdown -->
+                    <!-- Columna derecha: Preview del contenido -->
                     <div class="col-lg-8">
                         <div class="card h-100">
-                            <div class="card-header py-2 d-flex justify-content-between align-items-center">
-                                <h6 class="card-title mb-0"><i class="bi bi-file-text"></i> Comparación</h6>
-                                <div>
-                                    <span class="badge bg-secondary" id="originalLength">0</span>
-                                    <i class="bi bi-arrow-right text-muted"></i>
-                                    <span class="badge bg-success" id="previewLength">0</span>
-                                    <small class="text-muted ms-1">chars</small>
+                            <div class="card-header py-2">
+                                <!-- Pipeline indicator -->
+                                <div class="d-flex align-items-center justify-content-between mb-2" style="font-size: 0.75rem;">
+                                    <div class="d-flex align-items-center gap-1">
+                                        <span class="badge bg-secondary" id="pipelineStep1">
+                                            <i class="bi bi-globe"></i> Crawler
+                                        </span>
+                                        <i class="bi bi-arrow-right text-muted"></i>
+                                        <span class="badge" id="pipelineStep2" style="background: #6c757d;">
+                                            <i class="bi bi-magic"></i> Auto-clean
+                                        </span>
+                                        <i class="bi bi-arrow-right text-muted"></i>
+                                        <span class="badge bg-primary">
+                                            <i class="bi bi-pencil"></i> Patrones
+                                        </span>
+                                        <i class="bi bi-arrow-right text-muted"></i>
+                                        <span class="badge bg-success">
+                                            <i class="bi bi-check-circle"></i> Final
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="badge bg-secondary" id="originalLength" title="Tamaño entrada">0</span>
+                                        <i class="bi bi-arrow-right text-muted"></i>
+                                        <span class="badge bg-success" id="previewLength" title="Tamaño salida">0</span>
+                                        <span class="badge bg-info" id="reductionBadge" title="Reducción">0%</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body p-0">
                                 <div class="row g-0" style="height: 600px;">
                                     <div class="col-6 border-end d-flex flex-column">
-                                        <div class="p-2 bg-light border-bottom">
-                                            <small class="fw-bold text-danger"><i class="bi bi-file-earmark"></i> Original</small>
+                                        <div class="p-2 bg-light border-bottom d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <small id="leftPanelLabel" class="fw-bold text-secondary"><i class="bi bi-file-earmark"></i> Entrada</small>
+                                                <small id="leftPanelSubLabel" class="text-muted ms-1" style="font-size: 0.65rem;">(del crawler)</small>
+                                            </div>
+                                            <small class="text-muted">Selecciona texto <i class="bi bi-hand-index"></i></small>
                                         </div>
-                                        <div id="markdownOriginal" class="preview-content p-2 flex-grow-1" style="overflow-y: auto; font-size: 0.8rem; line-height: 1.4;"></div>
+                                        <div id="markdownOriginal" class="preview-content p-2 flex-grow-1 markdown-selectable" style="overflow-y: auto; font-size: 0.8rem; line-height: 1.4; cursor: text; user-select: text;"></div>
                                     </div>
                                     <div class="col-6 d-flex flex-column">
                                         <div class="p-2 bg-light border-bottom">
-                                            <small class="fw-bold text-success"><i class="bi bi-file-earmark-check"></i> Limpio</small>
+                                            <small class="fw-bold text-success"><i class="bi bi-file-earmark-check"></i> Salida</small>
+                                            <small class="text-muted ms-1" style="font-size: 0.65rem;">(tras patrones)</small>
                                         </div>
                                         <div id="markdownPreview" class="preview-content p-2 flex-grow-1" style="overflow-y: auto; font-size: 0.8rem; line-height: 1.4;"></div>
                                     </div>
@@ -2648,7 +2933,7 @@
             } else {
                 // Render markdown on first expand
                 if (markdownDiv.innerHTML === '' && window.searchResults && window.searchResults[idx]) {
-                    const rawContent = window.searchResults[idx].content_full || 'Sin contenido';
+                    const rawContent = window.searchResults[idx].chunk_content || 'Sin contenido';
                     try {
                         markdownDiv.innerHTML = marked.parse(rawContent);
                     } catch (e) {
@@ -2874,8 +3159,13 @@
                                         <div class="result-info">
                                             <div class="result-title">${escapeHtml(r.title || 'Sin título')}</div>
                                             <div class="result-url">${escapeHtml(r.url)}</div>
-                                            <div class="result-snippet">${escapeHtml((r.content_preview || '').substring(0, 200))}</div>
-                                            <span class="result-score">Similitud: ${(r.similarity * 100).toFixed(1)}%</span>
+                                            ${r.heading_context ? `<div class="result-heading"><i class="bi bi-bookmark"></i> ${escapeHtml(r.heading_context)}</div>` : ''}
+                                            <div class="result-snippet">${escapeHtml((r.chunk_content || '').substring(0, 250))}...</div>
+                                            <div class="result-meta">
+                                                <span class="result-score" title="Raw cosine: ${(r.raw_similarity * 100).toFixed(1)}%"><i class="bi bi-bullseye"></i> Relevancia: ${(r.similarity * 100).toFixed(0)}%</span>
+                                                <span class="result-chunk-index"><i class="bi bi-layers"></i> Chunk #${r.chunk_index + 1}</span>
+                                                ${r.pagerank ? `<span class="result-pagerank"><i class="bi bi-graph-up"></i> PR: ${r.pagerank.toFixed(4)}</span>` : ''}
+                                            </div>
                                         </div>
                                         <button class="result-expand-btn" id="expand-btn-${idx}">
                                             <i class="bi bi-chevron-down"></i> Ver contenido
@@ -2907,6 +3197,19 @@
                     input.dispatchEvent(new Event('input'));
                 });
             });
+        }
+
+        // Parse exclude selectors from textarea (supports multiple lines)
+        function parseExcludeSelectors(text) {
+            if (!text || !text.trim()) return null;
+
+            // Split by newlines, commas, or both
+            const selectors = text
+                .split(/[\n,]+/)
+                .map(s => s.trim())
+                .filter(s => s && !s.startsWith('//') && !s.startsWith('#//')); // Filter empty and comments
+
+            return selectors.length > 0 ? selectors : null;
         }
 
         // Crawler functionality
@@ -2962,7 +3265,7 @@
                         elapsedInterval = setInterval(updateElapsedTime, 1000);
                         updateElapsedTime();
 
-                        crawlInterval = setInterval(updateCrawlProgress, 2000);
+                        crawlInterval = setInterval(updateCrawlProgress, 5000);
                         updateCrawlProgress();
                         showToast(`Crawl en progreso: ${data.url}`, 'info');
                     } else if (data.status === 'completed' || data.status === 'stopped' || data.status === 'failed') {
@@ -3047,7 +3350,10 @@
                             force_sitemap: document.getElementById('forceSitemap').checked,
                             urls_list: urlsList,
                             urls_only: document.getElementById('urlsOnly').checked,
-                            exclude_selectors: document.getElementById('excludeSelectors').value.trim() || null
+                            exclude_selectors: parseExcludeSelectors(document.getElementById('excludeSelectors').value),
+                            respect_robots: document.getElementById('respectRobots').checked,
+                            skip_noindex: document.getElementById('skipNoindex').checked,
+                            sitemap_only: document.getElementById('sitemapOnly').checked
                         })
                     });
 
@@ -3059,7 +3365,7 @@
                         log.innerHTML = `<div class="log-entry">[${new Date().toLocaleTimeString()}] Crawl iniciado para ${url}</div>`;
 
                         // Poll for progress
-                        crawlInterval = setInterval(updateCrawlProgress, 3000);
+                        crawlInterval = setInterval(updateCrawlProgress, 5000);
                     } else {
                         const error = await response.json();
                         showToast(error.detail || 'Error al iniciar crawl', 'error');
@@ -3089,6 +3395,37 @@
                 }
             });
 
+            let lastLogCount = 0;
+
+            async function fetchCrawlerLogs() {
+                try {
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/crawler/logs?last_n=50`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.logs && data.logs.length > 0) {
+                            // Only update if we have new logs
+                            if (data.count !== lastLogCount) {
+                                lastLogCount = data.count;
+                                // Display logs in reverse order (newest at bottom for scrolling)
+                                const logHtml = data.logs.map(l => {
+                                    const levelClass = l.level === 'ERROR' ? 'text-danger' :
+                                                      l.level === 'WARN' ? 'text-warning' :
+                                                      l.level === 'OK' || l.level === 'SAVE' ? 'text-success' :
+                                                      l.level === 'SKIP' ? 'text-muted' :
+                                                      l.level === 'LINK' ? 'text-info' : '';
+                                    return `<div class="log-entry ${levelClass}">${l.formatted || `[${l.ts}] ${l.msg}`}</div>`;
+                                }).join('');
+                                log.innerHTML = logHtml;
+                                // Auto-scroll to bottom
+                                log.scrollTop = log.scrollHeight;
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error fetching logs:', error);
+                }
+            }
+
             async function updateCrawlProgress() {
                 try {
                     const response = await fetch(`${API_URL}/api/v1/dashboard/crawler/status`);
@@ -3109,14 +3446,8 @@
                             document.getElementById('crawlCurrentUrl').textContent = data.current_url;
                         }
 
-                        // Add log entry if pages changed
-                        if (data.pages_crawled) {
-                            const lastEntry = log.querySelector('.log-entry:first-child');
-                            const newText = `[${new Date().toLocaleTimeString()}] Páginas: ${data.pages_crawled}, Enlaces: ${data.links_found || 0}`;
-                            if (!lastEntry || !lastEntry.textContent.includes(`Páginas: ${data.pages_crawled}`)) {
-                                log.innerHTML = `<div class="log-entry success">${newText}</div>` + log.innerHTML;
-                            }
-                        }
+                        // Fetch and display detailed logs
+                        await fetchCrawlerLogs();
                     } else if (data.status === 'completed' || data.status === 'stopped' || data.status === 'failed') {
                         clearInterval(crawlInterval);
                         clearInterval(elapsedInterval);
@@ -3555,6 +3886,45 @@
                 document.getElementById('previewOpenUrl').href = url;
                 previewModal.show();
 
+                // Force fullscreen modal styles with position: fixed
+                setTimeout(() => {
+                    const modalEl = document.getElementById('previewModal');
+                    const dialogEl = modalEl.querySelector('.modal-dialog');
+                    const contentEl = modalEl.querySelector('.modal-content');
+                    const bodyEl = modalEl.querySelector('.modal-body');
+                    const headerEl = modalEl.querySelector('.modal-header');
+                    const previewContent = modalEl.querySelector('.preview-content');
+                    if (dialogEl) {
+                        dialogEl.style.setProperty('position', 'fixed', 'important');
+                        dialogEl.style.setProperty('top', '0', 'important');
+                        dialogEl.style.setProperty('left', '0', 'important');
+                        dialogEl.style.setProperty('right', '0', 'important');
+                        dialogEl.style.setProperty('bottom', '0', 'important');
+                        dialogEl.style.setProperty('width', '100vw', 'important');
+                        dialogEl.style.setProperty('max-width', '100vw', 'important');
+                        dialogEl.style.setProperty('height', '100vh', 'important');
+                        dialogEl.style.setProperty('margin', '0', 'important');
+                        dialogEl.style.setProperty('transform', 'none', 'important');
+                    }
+                    if (contentEl) {
+                        contentEl.style.setProperty('height', '100vh', 'important');
+                        contentEl.style.setProperty('border', 'none', 'important');
+                        contentEl.style.setProperty('border-radius', '0', 'important');
+                        contentEl.style.setProperty('background', '#ffffff', 'important');
+                    }
+                    if (bodyEl) {
+                        bodyEl.style.setProperty('background', '#ffffff', 'important');
+                    }
+                    if (headerEl) {
+                        headerEl.style.setProperty('background', '#f8f9fa', 'important');
+                    }
+                    if (previewContent) {
+                        previewContent.style.setProperty('background', '#ffffff', 'important');
+                        previewContent.style.setProperty('box-shadow', 'none', 'important');
+                        previewContent.style.setProperty('border', 'none', 'important');
+                    }
+                }, 50);
+
                 try {
                     const response = await fetch(`${API_URL}/api/v1/dashboard/crawler/crawls/${currentCrawl}/page?url=${encodeURIComponent(url)}`);
                     if (!response.ok) throw new Error('Page not found');
@@ -3733,6 +4103,10 @@
                 statusDiv.innerHTML = '<p class="text-warning"><i class="bi bi-hourglass-split"></i> Procesando datos... Esto puede tardar varios minutos.</p>';
 
                 try {
+                    const embeddingSelect = document.getElementById('ingestEmbeddingModel');
+                    const embeddingModel = embeddingSelect?.value || 'hiiamsid/sentence_similarity_spanish_es';
+                    const embeddingDim = parseInt(embeddingSelect?.selectedOptions[0]?.dataset?.dim) || 768;
+
                     const response = await fetch(`${API_URL}/api/v1/dashboard/ingest`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -3742,21 +4116,26 @@
                             client_domain: domain,
                             ingest_mode: document.getElementById('ingestMode')?.value || 'new_only',
                             min_word_count: parseInt(document.getElementById('ingestMinWordCount')?.value) || 50,
-                            delete_after: document.getElementById('deleteAfterIngest')?.checked || false
+                            delete_after: document.getElementById('deleteAfterIngest')?.checked || false,
+                            embedding_model: embeddingModel,
+                            embedding_dimension: embeddingDim
                         })
                     });
 
                     if (response.ok) {
                         const data = await response.json();
                         showToast(`Ingestión completada: ${data.pages_migrated} páginas`);
+                        const modelShort = data.embedding_model?.split('/').pop() || 'default';
                         statusDiv.innerHTML = `
                             <div class="alert alert-success">
                                 <h6><i class="bi bi-check-circle"></i> Completado</h6>
                                 <ul style="margin: 0.5rem 0 0 0; padding-left: 1.25rem; font-size: 0.85rem;">
                                     <li>Páginas nuevas: ${data.pages_migrated}</li>
                                     ${data.pages_skipped > 0 ? `<li>Saltadas: ${data.pages_skipped}</li>` : ''}
+                                    <li>Chunks: ${data.chunks_created || 0}</li>
                                     <li>Embeddings: ${data.embeddings_generated}</li>
                                     <li>Enlaces: ${data.links_migrated}</li>
+                                    <li>Modelo: ${modelShort} (${data.embedding_dimension}d)</li>
                                     ${data.errors > 0 ? `<li class="text-warning">Errores: ${data.errors}</li>` : ''}
                                 </ul>
                             </div>
@@ -3795,7 +4174,6 @@
             const refreshBtn = document.getElementById('refreshCleanerCrawls');
             const backToCrawlsBtn = document.getElementById('backToCrawls');
             const backToTemplatesBtn = document.getElementById('backToTemplates');
-            const patternType = document.getElementById('patternType');
             const patternValue = document.getElementById('patternValue');
             const patternValueEnd = document.getElementById('patternValueEnd');
             const patternEndContainer = document.getElementById('patternEndContainer');
@@ -3805,13 +4183,89 @@
             const nextSampleBtn = document.getElementById('nextSampleBtn');
             const previewCleaningBtn = document.getElementById('previewCleaningBtn');
             const applyCleaningBtn = document.getElementById('applyCleaningBtn');
+            const markdownOriginalEl = document.getElementById('markdownOriginal');
+
+            // Helper to get selected pattern type from radio buttons
+            const getSelectedPatternType = () => {
+                const selected = document.querySelector('input[name="patternType"]:checked');
+                return selected ? selected.value : 'contains';
+            };
 
             // Initialize
             loadCrawls();
 
-            // Pattern type change handler
-            patternType.addEventListener('change', () => {
-                patternEndContainer.style.display = patternType.value === 'line_range' ? 'block' : 'none';
+            // Pattern type change handler (radio buttons)
+            document.querySelectorAll('input[name="patternType"]').forEach(radio => {
+                radio.addEventListener('change', () => {
+                    const type = getSelectedPatternType();
+                    patternEndContainer.style.display = (type === 'line_range' || type === 'text_range') ? 'block' : 'none';
+                });
+            });
+
+            // Auto-clean toggle handler
+            const enableAutoClean = document.getElementById('enableAutoClean');
+            const autoCleanOptions = document.getElementById('autoCleanOptions');
+            if (enableAutoClean && autoCleanOptions) {
+                enableAutoClean.addEventListener('change', () => {
+                    autoCleanOptions.style.opacity = enableAutoClean.checked ? '1' : '0.5';
+                    autoCleanOptions.querySelectorAll('input').forEach(cb => {
+                        cb.disabled = !enableAutoClean.checked;
+                    });
+                });
+            }
+
+            // Text selection handler - when user selects text in the original panel
+            markdownOriginalEl.addEventListener('mouseup', () => {
+                const selection = window.getSelection();
+                const selectedText = selection.toString().trim();
+
+                if (selectedText && selectedText.length > 0) {
+                    // Put the selected text in the pattern input
+                    patternValue.value = selectedText;
+                    patternValue.focus();
+
+                    // Auto-select pattern type based on content
+                    if (selectedText.includes('\n') || selectedText.length > 100) {
+                        // Multi-line or long selection -> exact (remove whole block)
+                        document.getElementById('pt_exact').checked = true;
+                    } else if (selectedText.length < 50) {
+                        // Short single line -> exact
+                        document.getElementById('pt_exact').checked = true;
+                    } else {
+                        // Long single line -> contains
+                        document.getElementById('pt_contains').checked = true;
+                    }
+
+                    // Auto-expand textarea height based on content
+                    autoExpandTextarea(patternValue);
+                    updateCharCount(patternValue);
+
+                    // Show visual feedback
+                    patternValue.classList.add('border-success');
+                    setTimeout(() => patternValue.classList.remove('border-success'), 1000);
+                }
+            });
+
+            // Auto-expand textarea and show char count
+            function autoExpandTextarea(textarea) {
+                textarea.style.height = 'auto';
+                textarea.style.height = Math.min(textarea.scrollHeight, 300) + 'px';
+            }
+
+            function updateCharCount(textarea) {
+                const charCount = document.getElementById('patternCharCount');
+                const len = textarea.value.length;
+                const lines = textarea.value.split('\n').length;
+                if (len > 0) {
+                    charCount.textContent = `${len} caracteres, ${lines} lineas`;
+                } else {
+                    charCount.textContent = '';
+                }
+            }
+
+            patternValue.addEventListener('input', () => {
+                autoExpandTextarea(patternValue);
+                updateCharCount(patternValue);
             });
 
             // Refresh button
@@ -3830,6 +4284,64 @@
                 step2.style.display = 'block';
                 currentTemplateId = null;
                 updateBreadcrumb(2, currentCrawl ? currentCrawl.replace(/_/g, '.') : '');
+            });
+
+            // Auto-clean ALL pages button
+            const autoCleanAllBtn = document.getElementById('autoCleanAllBtn');
+            autoCleanAllBtn.addEventListener('click', async () => {
+                if (!currentCrawl) {
+                    showToast('Selecciona un crawl primero', 'warning');
+                    return;
+                }
+
+                if (!confirm(`¿Aplicar auto-limpieza a TODAS las páginas de ${currentCrawl}?`)) {
+                    return;
+                }
+
+                autoCleanAllBtn.disabled = true;
+                autoCleanAllBtn.innerHTML = '<div class="spinner-border spinner-border-sm"></div>';
+
+                try {
+                    const options = {
+                        extract_from_first_heading: document.getElementById('acAllHeading')?.checked ?? true,
+                        remove_footer_content: document.getElementById('acAllFooter')?.checked ?? true,
+                        remove_nav_patterns: document.getElementById('acAllNav')?.checked ?? true,
+                        remove_empty_lines: true,
+                        min_heading_level: 1
+                    };
+
+                    const response = await fetch(
+                        `${API_URL}/api/v1/dashboard/manual-cleaner/auto-clean/${currentCrawl}`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(options)
+                        }
+                    );
+
+                    if (!response.ok) throw new Error('Error en auto-limpieza');
+
+                    const data = await response.json();
+                    showToast(`Auto-limpieza aplicada: ${data.pages_cleaned} páginas procesadas`, 'success');
+
+                    // Show status
+                    const statusDiv = document.getElementById('autoCleanStatus');
+                    const statsSpan = document.getElementById('autoCleanStats');
+                    if (statusDiv && statsSpan) {
+                        statusDiv.style.display = 'block';
+                        statsSpan.textContent = `${data.pages_cleaned} págs | ${data.reduction_pct}% reducción`;
+                    }
+
+                    // Refresh templates list
+                    window.selectCrawlForCleaning(currentCrawl);
+
+                } catch (error) {
+                    console.error('Error auto-cleaning:', error);
+                    showToast('Error en auto-limpieza: ' + error.message, 'error');
+                } finally {
+                    autoCleanAllBtn.disabled = false;
+                    autoCleanAllBtn.innerHTML = '<i class="bi bi-lightning"></i> Aplicar';
+                }
             });
 
             // Sample navigation
@@ -3986,6 +4498,20 @@
                 `;
 
                 try {
+                    // Check auto-clean status first
+                    const statusResponse = await fetch(`${API_URL}/api/v1/dashboard/manual-cleaner/status/${crawlName}`);
+                    if (statusResponse.ok) {
+                        const statusData = await statusResponse.json();
+                        const statusDiv = document.getElementById('autoCleanStatus');
+                        const statsSpan = document.getElementById('autoCleanStats');
+                        if (statusDiv && statusData.auto_clean && statusData.auto_clean.applied) {
+                            statusDiv.style.display = 'block';
+                            statsSpan.textContent = `${statusData.auto_clean.pages} págs | ${statusData.auto_clean.reduction_pct}% reducción`;
+                        } else if (statusDiv) {
+                            statusDiv.style.display = 'none';
+                        }
+                    }
+
                     const response = await fetch(`${API_URL}/api/v1/dashboard/manual-cleaner/analyze/${crawlName}`);
                     if (!response.ok) throw new Error('Error analyzing templates');
 
@@ -4007,7 +4533,7 @@
                              data-template-id="${t.template_id}" data-index="${idx}">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <code class="text-primary small">${t.fingerprint}</code>
+                                    <code class="text-primary small">${t.path_pattern || t.fingerprint}</code>
                                     <span class="badge bg-light text-dark ms-1">${t.page_count}</span>
                                 </div>
                                 <div class="d-flex gap-1 align-items-center">
@@ -4060,8 +4586,8 @@
                     <div class="h-100 d-flex flex-column">
                         <div class="mb-3">
                             <h6 class="mb-2">
-                                <i class="bi bi-fingerprint"></i> Fingerprint:
-                                <code class="text-primary">${template.fingerprint}</code>
+                                <i class="bi bi-folder"></i> URL Pattern:
+                                <code class="text-primary">${template.path_pattern || template.fingerprint}</code>
                             </h6>
                             <div class="row text-center">
                                 <div class="col-4">
@@ -4135,8 +4661,13 @@
 
             // Load template sample
             async function loadTemplateSample() {
+                // Guard: don't fetch if template is not selected
+                if (!currentCrawl || !currentTemplateId) {
+                    console.warn('loadTemplateSample called without valid crawl/template');
+                    return;
+                }
+
                 const url = `${API_URL}/api/v1/dashboard/manual-cleaner/template/${currentCrawl}/${currentTemplateId}?sample_index=${currentSampleIndex}`;
-                console.log('Loading sample from:', url);
 
                 try {
                     const response = await fetch(url);
@@ -4167,24 +4698,86 @@
                     const sampleUrlEl = document.getElementById('sampleUrl');
                     if (sampleUrlEl) sampleUrlEl.title = data.url;
 
-                    // Update markdown preview - render as HTML using marked.js
-                    const originalMd = data.markdown_original || '(vacío)';
+                    // Update markdown preview
+                    // If auto_clean was applied, show that in the left panel instead of original
+                    const hasAutoClean = data.auto_clean_applied === true;
+                    const leftPanelMd = hasAutoClean
+                        ? (data.auto_clean_content || data.markdown_original || '(vacío)')
+                        : (data.markdown_original || '(vacío)');
                     const previewMd = data.markdown_preview || '(vacío)';
+
+                    // Store raw markdown for pattern matching (use auto_clean if available)
+                    window.currentRawMarkdown = leftPanelMd;
+
+                    // Update pipeline indicator
+                    const pipelineStep2 = document.getElementById('pipelineStep2');
+                    if (pipelineStep2) {
+                        if (hasAutoClean) {
+                            pipelineStep2.style.background = '#0d6efd'; // Active blue
+                            pipelineStep2.innerHTML = '<i class="bi bi-check-circle-fill"></i> Auto-clean';
+                        } else {
+                            pipelineStep2.style.background = '#6c757d'; // Inactive gray
+                            pipelineStep2.innerHTML = '<i class="bi bi-magic"></i> Auto-clean';
+                        }
+                    }
+
+                    // Update left panel label to indicate what's being shown
+                    const leftPanelLabel = document.getElementById('leftPanelLabel');
+                    const leftPanelSubLabel = document.getElementById('leftPanelSubLabel');
+                    if (leftPanelLabel) {
+                        if (hasAutoClean) {
+                            leftPanelLabel.innerHTML = '<i class="bi bi-magic"></i> Entrada';
+                            leftPanelLabel.className = 'fw-bold text-info';
+                            if (leftPanelSubLabel) {
+                                leftPanelSubLabel.textContent = '(auto-limpiado)';
+                            }
+                        } else {
+                            leftPanelLabel.innerHTML = '<i class="bi bi-file-earmark"></i> Entrada';
+                            leftPanelLabel.className = 'fw-bold text-secondary';
+                            if (leftPanelSubLabel) {
+                                leftPanelSubLabel.textContent = '(del crawler)';
+                            }
+                        }
+                    }
+
+                    // Show content in left panel as raw text (so copy-paste works for pattern matching)
+                    // Use <pre> with word-wrap to show exact markdown source
+                    const originalEl = document.getElementById('markdownOriginal');
+                    originalEl.innerHTML = `<pre style="white-space: pre-wrap; word-wrap: break-word; margin: 0; font-family: inherit; font-size: inherit;">${escapeHtml(leftPanelMd)}</pre>`;
+
+                    // Show PREVIEW as rendered HTML (to see the cleaned result visually)
                     try {
-                        setElement('markdownOriginal', marked.parse(originalMd), 'innerHTML');
                         setElement('markdownPreview', marked.parse(previewMd), 'innerHTML');
                     } catch (e) {
-                        setElement('markdownOriginal', originalMd);
                         setElement('markdownPreview', previewMd);
                     }
 
-                    // Update stats
-                    setElement('originalLength', `${data.original_length} chars`);
-                    setElement('previewLength', `${data.preview_length} chars`);
+                    // Helper to escape HTML for safe display
+                    function escapeHtml(text) {
+                        const div = document.createElement('div');
+                        div.textContent = text;
+                        return div.innerHTML;
+                    }
+
+                    // Update stats (show auto_clean_length if auto_clean applied)
+                    const leftPanelLength = hasAutoClean && data.auto_clean_length
+                        ? data.auto_clean_length
+                        : data.original_length;
+                    setElement('originalLength', `${leftPanelLength}`);
+                    setElement('previewLength', `${data.preview_length}`);
                     setElement('reductionPct', `${data.reduction_pct}%`);
+
+                    // Update reduction badge
+                    const reductionBadge = document.getElementById('reductionBadge');
+                    if (reductionBadge) {
+                        reductionBadge.textContent = `-${data.reduction_pct}%`;
+                    }
 
                     // Update patterns list
                     renderPatterns();
+
+                    // Load available patterns from other templates
+                    window.refreshAvailablePatterns();
 
                     // Update navigation buttons
                     prevSampleBtn.disabled = currentSampleIndex === 0;
@@ -4206,10 +4799,25 @@
                     return;
                 }
 
-                patternsList.innerHTML = currentPatterns.map(p => `
+                // Helper to get badge color and label based on pattern type
+                const getPatternLabel = (type) => {
+                    const labels = {
+                        'contains': { label: 'contiene', class: 'bg-primary' },
+                        'exact': { label: 'exacto', class: 'bg-success' },
+                        'line_range': { label: 'rango', class: 'bg-warning text-dark' },
+                        'text_range': { label: 'rango xN', class: 'bg-warning text-dark' },
+                        'prefix': { label: 'prefijo', class: 'bg-info' },
+                        'regex': { label: 'regex', class: 'bg-danger' }
+                    };
+                    return labels[type] || { label: type, class: 'bg-secondary' };
+                };
+
+                patternsList.innerHTML = currentPatterns.map(p => {
+                    const patternInfo = getPatternLabel(p.pattern_type);
+                    return `
                     <div class="pattern-item p-1 border-bottom" style="font-size: 0.75rem;">
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="badge bg-secondary" style="font-size: 0.65rem;">${p.pattern_type}</span>
+                            <span class="badge ${patternInfo.class}" style="font-size: 0.65rem;">${patternInfo.label}</span>
                             <div class="btn-group btn-group-sm">
                                 <button class="btn btn-outline-secondary btn-sm px-1 py-0" onclick="window.copyPattern('${p.id}')" title="Copiar patrón">
                                     <i class="bi bi-clipboard" style="font-size: 0.7rem;"></i>
@@ -4221,7 +4829,7 @@
                         </div>
                         <pre class="pattern-value mb-0 mt-1 p-1 bg-light rounded" style="white-space: pre-wrap; word-break: break-all; max-height: 60px; overflow-y: auto; font-size: 0.65rem; user-select: all; line-height: 1.2;" data-pattern-id="${p.id}">${escapeHtml(p.value.length > 100 ? p.value.substring(0, 100) + '...' : p.value)}</pre>
                     </div>
-                `).join('');
+                `}).join('');
             }
 
             // Copy pattern to clipboard
@@ -4239,7 +4847,7 @@
 
             // Add pattern
             async function addPattern() {
-                const type = patternType.value;
+                const type = getSelectedPatternType();
                 let value = patternValue.value.trim();
 
                 if (!value) {
@@ -4247,8 +4855,8 @@
                     return;
                 }
 
-                // For line_range, combine start and end
-                if (type === 'line_range') {
+                // For line_range and text_range, combine start and end
+                if (type === 'line_range' || type === 'text_range') {
                     const endValue = patternValueEnd.value.trim();
                     if (!endValue) {
                         showToast('Introduce el texto final para el rango', 'warning');
@@ -4288,6 +4896,98 @@
                     showToast(error.message, 'error');
                 }
             }
+
+            // Load available patterns from other templates
+            window.refreshAvailablePatterns = async function() {
+                if (!currentCrawl || !currentTemplateId) return;
+
+                const section = document.getElementById('availablePatternsSection');
+                const list = document.getElementById('availablePatternsList');
+
+                try {
+                    const response = await fetch(
+                        `${API_URL}/api/v1/dashboard/manual-cleaner/available-patterns/${currentCrawl}/${currentTemplateId}`
+                    );
+
+                    if (!response.ok) return;
+
+                    const data = await response.json();
+
+                    if (data.available_count === 0) {
+                        section.style.display = 'none';
+                        return;
+                    }
+
+                    // Show section
+                    section.style.display = 'block';
+
+                    // Render available patterns as buttons
+                    list.innerHTML = data.patterns.map(p => {
+                        const typeLabel = {
+                            'contains': 'cont',
+                            'exact': 'exact',
+                            'line_range': 'rango',
+                            'prefix': 'pref'
+                        }[p.pattern_type] || p.pattern_type;
+
+                        const escapedValue = escapeHtml(p.preview);
+                        const fullValue = escapeHtml(p.value).replace(/'/g, "\\'");
+                        const fullValueEnd = p.value_end ? escapeHtml(p.value_end).replace(/'/g, "\\'") : '';
+
+                        return `
+                            <button class="btn btn-outline-info btn-sm py-0 px-1" style="font-size: 0.65rem; max-width: 150px;"
+                                    onclick="window.reusePattern('${p.pattern_type}', '${fullValue}', '${fullValueEnd}')"
+                                    title="${escapedValue} (${typeLabel})">
+                                <span class="text-truncate d-inline-block" style="max-width: 120px;">${escapedValue}</span>
+                            </button>
+                        `;
+                    }).join('');
+
+                } catch (error) {
+                    console.error('Error loading available patterns:', error);
+                }
+            };
+
+            // Reuse a pattern from another template
+            window.reusePattern = async function(patternType, value, valueEnd) {
+                if (!currentCrawl || !currentTemplateId) {
+                    showToast('Selecciona primero una plantilla', 'error');
+                    return;
+                }
+
+                try {
+                    const body = {
+                        pattern_type: patternType,
+                        value: value
+                    };
+                    if (valueEnd) {
+                        body.value_end = valueEnd;
+                    }
+
+                    const response = await fetch(
+                        `${API_URL}/api/v1/dashboard/manual-cleaner/pattern/${currentCrawl}/${currentTemplateId}`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(body)
+                        }
+                    );
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.detail || 'Error adding pattern');
+                    }
+
+                    showToast('Patrón reutilizado', 'success');
+                    await loadTemplateSample();
+                    // Refresh available patterns list (the one we just used should disappear)
+                    await window.refreshAvailablePatterns();
+
+                } catch (error) {
+                    console.error('Error reusing pattern:', error);
+                    showToast('Error reutilizando patrón', 'error');
+                }
+            };
 
             // Remove pattern - expose globally
             window.removeCleaningPattern = async function(patternId) {
@@ -4378,16 +5078,36 @@
                 applyCleaningBtn.innerHTML = '<div class="spinner-border spinner-border-sm me-1"></div> Aplicando...';
 
                 try {
+                    // Build request body with auto-clean options
+                    const requestBody = {};
+
+                    // Check if auto-clean is enabled
+                    const enableAutoClean = document.getElementById('enableAutoClean');
+                    if (enableAutoClean && enableAutoClean.checked) {
+                        requestBody.auto_clean_options = {
+                            extract_from_first_heading: document.getElementById('acExtractHeading')?.checked ?? true,
+                            remove_footer_content: document.getElementById('acRemoveFooter')?.checked ?? true,
+                            remove_nav_patterns: document.getElementById('acRemoveNav')?.checked ?? true,
+                            remove_empty_lines: document.getElementById('acCleanLines')?.checked ?? true,
+                            min_heading_level: 1
+                        };
+                    }
+
                     const response = await fetch(
                         `${API_URL}/api/v1/dashboard/manual-cleaner/apply/${currentCrawl}/${currentTemplateId}`,
-                        { method: 'POST' }
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(requestBody)
+                        }
                     );
 
                     if (!response.ok) throw new Error('Error applying cleaning');
 
                     const data = await response.json();
 
-                    showToast(`Limpieza aplicada: ${data.pages_cleaned} páginas procesadas`, 'success');
+                    const autoMsg = data.auto_clean_applied ? ' (+ auto-limpieza)' : '';
+                    showToast(`Limpieza aplicada: ${data.pages_cleaned} páginas procesadas${autoMsg}`, 'success');
 
                     // Go back to templates list
                     backToTemplatesBtn.click();
