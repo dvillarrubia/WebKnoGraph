@@ -896,6 +896,60 @@
         .log-entry.warning { color: #d29922; }
         .log-entry.error { color: #f85149; font-weight: 600; }
 
+        /* Phase Indicator Styles */
+        .phase-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .phase-icon i {
+            font-size: 1rem;
+        }
+
+        .phase-connector {
+            flex: 1;
+            height: 2px;
+            background: var(--border-color);
+            margin: 0 0.5rem;
+            margin-top: -20px;
+        }
+
+        .phase-active .phase-icon {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+
+        .phase-complete .phase-icon {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: white;
+        }
+
+        .phase-complete + .phase-connector {
+            background: var(--success-color);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
+        }
+
+        /* Stats card hover effect */
+        #statLinksContainer:hover {
+            background: var(--bg-card-hover);
+            transition: background 0.2s;
+        }
+
         /* Admin Section */
         .clients-table {
             width: 100%;
@@ -1951,6 +2005,10 @@
                                                title="Lista de URLs específicas a crawlear. Útil para crawlear solo ciertas secciones o páginas concretas del sitio."></i>
                                         </label>
                                         <textarea class="form-control form-control-sm" id="urlsList" rows="3" placeholder="https://ejemplo.com/pagina1&#10;https://ejemplo.com/pagina2"></textarea>
+                                        <div class="d-flex justify-content-between mt-1">
+                                            <small class="text-muted" id="urlsListCount">0 URLs en el listado</small>
+                                            <small><a href="#" id="urlsListClear" class="text-danger" style="display: none;">Limpiar</a></small>
+                                        </div>
                                     </div>
 
                                     <div class="mb-2">
@@ -1958,7 +2016,7 @@
                                             <input type="checkbox" class="form-check-input" id="urlsOnly">
                                             <label class="form-check-label" data-bs-toggle="tooltip" data-bs-placement="top"
                                                    title="Si activas esto, SOLO se crawlearán las URLs del listado. No descubrirá ni seguirá enlaces a otras páginas.">
-                                                Solo estas URLs (no descubrir más)
+                                                <i class="bi bi-exclamation-triangle text-warning"></i> Solo estas URLs (no descubrir más)
                                             </label>
                                         </div>
                                     </div>
@@ -1969,7 +2027,21 @@
                                             <i class="bi bi-question-circle text-muted ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
                                                title="Sube un archivo .txt o .csv con una URL por línea. Las líneas que empiezan con # son ignoradas."></i>
                                         </label>
-                                        <input type="file" class="form-control form-control-sm" id="urlsFile" accept=".txt,.csv">
+                                        <input type="file" class="form-control form-control-sm" id="urlsFile" accept=".txt,.csv,.xlsx,.xls">
+                                        <!-- Feedback de archivo cargado -->
+                                        <div id="urlsFileFeedback" class="mt-2" style="display: none;">
+                                            <div class="alert alert-success py-2 mb-0 d-flex align-items-center justify-content-between">
+                                                <div>
+                                                    <i class="bi bi-file-earmark-check"></i>
+                                                    <strong id="urlsFileName">archivo.txt</strong>
+                                                    <span class="badge bg-primary ms-2" id="urlsFileCount">0 URLs</span>
+                                                </div>
+                                                <button type="button" class="btn btn-sm btn-outline-danger" id="urlsFileClear" title="Quitar archivo">
+                                                    <i class="bi bi-x"></i>
+                                                </button>
+                                            </div>
+                                            <div id="urlsFilePreview" class="small text-muted mt-1" style="max-height: 60px; overflow-y: auto; font-family: monospace;"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1978,61 +2050,173 @@
                 </div>
             </div>
 
-            <!-- Panel de Progreso (compacto, visible cuando hay crawl activo) -->
+            <!-- Panel de Progreso Mejorado -->
             <div class="card mb-3" id="crawlProgressCard">
                 <div class="card-header py-2 d-flex justify-content-between align-items-center">
-                    <h6 class="card-title mb-0"><i class="bi bi-activity"></i> Progreso</h6>
-                    <button class="btn btn-danger btn-sm" id="stopCrawl" style="display: none;">
-                        <i class="bi bi-stop-fill"></i> Detener
-                    </button>
+                    <h6 class="card-title mb-0"><i class="bi bi-activity"></i> Progreso del Crawl</h6>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="badge bg-secondary" id="crawlElapsedTime" style="display: none;">00:00</span>
+                        <button class="btn btn-danger btn-sm" id="stopCrawl" style="display: none;">
+                            <i class="bi bi-stop-fill"></i> Detener
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body py-2">
-                    <!-- Indicador de estado -->
+                    <!-- Indicador de Fases -->
+                    <div id="crawlPhases" class="mb-3" style="display: none;">
+                        <div class="d-flex justify-content-between align-items-center small">
+                            <div class="text-center flex-fill" id="phaseInit">
+                                <div class="phase-icon mb-1"><i class="bi bi-play-circle"></i></div>
+                                <div class="text-muted">Iniciando</div>
+                            </div>
+                            <div class="phase-connector"></div>
+                            <div class="text-center flex-fill" id="phaseSitemap">
+                                <div class="phase-icon mb-1"><i class="bi bi-diagram-3"></i></div>
+                                <div class="text-muted">Sitemap</div>
+                                <div class="small text-info" id="phaseSitemapCount"></div>
+                            </div>
+                            <div class="phase-connector"></div>
+                            <div class="text-center flex-fill" id="phaseCrawl">
+                                <div class="phase-icon mb-1"><i class="bi bi-globe"></i></div>
+                                <div class="text-muted">Crawling</div>
+                            </div>
+                            <div class="phase-connector"></div>
+                            <div class="text-center flex-fill" id="phaseComplete">
+                                <div class="phase-icon mb-1"><i class="bi bi-check-circle"></i></div>
+                                <div class="text-muted">Completado</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estado actual con URL -->
                     <div id="crawlRunningIndicator" style="display: none;" class="alert alert-info py-2 mb-2">
                         <div class="d-flex align-items-center">
                             <div class="spinner-border spinner-border-sm me-2" role="status"></div>
                             <div class="flex-grow-1">
-                                <strong>Crawl en progreso</strong>
-                                <div class="small text-truncate" id="crawlCurrentUrl" style="max-width: 400px;"></div>
-                            </div>
-                            <span class="badge bg-primary" id="crawlElapsedTime">00:00</span>
-                        </div>
-                    </div>
-
-                    <!-- Barra de progreso y stats en línea -->
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="flex-grow-1">
-                            <div class="d-flex justify-content-between mb-1">
-                                <small id="crawlStatus">Sin crawl activo</small>
-                                <small id="crawlPercent">0%</small>
-                            </div>
-                            <div class="progress" style="height: 8px;">
-                                <div class="progress-bar" id="crawlProgressBar" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <div class="d-flex gap-3 text-center">
-                            <div data-bs-toggle="tooltip" title="Páginas crawleadas">
-                                <div class="fw-bold" id="statPages">0</div>
-                                <small class="text-muted">Págs</small>
-                            </div>
-                            <div data-bs-toggle="tooltip" title="Enlaces descubiertos">
-                                <div class="fw-bold" id="statLinks">0</div>
-                                <small class="text-muted">Links</small>
-                            </div>
-                            <div data-bs-toggle="tooltip" title="URLs pendientes en cola">
-                                <div class="fw-bold" id="statQueue">0</div>
-                                <small class="text-muted">Cola</small>
-                            </div>
-                            <div data-bs-toggle="tooltip" title="Errores de conexión o parsing">
-                                <div class="fw-bold text-danger" id="statErrors">0</div>
-                                <small class="text-muted">Errs</small>
+                                <strong>Procesando:</strong>
+                                <div class="small text-truncate" id="crawlCurrentUrl" style="max-width: 500px; font-family: monospace;"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Log detallado -->
-                    <div class="crawl-log mt-2" id="crawlLog">
-                        <div class="log-entry text-muted">Esperando inicio de crawl...</div>
+                    <!-- Barra de progreso -->
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between mb-1">
+                            <small id="crawlStatus">Sin crawl activo</small>
+                            <small id="crawlPercent">0%</small>
+                        </div>
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="crawlProgressBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid Mejorado -->
+                    <div class="row g-2 mb-2">
+                        <div class="col-3">
+                            <div class="border rounded p-2 text-center h-100">
+                                <div class="fw-bold fs-5 text-success" id="statPages">0</div>
+                                <small class="text-muted">Crawleadas</small>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="border rounded p-2 text-center h-100" id="statLinksContainer" style="cursor: pointer;" data-bs-toggle="tooltip" title="Click para ver muestra de enlaces">
+                                <div class="fw-bold fs-5 text-primary" id="statLinks">0</div>
+                                <small class="text-muted">Enlaces <i class="bi bi-eye-fill"></i></small>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="border rounded p-2 text-center h-100">
+                                <div class="fw-bold fs-5 text-warning" id="statQueue">0</div>
+                                <small class="text-muted">En cola</small>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="border rounded p-2 text-center h-100">
+                                <div class="fw-bold fs-5 text-danger" id="statErrors">0</div>
+                                <small class="text-muted">Errores</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats secundarios (skipped, etc) -->
+                    <div class="d-flex gap-3 small text-muted mb-2" id="crawlSecondaryStats" style="display: none;">
+                        <span><i class="bi bi-skip-forward"></i> Saltadas: <strong id="statSkipped">0</strong></span>
+                        <span><i class="bi bi-files"></i> Duplicadas: <strong id="statDuplicates">0</strong></span>
+                        <span><i class="bi bi-robot"></i> Robots.txt: <strong id="statRobots">0</strong></span>
+                        <span><i class="bi bi-eye-slash"></i> Noindex: <strong id="statNoindex">0</strong></span>
+                    </div>
+
+                    <!-- URLs Recientes -->
+                    <div id="recentUrlsContainer" style="display: none;" class="mb-2">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <small class="text-muted fw-bold"><i class="bi bi-clock-history"></i> URLs recientes:</small>
+                            <button class="btn btn-link btn-sm p-0" id="toggleRecentUrls">
+                                <i class="bi bi-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div id="recentUrlsList" class="small" style="max-height: 80px; overflow-y: auto; font-family: monospace; display: none;"></div>
+                    </div>
+
+                    <!-- Log detallado mejorado -->
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <small class="text-muted fw-bold"><i class="bi bi-terminal"></i> Log de actividad</small>
+                        <div>
+                            <button class="btn btn-link btn-sm p-0 me-2" id="clearLog" title="Limpiar log"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-link btn-sm p-0" id="toggleLogExpand" title="Expandir/contraer"><i class="bi bi-arrows-expand"></i></button>
+                        </div>
+                    </div>
+                    <div class="crawl-log" id="crawlLog" style="max-height: 150px;">
+                        <div class="log-entry text-muted"><i class="bi bi-info-circle"></i> Esperando inicio de crawl...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para ver enlaces extraídos -->
+            <div class="modal fade" id="linksPreviewModal" tabindex="-1">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="bi bi-link-45deg"></i> Enlaces Extraídos</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Filtros como pestañas clickables -->
+                            <div class="d-flex gap-2 mb-3 flex-wrap" id="linksFilterTabs">
+                                <button class="btn btn-outline-primary active" data-location="" id="linkFilterAll">
+                                    <i class="bi bi-list"></i> Todos <span class="badge bg-primary" id="linksTotal">0</span>
+                                </button>
+                                <button class="btn btn-outline-success" data-location="content" id="linkFilterContent">
+                                    <i class="bi bi-file-text"></i> Contenido <span class="badge bg-success" id="linksContent">0</span>
+                                </button>
+                                <button class="btn btn-outline-info" data-location="nav" id="linkFilterNav">
+                                    <i class="bi bi-menu-button-wide"></i> Navegación <span class="badge bg-info" id="linksNav">0</span>
+                                </button>
+                                <button class="btn btn-outline-warning" data-location="sidebar" id="linkFilterSidebar">
+                                    <i class="bi bi-layout-sidebar"></i> Sidebar <span class="badge bg-warning" id="linksSidebar">0</span>
+                                </button>
+                                <button class="btn btn-outline-secondary" data-location="footer" id="linkFilterFooter">
+                                    <i class="bi bi-layout-text-window-reverse"></i> Footer <span class="badge bg-secondary" id="linksFooter">0</span>
+                                </button>
+                            </div>
+                            <!-- Info de filtro activo -->
+                            <div class="mb-2 small text-muted" id="linksFilterInfo">
+                                Mostrando <strong id="linksShowing">0</strong> de <strong id="linksFilteredTotal">0</strong> enlaces
+                            </div>
+                            <!-- Tabla de enlaces -->
+                            <div class="table-responsive" style="max-height: 450px;">
+                                <table class="table table-sm table-hover">
+                                    <thead class="sticky-top bg-white">
+                                        <tr>
+                                            <th style="width: 45%">URL Destino</th>
+                                            <th style="width: 30%">Anchor Text</th>
+                                            <th style="width: 15%">Ubicación</th>
+                                            <th style="width: 10%">Peso</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="linksPreviewTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3221,6 +3405,8 @@
             let crawlInterval;
             let elapsedInterval;
             let crawlStartTime = null;
+            let recentUrls = [];
+            let currentCrawlName = null;
 
             // Helper to format elapsed time
             function formatElapsed(seconds) {
@@ -3233,9 +3419,222 @@
             function updateElapsedTime() {
                 if (crawlStartTime) {
                     const elapsed = Math.floor((Date.now() - crawlStartTime) / 1000);
-                    document.getElementById('crawlElapsedTime').textContent = formatElapsed(elapsed);
+                    const elapsedEl = document.getElementById('crawlElapsedTime');
+                    elapsedEl.textContent = formatElapsed(elapsed);
+                    elapsedEl.style.display = 'inline-block';
                 }
             }
+
+            // ============================================
+            // FILE UPLOAD FEEDBACK
+            // ============================================
+            const urlsFileInput = document.getElementById('urlsFile');
+            const urlsFileFeedback = document.getElementById('urlsFileFeedback');
+            const urlsFileName = document.getElementById('urlsFileName');
+            const urlsFileCount = document.getElementById('urlsFileCount');
+            const urlsFilePreview = document.getElementById('urlsFilePreview');
+            const urlsFileClear = document.getElementById('urlsFileClear');
+            let uploadedFileUrls = [];
+
+            urlsFileInput?.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) {
+                    urlsFileFeedback.style.display = 'none';
+                    uploadedFileUrls = [];
+                    return;
+                }
+
+                try {
+                    const content = await file.text();
+                    const urls = content.split('\n')
+                        .map(line => line.trim())
+                        .filter(line => line && !line.startsWith('#') && (line.startsWith('http://') || line.startsWith('https://')));
+
+                    uploadedFileUrls = urls;
+                    urlsFileName.textContent = file.name;
+                    urlsFileCount.textContent = `${urls.length} URLs`;
+
+                    // Show preview of first 5 URLs
+                    const preview = urls.slice(0, 5).map(u => `• ${u}`).join('\n');
+                    urlsFilePreview.textContent = urls.length > 5
+                        ? preview + `\n... y ${urls.length - 5} más`
+                        : preview;
+
+                    urlsFileFeedback.style.display = 'block';
+                    showToast(`Archivo cargado: ${urls.length} URLs encontradas`, 'success');
+                } catch (err) {
+                    showToast('Error al leer el archivo', 'error');
+                }
+            });
+
+            urlsFileClear?.addEventListener('click', () => {
+                urlsFileInput.value = '';
+                urlsFileFeedback.style.display = 'none';
+                uploadedFileUrls = [];
+            });
+
+            // ============================================
+            // URL LIST COUNTER
+            // ============================================
+            const urlsListTextarea = document.getElementById('urlsList');
+            const urlsListCount = document.getElementById('urlsListCount');
+            const urlsListClear = document.getElementById('urlsListClear');
+
+            function updateUrlsListCount() {
+                const text = urlsListTextarea?.value || '';
+                const urls = text.split('\n')
+                    .map(line => line.trim())
+                    .filter(line => line && !line.startsWith('#') && (line.startsWith('http://') || line.startsWith('https://')));
+
+                urlsListCount.textContent = urls.length > 0
+                    ? `${urls.length} URL${urls.length > 1 ? 's' : ''} en el listado`
+                    : '0 URLs en el listado';
+
+                urlsListClear.style.display = urls.length > 0 ? 'inline' : 'none';
+            }
+
+            urlsListTextarea?.addEventListener('input', updateUrlsListCount);
+
+            urlsListClear?.addEventListener('click', (e) => {
+                e.preventDefault();
+                urlsListTextarea.value = '';
+                updateUrlsListCount();
+            });
+
+            // ============================================
+            // PHASE INDICATOR
+            // ============================================
+            function updatePhase(phase) {
+                const phases = ['phaseInit', 'phaseSitemap', 'phaseCrawl', 'phaseComplete'];
+                const phaseEl = document.getElementById('crawlPhases');
+                phaseEl.style.display = 'flex';
+
+                phases.forEach((p, i) => {
+                    const el = document.getElementById(p);
+                    el.classList.remove('phase-active', 'phase-complete');
+
+                    const phaseIndex = phases.indexOf(phase);
+                    if (i < phaseIndex) {
+                        el.classList.add('phase-complete');
+                    } else if (i === phaseIndex) {
+                        el.classList.add('phase-active');
+                    }
+                });
+            }
+
+            // ============================================
+            // RECENT URLS LIST
+            // ============================================
+            const recentUrlsContainer = document.getElementById('recentUrlsContainer');
+            const recentUrlsList = document.getElementById('recentUrlsList');
+            const toggleRecentUrls = document.getElementById('toggleRecentUrls');
+
+            toggleRecentUrls?.addEventListener('click', () => {
+                const list = document.getElementById('recentUrlsList');
+                list.style.display = list.style.display === 'none' ? 'block' : 'none';
+                toggleRecentUrls.querySelector('i').className =
+                    list.style.display === 'none' ? 'bi bi-chevron-down' : 'bi bi-chevron-up';
+            });
+
+            function addRecentUrl(url) {
+                recentUrls.unshift(url);
+                if (recentUrls.length > 10) recentUrls.pop();
+
+                recentUrlsContainer.style.display = 'block';
+                recentUrlsList.innerHTML = recentUrls.map(u =>
+                    `<div class="text-truncate text-success">✓ ${u}</div>`
+                ).join('');
+            }
+
+            // ============================================
+            // LOG CONTROLS
+            // ============================================
+            document.getElementById('clearLog')?.addEventListener('click', () => {
+                log.innerHTML = '<div class="log-entry text-muted"><i class="bi bi-info-circle"></i> Log limpiado</div>';
+            });
+
+            let logExpanded = false;
+            document.getElementById('toggleLogExpand')?.addEventListener('click', () => {
+                logExpanded = !logExpanded;
+                log.style.maxHeight = logExpanded ? '400px' : '150px';
+            });
+
+            // ============================================
+            // LINKS PREVIEW MODAL WITH FILTERS
+            // ============================================
+            let linksModal = null;
+            let currentLinksFilter = '';
+
+            async function loadLinksWithFilter(location = '') {
+                if (!currentCrawlName) {
+                    showToast('No hay crawl activo', 'warning');
+                    return;
+                }
+
+                const tbody = document.getElementById('linksPreviewTable');
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4"><div class="spinner-border spinner-border-sm"></div> Cargando...</td></tr>';
+
+                try {
+                    const url = `${API_URL}/api/v1/dashboard/crawler/crawls/${currentCrawlName}/links?limit=200${location ? `&location=${location}` : ''}`;
+                    const response = await fetch(url);
+
+                    if (response.ok) {
+                        const data = await response.json();
+
+                        // Update counts from by_location
+                        const counts = data.by_location || {};
+                        document.getElementById('linksTotal').textContent = data.total || 0;
+                        document.getElementById('linksContent').textContent = counts.content || 0;
+                        document.getElementById('linksNav').textContent = counts.nav || 0;
+                        document.getElementById('linksSidebar').textContent = counts.sidebar || 0;
+                        document.getElementById('linksFooter').textContent = counts.footer || 0;
+
+                        // Update filter info
+                        document.getElementById('linksShowing').textContent = data.links?.length || 0;
+                        document.getElementById('linksFilteredTotal').textContent = data.filtered_total || data.total || 0;
+
+                        // Update active tab
+                        document.querySelectorAll('#linksFilterTabs button').forEach(btn => {
+                            btn.classList.remove('active');
+                            if (btn.dataset.location === location) {
+                                btn.classList.add('active');
+                            }
+                        });
+
+                        // Populate table
+                        tbody.innerHTML = data.links?.map(l => `
+                            <tr>
+                                <td class="text-truncate" style="max-width: 400px;" title="${l.target_url}">
+                                    <a href="${l.target_url}" target="_blank" class="text-decoration-none">${l.target_url}</a>
+                                </td>
+                                <td class="text-truncate" style="max-width: 200px;" title="${l.anchor_text || ''}">${l.anchor_text || '<span class="text-muted">-</span>'}</td>
+                                <td><span class="badge bg-${l.link_location === 'content' ? 'success' : l.link_location === 'nav' ? 'info' : l.link_location === 'footer' ? 'secondary' : 'warning'}">${l.link_location || 'content'}</span></td>
+                                <td>${l.link_weight?.toFixed(2) || '1.00'}</td>
+                            </tr>
+                        `).join('') || '<tr><td colspan="4" class="text-center text-muted py-4">No hay enlaces en esta categoría</td></tr>';
+                    }
+                } catch (err) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="text-center text-danger py-4">Error al cargar enlaces</td></tr>';
+                    showToast('Error al cargar enlaces', 'error');
+                }
+            }
+
+            // Open modal on click
+            document.getElementById('statLinksContainer')?.addEventListener('click', async () => {
+                currentLinksFilter = '';
+                await loadLinksWithFilter('');
+                linksModal = new bootstrap.Modal(document.getElementById('linksPreviewModal'));
+                linksModal.show();
+            });
+
+            // Handle filter tab clicks
+            document.getElementById('linksFilterTabs')?.addEventListener('click', async (e) => {
+                const btn = e.target.closest('button');
+                if (btn && btn.dataset.location !== undefined) {
+                    currentLinksFilter = btn.dataset.location;
+                    await loadLinksWithFilter(currentLinksFilter);
+                }
+            });
 
             // Load available crawls on init
             loadAvailableCrawls();
@@ -3358,14 +3757,42 @@
                     });
 
                     if (response.ok) {
-                        showToast('Crawl iniciado correctamente');
+                        const crawlData = await response.json();
+                        showToast('Crawl iniciado correctamente', 'success');
                         startBtn.style.display = 'none';
                         stopBtn.style.display = 'block';
-                        document.getElementById('crawlStatus').textContent = 'Crawleando...';
-                        log.innerHTML = `<div class="log-entry">[${new Date().toLocaleTimeString()}] Crawl iniciado para ${url}</div>`;
 
-                        // Poll for progress
-                        crawlInterval = setInterval(updateCrawlProgress, 5000);
+                        // Initialize phases
+                        updatePhase('phaseInit');
+                        document.getElementById('crawlPhases').style.display = 'flex';
+                        document.getElementById('crawlStatus').textContent = 'Iniciando...';
+
+                        // Reset stats
+                        document.getElementById('statPages').textContent = '0';
+                        document.getElementById('statLinks').textContent = '0';
+                        document.getElementById('statQueue').textContent = '0';
+                        document.getElementById('statErrors').textContent = '0';
+                        document.getElementById('crawlProgressBar').style.width = '0%';
+                        document.getElementById('crawlPercent').textContent = '0%';
+
+                        // Clear recent URLs
+                        recentUrls = [];
+                        recentUrlsContainer.style.display = 'none';
+
+                        // Extract crawl name
+                        if (crawlData.output_dir) {
+                            currentCrawlName = crawlData.output_dir.split('/').pop();
+                        }
+
+                        // Start elapsed timer
+                        crawlStartTime = Date.now();
+                        document.getElementById('crawlElapsedTime').style.display = 'inline-block';
+                        elapsedInterval = setInterval(updateElapsedTime, 1000);
+
+                        log.innerHTML = `<div class="log-entry text-info"><i class="bi bi-play-circle"></i> [${new Date().toLocaleTimeString()}] Crawl iniciado para ${url}</div>`;
+
+                        // Poll for progress (more frequent at start)
+                        crawlInterval = setInterval(updateCrawlProgress, 3000);
                     } else {
                         const error = await response.json();
                         showToast(error.detail || 'Error al iniciar crawl', 'error');
@@ -3433,17 +3860,57 @@
 
                     if (data.status === 'running') {
                         runningIndicator.style.display = 'block';
-                        const percent = Math.min((data.pages_crawled / data.max_pages * 100), 100).toFixed(0);
+
+                        // Extract crawl name from output_dir
+                        if (data.output_dir) {
+                            currentCrawlName = data.output_dir.split('/').pop();
+                        }
+
+                        // Calculate progress percentage
+                        let percent = 0;
+                        if (data.max_pages > 0) {
+                            percent = Math.min((data.pages_crawled / data.max_pages * 100), 100).toFixed(0);
+                        } else {
+                            // For unlimited crawls, show indeterminate or based on sitemap
+                            percent = data.pages_crawled > 0 ? Math.min(data.pages_crawled, 99) : 5;
+                        }
+
                         document.getElementById('crawlProgressBar').style.width = percent + '%';
-                        document.getElementById('crawlPercent').textContent = percent + '%';
+                        document.getElementById('crawlPercent').textContent = data.max_pages > 0 ? percent + '%' : `${data.pages_crawled} págs`;
                         document.getElementById('statPages').textContent = data.pages_crawled || 0;
                         document.getElementById('statLinks').textContent = data.links_found || 0;
-                        document.getElementById('statQueue').textContent = data.queue_size || '-';
+                        document.getElementById('statQueue').textContent = data.queue_size || 0;
                         document.getElementById('statErrors').textContent = data.errors || 0;
 
-                        // Update current URL if available
+                        // Update phase indicator
+                        if (data.pages_crawled === 0) {
+                            updatePhase('phaseInit');
+                            document.getElementById('crawlStatus').textContent = 'Iniciando...';
+                        } else if (data.pages_crawled < 3 && data.use_sitemap) {
+                            updatePhase('phaseSitemap');
+                            document.getElementById('crawlStatus').textContent = 'Descubriendo sitemap...';
+                        } else {
+                            updatePhase('phaseCrawl');
+                            document.getElementById('crawlStatus').textContent = `Crawleando... (${data.pages_crawled}/${data.max_pages || '∞'})`;
+                        }
+
+                        // Update current URL and add to recent list
                         if (data.current_url) {
-                            document.getElementById('crawlCurrentUrl').textContent = data.current_url;
+                            const urlEl = document.getElementById('crawlCurrentUrl');
+                            if (urlEl.textContent !== data.current_url) {
+                                urlEl.textContent = data.current_url;
+                                addRecentUrl(data.current_url);
+                            }
+                        }
+
+                        // Show secondary stats if available
+                        const secondaryStats = document.getElementById('crawlSecondaryStats');
+                        if (data.skipped || data.duplicates || data.robots_blocked || data.noindex_skipped) {
+                            secondaryStats.style.display = 'flex';
+                            document.getElementById('statSkipped').textContent = data.skipped || 0;
+                            document.getElementById('statDuplicates').textContent = data.duplicates || 0;
+                            document.getElementById('statRobots').textContent = data.robots_blocked || 0;
+                            document.getElementById('statNoindex').textContent = data.noindex_skipped || 0;
                         }
 
                         // Fetch and display detailed logs
@@ -3452,6 +3919,11 @@
                         clearInterval(crawlInterval);
                         clearInterval(elapsedInterval);
                         runningIndicator.style.display = 'none';
+
+                        // Update phase to complete
+                        if (data.status === 'completed') {
+                            updatePhase('phaseComplete');
+                        }
 
                         const statusText = data.status === 'completed' ? 'Completado' : data.status === 'stopped' ? 'Detenido' : 'Error';
                         document.getElementById('crawlStatus').textContent = statusText;
@@ -3462,16 +3934,19 @@
                         document.getElementById('statPages').textContent = data.pages_crawled || 0;
                         document.getElementById('statLinks').textContent = data.links_found || 0;
                         document.getElementById('statErrors').textContent = data.errors || 0;
+                        document.getElementById('statQueue').textContent = 0;
 
                         // Calculate elapsed time for notification
                         const elapsed = crawlStartTime ? formatElapsed(Math.floor((Date.now() - crawlStartTime) / 1000)) : '';
 
                         if (data.status === 'completed') {
                             showToast(`✅ Crawl completado: ${data.pages_crawled} páginas en ${elapsed}`, 'success');
-                            log.innerHTML = `<div class="log-entry success">[${new Date().toLocaleTimeString()}] ✅ Completado: ${data.pages_crawled} páginas, ${data.links_found || 0} enlaces</div>` + log.innerHTML;
+                            log.innerHTML = `<div class="log-entry success"><i class="bi bi-check-circle-fill"></i> [${new Date().toLocaleTimeString()}] Completado: ${data.pages_crawled} páginas, ${data.links_found || 0} enlaces extraídos</div>` + log.innerHTML;
                         } else if (data.status === 'failed') {
                             showToast(`❌ Error en crawl: ${data.error_message || 'Error desconocido'}`, 'error');
-                            log.innerHTML = `<div class="log-entry error">[${new Date().toLocaleTimeString()}] ❌ Error: ${data.error_message || 'Error desconocido'}</div>` + log.innerHTML;
+                            log.innerHTML = `<div class="log-entry error"><i class="bi bi-x-circle-fill"></i> [${new Date().toLocaleTimeString()}] Error: ${data.error_message || 'Error desconocido'}</div>` + log.innerHTML;
+                        } else if (data.status === 'stopped') {
+                            log.innerHTML = `<div class="log-entry warning"><i class="bi bi-stop-circle-fill"></i> [${new Date().toLocaleTimeString()}] Detenido manualmente: ${data.pages_crawled} páginas procesadas</div>` + log.innerHTML;
                         }
 
                         crawlStartTime = null;

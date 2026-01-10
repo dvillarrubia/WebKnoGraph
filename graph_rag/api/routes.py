@@ -1131,6 +1131,90 @@ async def dashboard_get_crawl_page(crawl_name: str, url: str):
     raise HTTPException(status_code=404, detail="Page not found in crawl data")
 
 
+@dashboard_router.get("/crawler/crawls/{crawl_name}/links")
+async def dashboard_get_crawl_links(
+    crawl_name: str,
+    limit: int = 100,
+    source_url: str = None,
+    location: str = None
+):
+    """
+    Get links extracted during crawl with their locations and weights.
+    Used for previewing link extraction quality.
+
+    Args:
+        crawl_name: Name of the crawl directory
+        limit: Max links to return (default 100)
+        source_url: Filter by source URL (optional)
+        location: Filter by link location: 'content', 'nav', 'sidebar', 'footer' (optional)
+    """
+    import pandas as pd
+    from pathlib import Path
+    from glob import glob
+
+    base_dir = Path("data/crawl4ai_data") / crawl_name
+    if not base_dir.exists():
+        raise HTTPException(status_code=404, detail=f"Crawl '{crawl_name}' not found")
+
+    # Load all links from parquet files
+    links_pattern = str(base_dir / "links" / "**" / "*.parquet")
+    links_files = glob(links_pattern, recursive=True)
+
+    if not links_files:
+        return {"links": [], "total": 0, "by_location": {}}
+
+    all_links = []
+    for lf in links_files:
+        try:
+            df = pd.read_parquet(lf)
+            all_links.append(df)
+        except Exception:
+            continue
+
+    if not all_links:
+        return {"links": [], "total": 0, "by_location": {}}
+
+    df_all = pd.concat(all_links, ignore_index=True)
+
+    # Filter by source URL if provided
+    if source_url:
+        df_all = df_all[df_all['source_url'] == source_url]
+
+    # Count by location (before filtering by location)
+    by_location = {}
+    if 'link_location' in df_all.columns:
+        by_location = df_all['link_location'].value_counts().to_dict()
+
+    total = len(df_all)
+
+    # Filter by location if provided
+    if location and 'link_location' in df_all.columns:
+        df_all = df_all[df_all['link_location'] == location]
+
+    filtered_total = len(df_all)
+
+    # Get links (no prioritization when filtering by location)
+    df_sample = df_all.head(limit)
+
+    links = []
+    for _, row in df_sample.iterrows():
+        links.append({
+            "source_url": row.get("source_url", ""),
+            "target_url": row.get("target_url", ""),
+            "anchor_text": row.get("anchor_text", ""),
+            "link_location": row.get("link_location", "content"),
+            "link_weight": float(row.get("link_weight", 1.0)),
+        })
+
+    return {
+        "links": links,
+        "total": total,
+        "filtered_total": filtered_total,
+        "by_location": by_location,
+        "location_filter": location,
+    }
+
+
 @dashboard_router.delete("/crawler/crawls/{crawl_name}/page")
 async def dashboard_delete_crawl_page(crawl_name: str, url: str):
     """

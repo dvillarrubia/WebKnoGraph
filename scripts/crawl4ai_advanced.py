@@ -38,6 +38,7 @@ import aiohttp
 try:
     from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
     from crawl4ai.markdown_generation_strategy import DefaultMarkdownGenerator
+    # No usamos PruningContentFilter porque elimina headings y negritas
 except ImportError:
     print("Please install crawl4ai: pip install crawl4ai")
     sys.exit(1)
@@ -47,6 +48,165 @@ try:
 except ImportError:
     print("Please install beautifulsoup4: pip install beautifulsoup4")
     sys.exit(1)
+
+# Importar el extractor de contenido basado en headings (fallback inteligente)
+try:
+    from content_extractor import extract_main_content as extract_by_headings
+    HEADING_EXTRACTOR_AVAILABLE = True
+except ImportError:
+    HEADING_EXTRACTOR_AVAILABLE = False
+
+
+# ============================================================================
+# MARKDOWN CLEANUP - Elimina navegación y cookies del markdown
+# ============================================================================
+
+# Palabras clave que indican contenido de cookies/consent (no contenido real)
+_COOKIE_KEYWORDS = [
+    'cookie', 'cookies', 'consent', 'aceptar', 'rechazar', 'personalizar',
+    'necesarias', 'funcionales', 'estadísticas', 'marketing', 'publicidad',
+    'consentimiento', 'privacidad', 'almacenamiento', 'proveedor',
+    'datos recopilados', 'hubspot', 'google analytics', 'facebook pixel',
+    'terceros', 'rastreo', 'tracking', 'preferencias', 'gdpr',
+]
+
+# Patrones que indican cookie content de forma inequívoca (TODO EN MINÚSCULAS)
+_COOKIE_INDICATORS = [
+    # Nombres de cookies comunes (en minúsculas para comparación)
+    'test_cookie', '_ga', '_gid', '_fbp', '_gcl', '__cf_bm', '__cflb', '__cfuid',
+    '_hjid', '_hjsession', 'phpsessid', 'jsessionid', 'asp.net_sessionid',
+    # Proveedores de cookies/tracking
+    'cookiebot', 'onetrust', 'hubspot', 'hotjar', 'clarity', 'intercom',
+    # Textos de consent
+    'política de privacidad', 'privacy policy', 'más información sobre este proveedor',
+    'esta cookie se utiliza', 'this cookie is used', 'distinguir entre humanos y bots',
+    'equilibrio de carga', 'load balancing', 'grupo de servidores',
+    # Documentación de cookies (común en banners expandidos)
+    'duración máxima de almacenamiento', 'maximum storage duration',
+    'tipo** : cookie http', 'tipo** : almacenamiento local',
+    'tipo** : píxel de seguimiento', 'tipo** : sessión',
+    # Comportamientos de tracking
+    'registra datos del comportamiento', 'detecta cómo el usuario',
+    'rastrea si el visitante', 'google doubleclick',
+    'índice de conversión', 'ha mostrado un interés',
+]
+
+# Patrones regex para eliminar líneas específicas
+_MARKDOWN_CLEANUP_PATTERNS = [
+    r'^\s*\!\[logo\]\(data:,\)\s*$',
+    r'.*cookiebot\.com.*',
+    r'.*\[Consentimiento\].*',
+    r'.*\[Detalles\].*#IABV2.*',
+    r'.*\[#IABV2SETTINGS#\].*',
+    r'.*\[Acerca de las cookies\].*',
+    r'^\s*\*\s+\[?\s*(Consentimiento|Detalles|Acerca de)\s*\]?.*$',
+]
+
+
+def _is_cookie_line(line: str) -> bool:
+    """Detecta si una línea es parte del banner de cookies."""
+    lower = line.lower()
+    stripped = line.strip()
+
+    # Líneas que empiezan con nombres de variables de cookies (ej: **__cf_bm**, **_ga**)
+    if stripped.startswith('**_') or stripped.startswith('**['):
+        return True
+
+    # Indicadores inequívocos (verificar primero, es más preciso)
+    for indicator in _COOKIE_INDICATORS:
+        if indicator in lower:
+            return True
+
+    # Líneas que parecen documentación de cookies: **NOMBRE_VARIABLE** descripción...
+    # Patrones como **PHPSESSID**, **personalization_id**, **IDE**, **utsdb**, etc.
+    cookie_var_pattern = r'^\*\*[A-Za-z0-9_#./-]+(\s*\[.*?\])?\*\*\s+'
+    if re.match(cookie_var_pattern, stripped):
+        var_name = stripped.split('**')[1] if '**' in stripped else ''
+        # Cookies: tienen underscore, guion, números, O son cortas en mayúsculas (IDE, MUID)
+        # O contienen patrones típicos de tracking
+        if '_' in var_name or '-' in var_name or any(c.isdigit() for c in var_name):
+            return True
+        if var_name.startswith(('_', '.')):
+            return True
+        # Variables cortas en mayúsculas (como IDE, MUID) son típicamente cookies
+        if var_name.isupper() and len(var_name) <= 10:
+            return True
+        # Verificar si la descripción tiene palabras de tracking
+        desc_part = stripped.split('**')[-1].lower() if '**' in stripped else ''
+        tracking_words = ['utilizada', 'registra', 'rastrea', 'detecta', 'almacena', 'cookie', 'sesión', 'usuario']
+        if any(tw in desc_part for tw in tracking_words):
+            return True
+
+    # Keywords (2+ matches)
+    matches = sum(1 for kw in _COOKIE_KEYWORDS if kw in lower)
+    return matches >= 2
+
+
+def _is_content_line(line: str) -> bool:
+    """Determina si una línea es contenido real (no navegación ni cookies)."""
+    stripped = line.strip()
+    # Líneas vacías no son contenido
+    if not stripped:
+        return False
+    # Si parece contenido de cookies, no es contenido real
+    if _is_cookie_line(stripped):
+        return False
+    # Headings son contenido (pero no si son de cookies)
+    if stripped.startswith('#') and len(stripped) > 2:
+        return True
+    # Listas y links sueltos son navegación
+    if stripped.startswith('*') or stripped.startswith('-') or stripped.startswith('+'):
+        return False
+    # Links solos (sin texto antes) son navegación
+    if stripped.startswith('[') or stripped.startswith('!'):
+        return False
+    # Breadcrumbs (iLERNA / Cursos / ...)
+    if ' / ' in stripped and len(stripped) < 200:
+        return False
+    # Párrafos cortos pueden ser navegación
+    if len(stripped) < 50:
+        return False
+    # Párrafos largos sin ser link son contenido
+    return True
+
+
+def clean_markdown(md_text: str) -> str:
+    """Elimina contenido de navegación y cookies del markdown."""
+    if not md_text:
+        return md_text
+
+    lines = md_text.split('\n')
+
+    # FASE 1: Encontrar el primer contenido real (heading o párrafo largo)
+    first_content_idx = 0
+    for i, line in enumerate(lines):
+        if _is_content_line(line):
+            first_content_idx = i
+            break
+
+    # Descartar líneas antes del primer contenido real
+    if first_content_idx > 0:
+        lines = lines[first_content_idx:]
+
+    # FASE 2: Eliminar líneas que son claramente cookies/navegación
+    cleaned = []
+    for line in lines:
+        # Saltar líneas de cookies
+        if _is_cookie_line(line):
+            continue
+        # Saltar líneas que matchean patrones específicos
+        skip = False
+        for pattern in _MARKDOWN_CLEANUP_PATTERNS:
+            if re.match(pattern, line, re.IGNORECASE):
+                skip = True
+                break
+        if not skip:
+            cleaned.append(line)
+
+    # Eliminar múltiples líneas vacías consecutivas
+    result = '\n'.join(cleaned)
+    result = re.sub(r'\n{3,}', '\n\n', result)
+    return result.strip()
 
 
 def _update_activity():
@@ -186,15 +346,33 @@ def load_visited_urls(output_path: Path) -> set:
 
 
 def load_discovered_urls(output_path: Path, base_domain: str) -> set:
-    """Load discovered URLs from links."""
+    """Load discovered URLs from links (only internal, non-asset URLs)."""
     discovered = set()
+
+    # Asset patterns to skip
+    asset_patterns = [
+        '/imagenes/', '/images/', '/img/', '/assets/',
+        '/uploads/', '/wp-content/uploads/',
+        '.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg',
+        '.pdf', '.doc', '.docx', '.xls', '.xlsx',
+        '.zip', '.rar', '.mp3', '.mp4', '.avi',
+        '.css', '.js', '.xml', '.json'
+    ]
+
     links_files = glob(str(output_path / "links" / "**" / "*.parquet"), recursive=True)
     for lf in links_files:
         try:
             df = pd.read_parquet(lf, columns=["target_url"])
             for url in df["target_url"].tolist():
-                if base_domain in url:
-                    discovered.add(url)
+                # Check domain properly using urlparse
+                parsed = urlparse(url)
+                if parsed.netloc != base_domain:
+                    continue
+                # Skip asset URLs
+                url_lower = url.lower()
+                if any(pat in url_lower for pat in asset_patterns):
+                    continue
+                discovered.add(url)
         except:
             continue
     return discovered
@@ -344,7 +522,6 @@ async def discover_urls_from_sitemap(domain: str) -> list:
     sitemap_urls = [
         f"https://{domain}/sitemap.xml",
         f"https://{domain}/sitemap_index.xml",
-        f"https://{domain}/sitemaps/sitemap-ilerna.xml",
         f"https://{domain}/blog/sitemap_index.xml",
     ]
 
@@ -589,8 +766,10 @@ async def crawl_site_advanced(
 
     browser_cfg = BrowserConfig(headless=headless, verbose=False)
 
-    # Markdown generator SIN filtros - el contenido se guarda completo
-    # La limpieza se hace en la fase de Cleaner, no aquí
+    # Markdown generator SIN PruningContentFilter
+    # El filtrado se hace con JavaScript (elimina nav, header, footer, cookies)
+    # y css_selector (enfoca en main, article, .content)
+    # PruningContentFilter eliminaba headings y negritas, así que no lo usamos
     markdown_generator = DefaultMarkdownGenerator()
 
     # Combinar selectores: cookies por defecto + los del usuario
@@ -607,19 +786,96 @@ async def crawl_site_advanced(
     custom_count = len(exclude_selectors) if exclude_selectors else 0
     print(f"  Excluding {len(all_selectors)} CSS selectors ({len(DEFAULT_COOKIE_SELECTORS)} cookies + {custom_count} custom)")
 
+    # JavaScript para eliminar overlays, cookies, nav y footer ANTES de capturar el HTML
+    # Esto es más efectivo que excluded_selector/excluded_tags porque actúa antes de la captura
+    js_remove_overlays = '''
+    // === FASE 1: Eliminar cookies y banners de consentimiento ===
+    // Cookiebot
+    document.querySelectorAll('#CybotCookiebotDialog, #CybotCookiebotDialogBody, [id*="Cookiebot"]').forEach(el => el.remove());
+    // OneTrust
+    document.querySelectorAll('#onetrust-consent-sdk, #onetrust-banner-sdk, [id*="onetrust"]').forEach(el => el.remove());
+    // Didomi
+    document.querySelectorAll('#didomi-host, [id*="didomi"]').forEach(el => el.remove());
+    // Genéricos por ID
+    document.querySelectorAll('[id*="cookie-consent"], [id*="cookie-notice"], [id*="cookie-banner"], [id*="gdpr"], [id*="consent"]').forEach(el => el.remove());
+    // Genéricos por clase
+    document.querySelectorAll('[class*="cookie-consent"], [class*="cookie-banner"], [class*="cookie-notice"], [class*="gdpr"], [class*="consent-"]').forEach(el => el.remove());
+
+    // === FASE 2: Eliminar navegación y elementos de layout ===
+    // Tags semánticos
+    document.querySelectorAll('nav, header, footer, aside').forEach(el => el.remove());
+    // Por role ARIA
+    document.querySelectorAll('[role="navigation"], [role="banner"], [role="contentinfo"], [role="complementary"]').forEach(el => el.remove());
+    // Por clases comunes de navegación (muy específico para evitar falsos positivos)
+    // NOTA: Solo eliminar si la clase EMPIEZA con el patrón o es exactamente el patrón
+    // Evitar matchear "hide-menu", "show-menu", "category", etc.
+    document.querySelectorAll('*').forEach(el => {
+        const cls = el.className && typeof el.className === 'string' ? el.className.toLowerCase() : '';
+        const id = el.id ? el.id.toLowerCase() : '';
+        // Solo matchear clases que empiezan con nav/menu o son exactamente esas palabras
+        // Excluir hide-menu, show-menu, toggle-menu, etc.
+        if (cls.match(/^(nav|navbar|main-menu|site-menu|top-menu|primary-menu|navigation)\\b/) ||
+            cls.match(/\\s(nav|navbar|main-menu|site-menu|top-menu|primary-menu|navigation)\\b/) ||
+            id.match(/^(nav|navbar|main-menu|navigation|primary-nav)$/)) {
+            el.remove();
+        }
+    });
+
+    // === FASE 3: Elementos fixed/sticky (overlays, modales, CTAs flotantes) ===
+    document.querySelectorAll('*').forEach(el => {
+        const style = window.getComputedStyle(el);
+        if ((style.position === 'fixed' || style.position === 'sticky') && parseInt(style.zIndex) > 100) {
+            el.remove();
+        }
+    });
+
+    // === FASE 4: Limpiar formularios y widgets ===
+    document.querySelectorAll('[id*="form"], [class*="form-container"], [id*="chat"], [class*="chat"], [id*="widget"]').forEach(el => el.remove());
+    '''
+
+    # === CONFIGURACIÓN SIN CSS SELECTOR ===
+    # NO usar css_selector múltiple porque causa duplicación de contenido
+    # cuando los selectores están anidados (main > .content > .container)
+    # La extracción por defecto de Crawl4AI + JS cleanup funciona mejor
+
+    # Configuración principal SIN css_selector
+    # NOTA: delay_before_return_html=5.0 para dar tiempo a JS de renderizar contenido dinámico
+    # NO usar wait_until="networkidle" porque se cuelga con websockets
     crawler_cfg = CrawlerRunConfig(
         cache_mode=CacheMode.BYPASS,
-        wait_until="load",  # Espera a que carguen recursos (no networkidle que se cuelga)
-        page_timeout=60000,  # 60 segundos máximo
-        delay_before_return_html=2.0,  # 2s extra para que JS renderice contenido
+        wait_until="load",
+        page_timeout=60000,
+        delay_before_return_html=5.0,
+        js_code=js_remove_overlays,
         markdown_generator=markdown_generator,
-        # Excluir elementos de cookies y overlays
+        # SIN css_selector - evita duplicación de contenido en elementos anidados
         excluded_selector=excluded_selector,
+        excluded_tags=["script", "style", "form", "noscript", "iframe", "svg"],
         remove_overlay_elements=True,
+        magic=True,
     )
 
+    # Configuración fallback: SIN css_selector para páginas sin contenedores estándar
+    # NOTA: delay_before_return_html=5.0 para dar tiempo a JS de renderizar contenido dinámico
+    crawler_cfg_fallback = CrawlerRunConfig(
+        cache_mode=CacheMode.BYPASS,
+        wait_until="load",
+        page_timeout=60000,
+        delay_before_return_html=5.0,
+        js_code=js_remove_overlays,
+        markdown_generator=markdown_generator,
+        # SIN css_selector - captura todo el body
+        excluded_selector=excluded_selector,
+        excluded_tags=["script", "style", "form", "noscript", "iframe", "svg"],
+        remove_overlay_elements=True,
+        magic=True,
+    )
+
+    # Umbral mínimo de palabras antes de intentar fallback
+    MIN_WORDS_THRESHOLD = 200
+
     results, links_graph, errors = [], [], 0
-    skipped_robots, skipped_noindex, skipped_short = 0, 0, 0
+    skipped_robots, skipped_noindex, skipped_short, skipped_assets = 0, 0, 0, 0
     start_time = time.time()
 
     # Log file for dashboard
@@ -690,6 +946,20 @@ async def crawl_site_advanced(
                         log(f"SKIP externo: {url[:60]}...", "SKIP")
                         continue
 
+                    # Skip asset/image URLs
+                    asset_patterns = [
+                        '/imagenes/', '/images/', '/img/', '/assets/',
+                        '/uploads/', '/wp-content/uploads/',
+                        '.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg',
+                        '.pdf', '.doc', '.docx', '.xls', '.xlsx',
+                        '.zip', '.rar', '.mp3', '.mp4', '.avi',
+                        '.css', '.js', '.xml', '.json'
+                    ]
+                    url_lower = url.lower()
+                    if any(pat in url_lower for pat in asset_patterns):
+                        skipped_assets += 1
+                        continue
+
                     # Check robots.txt before crawling
                     if respect_robots and not is_url_allowed(robots_parser, url):
                         skipped_robots += 1
@@ -736,18 +1006,99 @@ async def crawl_site_advanced(
                             title = result.metadata.get("title", "") if result.metadata else ""
                             meta = result.metadata.get("description", "") if result.metadata else ""
 
-                            # result.markdown es ahora MarkdownGenerationResult
+                            # result.markdown es MarkdownGenerationResult con raw_markdown
+                            # No usamos fit_markdown porque PruningContentFilter elimina headings/negritas
                             md_result = result.markdown
                             if hasattr(md_result, 'raw_markdown'):
                                 markdown_raw = md_result.raw_markdown or ""
-                                markdown_fit = md_result.fit_markdown or ""
-                                markdown = markdown_fit if markdown_fit else markdown_raw
                             else:
-                                markdown = str(md_result) if md_result else ""
-                                markdown_raw = markdown
-                                markdown_fit = markdown
+                                markdown_raw = str(md_result) if md_result else ""
 
-                            word_count = len(markdown.split())
+                            # Limpiar markdown de cookies/consent que el JS no pilló
+                            markdown_raw = clean_markdown(markdown_raw)
+                            word_count = len(markdown_raw.split())
+
+                            # FALLBACK: Si el contenido es muy corto, re-crawlear SIN css_selector
+                            # Esto ocurre cuando la página no usa contenedores estándar (main, article, .content)
+                            if word_count < MIN_WORDS_THRESHOLD:
+                                log(f"  Contenido corto ({word_count} palabras), intentando sin css_selector...", "WARN")
+                                try:
+                                    fallback_result = await asyncio.wait_for(
+                                        crawler.arun(url=url, config=crawler_cfg_fallback),
+                                        timeout=90.0
+                                    )
+                                    if fallback_result.success:
+                                        # Usar resultado del fallback
+                                        html = fallback_result.html or html
+                                        title = fallback_result.metadata.get("title", "") if fallback_result.metadata else title
+                                        meta = fallback_result.metadata.get("description", "") if fallback_result.metadata else meta
+
+                                        fb_md_result = fallback_result.markdown
+                                        if hasattr(fb_md_result, 'raw_markdown'):
+                                            fb_markdown = fb_md_result.raw_markdown or ""
+                                        else:
+                                            fb_markdown = str(fb_md_result) if fb_md_result else ""
+
+                                        # Limpiar fallback de cookies/consent
+                                        fb_markdown = clean_markdown(fb_markdown)
+                                        fb_word_count = len(fb_markdown.split())
+
+                                        # Solo usar fallback si tiene más contenido
+                                        if fb_word_count > word_count:
+                                            log(f"  Fallback exitoso: {word_count} → {fb_word_count} palabras", "OK")
+                                            markdown_raw = fb_markdown
+                                            word_count = fb_word_count
+                                        else:
+                                            log(f"  Fallback no mejoró ({fb_word_count} palabras), usando original", "INFO")
+                                except Exception as fb_err:
+                                    log(f"  Fallback falló: {str(fb_err)[:50]}", "WARN")
+
+                            # FALLBACK 2: Usar algoritmo de headings si:
+                            # - El contenido actual es muy corto (<200 palabras), O
+                            # - El heading extractor tiene buena estructura (H1 + headings) y contenido razonable
+                            # Este algoritmo es más inteligente: busca el H1 con más H2/H3 después
+                            if HEADING_EXTRACTOR_AVAILABLE and html:
+                                try:
+                                    heading_md, heading_title, heading_stats = extract_by_headings(html, url)
+                                    heading_word_count = heading_stats.get('words', 0)
+                                    heading_count = heading_stats.get('headings', 0)
+
+                                    # Usar heading extractor si:
+                                    # 1. Contenido actual es muy corto y heading tiene más
+                                    # 2. Heading tiene buena estructura (3+ headings) y >200 palabras
+                                    #    (prefiere contenido estructurado sobre contenido con cookies)
+                                    use_heading = False
+                                    reason = ""
+
+                                    if word_count < MIN_WORDS_THRESHOLD and heading_word_count > word_count:
+                                        use_heading = True
+                                        reason = f"más contenido: {word_count} → {heading_word_count}"
+                                    elif heading_count >= 3 and heading_word_count >= 200:
+                                        # Heading extractor encontró buena estructura
+                                        # Preferirlo si el contenido actual parece tener muchas cookies
+                                        cookie_indicators = sum(1 for ind in ['cookie', 'duración', 'almacenamiento', 'proveedor', 'sesión']
+                                                              if ind in markdown_raw.lower()[:2000])
+                                        if cookie_indicators >= 2:
+                                            use_heading = True
+                                            reason = f"mejor estructura ({heading_count} headings, sin cookies)"
+
+                                    if use_heading:
+                                        log(f"  Heading extractor: {reason}", "OK")
+                                        markdown_raw = heading_md
+                                        word_count = heading_word_count
+                                        if heading_title and not title:
+                                            title = heading_title
+                                    elif word_count < MIN_WORDS_THRESHOLD:
+                                        log(f"  Heading extractor no mejoró ({heading_word_count} palabras)", "INFO")
+                                except Exception as he_err:
+                                    log(f"  Heading extractor falló: {str(he_err)[:50]}", "WARN")
+
+                            # Si el título está vacío (por css_selector), extraerlo del primer H1
+                            if not title and markdown_raw:
+                                import re
+                                h1_match = re.search(r'^#\s+(.+)$', markdown_raw, re.MULTILINE)
+                                if h1_match:
+                                    title = h1_match.group(1).strip()
 
                             # Skip páginas con muy poco contenido (configurable con --no-filter)
                             if content_filter and word_count < 50:
@@ -777,16 +1128,30 @@ async def crawl_site_advanced(
                                             "link_weight": link.get("weight", 1.0),
                                             "crawl_date": datetime.now().strftime("%Y-%m-%d"),
                                         })
-                                        if href not in visited and href not in to_visit:
+                                        # Filtrar URLs de assets/imágenes antes de añadir a cola
+                                        skip_patterns = [
+                                            '/imagenes/', '/images/', '/img/', '/assets/',
+                                            '/uploads/', '/wp-content/uploads/',
+                                            '.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg',
+                                            '.pdf', '.doc', '.docx', '.xls', '.xlsx',
+                                            '.zip', '.rar', '.mp3', '.mp4', '.avi',
+                                            '.css', '.js', '.xml', '.json'
+                                        ]
+                                        href_lower = href.lower()
+                                        is_asset = any(pat in href_lower for pat in skip_patterns)
+
+                                        if not is_asset and href not in visited and href not in to_visit:
                                             to_visit.append(href)
                                             new_urls_found += 1
 
-                            # Guardar markdown SIN procesar - la limpieza se hace en el Cleaner
+                            # Guardar raw_markdown como principal
+                            # El contenido ya viene limpio por: JS cleanup + css_selector + excluded_tags
+                            # No usamos PruningContentFilter porque elimina headings y negritas
                             results.append({
                                 "url": url,
                                 "title": title[:500],
                                 "meta_description": meta[:1000],
-                                "markdown": markdown_raw,  # Contenido completo sin filtrar
+                                "markdown": markdown_raw,  # Contenido limpio (por JS + css_selector)
                                 "html_content": html,
                                 "content_hash": hashlib.sha256(markdown_raw.encode()).hexdigest(),
                                 "word_count": word_count,
@@ -833,6 +1198,12 @@ async def crawl_site_advanced(
                         results, links_graph = [], []
                         _pending_results, _pending_links = [], []
 
+                    # Reinicio preventivo del navegador cada 300 páginas para evitar memory leaks
+                    pages_this_session = page_num % 300
+                    if page_num > 0 and pages_this_session == 0:
+                        log(f"🔄 Reinicio preventivo del navegador (cada 300 páginas)", "INFO")
+                        break  # Sale del while interno, reinicia browser
+
                     await asyncio.sleep(delay)
 
                 pbar.close()
@@ -871,7 +1242,8 @@ async def crawl_site_advanced(
 
     update_status(status_path, status="completed", completed_at=datetime.now().isoformat(),
                   pages_crawled=len(visited)-pages_prev, current_url=None,
-                  skipped_robots=skipped_robots, skipped_noindex=skipped_noindex)
+                  skipped_robots=skipped_robots, skipped_noindex=skipped_noindex,
+                  skipped_assets=skipped_assets)
 
     print(f"""
 {'='*70}
@@ -884,6 +1256,7 @@ async def crawl_site_advanced(
      - Por robots.txt:   {skipped_robots}
      - Por noindex:      {skipped_noindex}
      - Por contenido corto: {skipped_short}
+     - Por ser asset:    {skipped_assets}
   📁 Output: {output_path}
 {'='*70}""")
 

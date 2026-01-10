@@ -145,6 +145,7 @@ class CrawlerService:
             str(script_path),
             "--url", url,
             "--max-pages", str(max_pages),
+            "--output-dir", str(self.base_output_dir),
             "--delay", str(delay),
         ]
 
