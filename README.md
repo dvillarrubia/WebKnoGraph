@@ -115,7 +115,7 @@ Query → Vector Search → Graph Expansion → LLM → Respuesta con fuentes
 
 ```
 WebKnoGraph/
-├── graph_rag/
+├── graph_rag/                   # Servicio RAG principal
 │   ├── api/
 │   │   ├── main.py              # FastAPI app
 │   │   └── routes.py            # Endpoints (68+ rutas)
@@ -133,8 +133,20 @@ WebKnoGraph/
 │   │   └── index.html           # Dashboard SPA
 │   └── config/
 │       └── settings.py
+├── src/                         # Módulos originales (legacy)
+│   └── backend/
+│       ├── services/            # Crawler, embeddings, PageRank, GraphSAGE
+│       ├── graph/               # Algoritmos de grafo
+│       └── models/              # Modelos ML
 ├── scripts/
 │   └── crawl4ai_advanced.py     # Crawler standalone
+├── tests/                       # Suite de tests
+│   └── backend/services/        # Tests unitarios
+├── notebooks/                   # Jupyter/Gradio UIs
+│   ├── crawler_ui.ipynb
+│   ├── embeddings_ui.ipynb
+│   ├── link_prediction_ui.ipynb
+│   └── pagerank_ui.ipynb
 ├── data/
 │   └── crawl4ai_data/           # Datos de crawls (gitignored)
 ├── docker-compose.rag.yml
@@ -199,6 +211,26 @@ curl -X POST http://localhost:8080/api/v1/query \
 - **Embeddings**: intfloat/multilingual-e5-large (1024 dims)
 - **LLM**: OpenAI GPT-4o
 - **Frontend**: Bootstrap 5, Vanilla JS
+
+## Documentación Adicional
+
+| Documento | Descripción |
+|-----------|-------------|
+| [CLAUDE.md](CLAUDE.md) | Guía para asistentes IA trabajando con el código |
+| [HOW-IT-WORKS.md](HOW-IT-WORKS.md) | Arquitectura detallada y flujo de datos |
+| [graph_rag/README.md](graph_rag/README.md) | Documentación específica de Graph-RAG |
+| [graph_rag/TODO_FEATURES.md](graph_rag/TODO_FEATURES.md) | Estado de implementación de features |
+| `/docs` | Swagger API docs (cuando el servidor está corriendo) |
+
+## Tests
+
+```bash
+# Ejecutar todos los tests
+python -m pytest tests/ -v
+
+# Test específico
+python -m pytest tests/backend/services/test_crawler_service.py -v
+```
 
 ## Licencia
 
