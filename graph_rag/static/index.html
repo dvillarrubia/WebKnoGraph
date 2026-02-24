@@ -345,6 +345,131 @@
             opacity: 0.7;
         }
 
+        /* Agent Mode Toggle */
+        .agent-mode-toggle {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            padding: 0.75rem;
+        }
+
+        .agent-toggle {
+            width: 100%;
+        }
+
+        .agent-toggle .toggle-text {
+            flex: 1;
+        }
+
+        .agent-switch {
+            background: rgba(139, 92, 246, 0.3) !important;
+        }
+
+        .toggle-label input:checked + .agent-switch {
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6) !important;
+        }
+
+        /* Agent Steps in Chat */
+        .agent-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .agent-step:last-child {
+            border-bottom: none;
+        }
+
+        .agent-step-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .agent-step-icon.status {
+            background: rgba(96, 165, 250, 0.2);
+            color: #60a5fa;
+        }
+
+        .agent-step-icon.tool {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .agent-step-icon.result {
+            background: rgba(52, 211, 153, 0.2);
+            color: #34d399;
+        }
+
+        .agent-step-icon.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .agent-step-content {
+            flex: 1;
+            color: var(--text-secondary);
+        }
+
+        .agent-step-content strong {
+            color: var(--text-primary);
+        }
+
+        .agent-steps-container {
+            background: var(--bg-main);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .agent-steps-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .agent-thinking {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .agent-thinking .dots {
+            display: flex;
+            gap: 2px;
+        }
+
+        .agent-thinking .dot {
+            width: 4px;
+            height: 4px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            animation: agentDot 1.4s infinite ease-in-out both;
+        }
+
+        .agent-thinking .dot:nth-child(1) { animation-delay: -0.32s; }
+        .agent-thinking .dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes agentDot {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
         /* Search Mode Selector */
         .search-mode-selector {
             display: flex;
@@ -2070,7 +2195,18 @@
                                 </div>
                             </div>
 
-                            <div class="rag-features mb-3">
+                            <div class="agent-mode-toggle mb-3">
+                                <label class="toggle-label agent-toggle">
+                                    <input type="checkbox" id="useAgentMode">
+                                    <span class="toggle-switch agent-switch"></span>
+                                    <span class="toggle-text">
+                                        <strong>Modo Agente</strong>
+                                        <small class="text-muted d-block">Búsqueda iterativa con pasos visibles</small>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="rag-features mb-3" id="ragFeatures">
                                 <div class="feature-toggle">
                                     <label class="toggle-label">
                                         <input type="checkbox" id="useReranking" checked>
@@ -3845,13 +3981,132 @@
                 input.value = '';
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-                // Add loading
-                const loadingId = 'loading-' + Date.now();
-                messagesDiv.innerHTML += `<div class="message assistant" id="${loadingId}"><div class="spinner"></div></div>`;
+                const clientId = document.getElementById('chatClientSelect').value;
+                const useAgentMode = document.getElementById('useAgentMode')?.checked || false;
+
+                // Add loading/response container
+                const responseId = 'response-' + Date.now();
+                messagesDiv.innerHTML += `<div class="message assistant" id="${responseId}"><div class="spinner"></div></div>`;
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
+                if (useAgentMode) {
+                    // Agent mode with SSE streaming
+                    await sendAgentMessage(query, clientId, responseId);
+                } else {
+                    // Standard RAG mode
+                    await sendStandardMessage(query, clientId, responseId);
+                }
+
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+
+            async function sendAgentMessage(query, clientId, responseId) {
+                const responseDiv = document.getElementById(responseId);
+                let stepsHtml = '<div class="agent-steps">';
+                let finalAnswer = '';
+
                 try {
-                    const clientId = document.getElementById('chatClientSelect').value;
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/query-agent`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            query,
+                            client_id: clientId,
+                            max_iterations: 5
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        responseDiv.innerHTML = `<p class="text-danger">Error: ${errorData.detail || 'Error desconocido'}</p>`;
+                        return;
+                    }
+
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+                    let buffer = '';
+
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+
+                        buffer += decoder.decode(value, { stream: true });
+                        const lines = buffer.split('\n');
+                        buffer = lines.pop() || '';
+
+                        for (const line of lines) {
+                            if (line.startsWith('data: ')) {
+                                const data = line.slice(6);
+                                if (data === '[DONE]') continue;
+
+                                try {
+                                    const event = JSON.parse(data);
+                                    const stepHtml = renderAgentStep(event);
+
+                                    if (event.type === 'answer') {
+                                        finalAnswer = event.content;
+                                    } else {
+                                        stepsHtml += stepHtml;
+                                        responseDiv.innerHTML = stepsHtml + '</div><div class="spinner mt-2"></div>';
+                                        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                                    }
+                                } catch (e) {
+                                    console.error('Error parsing SSE:', e, data);
+                                }
+                            }
+                        }
+                    }
+
+                    // Render final answer
+                    if (finalAnswer) {
+                        const answerHtml = marked.parse(finalAnswer);
+                        responseDiv.innerHTML = stepsHtml + '</div><div class="rag-markdown agent-answer">' + answerHtml + '</div>';
+                    } else {
+                        responseDiv.innerHTML = stepsHtml + '</div><p class="text-muted">El agente no generó una respuesta final.</p>';
+                    }
+
+                } catch (error) {
+                    responseDiv.innerHTML = `<p class="text-danger">Error de conexión: ${error.message}</p>`;
+                }
+            }
+
+            function renderAgentStep(event) {
+                const icons = {
+                    'status': '⏳',
+                    'tool_call': '🔧',
+                    'tool_result': '✅',
+                    'thinking': '💭',
+                    'error': '❌'
+                };
+                const classes = {
+                    'status': 'status',
+                    'tool_call': 'tool',
+                    'tool_result': 'result',
+                    'thinking': 'thinking',
+                    'error': 'error'
+                };
+
+                const icon = icons[event.type] || '📌';
+                const cls = classes[event.type] || 'status';
+
+                let content = event.content;
+                if (event.data && event.type === 'tool_call') {
+                    const args = Object.entries(event.data.args || {})
+                        .map(([k, v]) => `${k}="${v}"`)
+                        .join(', ');
+                    content = `<strong>${event.data.tool}</strong>(${args})`;
+                }
+
+                return `<div class="agent-step ${cls}">
+                    <span class="agent-step-icon ${cls}">${icon}</span>
+                    <span class="agent-step-content">${content}</span>
+                </div>`;
+            }
+
+            async function sendStandardMessage(query, clientId, responseId) {
+                const responseDiv = document.getElementById(responseId);
+
+                try {
                     const useReranking = document.getElementById('useReranking').checked;
                     const useGraph = document.getElementById('useGraph').checked;
                     const graphHops = useGraph ? parseInt(document.getElementById('graphHops').value) : 0;
@@ -3870,7 +4125,6 @@
                     });
 
                     const data = await response.json();
-                    const loading = document.getElementById(loadingId);
 
                     if (response.ok) {
                         let sourcesHtml = '';
@@ -3909,16 +4163,13 @@
                             }
                         }
 
-                        loading.innerHTML = `<div class="rag-markdown">${answerHtml}</div>${sourcesHtml}${statsHtml}`;
+                        responseDiv.innerHTML = `<div class="rag-markdown">${answerHtml}</div>${sourcesHtml}${statsHtml}`;
                     } else {
-                        loading.innerHTML = `<p class="text-danger">Error: ${data.detail || 'Error desconocido'}</p>`;
+                        responseDiv.innerHTML = `<p class="text-danger">Error: ${data.detail || 'Error desconocido'}</p>`;
                     }
                 } catch (error) {
-                    const loading = document.getElementById(loadingId);
-                    loading.innerHTML = `<p class="text-danger">Error de conexión: ${error.message}</p>`;
+                    responseDiv.innerHTML = `<p class="text-danger">Error de conexión: ${error.message}</p>`;
                 }
-
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
             }
 
             sendBtn.addEventListener('click', sendMessage);

@@ -2,7 +2,9 @@
 FastAPI Routes for Graph-RAG.
 """
 
-from fastapi import APIRouter, Depends, HTTPException
+import json
+from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi.responses import StreamingResponse
 
 from graph_rag.api.models import (
     ClientCreate,
@@ -36,6 +38,7 @@ from graph_rag.services.rag_service import RAGService
 from graph_rag.services.migration_service import MigrationService
 from graph_rag.services.embedding_service import EmbeddingService
 from graph_rag.services.community_service import CommunityService
+from graph_rag.services.agentic_rag_service import AgenticRAGService, StepType
 
 
 # =============================================================================
@@ -433,6 +436,71 @@ async def dashboard_query(
             "reranked": response.context.reranked,
         },
     }
+
+
+@dashboard_router.post("/query-agent")
+async def dashboard_query_agent(
+    request: dict,
+    supabase: SupabaseClient = Depends(get_supabase_client),
+    neo4j: Neo4jClient = Depends(get_neo4j_client),
+    embedding_service: EmbeddingService = Depends(get_embedding_service),
+):
+    """
+    Execute an agentic RAG query with streaming steps.
+    Returns Server-Sent Events (SSE) stream.
+    """
+    from graph_rag.config.settings import get_settings
+
+    client_id = request.get("client_id")
+    question = request.get("query") or request.get("question")
+
+    if not client_id:
+        raise HTTPException(status_code=400, detail="client_id is required")
+    if not question:
+        raise HTTPException(status_code=400, detail="query is required")
+
+    # Verify client exists
+    client = await supabase.get_client_by_id(client_id)
+    if not client:
+        raise HTTPException(status_code=404, detail="Client not found")
+
+    settings = get_settings()
+    agent_service = AgenticRAGService(
+        settings=settings,
+        supabase_client=supabase,
+        neo4j_client=neo4j,
+        embedding_service=embedding_service,
+    )
+
+    async def generate():
+        """Generate SSE events from agent steps."""
+        try:
+            async for step in agent_service.query_stream(client_id, question):
+                event_data = {
+                    "type": step.type.value,
+                    "content": step.content,
+                }
+                if step.data:
+                    event_data["data"] = step.data
+
+                yield f"data: {json.dumps(event_data, ensure_ascii=False)}\n\n"
+
+            yield "data: [DONE]\n\n"
+
+        except Exception as e:
+            error_data = {"type": "error", "content": str(e)}
+            yield f"data: {json.dumps(error_data)}\n\n"
+            yield "data: [DONE]\n\n"
+
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        }
+    )
 
 
 # =============================================================================
