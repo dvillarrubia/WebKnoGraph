@@ -575,6 +575,11 @@ async def dashboard_search(
             return 1.0
         return (raw_sim - min_threshold) / (max_threshold - min_threshold)
 
+    # Apply URL filter if provided
+    url_filter = request.get("url_filter")
+    if url_filter:
+        results = [r for r in results if url_filter.lower() in r.get("url", "").lower()]
+
     return {
         "results": [
             {
@@ -593,6 +598,71 @@ async def dashboard_search(
         ],
         "total": len(results),
     }
+
+
+@dashboard_router.post("/compare")
+async def dashboard_compare_text(
+    request: dict,
+    supabase: SupabaseClient = Depends(get_supabase_client),
+    embedding_service: EmbeddingService = Depends(get_embedding_service),
+):
+    """Compare text against indexed chunks or pages (no API key required)."""
+    client_id = request.get("client_id")
+    text = request.get("text")
+    mode = request.get("mode", "chunks")  # 'chunks' or 'pages'
+    top_k = request.get("top_k", 10)
+
+    if not client_id:
+        raise HTTPException(status_code=400, detail="client_id is required")
+    if not text:
+        raise HTTPException(status_code=400, detail="text is required")
+
+    # Generate embedding for the input text
+    text_embedding = embedding_service.embed_query(text)
+
+    if mode == "pages":
+        # Search against page embeddings
+        results = await supabase.search_similar_pages(
+            client_id=client_id,
+            query_embedding=text_embedding,
+            limit=top_k,
+            min_similarity=0.15,
+        )
+        return {
+            "results": [
+                {
+                    "url": r["url"],
+                    "title": r.get("title"),
+                    "content": (r.get("content") or "")[:500],
+                    "similarity": r.get("similarity", 0),
+                    "pagerank": r.get("pagerank", 0),
+                }
+                for r in results
+            ],
+            "mode": "pages",
+        }
+    else:
+        # Search against chunk embeddings (default)
+        results = await supabase.search_similar_chunks(
+            client_id=client_id,
+            query_embedding=text_embedding,
+            limit=top_k,
+            min_similarity=0.15,
+        )
+        return {
+            "results": [
+                {
+                    "url": r["url"],
+                    "title": r.get("title"),
+                    "chunk_content": (r.get("content") or "")[:500],
+                    "chunk_index": r.get("chunk_index"),
+                    "heading_context": r.get("heading_context"),
+                    "similarity": r.get("similarity", 0),
+                }
+                for r in results
+            ],
+            "mode": "chunks",
+        }
 
 
 @dashboard_router.post("/related")

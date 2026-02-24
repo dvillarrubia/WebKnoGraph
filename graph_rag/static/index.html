@@ -452,6 +452,139 @@
             color: var(--text-primary) !important;
         }
 
+        /* Search Toolbar */
+        .search-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Compare Modal Styles */
+        #compareModal .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        #compareModal .modal-header {
+            border-bottom-color: var(--border-color);
+        }
+
+        #compareModal .form-control {
+            background: var(--bg-main);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        #compareModal .form-control:focus {
+            background: var(--bg-main);
+            border-color: var(--primary-color);
+            color: var(--text-primary);
+        }
+
+        .compare-mode-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .compare-mode-btn {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .compare-mode-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--text-primary);
+        }
+
+        .compare-mode-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .compare-results {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            max-height: 450px;
+            overflow-y: auto;
+        }
+
+        .compare-result-item {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            background: var(--bg-card);
+        }
+
+        .compare-result-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .compare-result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .compare-result-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .compare-result-score {
+            background: rgba(52, 211, 153, 0.15);
+            color: #34d399;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .compare-result-url {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .compare-result-snippet {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            max-height: 80px;
+            overflow: hidden;
+        }
+
+        .compare-result-snippet mark {
+            background: rgba(251, 191, 36, 0.3);
+            color: var(--text-primary);
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
         .message-sources {
             margin-top: 1rem;
             padding-top: 1rem;
@@ -1978,23 +2111,112 @@
                 <p class="page-subtitle">Búsqueda vectorial en el contenido indexado</p>
             </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <div class="search-box">
-                        <i class="bi bi-search"></i>
-                        <input type="text" id="searchInput" placeholder="Buscar en el contenido..." />
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="search-box">
+                                <i class="bi bi-search"></i>
+                                <input type="text" id="searchInput" placeholder="Buscar en el contenido..." />
+                            </div>
+                            <div class="search-toolbar">
+                                <div class="search-filters" id="searchFilters">
+                                    <span class="filter-chip active" data-filter="all">Todos</span>
+                                    <span class="filter-chip" data-filter="blog">Blog</span>
+                                    <span class="filter-chip" data-filter="fp-">Ciclos FP</span>
+                                    <span class="filter-chip" data-filter="cursos">Cursos</span>
+                                </div>
+                                <div class="search-actions">
+                                    <button class="btn btn-outline-primary btn-sm" id="openCompareModal" title="Comparar texto con chunks">
+                                        <i class="bi bi-file-diff"></i> Comparar
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="search-results" id="searchResults">
+                                <p class="text-muted text-center mt-4">Escribe algo para buscar...</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="search-filters">
-                        <span class="filter-chip active" data-filter="all">Todos</span>
-                        <span class="filter-chip" data-filter="pages">Páginas</span>
-                        <span class="filter-chip" data-filter="blog">Blog</span>
-                    </div>
-                    <div class="search-results" id="searchResults">
-                        <p class="text-muted text-center mt-4">Escribe algo para buscar...</p>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"><i class="bi bi-sliders"></i> Opciones de búsqueda</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label>Cliente</label>
+                                <select class="form-control" id="searchClientSelect">
+                                    <option value="">Cargando clientes...</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Resultados: <span id="searchTopKValue">15</span></label>
+                                <input type="range" class="form-range" id="searchTopK" min="5" max="50" value="15">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Similitud mínima: <span id="searchMinSimValue">0.2</span></label>
+                                <input type="range" class="form-range" id="searchMinSim" min="0.1" max="0.6" step="0.05" value="0.2">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Filtro URL <small class="text-muted">(opcional)</small></label>
+                                <input type="text" class="form-control form-control-sm" id="searchUrlFilter" placeholder="ej: /blog/, /fp-, cursos">
+                            </div>
+                            <div class="search-stats mt-3" id="searchStats" style="display:none;">
+                                <small class="text-muted">
+                                    <span id="searchResultsCount">0</span> resultados en <span id="searchTime">0</span>ms
+                                </small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Text Compare Modal -->
+        <div class="modal fade" id="compareModal" tabindex="-1">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="bi bi-file-diff"></i> Comparar Texto con Contenido Indexado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label"><strong>Texto a comparar</strong></label>
+                                    <textarea class="form-control" id="compareText" rows="12" placeholder="Pega aquí el texto que quieres comparar con el contenido indexado..."></textarea>
+                                    <div class="mt-2">
+                                        <small class="text-muted"><span id="compareCharCount">0</span> caracteres</small>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label class="form-label">Tipo de comparación</label>
+                                    <div class="compare-mode-selector">
+                                        <button type="button" class="compare-mode-btn active" data-mode="chunks">
+                                            <i class="bi bi-layers"></i> vs Chunks
+                                        </button>
+                                        <button type="button" class="compare-mode-btn" data-mode="pages">
+                                            <i class="bi bi-file-text"></i> vs Páginas
+                                        </button>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary w-100 mt-3" id="runCompare">
+                                    <i class="bi bi-search"></i> Buscar similares
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label"><strong>Resultados más similares</strong></label>
+                                <div class="compare-results" id="compareResults">
+                                    <p class="text-muted text-center mt-4">Los resultados aparecerán aquí...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Graph Explorer Section -->
         <section id="graph" class="section">
@@ -3458,7 +3680,7 @@
 
         function updateClientSelects() {
             // Actualizar todos los selectores de cliente
-            const selectIds = ['#chatClientSelect', '#interlinkingClientSelect'];
+            const selectIds = ['#chatClientSelect', '#searchClientSelect', '#interlinkingClientSelect'];
             const allSelects = [];
 
             selectIds.forEach(id => {
@@ -3699,77 +3921,236 @@
         function initSearch() {
             const input = document.getElementById('searchInput');
             const results = document.getElementById('searchResults');
+            const statsDiv = document.getElementById('searchStats');
             let searchTimeout;
+            let currentFilter = 'all';
+
+            // Initialize search client select
+            const searchClientSelect = document.getElementById('searchClientSelect');
+            if (searchClientSelect && clients.length) {
+                searchClientSelect.innerHTML = clients.map(c =>
+                    `<option value="${c.id}" ${c.id === currentClient ? 'selected' : ''}>${c.name}</option>`
+                ).join('');
+            }
+
+            // Search sliders
+            ['searchTopK', 'searchMinSim'].forEach(id => {
+                const slider = document.getElementById(id);
+                const valueSpan = document.getElementById(id + 'Value');
+                if (slider && valueSpan) {
+                    slider.addEventListener('input', () => {
+                        valueSpan.textContent = slider.value;
+                    });
+                    // Trigger search on change
+                    slider.addEventListener('change', () => {
+                        if (input.value.trim().length >= 2) {
+                            input.dispatchEvent(new Event('input'));
+                        }
+                    });
+                }
+            });
+
+            // URL filter input
+            const urlFilterInput = document.getElementById('searchUrlFilter');
+            if (urlFilterInput) {
+                urlFilterInput.addEventListener('change', () => {
+                    if (input.value.trim().length >= 2) {
+                        input.dispatchEvent(new Event('input'));
+                    }
+                });
+            }
+
+            async function performSearch() {
+                const query = input.value.trim();
+                if (query.length < 2) {
+                    results.innerHTML = '<p class="text-muted text-center mt-4">Escribe al menos 2 caracteres...</p>';
+                    statsDiv.style.display = 'none';
+                    return;
+                }
+
+                const startTime = Date.now();
+
+                try {
+                    const clientId = document.getElementById('searchClientSelect')?.value || document.getElementById('chatClientSelect').value;
+                    const topK = parseInt(document.getElementById('searchTopK')?.value || 15);
+                    const minSim = parseFloat(document.getElementById('searchMinSim')?.value || 0.2);
+                    const urlFilter = document.getElementById('searchUrlFilter')?.value?.trim() || '';
+
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/search`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            query,
+                            client_id: clientId,
+                            top_k: topK,
+                            min_similarity: minSim,
+                            url_filter: urlFilter || (currentFilter !== 'all' ? currentFilter : null)
+                        })
+                    });
+
+                    const data = await response.json();
+                    const elapsed = Date.now() - startTime;
+
+                    if (response.ok && data.results) {
+                        // Apply client-side filter if chip is selected
+                        let filteredResults = data.results;
+                        if (currentFilter !== 'all') {
+                            filteredResults = data.results.filter(r =>
+                                r.url.toLowerCase().includes(currentFilter.toLowerCase())
+                            );
+                        }
+
+                        // Store results for later rendering
+                        window.searchResults = filteredResults;
+
+                        // Update stats
+                        document.getElementById('searchResultsCount').textContent = filteredResults.length;
+                        document.getElementById('searchTime').textContent = elapsed;
+                        statsDiv.style.display = 'block';
+
+                        if (filteredResults.length === 0) {
+                            results.innerHTML = '<p class="text-muted text-center mt-4">Sin resultados para este filtro</p>';
+                            return;
+                        }
+
+                        results.innerHTML = filteredResults.map((r, idx) => `
+                            <div class="result-item" id="result-${idx}">
+                                <div class="result-header" onclick="toggleResultContent(${idx})">
+                                    <div class="result-info">
+                                        <div class="result-title">${escapeHtml(r.title || 'Sin título')}</div>
+                                        <div class="result-url">${escapeHtml(r.url)}</div>
+                                        ${r.heading_context ? `<div class="result-heading"><i class="bi bi-bookmark"></i> ${escapeHtml(r.heading_context)}</div>` : ''}
+                                        <div class="result-snippet">${escapeHtml((r.chunk_content || '').substring(0, 250))}...</div>
+                                        <div class="result-meta">
+                                            <span class="result-score" title="Raw cosine: ${(r.raw_similarity * 100).toFixed(1)}%"><i class="bi bi-bullseye"></i> Relevancia: ${(r.similarity * 100).toFixed(0)}%</span>
+                                            <span class="result-chunk-index"><i class="bi bi-layers"></i> Chunk #${r.chunk_index + 1}</span>
+                                            ${r.pagerank ? `<span class="result-pagerank"><i class="bi bi-graph-up"></i> PR: ${r.pagerank.toFixed(4)}</span>` : ''}
+                                        </div>
+                                    </div>
+                                    <button class="result-expand-btn" id="expand-btn-${idx}">
+                                        <i class="bi bi-chevron-down"></i> Ver contenido
+                                    </button>
+                                </div>
+                                <div class="result-content" id="content-${idx}">
+                                    <div class="result-markdown" id="markdown-${idx}"></div>
+                                    <div style="margin-top: 0.75rem;">
+                                        <a href="${r.url}" target="_blank" class="btn btn-sm btn-secondary">
+                                            <i class="bi bi-box-arrow-up-right"></i> Abrir página
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                } catch (error) {
+                    results.innerHTML = `<p class="text-danger text-center">Error: ${error.message}</p>`;
+                }
+            }
 
             input.addEventListener('input', () => {
                 clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(async () => {
-                    const query = input.value.trim();
-                    if (query.length < 2) {
-                        results.innerHTML = '<p class="text-muted text-center mt-4">Escribe al menos 2 caracteres...</p>';
-                        return;
-                    }
-
-                    try {
-                        const clientId = document.getElementById('chatClientSelect').value;
-                        const response = await fetch(`${API_URL}/api/v1/dashboard/search`, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                query,
-                                client_id: clientId,
-                                top_k: 10
-                            })
-                        });
-
-                        const data = await response.json();
-                        if (response.ok && data.results) {
-                            // Store results for later rendering
-                            window.searchResults = data.results;
-
-                            results.innerHTML = data.results.map((r, idx) => `
-                                <div class="result-item" id="result-${idx}">
-                                    <div class="result-header" onclick="toggleResultContent(${idx})">
-                                        <div class="result-info">
-                                            <div class="result-title">${escapeHtml(r.title || 'Sin título')}</div>
-                                            <div class="result-url">${escapeHtml(r.url)}</div>
-                                            ${r.heading_context ? `<div class="result-heading"><i class="bi bi-bookmark"></i> ${escapeHtml(r.heading_context)}</div>` : ''}
-                                            <div class="result-snippet">${escapeHtml((r.chunk_content || '').substring(0, 250))}...</div>
-                                            <div class="result-meta">
-                                                <span class="result-score" title="Raw cosine: ${(r.raw_similarity * 100).toFixed(1)}%"><i class="bi bi-bullseye"></i> Relevancia: ${(r.similarity * 100).toFixed(0)}%</span>
-                                                <span class="result-chunk-index"><i class="bi bi-layers"></i> Chunk #${r.chunk_index + 1}</span>
-                                                ${r.pagerank ? `<span class="result-pagerank"><i class="bi bi-graph-up"></i> PR: ${r.pagerank.toFixed(4)}</span>` : ''}
-                                            </div>
-                                        </div>
-                                        <button class="result-expand-btn" id="expand-btn-${idx}">
-                                            <i class="bi bi-chevron-down"></i> Ver contenido
-                                        </button>
-                                    </div>
-                                    <div class="result-content" id="content-${idx}">
-                                        <div class="result-markdown" id="markdown-${idx}"></div>
-                                        <div style="margin-top: 0.75rem;">
-                                            <a href="${r.url}" target="_blank" class="btn btn-sm btn-secondary">
-                                                <i class="bi bi-box-arrow-up-right"></i> Abrir página
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            `).join('') || '<p class="text-muted text-center">Sin resultados</p>';
-                        }
-                    } catch (error) {
-                        results.innerHTML = `<p class="text-danger text-center">Error: ${error.message}</p>`;
-                    }
-                }, 300);
+                searchTimeout = setTimeout(performSearch, 300);
             });
 
-            // Filter chips
-            document.querySelectorAll('.filter-chip').forEach(chip => {
+            // Filter chips - now functional
+            document.querySelectorAll('#searchFilters .filter-chip').forEach(chip => {
                 chip.addEventListener('click', () => {
-                    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                    document.querySelectorAll('#searchFilters .filter-chip').forEach(c => c.classList.remove('active'));
                     chip.classList.add('active');
-                    // Trigger search with filter
-                    input.dispatchEvent(new Event('input'));
+                    currentFilter = chip.dataset.filter;
+                    // Trigger search with new filter
+                    if (input.value.trim().length >= 2) {
+                        performSearch();
+                    }
                 });
+            });
+
+            // Compare modal functionality
+            initCompareModal();
+        }
+
+        // Text comparison functionality
+        function initCompareModal() {
+            const modal = document.getElementById('compareModal');
+            const openBtn = document.getElementById('openCompareModal');
+            const textarea = document.getElementById('compareText');
+            const charCount = document.getElementById('compareCharCount');
+            const runBtn = document.getElementById('runCompare');
+            const resultsDiv = document.getElementById('compareResults');
+            let compareMode = 'chunks';
+
+            // Open modal
+            openBtn?.addEventListener('click', () => {
+                const bsModal = new bootstrap.Modal(modal);
+                bsModal.show();
+            });
+
+            // Character count
+            textarea?.addEventListener('input', () => {
+                charCount.textContent = textarea.value.length;
+            });
+
+            // Mode selector
+            document.querySelectorAll('.compare-mode-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.compare-mode-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    compareMode = btn.dataset.mode;
+                });
+            });
+
+            // Run comparison
+            runBtn?.addEventListener('click', async () => {
+                const text = textarea.value.trim();
+                if (text.length < 10) {
+                    resultsDiv.innerHTML = '<p class="text-warning text-center">Introduce al menos 10 caracteres</p>';
+                    return;
+                }
+
+                runBtn.disabled = true;
+                runBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Buscando...';
+                resultsDiv.innerHTML = '<p class="text-muted text-center">Buscando similares...</p>';
+
+                try {
+                    const clientId = document.getElementById('searchClientSelect')?.value || document.getElementById('chatClientSelect').value;
+
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/compare`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            text,
+                            client_id: clientId,
+                            mode: compareMode,
+                            top_k: 10
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.results) {
+                        if (data.results.length === 0) {
+                            resultsDiv.innerHTML = '<p class="text-muted text-center">No se encontraron resultados similares</p>';
+                        } else {
+                            resultsDiv.innerHTML = data.results.map(r => `
+                                <div class="compare-result-item">
+                                    <div class="compare-result-header">
+                                        <div class="compare-result-title">${escapeHtml(r.title || 'Sin título')}</div>
+                                        <span class="compare-result-score">${(r.similarity * 100).toFixed(0)}%</span>
+                                    </div>
+                                    <div class="compare-result-url">${escapeHtml(r.url)}</div>
+                                    <div class="compare-result-snippet">${escapeHtml((r.content || r.chunk_content || '').substring(0, 200))}...</div>
+                                </div>
+                            `).join('');
+                        }
+                    } else {
+                        resultsDiv.innerHTML = `<p class="text-danger text-center">Error: ${data.detail || 'Error desconocido'}</p>`;
+                    }
+                } catch (error) {
+                    resultsDiv.innerHTML = `<p class="text-danger text-center">Error: ${error.message}</p>`;
+                }
+
+                runBtn.disabled = false;
+                runBtn.innerHTML = '<i class="bi bi-search"></i> Buscar similares';
             });
         }
 
