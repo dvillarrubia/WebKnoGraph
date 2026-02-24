@@ -217,11 +217,153 @@
             border-bottom-left-radius: 4px;
         }
 
-        .message-sources {
+        /* RAG Response Markdown Styling */
+        .rag-markdown {
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .rag-markdown h1, .rag-markdown h2, .rag-markdown h3, .rag-markdown h4 {
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .rag-markdown h1:first-child, .rag-markdown h2:first-child, .rag-markdown h3:first-child {
+            margin-top: 0;
+        }
+
+        .rag-markdown h1 { font-size: 1.3rem; }
+        .rag-markdown h2 { font-size: 1.15rem; }
+        .rag-markdown h3 { font-size: 1.05rem; }
+        .rag-markdown h4 { font-size: 1rem; border-bottom: none; }
+
+        .rag-markdown p {
+            margin-bottom: 0.85rem;
+        }
+
+        .rag-markdown p:last-child {
+            margin-bottom: 0;
+        }
+
+        .rag-markdown ul, .rag-markdown ol {
+            margin-left: 1.25rem;
+            margin-bottom: 0.85rem;
+            padding-left: 0.5rem;
+        }
+
+        .rag-markdown li {
+            margin-bottom: 0.35rem;
+        }
+
+        .rag-markdown li:last-child {
+            margin-bottom: 0;
+        }
+
+        .rag-markdown a {
+            color: #60a5fa;
+            text-decoration: none;
+            border-bottom: 1px dotted #60a5fa;
+        }
+
+        .rag-markdown a:hover {
+            color: #93c5fd;
+            border-bottom-style: solid;
+        }
+
+        .rag-markdown strong, .rag-markdown b {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .rag-markdown em, .rag-markdown i {
+            font-style: italic;
+        }
+
+        .rag-markdown code {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 0.85em;
+        }
+
+        .rag-markdown pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+
+        .rag-markdown pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .rag-markdown blockquote {
+            border-left: 3px solid var(--primary-color);
+            margin: 1rem 0;
+            padding-left: 1rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .rag-markdown hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 1.5rem 0;
+        }
+
+        .rag-markdown table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .rag-markdown th, .rag-markdown td {
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+
+        .rag-markdown th {
+            background: rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+        }
+
+        .rag-stats {
             margin-top: 0.75rem;
             padding-top: 0.75rem;
-            border-top: 1px solid rgba(255,255,255,0.3);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        .message-sources {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
             font-size: 0.85rem;
+        }
+
+        .message-sources strong {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .message-sources .sources-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
         }
 
         .message.user .message-sources {
@@ -229,9 +371,11 @@
         }
 
         .source-link {
-            display: inline-block;
-            background: var(--bg-card-hover);
-            padding: 0.25rem 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(96, 165, 250, 0.1);
+            padding: 0.35rem 0.65rem;
             border-radius: 4px;
             margin: 0.25rem 0.25rem 0.25rem 0;
             color: var(--primary-color);
@@ -3280,14 +3424,41 @@
                     if (response.ok) {
                         let sourcesHtml = '';
                         if (data.sources && data.sources.length) {
+                            const sourceLinks = data.sources.map(s => {
+                                const title = s.title || s.url;
+                                const shortTitle = title.length > 50 ? title.substring(0, 47) + '...' : title;
+                                return `<a href="${s.url}" target="_blank" class="source-link" title="${title}">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                        <polyline points="15 3 21 3 21 9"></polyline>
+                                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                                    </svg>
+                                    ${shortTitle}
+                                </a>`;
+                            }).join('');
                             sourcesHtml = `
                                 <div class="message-sources">
-                                    <strong>Fuentes:</strong><br>
-                                    ${data.sources.map(s => `<a href="${s.url}" target="_blank" class="source-link">${s.title || s.url}</a>`).join('')}
+                                    <strong>📚 Fuentes consultadas (${data.sources.length})</strong>
+                                    <div class="sources-list">${sourceLinks}</div>
                                 </div>
                             `;
                         }
-                        loading.innerHTML = `<p>${data.answer || data.response}</p>${sourcesHtml}`;
+                        const answerHtml = marked.parse(data.answer || data.response || '');
+
+                        // Context stats footer
+                        let statsHtml = '';
+                        if (data.context_stats) {
+                            const stats = data.context_stats;
+                            const badges = [];
+                            if (stats.vector_results) badges.push(`🔍 ${stats.vector_results} vectores`);
+                            if (stats.graph_expanded) badges.push(`🕸️ ${stats.graph_expanded} grafo`);
+                            if (stats.reranked) badges.push('⚡ reranked');
+                            if (badges.length) {
+                                statsHtml = `<div class="rag-stats">${badges.join(' · ')}</div>`;
+                            }
+                        }
+
+                        loading.innerHTML = `<div class="rag-markdown">${answerHtml}</div>${sourcesHtml}${statsHtml}`;
                     } else {
                         loading.innerHTML = `<p class="text-danger">Error: ${data.detail || 'Error desconocido'}</p>`;
                     }
