@@ -600,6 +600,115 @@ async def dashboard_search(
     }
 
 
+@dashboard_router.get("/url-patterns/{client_id}")
+async def dashboard_url_patterns(
+    client_id: str,
+    supabase: SupabaseClient = Depends(get_supabase_client),
+):
+    """Analyze URL patterns for a client to suggest search filters."""
+    from collections import Counter
+    from urllib.parse import urlparse
+
+    # Get all URLs for the client
+    pages = await supabase.get_all_pages(client_id)
+    if not pages:
+        return {"patterns": [], "total_pages": 0}
+
+    # Analyze URL patterns
+    path_segments = Counter()
+    path_prefixes = Counter()
+
+    for page in pages:
+        url = page.get("url", "")
+        try:
+            parsed = urlparse(url)
+            path = parsed.path.strip("/")
+            if not path:
+                continue
+
+            # Count first path segment (e.g., "blog", "products", "es")
+            segments = path.split("/")
+            if segments:
+                first_seg = segments[0]
+                if len(first_seg) > 1:  # Skip single chars
+                    path_segments[first_seg] += 1
+
+                # Also track two-segment prefixes for patterns like "es/blog"
+                if len(segments) > 1:
+                    prefix = f"{segments[0]}/{segments[1]}"
+                    if len(prefix) > 3:
+                        path_prefixes[prefix] += 1
+
+        except Exception:
+            continue
+
+    # Get top patterns with adaptive threshold
+    min_count = max(2, len(pages) // 100)  # At least 1% of pages, minimum 2
+
+    # Ignore common language/locale segments
+    ignore_segments = {"es", "en", "ca", "www", "index", "page", "categoria", "category"}
+
+    patterns = []
+
+    # Add top path segments
+    for segment, count in path_segments.most_common(15):
+        if count >= min_count and segment.lower() not in ignore_segments:
+            patterns.append({
+                "filter": segment,
+                "label": segment.replace("-", " ").replace("_", " ").title(),
+                "count": count,
+                "type": "segment"
+            })
+
+    # Add notable prefixes that aren't redundant with segments
+    segment_set = {p["filter"].lower() for p in patterns}
+    for prefix, count in path_prefixes.most_common(8):
+        first_seg = prefix.split("/")[0].lower()
+        if count >= min_count and first_seg not in segment_set and first_seg not in ignore_segments:
+            patterns.append({
+                "filter": prefix,
+                "label": prefix.replace("-", " ").replace("_", " ").replace("/", " › ").title(),
+                "count": count,
+                "type": "prefix"
+            })
+
+    # Sort by count
+    patterns.sort(key=lambda x: x["count"], reverse=True)
+
+    # If one pattern dominates (>60%), find sub-patterns within it
+    if patterns and len(patterns) == 1 and patterns[0]["count"] > len(pages) * 0.6:
+        dominant = patterns[0]["filter"]
+        sub_segments = Counter()
+        for page in pages:
+            url = page.get("url", "")
+            if f"/{dominant}/" in url:
+                try:
+                    path = urlparse(url).path
+                    parts = path.strip("/").split("/")
+                    if len(parts) > 1 and parts[0] == dominant and len(parts[1]) > 2:
+                        sub_segments[parts[1]] += 1
+                except:
+                    pass
+
+        # Add top sub-segments
+        for sub, count in sub_segments.most_common(6):
+            if count >= min_count and sub.lower() not in ignore_segments:
+                patterns.append({
+                    "filter": f"{dominant}/{sub}",
+                    "label": sub.replace("-", " ").replace("_", " ").title(),
+                    "count": count,
+                    "type": "sub-segment"
+                })
+
+    # Limit to 10 patterns
+    patterns = patterns[:10]
+
+    return {
+        "patterns": patterns,
+        "total_pages": len(pages),
+    }
+
+
 @dashboard_router.post("/compare")
 async def dashboard_compare_text(
     request: dict,

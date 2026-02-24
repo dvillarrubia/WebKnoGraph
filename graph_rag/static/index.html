@@ -705,6 +705,22 @@
             color: #ffffff;
         }
 
+        .filter-chip small {
+            opacity: 0.7;
+            font-size: 0.75em;
+        }
+
+        .filter-chip.active small {
+            opacity: 0.9;
+        }
+
+        .filter-chip-loading {
+            padding: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         .search-results {
             margin-top: 1.5rem;
         }
@@ -2122,11 +2138,15 @@
                             <div class="search-toolbar">
                                 <div class="search-filters" id="searchFilters">
                                     <span class="filter-chip active" data-filter="all">Todos</span>
-                                    <span class="filter-chip" data-filter="blog">Blog</span>
-                                    <span class="filter-chip" data-filter="fp-">Ciclos FP</span>
-                                    <span class="filter-chip" data-filter="cursos">Cursos</span>
+                                    <!-- Dynamic filters loaded from API based on client's URL patterns -->
+                                    <span class="filter-chip-loading text-muted small" id="filtersLoading">
+                                        <span class="spinner-border spinner-border-sm"></span> Cargando filtros...
+                                    </span>
                                 </div>
                                 <div class="search-actions">
+                                    <button class="btn btn-outline-secondary btn-sm" id="refreshFilters" title="Recargar filtros del cliente">
+                                        <i class="bi bi-arrow-clockwise"></i>
+                                    </button>
                                     <button class="btn btn-outline-primary btn-sm" id="openCompareModal" title="Comparar texto con chunks">
                                         <i class="bi bi-file-diff"></i> Comparar
                                     </button>
@@ -3922,6 +3942,7 @@
             const input = document.getElementById('searchInput');
             const results = document.getElementById('searchResults');
             const statsDiv = document.getElementById('searchStats');
+            const filtersContainer = document.getElementById('searchFilters');
             let searchTimeout;
             let currentFilter = 'all';
 
@@ -3931,7 +3952,62 @@
                 searchClientSelect.innerHTML = clients.map(c =>
                     `<option value="${c.id}" ${c.id === currentClient ? 'selected' : ''}>${c.name}</option>`
                 ).join('');
+
+                // Load filters when client changes
+                searchClientSelect.addEventListener('change', () => {
+                    loadUrlPatterns(searchClientSelect.value);
+                });
+
+                // Load initial filters
+                loadUrlPatterns(searchClientSelect.value || currentClient);
             }
+
+            // Function to load dynamic URL patterns
+            async function loadUrlPatterns(clientId) {
+                if (!clientId) return;
+
+                const loadingEl = document.getElementById('filtersLoading');
+                if (loadingEl) loadingEl.style.display = 'inline';
+
+                try {
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/url-patterns/${clientId}`);
+                    const data = await response.json();
+
+                    // Clear existing dynamic filters (keep "Todos")
+                    const existingChips = filtersContainer.querySelectorAll('.filter-chip:not([data-filter="all"])');
+                    existingChips.forEach(chip => chip.remove());
+
+                    // Add new filters from patterns
+                    if (data.patterns && data.patterns.length > 0) {
+                        data.patterns.forEach(pattern => {
+                            const chip = document.createElement('span');
+                            chip.className = 'filter-chip';
+                            chip.dataset.filter = pattern.filter;
+                            chip.innerHTML = `${pattern.label} <small class="text-muted">(${pattern.count})</small>`;
+                            chip.title = `Filtrar por URLs que contienen "/${pattern.filter}"`;
+                            chip.addEventListener('click', () => {
+                                filtersContainer.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                                chip.classList.add('active');
+                                currentFilter = pattern.filter;
+                                if (input.value.trim().length >= 2) {
+                                    performSearch();
+                                }
+                            });
+                            filtersContainer.insertBefore(chip, loadingEl);
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error loading URL patterns:', error);
+                } finally {
+                    if (loadingEl) loadingEl.style.display = 'none';
+                }
+            }
+
+            // Refresh filters button
+            document.getElementById('refreshFilters')?.addEventListener('click', () => {
+                const clientId = searchClientSelect?.value || document.getElementById('chatClientSelect').value;
+                loadUrlPatterns(clientId);
+            });
 
             // Search sliders
             ['searchTopK', 'searchMinSim'].forEach(id => {
@@ -4052,18 +4128,18 @@
                 searchTimeout = setTimeout(performSearch, 300);
             });
 
-            // Filter chips - now functional
-            document.querySelectorAll('#searchFilters .filter-chip').forEach(chip => {
-                chip.addEventListener('click', () => {
-                    document.querySelectorAll('#searchFilters .filter-chip').forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
-                    currentFilter = chip.dataset.filter;
-                    // Trigger search with new filter
+            // Filter chips - setup "Todos" static filter
+            const todosChip = filtersContainer.querySelector('.filter-chip[data-filter="all"]');
+            if (todosChip) {
+                todosChip.addEventListener('click', () => {
+                    filtersContainer.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                    todosChip.classList.add('active');
+                    currentFilter = 'all';
                     if (input.value.trim().length >= 2) {
                         performSearch();
                     }
                 });
-            });
+            }
 
             // Compare modal functionality
             initCompareModal();

@@ -254,6 +254,19 @@ class SupabaseClient:
             )
             return [dict(row) for row in rows]
 
+    async def get_all_pages(self, client_id: str) -> list[dict]:
+        """Get all pages for a client (URLs only, for pattern analysis)."""
+        async with self.get_connection() as conn:
+            rows = await conn.fetch(
+                """
+                SELECT url
+                FROM rag_pages
+                WHERE client_id = $1
+                """,
+                client_id,
+            )
+            return [dict(row) for row in rows]
+
     # =========================================================================
     # VECTOR SEARCH
     # =========================================================================
