@@ -389,9 +389,11 @@ async def dashboard_query(
         client_id=client_id,
         question=question,
         conversation_history=conversation_history if conversation_history else None,
-        top_k_vectors=request.get("top_k", 10),
+        top_k_vectors=request.get("top_k", 15),
         graph_hops=request.get("graph_hops", 2),
-        min_similarity=request.get("min_similarity", 0.5),
+        max_context_pages=request.get("max_context_pages", request.get("top_k", 15)),
+        min_similarity=request.get("min_similarity", 0.3),
+        use_reranking=request.get("use_reranking", True),
     )
 
     # Save messages to conversation

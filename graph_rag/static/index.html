@@ -345,6 +345,113 @@
             opacity: 0.7;
         }
 
+        /* Search Mode Selector */
+        .search-mode-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .mode-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--text-primary);
+        }
+
+        .mode-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .mode-btn i {
+            font-size: 1rem;
+        }
+
+        /* Feature Toggles */
+        .rag-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .feature-toggle {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .toggle-label input[type="checkbox"] {
+            display: none;
+        }
+
+        .toggle-switch {
+            width: 36px;
+            height: 20px;
+            background: var(--border-color);
+            border-radius: 10px;
+            position: relative;
+            transition: background 0.2s;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.2s;
+        }
+
+        .toggle-label input:checked + .toggle-switch {
+            background: #34d399;
+        }
+
+        .toggle-label input:checked + .toggle-switch::after {
+            transform: translateX(16px);
+        }
+
+        .toggle-text {
+            color: var(--text-primary);
+        }
+
+        .toggle-text small {
+            opacity: 0.6;
+        }
+
+        .advanced-toggle a {
+            text-decoration: none;
+        }
+
+        .advanced-toggle a:hover {
+            color: var(--text-primary) !important;
+        }
+
         .message-sources {
             margin-top: 1rem;
             padding-top: 1rem;
@@ -1798,17 +1905,65 @@
                                     <option value="">Cargando clientes...</option>
                                 </select>
                             </div>
+
                             <div class="form-group mb-3">
-                                <label>Top K Resultados: <span id="topKValue">10</span></label>
-                                <input type="range" class="form-range" id="topK" min="1" max="30" value="10">
+                                <label>Modo de búsqueda</label>
+                                <div class="search-mode-selector">
+                                    <button type="button" class="mode-btn" data-mode="fast" title="Solo vectores, sin grafo">
+                                        <i class="bi bi-lightning"></i> Rápido
+                                    </button>
+                                    <button type="button" class="mode-btn active" data-mode="balanced" title="Vectores + Grafo + Reranking">
+                                        <i class="bi bi-stars"></i> Normal
+                                    </button>
+                                    <button type="button" class="mode-btn" data-mode="exhaustive" title="Máxima cobertura">
+                                        <i class="bi bi-search-heart"></i> Exhaustivo
+                                    </button>
+                                </div>
                             </div>
+
+                            <div class="rag-features mb-3">
+                                <div class="feature-toggle">
+                                    <label class="toggle-label">
+                                        <input type="checkbox" id="useReranking" checked>
+                                        <span class="toggle-switch"></span>
+                                        <span class="toggle-text">Reranking <small class="text-muted">(BGE-M3)</small></span>
+                                    </label>
+                                </div>
+                                <div class="feature-toggle">
+                                    <label class="toggle-label">
+                                        <input type="checkbox" id="useGraph" checked>
+                                        <span class="toggle-switch"></span>
+                                        <span class="toggle-text">Expansión por grafo</span>
+                                    </label>
+                                </div>
+                                <div class="feature-toggle">
+                                    <label class="toggle-label">
+                                        <input type="checkbox" id="useCommunities" checked>
+                                        <span class="toggle-switch"></span>
+                                        <span class="toggle-text">Comunidades temáticas</span>
+                                    </label>
+                                </div>
+                            </div>
+
                             <div class="form-group mb-3">
-                                <label>Saltos de Grafo: <span id="graphHopsValue">2</span></label>
-                                <input type="range" class="form-range" id="graphHops" min="0" max="5" value="2">
+                                <label>Chunks en contexto: <span id="maxChunksValue">15</span></label>
+                                <input type="range" class="form-range" id="maxChunks" min="5" max="30" value="15">
                             </div>
-                            <div class="form-group">
-                                <label>Similitud Mínima: <span id="minSimValue">0.5</span></label>
-                                <input type="range" class="form-range" id="minSim" min="0" max="1" step="0.1" value="0.5">
+
+                            <div class="advanced-toggle mb-2">
+                                <a href="#" id="showAdvanced" class="text-muted small">
+                                    <i class="bi bi-gear"></i> Opciones avanzadas
+                                </a>
+                            </div>
+                            <div id="advancedOptions" style="display: none;">
+                                <div class="form-group mb-2">
+                                    <label class="small">Similitud mínima: <span id="minSimValue">0.3</span></label>
+                                    <input type="range" class="form-range" id="minSim" min="0.1" max="0.8" step="0.1" value="0.3">
+                                </div>
+                                <div class="form-group">
+                                    <label class="small">Saltos de grafo: <span id="graphHopsValue">2</span></label>
+                                    <input type="range" class="form-range" id="graphHops" min="1" max="3" value="2">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -3381,13 +3536,72 @@
             const sendBtn = document.getElementById('sendMessage');
             const messagesDiv = document.getElementById('chatMessages');
 
+            // Mode selector buttons
+            const modeButtons = document.querySelectorAll('.mode-btn');
+            let currentMode = 'balanced';
+
+            modeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    modeButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentMode = btn.dataset.mode;
+
+                    // Apply mode presets
+                    const useReranking = document.getElementById('useReranking');
+                    const useGraph = document.getElementById('useGraph');
+                    const useCommunities = document.getElementById('useCommunities');
+                    const maxChunks = document.getElementById('maxChunks');
+                    const minSim = document.getElementById('minSim');
+
+                    switch(currentMode) {
+                        case 'fast':
+                            useReranking.checked = false;
+                            useGraph.checked = false;
+                            useCommunities.checked = false;
+                            maxChunks.value = 8;
+                            minSim.value = 0.5;
+                            break;
+                        case 'balanced':
+                            useReranking.checked = true;
+                            useGraph.checked = true;
+                            useCommunities.checked = true;
+                            maxChunks.value = 15;
+                            minSim.value = 0.3;
+                            break;
+                        case 'exhaustive':
+                            useReranking.checked = true;
+                            useGraph.checked = true;
+                            useCommunities.checked = true;
+                            maxChunks.value = 25;
+                            minSim.value = 0.2;
+                            break;
+                    }
+                    // Update displayed values
+                    document.getElementById('maxChunksValue').textContent = maxChunks.value;
+                    document.getElementById('minSimValue').textContent = minSim.value;
+                });
+            });
+
+            // Advanced options toggle
+            document.getElementById('showAdvanced').addEventListener('click', (e) => {
+                e.preventDefault();
+                const advDiv = document.getElementById('advancedOptions');
+                const isHidden = advDiv.style.display === 'none';
+                advDiv.style.display = isHidden ? 'block' : 'none';
+                e.target.innerHTML = isHidden
+                    ? '<i class="bi bi-gear-fill"></i> Ocultar avanzadas'
+                    : '<i class="bi bi-gear"></i> Opciones avanzadas';
+            });
+
             // Range sliders
-            ['topK', 'graphHops', 'minSim'].forEach(id => {
+            ['maxChunks', 'graphHops', 'minSim'].forEach(id => {
                 const slider = document.getElementById(id);
                 const valueSpan = document.getElementById(id + 'Value');
-                slider.addEventListener('input', () => {
-                    valueSpan.textContent = slider.value;
-                });
+                if (slider && valueSpan) {
+                    slider.addEventListener('input', () => {
+                        valueSpan.textContent = slider.value;
+                    });
+                }
             });
 
             async function sendMessage() {
@@ -3406,15 +3620,20 @@
 
                 try {
                     const clientId = document.getElementById('chatClientSelect').value;
+                    const useReranking = document.getElementById('useReranking').checked;
+                    const useGraph = document.getElementById('useGraph').checked;
+                    const graphHops = useGraph ? parseInt(document.getElementById('graphHops').value) : 0;
+
                     const response = await fetch(`${API_URL}/api/v1/dashboard/query`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             query,
                             client_id: clientId,
-                            top_k: parseInt(document.getElementById('topK').value),
-                            graph_hops: parseInt(document.getElementById('graphHops').value),
-                            min_similarity: parseFloat(document.getElementById('minSim').value)
+                            top_k: parseInt(document.getElementById('maxChunks').value),
+                            graph_hops: graphHops,
+                            min_similarity: parseFloat(document.getElementById('minSim').value),
+                            use_reranking: useReranking
                         })
                     });
 
