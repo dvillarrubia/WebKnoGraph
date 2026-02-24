@@ -10,6 +10,7 @@ from graph_rag.config.settings import Settings, get_settings
 from graph_rag.db.supabase_client import SupabaseClient
 from graph_rag.db.neo4j_client import Neo4jClient
 from graph_rag.services.embedding_service import EmbeddingService
+from graph_rag.services.reranking_service import RerankingService
 from graph_rag.services.rag_service import RAGService
 from graph_rag.services.migration_service import MigrationService
 
@@ -18,6 +19,7 @@ from graph_rag.services.migration_service import MigrationService
 _supabase_client: Optional[SupabaseClient] = None
 _neo4j_client: Optional[Neo4jClient] = None
 _embedding_service: Optional[EmbeddingService] = None
+_reranking_service: Optional[RerankingService] = None
 _rag_service: Optional[RAGService] = None
 _migration_service: Optional[MigrationService] = None
 
@@ -55,6 +57,18 @@ def get_embedding_service() -> EmbeddingService:
     return _embedding_service
 
 
+def get_reranking_service() -> Optional[RerankingService]:
+    """Get reranking service singleton (lazy loaded)."""
+    global _reranking_service
+    if _reranking_service is None:
+        settings = get_settings()
+        if settings.rag_use_reranking:
+            _reranking_service = RerankingService(
+                model_name=settings.reranking_model,
+            )
+    return _reranking_service
+
+
 async def get_rag_service() -> RAGService:
     """Get RAG service singleton."""
     global _rag_service
@@ -63,7 +77,8 @@ async def get_rag_service() -> RAGService:
         supabase = await get_supabase_client()
         neo4j = await get_neo4j_client()
         embedding = get_embedding_service()
-        _rag_service = RAGService(settings, supabase, neo4j, embedding)
+        reranking = get_reranking_service()
+        _rag_service = RAGService(settings, supabase, neo4j, embedding, reranking)
     return _rag_service
 
 

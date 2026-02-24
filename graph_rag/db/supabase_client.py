@@ -748,6 +748,8 @@ class SupabaseClient:
                     p.url,
                     p.title,
                     p.pagerank,
+                    p.hub_score,
+                    p.authority_score,
                     1 - (c.embedding <=> $2::vector) AS similarity
                 FROM rag_chunks c
                 JOIN rag_pages p ON p.id = c.page_id

@@ -35,6 +35,7 @@ from graph_rag.db.neo4j_client import Neo4jClient
 from graph_rag.services.rag_service import RAGService
 from graph_rag.services.migration_service import MigrationService
 from graph_rag.services.embedding_service import EmbeddingService
+from graph_rag.services.community_service import CommunityService
 
 
 # =============================================================================
@@ -427,6 +428,7 @@ async def dashboard_query(
             "vector_results": response.context.vector_results,
             "graph_expanded": response.context.graph_expanded,
             "total_chunks": len(response.context.chunks),
+            "reranked": response.context.reranked,
         },
     }
 
@@ -2348,3 +2350,56 @@ async def dashboard_cleaner_list_cleaned_pages(
         "limit": limit,
         "offset": offset,
     }
+
+
+# =============================================================================
+# COMMUNITY DETECTION ENDPOINTS
+# =============================================================================
+
+@dashboard_router.post("/communities/detect/{client_id}")
+async def dashboard_detect_communities(
+    client_id: str,
+    resolution: float = 1.0,
+    neo4j: Neo4jClient = Depends(get_neo4j_client),
+):
+    """
+    Detect communities in the page graph using Louvain algorithm.
+    
+    Args:
+        client_id: Client ID to analyze.
+        resolution: Resolution parameter (higher = more communities).
+    """
+    community_service = CommunityService(neo4j)
+    result = await community_service.detect_communities(client_id, resolution)
+    return result
+
+
+@dashboard_router.get("/communities/{client_id}")
+async def dashboard_get_communities(
+    client_id: str,
+    neo4j: Neo4jClient = Depends(get_neo4j_client),
+):
+    """Get community information for a client."""
+    async with neo4j.get_session() as session:
+        # Get community distribution
+        result = await session.run(
+            """
+            MATCH (p:Page)
+            WHERE p.client_id = $client_id AND p.community_id IS NOT NULL
+            RETURN p.community_id AS community_id, COUNT(*) AS size,
+                   COLLECT(p.title)[0..3] AS sample_titles
+            ORDER BY size DESC
+            """,
+            client_id=client_id,
+        )
+        records = await result.data()
+        
+        communities = []
+        for r in records:
+            communities.append({
+                "id": r["community_id"],
+                "size": r["size"],
+                "sample_titles": r["sample_titles"],
+            })
+        
+        return {"communities": communities, "total": len(communities)}

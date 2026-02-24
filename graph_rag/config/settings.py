@@ -38,11 +38,16 @@ class Settings(BaseSettings):
     neo4j_password: str = Field(..., env="NEO4J_PASSWORD")
 
     # ==========================================================================
-    # OPENAI
+    # OPENAI (legacy, kept for backwards compatibility)
     # ==========================================================================
-    openai_api_key: str = Field(..., env="OPENAI_API_KEY")
+    openai_api_key: str = Field(default="", env="OPENAI_API_KEY")
     openai_model: str = Field(default="gpt-4o", env="OPENAI_MODEL")
     openai_embedding_model: str = Field(default="text-embedding-3-large", env="OPENAI_EMBEDDING_MODEL")
+
+    # ==========================================================================
+    # GEMINI (Google AI)
+    # ==========================================================================
+    gemini_api_key: str = Field(default="", env="GEMINI_API_KEY")
 
     # ==========================================================================
     # EMBEDDING MODEL (Local - Spanish optimized)
@@ -63,6 +68,16 @@ class Settings(BaseSettings):
     rag_max_context_pages: int = Field(default=15, env="RAG_MAX_CONTEXT_PAGES")
     rag_min_similarity: float = Field(default=0.5, env="RAG_MIN_SIMILARITY")
     rag_context_max_tokens: int = Field(default=8000, env="RAG_CONTEXT_MAX_TOKENS")
+
+    # ==========================================================================
+    # RERANKING SETTINGS
+    # ==========================================================================
+    rag_use_reranking: bool = Field(default=True, env="RAG_USE_RERANKING")
+    reranking_model: str = Field(
+        default="BAAI/bge-reranker-v2-m3",
+        env="RERANKING_MODEL"
+    )
+    reranking_pagerank_weight: float = Field(default=0.1, env="RERANKING_PAGERANK_WEIGHT")
 
     # ==========================================================================
     # API CONFIG

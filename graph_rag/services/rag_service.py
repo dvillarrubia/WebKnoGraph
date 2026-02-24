@@ -5,12 +5,16 @@ Combines vector search + graph expansion + LLM generation.
 
 from typing import Optional
 from dataclasses import dataclass
+import logging
 from openai import OpenAI
 
 from graph_rag.config.settings import Settings
 from graph_rag.db.supabase_client import SupabaseClient
 from graph_rag.db.neo4j_client import Neo4jClient
 from graph_rag.services.embedding_service import EmbeddingService
+from graph_rag.services.reranking_service import RerankingService
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -20,6 +24,7 @@ class RAGContext:
     total_tokens: int
     vector_results: int
     graph_expanded: int
+    reranked: bool = False
 
 
 @dataclass
@@ -36,7 +41,7 @@ class RAGService:
     Multi-tenant RAG service that combines:
     1. Vector similarity search (pgvector)
     2. Graph-based context expansion (Neo4j)
-    3. LLM response generation (OpenAI)
+    3. LLM response generation (Gemini)
     """
 
     def __init__(
@@ -45,11 +50,13 @@ class RAGService:
         supabase_client: SupabaseClient,
         neo4j_client: Neo4jClient,
         embedding_service: EmbeddingService,
+        reranking_service: Optional[RerankingService] = None,
     ):
         self.settings = settings
         self.supabase = supabase_client
         self.neo4j = neo4j_client
         self.embedding_service = embedding_service
+        self.reranking_service = reranking_service
         self._openai_client: Optional[OpenAI] = None
 
     @property
@@ -68,6 +75,7 @@ class RAGService:
         graph_hops: Optional[int] = None,
         max_context_pages: Optional[int] = None,
         min_similarity: Optional[float] = None,
+        use_reranking: Optional[bool] = None,
     ) -> RAGResponse:
         """
         Execute a RAG query.
@@ -96,15 +104,20 @@ class RAGService:
         graph_hops = graph_hops or self.settings.rag_graph_hops
         max_context_pages = max_context_pages or self.settings.rag_max_context_pages
         min_similarity = min_similarity or self.settings.rag_min_similarity
+        use_reranking = use_reranking if use_reranking is not None else self.settings.rag_use_reranking
+
+        # If reranking is enabled, retrieve more candidates initially
+        retrieval_limit = top_k_vectors * 5 if use_reranking and self.reranking_service else top_k_vectors
 
         # 1. Generate query embedding
         query_embedding = self.embedding_service.embed_query(question)
 
         # 2. Vector similarity search on CHUNKS (not pages)
+        # Retrieve more candidates if reranking is enabled
         chunk_results = await self.supabase.search_similar_chunks(
             client_id=client_id,
             query_embedding=query_embedding,
-            limit=top_k_vectors,
+            limit=retrieval_limit,
             min_similarity=min_similarity,
         )
 
@@ -129,6 +142,8 @@ class RAGService:
                         chunk["url"] = page["url"]
                         chunk["title"] = page_data.get("title", "")
                         chunk["pagerank"] = page_data.get("pagerank", 0)
+                        chunk["hub_score"] = page_data.get("hub_score", 0)
+                        chunk["authority_score"] = page_data.get("authority_score", 0)
                         chunk["similarity"] = 0.0  # No direct similarity
                         chunk["from_graph"] = True
                         graph_expanded_chunks.append(chunk)
@@ -138,6 +153,16 @@ class RAGService:
         # Mark chunk results as not from graph
         for chunk in chunk_results:
             chunk["from_graph"] = False
+
+        # 4. Community-based context expansion
+        community_chunks = []
+        if chunk_results:
+            community_chunks = await self._expand_by_community(
+                client_id=client_id,
+                source_urls=[c["url"] for c in chunk_results[:5]],  # Top 5 URLs
+                exclude_urls=set(c["url"] for c in chunk_results),
+                max_pages=3,
+            )
 
         # Combine and deduplicate by chunk ID
         seen_chunk_ids = set()
@@ -155,7 +180,26 @@ class RAGService:
                 combined_chunks.append(chunk)
                 seen_chunk_ids.add(chunk_id)
 
-        # 4. Limit and prepare context
+        for chunk in community_chunks:
+            chunk_id = chunk.get("id") or f"{chunk.get('page_id')}_{chunk.get('chunk_index')}"
+            if chunk_id not in seen_chunk_ids:
+                combined_chunks.append(chunk)
+                seen_chunk_ids.add(chunk_id)
+
+        # 4. Rerank if enabled
+        reranked = False
+        if use_reranking and self.reranking_service and len(combined_chunks) > max_context_pages:
+            logger.info(f"Reranking {len(combined_chunks)} chunks for query: {question[:50]}...")
+            combined_chunks = self.reranking_service.rerank_with_metadata(
+                query=question,
+                chunks=combined_chunks,
+                top_k=max_context_pages,
+                pagerank_weight=0.1,
+            )
+            reranked = True
+            logger.info(f"Reranking complete, top chunk score: {combined_chunks[0].get('rerank_score', 'N/A') if combined_chunks else 'N/A'}")
+
+        # 5. Limit and prepare context
         context_chunks = combined_chunks[:max_context_pages]
 
         # Build context string from chunks
@@ -190,6 +234,7 @@ class RAGService:
                 total_tokens=total_tokens,
                 vector_results=len(chunk_results),
                 graph_expanded=len(graph_expanded_chunks),
+                reranked=reranked,
             ),
             sources=sources,
             tokens_used=tokens_used,
@@ -219,11 +264,31 @@ class RAGService:
             heading = chunk.get("heading_context", "")
             heading_line = f"Seccion: {heading}\n" if heading else ""
 
+            # Graph metrics for SEO context
+            pagerank = chunk.get("pagerank", 0)
+            hub_score = chunk.get("hub_score", 0)
+            authority_score = chunk.get("authority_score", 0)
+            from_graph = chunk.get("from_graph", False)
+
+            # Build graph info line
+            graph_info = ""
+            if pagerank > 0 or hub_score > 0 or authority_score > 0:
+                importance = "alta" if pagerank > 0.1 else "media" if pagerank > 0.01 else "normal"
+                graph_info = f"Importancia: {importance} | "
+                if authority_score > 0.1:
+                    graph_info += "Es página de autoridad (muy citada). "
+                if hub_score > 0.1:
+                    graph_info += "Es hub (enlaza a muchas autoridades). "
+            if from_graph:
+                graph_info += "[Relacionada por enlaces]"
+
+            graph_line = f"Grafo: {graph_info}\n" if graph_info else ""
+
             chunk_context = f"""
 ---
 URL: {chunk.get('url', '')}
 Titulo: {chunk.get('title', 'Sin titulo')}
-{heading_line}
+{heading_line}{graph_line}
 Contenido:
 {content}
 ---
@@ -280,61 +345,64 @@ Contenido:
         context: str,
         conversation_history: Optional[list[dict]] = None,
     ) -> tuple[str, int]:
-        """Generate response using OpenAI."""
+        """Generate response using Gemini."""
 
-        system_prompt = """Eres un asistente experto en copywriting y SEO.
+        system_prompt = """Eres un asistente experto en copywriting y SEO con amplio conocimiento del sector.
 
-IMPORTANTE - TU FUENTE DE CONOCIMIENTO:
-Tienes acceso a un sistema RAG (Retrieval-Augmented Generation) conectado a un GRAFO DE CONOCIMIENTO que contiene todo el contenido indexado del cliente actualmente seleccionado. El contexto que recibes proviene de:
+TU FUENTE DE DATOS:
+Tienes acceso a un sistema RAG conectado a un GRAFO DE CONOCIMIENTO con el contenido indexado del cliente. El contexto proviene de:
 1. Búsqueda vectorial semántica sobre el contenido del cliente
-2. Expansión mediante el grafo de enlaces entre páginas (PageRank, relaciones entre URLs)
+2. Expansión mediante grafo de enlaces entre páginas (PageRank)
 
-REGLAS ABSOLUTAS:
-- DEBES responder SIEMPRE y ÚNICAMENTE basándote en el contexto proporcionado
-- Es tu ÚNICA fuente de verdad - no tienes acceso a información externa
-- Si la información está en el contexto: úsala y CITA las URLs
-- Si NO está en el contexto: responde "No tengo información sobre esto en el contenido indexado del cliente"
-- NUNCA inventes información que no esté en el contexto
-- NUNCA uses conocimiento general que no provenga del contexto
+REGLAS FUNDAMENTALES:
+- Los DATOS del cliente (qué dice su web, qué URLs tiene, qué términos usa) SOLO provienen del contexto
+- Tu EXPERTISE en SEO, copywriting, topical maps, términos LSI, etc. SÍ puedes usarlo para analizar
+- SIEMPRE cita URLs cuando menciones información específica del cliente
+- NUNCA inventes datos que deberían estar en la web del cliente
+- SÍ puedes comparar lo que el cliente tiene vs. lo que debería tener según mejores prácticas SEO
+
+DISTINCIÓN CLAVE:
+❌ PROHIBIDO: "El cliente tiene una página sobre radioterapia" (si no está en el contexto)
+✅ PERMITIDO: "Según el topical map ideal de oncología, deberían existir páginas sobre radioterapia, inmunoterapia, etc."
+❌ PROHIBIDO: "El Dr. García es especialista en oncología" (inventar datos del cliente)
+✅ PERMITIDO: "Para un topical map completo de oncología, se esperarían entidades como: tipos de cáncer, tratamientos, profesionales, centros..."
 
 TU ROL:
-- Ayudas al departamento de SEO y copywriting a crear y optimizar contenido
-- Analizas el tono, estilo y terminología del cliente basándote en su contenido indexado
-- Eres experto en posicionamiento web
+- Experto SEO y copywriting para el departamento de marketing
+- Analizas el contenido existente del cliente (contexto)
+- Aplicas tu conocimiento experto para identificar gaps, oportunidades y mejoras
+- Generas copys y recomendaciones basadas en el contenido real + mejores prácticas
 
 CÓMO RESPONDER:
-1. SIEMPRE basa tu respuesta en el contexto proporcionado
-2. SIEMPRE cita las URLs de donde extraes la información
-3. Responde en español (castellano de España)
-4. Adapta tu respuesta al objetivo del usuario:
-   - COPYS: textos listos para usar, imitando el tono del contenido existente
-   - SEO: keywords, estructura de headings, meta descriptions basadas en el contenido real
-   - INFORMACIÓN: sintetiza el contenido existente
-   - ANÁLISIS: identifica patrones, gaps o mejoras basándote en lo indexado
+1. Analiza el contenido del cliente en el contexto
+2. Aplica tu expertise SEO para evaluar, comparar o recomendar
+3. Cita URLs cuando refieras contenido específico del cliente
+4. Distingue claramente entre "lo que el cliente tiene" vs "lo que debería tener"
+5. Responde en español (castellano de España)
 
-PARA TAREAS DE COPYWRITING:
-- Analiza el tono y estilo del contenido existente en el contexto
-- Genera textos coherentes con la voz de marca que observas
-- Mantén la terminología que usa el cliente en su web
+PARA ANÁLISIS SEO (topical maps, gaps, LSI):
+- Extrae las entidades y términos que YA aparecen en el contexto del cliente
+- Compara con el topical map ideal según tu conocimiento SEO experto
+- Identifica gaps (qué falta) y oportunidades de mejora
+- Sugiere términos LSI, entidades y temas que complementarían el contenido
 
-PARA TAREAS SEO:
-- Sugiere H1, H2 basados en el contenido existente
-- Propón meta descriptions (max 155 chars) usando texto del contexto
-- Identifica keywords que YA aparecen en el contenido indexado
-- Señala oportunidades de enlazado interno usando las URLs del contexto
-- Detecta gaps de contenido comparando con lo que el usuario pregunta
+PARA COPYWRITING:
+- Analiza tono, estilo y terminología del contenido existente
+- Genera textos coherentes con la voz de marca observada
+- Mantén la terminología que usa el cliente
 
-CONTEXTO DEL GRAFO DE CONOCIMIENTO (contenido del cliente seleccionado):
+CONTEXTO DEL GRAFO DE CONOCIMIENTO (contenido del cliente):
 {context}
 """
 
+        # Build messages for OpenAI
         messages = [
             {"role": "system", "content": system_prompt.format(context=context)}
         ]
 
         # Add conversation history if provided
         if conversation_history:
-            for msg in conversation_history[-10:]:  # Last 10 messages
+            for msg in conversation_history[-10:]:
                 messages.append({
                     "role": msg["role"],
                     "content": msg["content"],
@@ -355,6 +423,88 @@ CONTEXTO DEL GRAFO DE CONOCIMIENTO (contenido del cliente seleccionado):
         tokens_used = response.usage.total_tokens
 
         return answer, tokens_used
+
+    async def _expand_by_community(
+        self,
+        client_id: str,
+        source_urls: list[str],
+        exclude_urls: set,
+        max_pages: int = 3,
+    ) -> list[dict]:
+        """
+        Expand context by finding related pages from the same communities.
+
+        Args:
+            client_id: Client ID for filtering
+            source_urls: URLs from vector search results
+            exclude_urls: URLs to exclude (already in results)
+            max_pages: Maximum pages to add from communities
+
+        Returns:
+            List of chunk dictionaries from community-related pages
+        """
+        community_chunks = []
+
+        try:
+            # Get community IDs for source URLs
+            async with self.neo4j.get_session() as session:
+                result = await session.run(
+                    """
+                    MATCH (p:Page)
+                    WHERE p.client_id = $client_id AND p.url IN $urls
+                    AND p.community_id IS NOT NULL
+                    RETURN DISTINCT p.community_id AS community_id
+                    """,
+                    client_id=client_id,
+                    urls=source_urls[:5],  # Top 5 source URLs
+                )
+                records = await result.data()
+                community_ids = [r["community_id"] for r in records]
+
+                if not community_ids:
+                    return []
+
+                # Find top pages from same communities (by PageRank)
+                result = await session.run(
+                    """
+                    MATCH (p:Page)
+                    WHERE p.client_id = $client_id
+                    AND p.community_id IN $community_ids
+                    AND NOT p.url IN $exclude_urls
+                    RETURN p.url, p.title, p.pagerank, p.community_id
+                    ORDER BY p.pagerank DESC
+                    LIMIT $limit
+                    """,
+                    client_id=client_id,
+                    community_ids=community_ids,
+                    exclude_urls=list(exclude_urls),
+                    limit=max_pages,
+                )
+                records = await result.data()
+
+            # Fetch chunks for community pages
+            for page in records:
+                page_data = await self.supabase.get_page_by_url(client_id, page["p.url"])
+                if page_data:
+                    page_chunks = await self.supabase.get_chunks_by_page(str(page_data["id"]))
+                    for chunk in page_chunks[:2]:  # Limit chunks per community page
+                        chunk["url"] = page["p.url"]
+                        chunk["title"] = page_data.get("title", "")
+                        chunk["pagerank"] = page.get("p.pagerank", 0)
+                        chunk["hub_score"] = page_data.get("hub_score", 0)
+                        chunk["authority_score"] = page_data.get("authority_score", 0)
+                        chunk["similarity"] = 0.0
+                        chunk["from_graph"] = True
+                        chunk["from_community"] = True
+                        chunk["community_id"] = page.get("p.community_id")
+                        community_chunks.append(chunk)
+
+            logger.info(f"Community expansion: found {len(community_chunks)} chunks from {len(records)} pages")
+
+        except Exception as e:
+            logger.warning(f"Community expansion failed: {e}")
+
+        return community_chunks
 
     async def get_related_pages(
         self,
