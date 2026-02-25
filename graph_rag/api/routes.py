@@ -362,8 +362,8 @@ async def dashboard_query(
     """Execute a RAG query from the dashboard (no API key required)."""
     client_id = request.get("client_id")
     question = request.get("query") or request.get("question")
-    session_id = request.get("session_id")
-    conversation_id = request.get("conversation_id")
+    # Accept conversation history directly from client
+    conversation_history = request.get("conversation_history", [])
 
     if not client_id:
         raise HTTPException(status_code=400, detail="client_id is required")
@@ -375,18 +375,13 @@ async def dashboard_query(
     if not client:
         raise HTTPException(status_code=404, detail="Client not found")
 
-    # Handle conversation history
-    conversation_history = []
-    if conversation_id:
-        # Get existing conversation history
-        messages = await supabase.get_conversation_messages(conversation_id, limit=20)
+    # Validate conversation history format (list of {role, content})
+    if conversation_history:
         conversation_history = [
-            {"role": m["role"], "content": m["content"]}
-            for m in messages
-        ]
-    elif session_id:
-        # Create new conversation for this session
-        conversation_id = await supabase.create_conversation(client_id, session_id)
+            {"role": msg.get("role"), "content": msg.get("content")}
+            for msg in conversation_history
+            if msg.get("role") and msg.get("content")
+        ][-10:]  # Keep last 10 messages
 
     response = await rag.query(
         client_id=client_id,
@@ -399,27 +394,8 @@ async def dashboard_query(
         use_reranking=request.get("use_reranking", True),
     )
 
-    # Save messages to conversation
-    if conversation_id:
-        # Save user message
-        context_pages = [s["url"] for s in response.sources[:5]]
-        await supabase.add_message(
-            conversation_id=conversation_id,
-            role="user",
-            content=question,
-            context_pages=context_pages,
-        )
-        # Save assistant response
-        await supabase.add_message(
-            conversation_id=conversation_id,
-            role="assistant",
-            content=response.answer,
-            tokens_used=response.tokens_used,
-        )
-
     return {
         "answer": response.answer,
-        "conversation_id": conversation_id,
         "sources": [
             {
                 "url": s["url"],
@@ -453,6 +429,8 @@ async def dashboard_query_agent(
 
     client_id = request.get("client_id")
     question = request.get("query") or request.get("question")
+    conversation_history = request.get("conversation_history", [])
+    max_iterations = request.get("max_iterations", 5)
 
     if not client_id:
         raise HTTPException(status_code=400, detail="client_id is required")
@@ -463,6 +441,14 @@ async def dashboard_query_agent(
     client = await supabase.get_client_by_id(client_id)
     if not client:
         raise HTTPException(status_code=404, detail="Client not found")
+
+    # Validate and limit conversation history
+    if conversation_history:
+        conversation_history = [
+            {"role": msg.get("role"), "content": msg.get("content")}
+            for msg in conversation_history
+            if msg.get("role") and msg.get("content")
+        ][-10:]
 
     settings = get_settings()
     agent_service = AgenticRAGService(
@@ -475,7 +461,9 @@ async def dashboard_query_agent(
     async def generate():
         """Generate SSE events from agent steps."""
         try:
-            async for step in agent_service.query_stream(client_id, question):
+            async for step in agent_service.query_stream(
+                client_id, question, conversation_history, max_iterations
+            ):
                 event_data = {
                     "type": step.type.value,
                     "content": step.content,

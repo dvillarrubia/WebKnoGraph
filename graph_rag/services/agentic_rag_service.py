@@ -172,6 +172,7 @@ class AgenticRAGService:
         self,
         client_id: str,
         question: str,
+        conversation_history: Optional[list[dict]] = None,
         max_iterations: int = 5,
     ) -> AsyncGenerator[AgentStep, None]:
         """
@@ -183,8 +184,18 @@ class AgenticRAGService:
 
         messages = [
             {"role": "system", "content": AGENT_SYSTEM_PROMPT},
-            {"role": "user", "content": question}
         ]
+
+        # Add conversation history if provided
+        if conversation_history:
+            for msg in conversation_history[-10:]:
+                messages.append({
+                    "role": msg["role"],
+                    "content": msg["content"],
+                })
+
+        # Add current question
+        messages.append({"role": "user", "content": question})
 
         tools_used = []
 

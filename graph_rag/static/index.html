@@ -2160,8 +2160,11 @@
                         <div class="chat-input-container">
                             <div class="chat-input-wrapper">
                                 <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu pregunta..." />
-                                <button class="btn btn-primary" id="sendMessage">
+                                <button class="btn btn-primary" id="sendMessage" title="Enviar">
                                     <i class="bi bi-send"></i>
+                                </button>
+                                <button class="btn btn-outline-secondary" id="clearChat" title="Limpiar chat">
+                                    <i class="bi bi-trash"></i>
                                 </button>
                             </div>
                         </div>
@@ -3904,6 +3907,22 @@
             const sendBtn = document.getElementById('sendMessage');
             const messagesDiv = document.getElementById('chatMessages');
 
+            // Conversation history for context
+            let conversationHistory = [];
+
+            // Clear chat button
+            const clearChatBtn = document.getElementById('clearChat');
+            if (clearChatBtn) {
+                clearChatBtn.addEventListener('click', () => {
+                    conversationHistory = [];
+                    messagesDiv.innerHTML = `
+                        <div class="message assistant">
+                            <p>¡Hola! Soy tu asistente de análisis de contenido. Puedo ayudarte a explorar y analizar el contenido indexado.</p>
+                        </div>
+                    `;
+                });
+            }
+
             // Mode selector buttons
             const modeButtons = document.querySelectorAll('.mode-btn');
             let currentMode = 'balanced';
@@ -3976,7 +3995,10 @@
                 const query = input.value.trim();
                 if (!query) return;
 
-                // Add user message
+                // Add user message to history
+                conversationHistory.push({ role: 'user', content: query });
+
+                // Add user message to UI
                 messagesDiv.innerHTML += `<div class="message user"><p>${query}</p></div>`;
                 input.value = '';
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -3989,12 +4011,22 @@
                 messagesDiv.innerHTML += `<div class="message assistant" id="${responseId}"><div class="spinner"></div></div>`;
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
+                let assistantResponse = '';
                 if (useAgentMode) {
                     // Agent mode with SSE streaming
-                    await sendAgentMessage(query, clientId, responseId);
+                    assistantResponse = await sendAgentMessage(query, clientId, responseId);
                 } else {
                     // Standard RAG mode
-                    await sendStandardMessage(query, clientId, responseId);
+                    assistantResponse = await sendStandardMessage(query, clientId, responseId);
+                }
+
+                // Add assistant response to history
+                if (assistantResponse) {
+                    conversationHistory.push({ role: 'assistant', content: assistantResponse });
+                    // Keep only last 20 messages
+                    if (conversationHistory.length > 20) {
+                        conversationHistory = conversationHistory.slice(-20);
+                    }
                 }
 
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -4012,6 +4044,7 @@
                         body: JSON.stringify({
                             query,
                             client_id: clientId,
+                            conversation_history: conversationHistory.slice(-10),
                             max_iterations: 5
                         })
                     });
@@ -4019,7 +4052,7 @@
                     if (!response.ok) {
                         const errorData = await response.json();
                         responseDiv.innerHTML = `<p class="text-danger">Error: ${errorData.detail || 'Error desconocido'}</p>`;
-                        return;
+                        return '';
                     }
 
                     const reader = response.body.getReader();
@@ -4065,8 +4098,11 @@
                         responseDiv.innerHTML = stepsHtml + '</div><p class="text-muted">El agente no generó una respuesta final.</p>';
                     }
 
+                    return finalAnswer;
+
                 } catch (error) {
                     responseDiv.innerHTML = `<p class="text-danger">Error de conexión: ${error.message}</p>`;
+                    return '';
                 }
             }
 
@@ -4117,6 +4153,7 @@
                         body: JSON.stringify({
                             query,
                             client_id: clientId,
+                            conversation_history: conversationHistory.slice(-10),
                             top_k: parseInt(document.getElementById('maxChunks').value),
                             graph_hops: graphHops,
                             min_similarity: parseFloat(document.getElementById('minSim').value),
@@ -4164,11 +4201,14 @@
                         }
 
                         responseDiv.innerHTML = `<div class="rag-markdown">${answerHtml}</div>${sourcesHtml}${statsHtml}`;
+                        return data.answer || data.response || '';
                     } else {
                         responseDiv.innerHTML = `<p class="text-danger">Error: ${data.detail || 'Error desconocido'}</p>`;
+                        return '';
                     }
                 } catch (error) {
                     responseDiv.innerHTML = `<p class="text-danger">Error de conexión: ${error.message}</p>`;
+                    return '';
                 }
             }
 
