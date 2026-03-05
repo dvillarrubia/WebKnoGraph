@@ -1109,7 +1109,7 @@ async def dashboard_crawler_status():
     from dataclasses import asdict
 
     crawler = get_crawler_service()
-    job = crawler.get_status()
+    job = await crawler.get_status()
 
     if job:
         return asdict(job)
@@ -1125,36 +1125,9 @@ async def dashboard_crawler_logs(last_n: int = 100):
         last_n: Number of last log entries to return (default 100)
     """
     from graph_rag.services.crawler_service import get_crawler_service
-    from pathlib import Path
-    import json
 
     crawler = get_crawler_service()
-    job = crawler.get_status()
-
-    if not job or not job.output_dir:
-        return {"logs": [], "count": 0}
-
-    # Log file is in the base output directory (parent of domain-specific folder)
-    log_file = Path(job.output_dir).parent / ".crawl_log.jsonl"
-
-    if not log_file.exists():
-        return {"logs": [], "count": 0}
-
-    try:
-        with open(log_file, "r") as f:
-            lines = f.readlines()
-
-        # Get last N lines
-        logs = []
-        for line in lines[-last_n:]:
-            try:
-                logs.append(json.loads(line.strip()))
-            except:
-                pass
-
-        return {"logs": logs, "count": len(lines)}
-    except Exception as e:
-        return {"logs": [], "count": 0, "error": str(e)}
+    return await crawler.get_logs(last_n)
 
 
 @dashboard_router.get("/crawler/crawls")

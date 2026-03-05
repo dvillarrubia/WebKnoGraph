@@ -444,21 +444,77 @@ class CrawlerService:
         else:
             return await self._local_stop_crawl()
 
-    def get_status(self) -> Optional[CrawlJob]:
-        """Get current crawl status."""
+    async def get_status(self) -> Optional[CrawlJob]:
+        """Get current crawl status.
+
+        In remote mode, fetches from crawler-service if no local job is cached.
+        This handles the case where graph-rag-api restarts while a crawl is running.
+        """
         if self.current_job:
             return self.current_job
 
-        # Try to load from file
+        # In remote mode, check the crawler service directly
+        if self.is_remote:
+            try:
+                data = await self._http_get("/crawl/status")
+                if data.get("status") != "idle":
+                    self.current_job = CrawlJob(**data)
+                    self._save_status()
+                    # If crawl is still running, resume monitoring
+                    if self.current_job.status == "running":
+                        asyncio.create_task(self._remote_monitor_crawl())
+                    return self.current_job
+            except Exception as e:
+                logger.warning(f"Error fetching remote status: {e}")
+
+        # Fallback: try to load from local status file
         if self._status_file.exists():
             try:
                 with open(self._status_file) as f:
                     data = json.load(f)
                     return CrawlJob(**data)
-            except:
+            except Exception:
                 pass
 
         return None
+
+    async def get_logs(self, last_n: int = 100) -> dict:
+        """Get crawler logs.
+
+        In remote mode, fetches from crawler-service.
+        In local mode, reads from .crawl_log.jsonl on disk.
+        """
+        if self.is_remote:
+            try:
+                return await self._remote_get_logs(last_n)
+            except Exception as e:
+                logger.warning(f"Error fetching remote logs: {e}")
+                # Fall through to local file read
+
+        # Read from local file (shared volume in Docker, or local dev)
+        job = await self.get_status()
+        if not job or not job.output_dir:
+            return {"logs": [], "count": 0}
+
+        log_file = Path(job.output_dir).parent / ".crawl_log.jsonl"
+
+        if not log_file.exists():
+            return {"logs": [], "count": 0}
+
+        try:
+            with open(log_file, "r") as f:
+                lines = f.readlines()
+
+            logs = []
+            for line in lines[-last_n:]:
+                try:
+                    logs.append(json.loads(line.strip()))
+                except Exception:
+                    pass
+
+            return {"logs": logs, "count": len(lines)}
+        except Exception as e:
+            return {"logs": [], "count": 0, "error": str(e)}
 
     def _save_status(self):
         """Save current job status to file."""
