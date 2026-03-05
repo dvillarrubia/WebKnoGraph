@@ -1,5 +1,5 @@
 # WebKnoGraph Graph-RAG Docker Compose
-# Adds the RAG service to your existing Supabase + Neo4j setup
+# RAG API + Crawler Service (separate containers) + Supabase + Neo4j
 
 version: '3.8'
 
@@ -17,6 +17,9 @@ services:
     environment:
       # App
       - DEBUG=false
+
+      # Crawler Service (separate container)
+      - CRAWLER_SERVICE_URL=http://crawler-service:8081
 
       # Supabase (adjust to your existing setup)
       - SUPABASE_URL=http://seo-supabase-api:3000
@@ -45,13 +48,17 @@ services:
       - RAG_GRAPH_HOPS=2
       - RAG_MAX_CONTEXT_PAGES=15
     volumes:
-      # Mount data folder for migrations
-      - ./data:/app/data:ro
+      # Shared crawl data volume (read-write for parquet access)
+      - crawl_data:/app/data/crawl4ai_data
       # Cache for HuggingFace models
       - huggingface_cache:/home/appuser/.cache/huggingface
     depends_on:
-      - seo-supabase-db
-      - seo-neo4j
+      crawler-service:
+        condition: service_healthy
+      seo-supabase-db:
+        condition: service_started
+      seo-neo4j:
+        condition: service_started
     networks:
       - webknograph-network
     restart: unless-stopped
@@ -61,6 +68,29 @@ services:
       timeout: 10s
       retries: 3
       start_period: 60s  # Model loading takes time
+
+  # ==========================================================================
+  # CRAWLER SERVICE (Crawl4AI + Playwright/Chromium)
+  # ==========================================================================
+  crawler-service:
+    build:
+      context: .
+      dockerfile: crawler_service/Dockerfile
+    container_name: crawler-service
+    environment:
+      - CRAWL_OUTPUT_DIR=/app/data/crawl4ai_data
+    volumes:
+      # Shared crawl data volume (read-write for parquet output)
+      - crawl_data:/app/data/crawl4ai_data
+    networks:
+      - webknograph-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
   # ==========================================================================
   # YOUR EXISTING SERVICES (reference only - already running)
@@ -90,6 +120,8 @@ services:
       - webknograph-network
 
 volumes:
+  crawl_data:
+    name: webknograph-crawl-data
   huggingface_cache:
     name: graph-rag-hf-cache
 

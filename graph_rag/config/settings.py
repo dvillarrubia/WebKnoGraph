@@ -80,6 +80,15 @@ class Settings(BaseSettings):
     reranking_pagerank_weight: float = Field(default=0.1, env="RERANKING_PAGERANK_WEIGHT")
 
     # ==========================================================================
+    # CRAWLER SERVICE (separate Docker container)
+    # ==========================================================================
+    crawler_service_url: str = Field(
+        default="",
+        env="CRAWLER_SERVICE_URL",
+        description="URL of the crawler service (e.g. http://crawler-service:8081). If empty, falls back to local subprocess."
+    )
+
+    # ==========================================================================
     # API CONFIG
     # ==========================================================================
     api_host: str = Field(default="0.0.0.0", env="API_HOST")

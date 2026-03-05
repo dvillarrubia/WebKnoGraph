@@ -1,12 +1,17 @@
 """
 Crawler Service for Graph-RAG.
 Manages crawl jobs and provides status tracking.
+
+Supports two modes:
+- Remote: calls the crawler-service Docker container via HTTP (when CRAWLER_SERVICE_URL is set)
+- Local: spawns crawl4ai_advanced.py as a subprocess (fallback)
 """
 
 import asyncio
 import subprocess
 import os
 import json
+import logging
 from pathlib import Path
 from datetime import datetime
 from typing import Optional
@@ -14,6 +19,8 @@ from dataclasses import dataclass, field, asdict
 from glob import glob
 
 import pandas as pd
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -47,7 +54,14 @@ class CrawlJob:
 
 
 class CrawlerService:
-    """Service to manage web crawling jobs."""
+    """Service to manage web crawling jobs.
+
+    When CRAWLER_SERVICE_URL is set, delegates crawl control to the remote
+    crawler-service container via HTTP. Otherwise, falls back to running
+    crawl4ai_advanced.py as a local subprocess.
+
+    Data (parquet files) is always read locally from the shared volume.
+    """
 
     def __init__(self, base_output_dir: str = "data/crawl4ai_data"):
         self.base_output_dir = Path(base_output_dir)
@@ -55,6 +69,93 @@ class CrawlerService:
         self.current_job: Optional[CrawlJob] = None
         self._process: Optional[subprocess.Popen] = None
         self._status_file = self.base_output_dir / ".crawl_status.json"
+
+        # Check if remote crawler service is configured
+        self._crawler_url = os.environ.get("CRAWLER_SERVICE_URL", "").rstrip("/")
+        if self._crawler_url:
+            logger.info(f"Crawler service configured at: {self._crawler_url}")
+        else:
+            logger.info("No CRAWLER_SERVICE_URL set, using local subprocess mode")
+
+    @property
+    def is_remote(self) -> bool:
+        return bool(self._crawler_url)
+
+    # =========================================================================
+    # REMOTE MODE (HTTP calls to crawler-service container)
+    # =========================================================================
+
+    async def _http_post(self, path: str, json_data: dict = None) -> dict:
+        """Make a POST request to the crawler service."""
+        import httpx
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            response = await client.post(
+                f"{self._crawler_url}{path}",
+                json=json_data,
+            )
+            response.raise_for_status()
+            return response.json()
+
+    async def _http_get(self, path: str, params: dict = None) -> dict:
+        """Make a GET request to the crawler service."""
+        import httpx
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            response = await client.get(
+                f"{self._crawler_url}{path}",
+                params=params,
+            )
+            response.raise_for_status()
+            return response.json()
+
+    async def _remote_start_crawl(self, **kwargs) -> CrawlJob:
+        """Start crawl via remote crawler service."""
+        data = await self._http_post("/crawl/start", json_data=kwargs)
+        self.current_job = CrawlJob(**data)
+        self._save_status()
+        # Start polling the remote status
+        asyncio.create_task(self._remote_monitor_crawl())
+        return self.current_job
+
+    async def _remote_monitor_crawl(self):
+        """Poll the remote crawler service for status updates."""
+        while True:
+            await asyncio.sleep(3)
+            try:
+                data = await self._http_get("/crawl/status")
+                if data.get("status") == "idle":
+                    break
+                self.current_job = CrawlJob(**data)
+                self._save_status()
+                if self.current_job.status in ("completed", "failed", "stopped"):
+                    break
+            except Exception as e:
+                logger.warning(f"Error polling crawler status: {e}")
+                # Don't break on transient errors, keep polling
+                continue
+
+    async def _remote_stop_crawl(self) -> Optional[CrawlJob]:
+        """Stop crawl via remote crawler service."""
+        data = await self._http_post("/crawl/stop")
+        if data.get("status") == "no_active_crawl":
+            return None
+        self.current_job = CrawlJob(**data)
+        self._save_status()
+        return self.current_job
+
+    async def _remote_get_status(self) -> Optional[dict]:
+        """Get status from remote crawler service."""
+        data = await self._http_get("/crawl/status")
+        if data.get("status") == "idle":
+            return None
+        return data
+
+    async def _remote_get_logs(self, last_n: int = 100) -> dict:
+        """Get logs from remote crawler service."""
+        return await self._http_get("/crawl/logs", params={"last_n": last_n})
+
+    # =========================================================================
+    # LOCAL MODE (subprocess - original behavior)
+    # =========================================================================
 
     def _get_output_dir_for_url(self, url: str) -> Path:
         """Generate output directory name from URL."""
@@ -78,41 +179,34 @@ class CrawlerService:
 
         return total_pages
 
-    async def start_crawl(
+    async def _local_start_crawl(
         self,
         url: str,
-        max_pages: int = 0,  # 0 = unlimited
+        max_pages: int = 0,
         delay: float = 0.5,
         use_sitemap: bool = True,
         content_filter: bool = True,
         resume: bool = False,
         force_sitemap: bool = False,
-        urls_list: list = None,  # List of URLs to crawl
-        urls_only: bool = False,  # Only crawl URLs from list, don't discover new links
-        exclude_selectors: list = None,  # Additional CSS selectors to exclude (cookies, etc.)
-        respect_robots: bool = True,  # Respect robots.txt rules
-        skip_noindex: bool = True,  # Skip pages with noindex meta tag
-        sitemap_only: bool = False,  # Only crawl URLs from sitemap, don't follow discovered links
+        urls_list: list = None,
+        urls_only: bool = False,
+        exclude_selectors: list = None,
+        respect_robots: bool = True,
+        skip_noindex: bool = True,
+        sitemap_only: bool = False,
     ) -> CrawlJob:
-        """Start a new crawl job."""
-        # Check if already running
-        if self.current_job and self.current_job.status == "running":
-            raise ValueError("A crawl is already running")
-
-        # Normalize URL - add https:// if no protocol specified
+        """Start a crawl job using local subprocess."""
+        # Normalize URL
         if not url.startswith("http://") and not url.startswith("https://"):
             url = f"https://{url}"
 
-        # Create job
         job_id = datetime.now().strftime("%Y%m%d_%H%M%S")
         output_dir = self._get_output_dir_for_url(url)
 
-        # Count previously crawled pages if resuming
         pages_previously_crawled = 0
         if resume:
             pages_previously_crawled = self._count_crawled_pages(output_dir)
 
-        # Normalize urls_list and exclude_selectors
         urls_list = urls_list or []
         exclude_selectors = exclude_selectors or []
 
@@ -149,7 +243,6 @@ class CrawlerService:
             "--delay", str(delay),
         ]
 
-        # Script uses --no-sitemap and --no-filter (inverted flags)
         if not use_sitemap:
             cmd.append("--no-sitemap")
         if not content_filter:
@@ -159,14 +252,13 @@ class CrawlerService:
         if force_sitemap:
             cmd.append("--force-sitemap")
 
-        # Handle URLs list - write to temp file if provided
+        # Handle URLs list
         urls_file_path = None
         if urls_list and len(urls_list) > 0:
             urls_file_path = output_dir / f".urls_list_{job_id}.txt"
             output_dir.mkdir(parents=True, exist_ok=True)
             with open(urls_file_path, "w") as f:
                 for u in urls_list:
-                    # Clean and normalize URL
                     u = u.strip()
                     if u and not u.startswith("#"):
                         f.write(f"{u}\n")
@@ -175,11 +267,9 @@ class CrawlerService:
         if urls_only:
             cmd.append("--urls-only")
 
-        # Add exclude selectors
         if exclude_selectors and len(exclude_selectors) > 0:
             cmd.extend(["--exclude-selectors", ",".join(exclude_selectors)])
 
-        # Add robots.txt, noindex and sitemap-only flags (script uses inverted flags)
         if not respect_robots:
             cmd.append("--no-robots")
         if not skip_noindex:
@@ -203,31 +293,27 @@ class CrawlerService:
         self.current_job.process_pid = self._process.pid
         self._save_status()
 
-        # Start monitoring task
-        asyncio.create_task(self._monitor_crawl())
+        asyncio.create_task(self._local_monitor_crawl())
 
         return self.current_job
 
-    async def _monitor_crawl(self):
-        """Monitor the crawl process and update status."""
+    async def _local_monitor_crawl(self):
+        """Monitor the local crawl process and update status."""
         if not self._process or not self.current_job:
             return
 
         while self._process.poll() is None:
-            # Update stats from output directory
             await self._update_stats()
             self._save_status()
             await asyncio.sleep(2)
 
-        # Process finished
         return_code = self._process.returncode
 
         if return_code == 0:
             self.current_job.status = "completed"
         elif self.current_job.status == "stopped":
-            pass  # Keep stopped status
+            pass
         else:
-            # Check if we crawled pages successfully despite exit code
             await self._update_stats()
             if self.current_job.pages_crawled > 0:
                 self.current_job.status = "completed"
@@ -248,7 +334,6 @@ class CrawlerService:
 
         output_dir = Path(self.current_job.output_dir)
 
-        # Count pages from parquet files
         pages_pattern = str(output_dir / "pages" / "**" / "*.parquet")
         pages_files = glob(pages_pattern, recursive=True)
 
@@ -262,7 +347,6 @@ class CrawlerService:
 
         self.current_job.pages_crawled = total_pages
 
-        # Count links
         links_pattern = str(output_dir / "links" / "**" / "*.parquet")
         links_files = glob(links_pattern, recursive=True)
 
@@ -276,8 +360,8 @@ class CrawlerService:
 
         self.current_job.links_found = total_links
 
-    async def stop_crawl(self) -> Optional[CrawlJob]:
-        """Stop the current crawl job."""
+    async def _local_stop_crawl(self) -> Optional[CrawlJob]:
+        """Stop the local crawl process."""
         if not self.current_job or not self._process:
             return None
 
@@ -294,6 +378,71 @@ class CrawlerService:
         self._save_status()
 
         return self.current_job
+
+    # =========================================================================
+    # PUBLIC API (dispatches to remote or local)
+    # =========================================================================
+
+    async def start_crawl(
+        self,
+        url: str,
+        max_pages: int = 0,
+        delay: float = 0.5,
+        use_sitemap: bool = True,
+        content_filter: bool = True,
+        resume: bool = False,
+        force_sitemap: bool = False,
+        urls_list: list = None,
+        urls_only: bool = False,
+        exclude_selectors: list = None,
+        respect_robots: bool = True,
+        skip_noindex: bool = True,
+        sitemap_only: bool = False,
+    ) -> CrawlJob:
+        """Start a new crawl job."""
+        # Check if already running
+        if self.current_job and self.current_job.status == "running":
+            raise ValueError("A crawl is already running")
+
+        if self.is_remote:
+            return await self._remote_start_crawl(
+                url=url,
+                max_pages=max_pages,
+                delay=delay,
+                use_sitemap=use_sitemap,
+                content_filter=content_filter,
+                resume=resume,
+                force_sitemap=force_sitemap,
+                urls_list=urls_list or [],
+                urls_only=urls_only,
+                exclude_selectors=exclude_selectors or [],
+                respect_robots=respect_robots,
+                skip_noindex=skip_noindex,
+                sitemap_only=sitemap_only,
+            )
+        else:
+            return await self._local_start_crawl(
+                url=url,
+                max_pages=max_pages,
+                delay=delay,
+                use_sitemap=use_sitemap,
+                content_filter=content_filter,
+                resume=resume,
+                force_sitemap=force_sitemap,
+                urls_list=urls_list,
+                urls_only=urls_only,
+                exclude_selectors=exclude_selectors,
+                respect_robots=respect_robots,
+                skip_noindex=skip_noindex,
+                sitemap_only=sitemap_only,
+            )
+
+    async def stop_crawl(self) -> Optional[CrawlJob]:
+        """Stop the current crawl job."""
+        if self.is_remote:
+            return await self._remote_stop_crawl()
+        else:
+            return await self._local_stop_crawl()
 
     def get_status(self) -> Optional[CrawlJob]:
         """Get current crawl status."""
@@ -318,7 +467,10 @@ class CrawlerService:
                 json.dump(asdict(self.current_job), f)
 
     def list_available_crawls(self) -> list[dict]:
-        """List available crawl data directories."""
+        """List available crawl data directories.
+
+        Always reads from local filesystem (shared volume in Docker).
+        """
         crawls = []
 
         for d in self.base_output_dir.iterdir():
