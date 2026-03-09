@@ -1,0 +1,38 @@
+services:
+  graph-rag-api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.api
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env.production
+    volumes:
+      - crawl_data:/app/data/crawl4ai_data
+      - huggingface_cache:/home/appuser/.cache/huggingface
+    depends_on:
+      crawler-service:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - webknograph-network
+
+  crawler-service:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.crawler
+    env_file:
+      - .env.production
+    volumes:
+      - crawl_data:/app/data/crawl4ai_data
+    restart: unless-stopped
+    networks:
+      - webknograph-network
+
+volumes:
+  crawl_data:
+  huggingface_cache:
+
+networks:
+  webknograph-network:
+    external: true

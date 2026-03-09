@@ -1,0 +1,42 @@
+# Git
+.git/
+.gitignore
+
+# Data and results
+data/
+results/
+
+# Development and notebooks
+notebooks/
+tests/
+src/
+assets/
+scripts/
+
+# Environment files
+.env*
+graph_rag/.env
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# IDE and tools
+.claude/
+.vscode/
+.idea/
+
+# Documentation (except READMEs needed by the app)
+CITATION.cff
+LICENSE
+HOW-IT-WORKS.md
+casos_de_uso.md
+crawlerlimpieza.md
+TODO_FEATURES.md
+
+# Deploy folder (avoid recursion)
+deploy/

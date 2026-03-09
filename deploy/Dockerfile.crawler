@@ -1,0 +1,45 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# System dependencies (including Playwright/Chromium requirements)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential curl wget gnupg && \
+    rm -rf /var/lib/apt/lists/*
+
+# Non-root user (created early for Playwright install)
+RUN useradd --create-home appuser
+
+# Python dependencies (includes gunicorn for production)
+COPY crawler_service/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt gunicorn
+
+# Install Playwright browser dependencies (requires root)
+RUN playwright install-deps chromium
+
+# Switch to appuser to install browser binaries in user space
+USER appuser
+RUN playwright install chromium
+USER root
+
+# Application code
+COPY crawler_service/ ./crawler_service/
+
+# Data directory
+RUN mkdir -p /app/data/crawl4ai_data && \
+    chown -R appuser:appuser /app/data
+
+USER appuser
+
+EXPOSE 8081
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8081/health || exit 1
+
+CMD ["gunicorn", "crawler_service.main:app", \
+     "-w", "1", \
+     "-k", "uvicorn.workers.UvicornWorker", \
+     "--bind", "0.0.0.0:8081", \
+     "--timeout", "300", \
+     "--graceful-timeout", "30"]
