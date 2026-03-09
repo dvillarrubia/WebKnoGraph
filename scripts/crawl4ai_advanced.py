@@ -752,13 +752,18 @@ async def crawl_site_advanced(
         print(f"Resume: {pages_prev} previously crawled")
 
     sitemap_urls = []
-    if use_sitemap and (not resume or force_sitemap):
+    if use_sitemap and not urls_only and (not resume or force_sitemap):
         print("\n[1/4] Discovering URLs from sitemap...")
         sitemap_urls = await discover_urls_from_sitemap(base_domain)
         print(f"  Total: {len(sitemap_urls)} URLs")
 
-    discovered = load_discovered_urls(output_path, base_domain) - visited if resume else set()
-    to_visit = list(dict.fromkeys(urls_from_file + list(discovered) + [start_url] + sitemap_urls))
+    if urls_only and urls_from_file:
+        # Solo crawlear las URLs del listado, nada más
+        to_visit = list(dict.fromkeys(urls_from_file))
+        print(f"  urls_only mode: only {len(to_visit)} URLs from list")
+    else:
+        discovered = load_discovered_urls(output_path, base_domain) - visited if resume else set()
+        to_visit = list(dict.fromkeys(urls_from_file + list(discovered) + [start_url] + sitemap_urls))
 
     print(f"\n[2/4] Starting crawl... ({len(to_visit)} URLs)")
 
@@ -1003,15 +1008,23 @@ async def crawl_site_advanced(
                                 log(f"  SKIP noindex detectado", "SKIP")
                                 continue
 
-                            title = result.metadata.get("title", "") if result.metadata else ""
-                            meta = result.metadata.get("description", "") if result.metadata else ""
+                            try:
+                                title = result.metadata.get("title", "") if result.metadata else ""
+                                meta = result.metadata.get("description", "") if result.metadata else ""
+                            except (TypeError, AttributeError):
+                                title, meta = "", ""
 
                             # result.markdown es MarkdownGenerationResult con raw_markdown
                             # No usamos fit_markdown porque PruningContentFilter elimina headings/negritas
                             md_result = result.markdown
-                            if hasattr(md_result, 'raw_markdown'):
-                                markdown_raw = md_result.raw_markdown or ""
-                            else:
+                            try:
+                                if md_result and hasattr(md_result, 'raw_markdown'):
+                                    markdown_raw = md_result.raw_markdown or ""
+                                elif md_result:
+                                    markdown_raw = str(md_result)
+                                else:
+                                    markdown_raw = ""
+                            except (TypeError, AttributeError):
                                 markdown_raw = str(md_result) if md_result else ""
 
                             # Limpiar markdown de cookies/consent que el JS no pilló
@@ -1030,8 +1043,11 @@ async def crawl_site_advanced(
                                     if fallback_result.success:
                                         # Usar resultado del fallback
                                         html = fallback_result.html or html
-                                        title = fallback_result.metadata.get("title", "") if fallback_result.metadata else title
-                                        meta = fallback_result.metadata.get("description", "") if fallback_result.metadata else meta
+                                        try:
+                                            title = fallback_result.metadata.get("title", "") if fallback_result.metadata else title
+                                            meta = fallback_result.metadata.get("description", "") if fallback_result.metadata else meta
+                                        except (TypeError, AttributeError):
+                                            pass
 
                                         fb_md_result = fallback_result.markdown
                                         if hasattr(fb_md_result, 'raw_markdown'):

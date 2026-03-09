@@ -1,0 +1,108 @@
+# WebKnoGraph - Full local stack with separate crawler
+# Containers: wkg-postgres, wkg-neo4j, wkg-crawler, wkg-app
+
+services:
+  wkg-postgres:
+    image: pgvector/pgvector:pg16
+    container_name: wkg-postgres
+    ports:
+      - "54322:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    volumes:
+      - wkg-pgdata:/var/lib/postgresql/data
+      - ./init_db.sql:/docker-entrypoint-initdb.d/01_init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  wkg-neo4j:
+    image: neo4j:5.20-community
+    container_name: wkg-neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/neo4j123
+    volumes:
+      - wkg-neo4jdata:/data
+    healthcheck:
+      test: ["CMD-SHELL", "cypher-shell -u neo4j -p neo4j123 'RETURN 1' || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  wkg-crawler:
+    build:
+      context: .
+      dockerfile: crawler_service/Dockerfile
+    container_name: wkg-crawler
+    ports:
+      - "8081:8081"
+    environment:
+      - CRAWL_OUTPUT_DIR=/app/data/crawl4ai_data
+    volumes:
+      - wkg-crawl-data:/app/data/crawl4ai_data
+      - ./crawler_service:/app/crawler_service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  wkg-app:
+    build:
+      context: .
+      dockerfile: graph_rag/Dockerfile
+    container_name: wkg-app
+    ports:
+      - "8080:8080"
+    environment:
+      - DEBUG=true
+      - CRAWLER_SERVICE_URL=http://wkg-crawler:8081
+      - SUPABASE_URL=http://wkg-postgres:5432
+      - SUPABASE_SERVICE_KEY=not-needed-local
+      - SUPABASE_DB_HOST=wkg-postgres
+      - SUPABASE_DB_PORT=5432
+      - SUPABASE_DB_NAME=postgres
+      - SUPABASE_DB_USER=postgres
+      - SUPABASE_DB_PASSWORD=postgres123
+      - NEO4J_URI=bolt://wkg-neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=neo4j123
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-sk-placeholder}
+      - OPENAI_MODEL=gpt-4o
+      - EMBEDDING_MODEL_NAME=hiiamsid/sentence_similarity_spanish_es
+      - EMBEDDING_DIMENSION=768
+      - EMBEDDING_BATCH_SIZE=32
+      - RAG_TOP_K_VECTORS=10
+      - RAG_GRAPH_HOPS=2
+      - RAG_MAX_CONTEXT_PAGES=15
+    volumes:
+      - wkg-crawl-data:/app/data/crawl4ai_data
+      - wkg-hf-cache:/home/appuser/.cache/huggingface
+    depends_on:
+      wkg-postgres:
+        condition: service_healthy
+      wkg-neo4j:
+        condition: service_healthy
+      wkg-crawler:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  wkg-pgdata:
+    name: wkg-pgdata
+  wkg-neo4jdata:
+    name: wkg-neo4jdata
+  wkg-crawl-data:
+    name: wkg-crawl-data
+  wkg-hf-cache:
+    name: wkg-hf-cache

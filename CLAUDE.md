@@ -1,10 +1,20 @@
 # CLAUDE.md - Reglas del Proyecto WebKnoGraph
 
-## Comandos Útiles
+## ENTORNO DE TRABAJO - Docker
+
+**Siempre trabajamos contra containers Docker.** Los cambios deben aplicarse en:
+- `crawler_service/` — Container del crawler (Crawl4AI)
+- `graph_rag/` — Container de la API/Dashboard
+
+Los archivos en `scripts/` son la versión local/legacy. El código activo está en:
+- **Crawler**: `crawler_service/crawl4ai_advanced.py` (container) + `scripts/crawl4ai_advanced.py` (local)
+- **API**: `graph_rag/api/routes.py`, `graph_rag/services/`, `graph_rag/static/index.html`
+
+**Cualquier cambio en el crawler debe hacerse en AMBOS archivos** (`scripts/` y `crawler_service/`) para mantener paridad.
 
 ```bash
-# Levantar servicios
-PYTHONPATH=. python -m uvicorn graph_rag.api.routes:app --host 0.0.0.0 --port 8080 --reload
+# Levantar servicios con Docker
+docker-compose -f docker-compose.rag.yml up --build
 
 # Dashboard
 http://localhost:8080/
@@ -26,8 +36,9 @@ CRAWLER → CLEANER → INGEST → RAG API
 Parquet → Parquet → Supabase + Neo4j → Vector + Graph Search
 ```
 
-**Archivos principales:**
-- `scripts/crawl4ai_advanced.py` - Crawler script
+**Archivos principales (mantener en sync `scripts/` ↔ `crawler_service/`):**
+- `crawler_service/crawl4ai_advanced.py` - Crawler script (Docker)
+- `scripts/crawl4ai_advanced.py` - Crawler script (local)
 - `graph_rag/services/crawler_service.py` - Gestión de jobs
 - `graph_rag/services/manual_cleaner_service.py` - Limpieza manual
 - `graph_rag/services/ingest_service.py` - Ingesta a DBs
@@ -208,6 +219,7 @@ data/crawl4ai_data/
 | Resume falla con datos corruptos | Status file stale | Borrar directorio y empezar fresh |
 | Exclusiones CSS no funcionan | Se aplican a raw, no fit | Revisar PruningContentFilter |
 | Logs no aparecen en UI | Path incorrecto | Usar `.parent / ".crawl_log.jsonl"` |
+| `urls_only` no respetado | `to_visit` incluía sitemap+start_url | Con `urls_only`, construir `to_visit` solo con `urls_from_file` |
 
 ---
 
