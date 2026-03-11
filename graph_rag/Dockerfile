@@ -53,6 +53,10 @@ RUN pip install --no-cache-dir -r requirements-rag.txt \
 # Create non-root user before installing browsers
 RUN useradd --create-home --shell /bin/bash appuser
 
+# Create HuggingFace cache directory with correct ownership
+RUN mkdir -p /home/appuser/.cache/huggingface/hub && \
+    chown -R appuser:appuser /home/appuser/.cache
+
 # Install Playwright Chromium as appuser
 USER appuser
 RUN python -m playwright install chromium

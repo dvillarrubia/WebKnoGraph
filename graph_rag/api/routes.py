@@ -858,28 +858,34 @@ async def dashboard_related_pages(
         limit=request.get("limit", 20),
     )
 
-    # Get incoming links (backlinks)
+    # Get incoming links (backlinks) - all and content-only
     backlinks = await neo4j.get_incoming_links(
         client_id=client_id,
         url=url,
-        limit=request.get("limit", 20),
+        limit=request.get("limit", 50),
     )
+    backlinks_content = [b for b in backlinks if b.get("location") == "content"]
 
-    # Get outgoing links
+    # Get outgoing links - all and content-only
     outlinks = await neo4j.get_outgoing_links(
         client_id=client_id,
         url=url,
-        limit=request.get("limit", 20),
+        limit=request.get("limit", 50),
     )
+    outlinks_content = [o for o in outlinks if o.get("location") == "content"]
 
     return {
         "source_url": url,
         "related": related,
         "backlinks": backlinks,
+        "backlinks_content": backlinks_content,
         "outlinks": outlinks,
+        "outlinks_content": outlinks_content,
         "total_related": len(related),
         "total_backlinks": len(backlinks),
+        "total_backlinks_content": len(backlinks_content),
         "total_outlinks": len(outlinks),
+        "total_outlinks_content": len(outlinks_content),
     }
 
 
@@ -951,9 +957,10 @@ async def dashboard_interlinking_suggestions(
     if not page:
         raise HTTPException(status_code=404, detail="Page not found")
 
-    # Get pages already linked (to exclude)
-    outlinks = await neo4j.get_outgoing_links(client_id, url, limit=100)
-    linked_urls = {link["url"] for link in outlinks}
+    # Get pages already linked from content (to exclude from suggestions)
+    # We only exclude content links — nav/footer links are structural, not editorial
+    outlinks_content = await neo4j.get_outgoing_links(client_id, url, limit=500, location="content")
+    linked_urls = {link["url"] for link in outlinks_content}
     linked_urls.add(url)  # Exclude self
 
     # Generate embedding from page content
@@ -989,7 +996,7 @@ async def dashboard_interlinking_suggestions(
         "source_title": page.get("title"),
         "suggestions": suggestions,
         "total": len(suggestions),
-        "already_linked": len(linked_urls) - 1,  # Exclude self
+        "already_linked": len(linked_urls) - 1,  # Exclude self (content links only)
     }
 
 

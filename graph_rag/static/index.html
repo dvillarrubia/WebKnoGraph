@@ -2492,18 +2492,19 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title"><i class="bi bi-arrow-left-right"></i> Enlaces Existentes</h5>
+                            <h5 class="card-title"><i class="bi bi-arrow-left-right"></i> Enlaces en Contenido</h5>
+                            <small class="text-muted">Solo enlaces en el cuerpo de la página (excluye navegación, footer y sidebar)</small>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h6><i class="bi bi-box-arrow-in-right"></i> Entrantes (Backlinks)</h6>
+                                    <h6><i class="bi bi-box-arrow-in-right"></i> Entrantes en contenido</h6>
                                     <div id="interlinkingBacklinks">
                                         <p class="text-muted">Sin datos</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6><i class="bi bi-box-arrow-right"></i> Salientes</h6>
+                                    <h6><i class="bi bi-box-arrow-right"></i> Salientes en contenido</h6>
                                     <div id="interlinkingOutlinks">
                                         <p class="text-muted">Sin datos</p>
                                     </div>
@@ -7228,7 +7229,7 @@
                         pageInfoDiv.innerHTML = `
                             <p><strong>URL:</strong> <a href="${url}" target="_blank">${url}</a></p>
                             <p><strong>Título:</strong> ${data.source_title || 'Sin título'}</p>
-                            <p><strong>Enlaces existentes:</strong> ${data.already_linked}</p>
+                            <p><strong>Enlaces salientes en contenido:</strong> ${data.already_linked}</p>
                         `;
 
                         // Render suggestions
@@ -7263,32 +7264,78 @@
                         const related = await relatedResponse.json();
 
                         // Backlinks
+                        const contentBacklinks = related.backlinks_content || related.backlinks?.filter(b => b.location === 'content') || [];
+                        const navBacklinks = related.backlinks?.filter(b => b.location !== 'content') || [];
                         if (related.backlinks && related.backlinks.length > 0) {
                             backlinksDiv.innerHTML = `
-                                <p class="text-muted" style="font-size: 0.85rem;">${related.total_backlinks} enlaces entrantes</p>
-                                <ul style="list-style: none; padding: 0; margin: 0;">
-                                    ${related.backlinks.slice(0, 10).map(b => `
-                                        <li style="padding: 0.25rem 0; border-bottom: 1px solid var(--border-color);">
-                                            <a href="${b.url}" target="_blank" style="font-size: 0.85rem;">${escapeHtml(b.title || b.url)}</a>
-                                        </li>
-                                    `).join('')}
-                                </ul>
+                                <p class="text-muted" style="font-size: 0.85rem;">
+                                    <strong>${contentBacklinks.length}</strong> en contenido &middot;
+                                    <span>${navBacklinks.length} en nav/footer</span> &middot;
+                                    ${related.total_backlinks} total
+                                </p>
+                                ${contentBacklinks.length > 0 ? `
+                                    <p style="font-size: 0.75rem; color: var(--primary-color); margin: 0.5rem 0 0.25rem;">En contenido:</p>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        ${contentBacklinks.slice(0, 10).map(b => `
+                                            <li style="padding: 0.25rem 0; border-bottom: 1px solid var(--border-color);">
+                                                <a href="${b.url}" target="_blank" style="font-size: 0.85rem;">${escapeHtml(b.title || b.url)}</a>
+                                                ${b.anchor_text ? `<span class="text-muted" style="font-size:0.75rem;"> - "${escapeHtml(b.anchor_text)}"</span>` : ''}
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                ` : '<p class="text-muted" style="font-size: 0.8rem;">Sin enlaces entrantes en contenido</p>'}
+                                ${navBacklinks.length > 0 ? `
+                                    <details style="margin-top: 0.5rem;">
+                                        <summary style="font-size: 0.75rem; color: var(--text-secondary); cursor: pointer;">Ver ${navBacklinks.length} enlaces de navegación</summary>
+                                        <ul style="list-style: none; padding: 0; margin: 0.25rem 0 0 0;">
+                                            ${navBacklinks.slice(0, 10).map(b => `
+                                                <li style="padding: 0.15rem 0; font-size: 0.8rem; color: var(--text-secondary);">
+                                                    ${escapeHtml(b.title || b.url)} <span style="font-size:0.7rem;">(${b.location || 'nav'})</span>
+                                                </li>
+                                            `).join('')}
+                                            ${navBacklinks.length > 10 ? `<li class="text-muted" style="font-size:0.75rem;">... y ${navBacklinks.length - 10} más</li>` : ''}
+                                        </ul>
+                                    </details>
+                                ` : ''}
                             `;
                         } else {
                             backlinksDiv.innerHTML = '<p class="text-muted">No hay backlinks</p>';
                         }
 
                         // Outlinks
+                        const contentOutlinks = related.outlinks_content || related.outlinks?.filter(o => o.location === 'content') || [];
+                        const navOutlinks = related.outlinks?.filter(o => o.location !== 'content') || [];
                         if (related.outlinks && related.outlinks.length > 0) {
                             outlinksDiv.innerHTML = `
-                                <p class="text-muted" style="font-size: 0.85rem;">${related.total_outlinks} enlaces salientes</p>
-                                <ul style="list-style: none; padding: 0; margin: 0;">
-                                    ${related.outlinks.slice(0, 10).map(o => `
-                                        <li style="padding: 0.25rem 0; border-bottom: 1px solid var(--border-color);">
-                                            <a href="${o.url}" target="_blank" style="font-size: 0.85rem;">${escapeHtml(o.title || o.url)}</a>
-                                        </li>
-                                    `).join('')}
-                                </ul>
+                                <p class="text-muted" style="font-size: 0.85rem;">
+                                    <strong>${contentOutlinks.length}</strong> en contenido &middot;
+                                    <span>${navOutlinks.length} en nav/footer</span> &middot;
+                                    ${related.total_outlinks} total
+                                </p>
+                                ${contentOutlinks.length > 0 ? `
+                                    <p style="font-size: 0.75rem; color: var(--primary-color); margin: 0.5rem 0 0.25rem;">En contenido:</p>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        ${contentOutlinks.slice(0, 10).map(o => `
+                                            <li style="padding: 0.25rem 0; border-bottom: 1px solid var(--border-color);">
+                                                <a href="${o.url}" target="_blank" style="font-size: 0.85rem;">${escapeHtml(o.title || o.url)}</a>
+                                                ${o.anchor_text ? `<span class="text-muted" style="font-size:0.75rem;"> - "${escapeHtml(o.anchor_text)}"</span>` : ''}
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                ` : '<p class="text-muted" style="font-size: 0.8rem;">Sin enlaces salientes en contenido</p>'}
+                                ${navOutlinks.length > 0 ? `
+                                    <details style="margin-top: 0.5rem;">
+                                        <summary style="font-size: 0.75rem; color: var(--text-secondary); cursor: pointer;">Ver ${navOutlinks.length} enlaces de navegación</summary>
+                                        <ul style="list-style: none; padding: 0; margin: 0.25rem 0 0 0;">
+                                            ${navOutlinks.slice(0, 10).map(o => `
+                                                <li style="padding: 0.15rem 0; font-size: 0.8rem; color: var(--text-secondary);">
+                                                    ${escapeHtml(o.title || o.url)} <span style="font-size:0.7rem;">(${o.location || 'nav'})</span>
+                                                </li>
+                                            `).join('')}
+                                            ${navOutlinks.length > 10 ? `<li class="text-muted" style="font-size:0.75rem;">... y ${navOutlinks.length - 10} más</li>` : ''}
+                                        </ul>
+                                    </details>
+                                ` : ''}
                             `;
                         } else {
                             outlinksDiv.innerHTML = '<p class="text-muted">No hay enlaces salientes</p>';

@@ -28,13 +28,13 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from neo4j import AsyncGraphDatabase
 
-from ontologia.ontology_parser import parse_seovoc, print_summary
 from ontologia.neo4j_schema import setup_seo_schema, cleanup_seo_data
 from ontologia.ingest_ontology import SeoOntologyIngestor
 
 
 async def run_parse_only():
     """Parse seovoc.ttl and print summary."""
+    from ontologia.ontology_parser import parse_seovoc, print_summary
     onto = parse_seovoc()
     print_summary(onto)
     return onto
@@ -110,6 +110,8 @@ async def run_ingest(
         print(f"  SeoLink nodes:           {result.links}")
         print(f"  SeoLinkGroup nodes:      {result.link_groups}")
         print(f"  SeoAnchorText nodes:     {result.anchor_texts}")
+        print(f"  SeoSchema nodes:         {result.schemas}")
+        print(f"  SeoThing nodes:          {result.things}")
         print(f"  Relationships:           {result.relationships}")
         if result.errors:
             print(f"\n  Errors ({len(result.errors)}):")
@@ -120,8 +122,16 @@ async def run_ingest(
         await driver.close()
 
 
-async def run_extract_schema(crawl_dir: str):
-    """Extract JSON-LD schema from HTML content in parquet."""
+async def run_extract_schema(
+    crawl_dir: str,
+    neo4j_uri: str | None = None,
+    neo4j_user: str | None = None,
+    neo4j_password: str | None = None,
+    client_id: str | None = None,
+    domain: str = "www.uoc.edu",
+    refresh: bool = False,
+):
+    """Extract JSON-LD schema from HTML content in parquet, optionally ingest to Neo4j."""
     from ontologia.extractors.schema_extractor import extract_schemas_from_parquet
 
     crawl_path = Path(crawl_dir)
@@ -136,6 +146,69 @@ async def run_extract_schema(crawl_dir: str):
         for s in schemas:
             s_type = s.get("@type", "unknown")
             print(f"    - @type: {s_type}")
+        if url in results.get("dates", {}):
+            print(f"    publishingDate: {results['dates'][url]}")
+        if url in results.get("entities", {}):
+            ents = results["entities"][url]
+            for a in ents.get("about", []):
+                print(f"    about: {a.get('name', '?')} ({a.get('@type', 'Thing')})")
+            for m in ents.get("mentions", []):
+                print(f"    mentions: {m.get('name', '?')} ({m.get('@type', 'Thing')})")
+
+    # If Neo4j credentials provided, ingest schemas into graph
+    if neo4j_uri and neo4j_password and client_id:
+        driver = AsyncGraphDatabase.driver(neo4j_uri, auth=(neo4j_user, neo4j_password))
+        try:
+            await driver.verify_connectivity()
+            print(f"\nIngesting schemas into Neo4j at {neo4j_uri}...")
+
+            # Setup schema constraints
+            schema_result = await setup_seo_schema(driver)
+            print(f"  Constraints/indexes: {schema_result['created']}")
+
+            if refresh:
+                # Only clean Schema and Thing nodes, not all SEO data
+                async with driver.session() as session:
+                    await session.run(
+                        "MATCH (n:SeoSchema {client_id: $client_id}) DETACH DELETE n",
+                        client_id=client_id,
+                    )
+                    await session.run(
+                        "MATCH (n:SeoThing {client_id: $client_id}) DETACH DELETE n",
+                        client_id=client_id,
+                    )
+                    await session.run(
+                        """MATCH (p:Page {client_id: $client_id})-[r]->()
+                           WHERE type(r) IN ['HAS_SCHEMA_MARKUP','ABOUT','MENTIONS']
+                           DELETE r""",
+                        client_id=client_id,
+                    )
+                print("  Cleaned existing SeoSchema/SeoThing nodes")
+
+            # Use ingestor to create SeoSchema + SeoThing nodes
+            ingestor = SeoOntologyIngestor(
+                driver=driver,
+                client_id=client_id,
+                domain=domain,
+            )
+
+            # Load pages parquet with html_content
+            pages_df = ingestor._load_parquet(crawl_path / "pages")
+            if pages_df is not None and not pages_df.empty:
+                from ontologia.ingest_ontology import SeoIngestResult
+                ingest_result = SeoIngestResult(client_id=client_id)
+                await ingestor._ingest_schemas_from_html(pages_df, ingest_result)
+
+                print(f"\n  SeoSchema nodes:  {ingest_result.schemas}")
+                print(f"  SeoThing nodes:   {ingest_result.things}")
+                print(f"  Relationships:    {ingest_result.relationships}")
+                if ingest_result.errors:
+                    for err in ingest_result.errors[:10]:
+                        print(f"  ERROR: {err}")
+            else:
+                print("  No pages with html_content found")
+        finally:
+            await driver.close()
 
 
 async def _load_chunks_from_supabase(dsn: str, client_id: str) -> list[dict]:
@@ -201,7 +274,38 @@ def main():
     if args.parse_only:
         asyncio.run(run_parse_only())
     elif args.extract_schema:
-        asyncio.run(run_extract_schema(args.crawl_dir))
+        # Check if Neo4j credentials available for ingestion
+        neo4j_uri = None
+        neo4j_user = None
+        neo4j_password = None
+        client_id = args.client_id
+
+        if args.neo4j_password:
+            neo4j_uri = args.neo4j_uri
+            neo4j_user = args.neo4j_user
+            neo4j_password = args.neo4j_password
+        else:
+            try:
+                from graph_rag.config.settings import get_settings
+                settings = get_settings()
+                neo4j_uri = settings.neo4j_uri
+                neo4j_user = settings.neo4j_user
+                neo4j_password = settings.neo4j_password
+            except Exception:
+                pass  # No Neo4j — just print extraction results
+
+        if not client_id:
+            client_id = "uoc-seo-ontology"
+
+        asyncio.run(run_extract_schema(
+            crawl_dir=args.crawl_dir,
+            neo4j_uri=neo4j_uri,
+            neo4j_user=neo4j_user,
+            neo4j_password=neo4j_password,
+            client_id=client_id,
+            domain=args.domain,
+            refresh=args.refresh,
+        ))
     elif args.ingest:
         if not args.neo4j_password:
             # Try loading from .env

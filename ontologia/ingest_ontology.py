@@ -17,8 +17,17 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from urllib.parse import urlparse
 
+import json
+
 import pandas as pd
 from neo4j import AsyncDriver
+
+from ontologia.extractors.schema_extractor import (
+    extract_jsonld_from_html,
+    extract_entities,
+    extract_publishing_date,
+    extract_meta_title,
+)
 
 
 @dataclass
@@ -30,6 +39,8 @@ class SeoIngestResult:
     links: int = 0
     link_groups: int = 0
     anchor_texts: int = 0
+    schemas: int = 0
+    things: int = 0
     relationships: int = 0
     errors: list[str] = field(default_factory=list)
 
@@ -121,6 +132,9 @@ class SeoOntologyIngestor:
         # Step 4: Create LINKS_TO_PAGE relationships between SeoLink and target SeoWebPage
         if links_df is not None and not links_df.empty:
             await self._create_link_page_relationships(links_df, result)
+
+        # Step 5 (Sprint 2): Extract JSON-LD → SeoSchema + SeoThing nodes
+        await self._ingest_schemas_from_html(pages_df, result)
 
         return result
 
@@ -498,3 +512,180 @@ class SeoOntologyIngestor:
             record = await res.single()
             if record:
                 result.relationships += record["created"]
+
+    # =========================================================================
+    # SPRINT 2: Schema + Entity ingestion from HTML
+    # =========================================================================
+
+    async def _ingest_schemas_from_html(
+        self,
+        pages_df: pd.DataFrame,
+        result: SeoIngestResult,
+    ) -> None:
+        """
+        Extract JSON-LD from html_content in pages DataFrame and create:
+        - SeoSchema nodes (one per JSON-LD block)
+        - SeoThing nodes (entities from about/mentions)
+        - HAS_SCHEMA_MARKUP, ABOUT, MENTIONS relationships
+        - publishingDate and metaTitle on SeoWebPage
+        """
+        if "html_content" not in pages_df.columns:
+            return
+
+        schema_batch = []
+        thing_batch = []
+        page_updates = []
+
+        for _, row in pages_df.iterrows():
+            url = str(row.get("url", ""))
+            html = str(row.get("html_content", ""))
+            if not url or not html:
+                continue
+
+            # Extract JSON-LD blocks
+            jsonld_list = extract_jsonld_from_html(html)
+
+            # Extract meta title from <title> tag
+            meta_title = extract_meta_title(html)
+
+            # Extract publishing date from JSON-LD
+            pub_date = extract_publishing_date(jsonld_list) if jsonld_list else None
+
+            # Collect page-level updates (publishingDate, metaTitle)
+            if pub_date or meta_title:
+                page_updates.append({
+                    "url": url,
+                    "publishingDate": pub_date,
+                    "metaTitle": meta_title,
+                })
+
+            # Build SeoSchema batch (one node per JSON-LD block)
+            for idx, jsonld in enumerate(jsonld_list):
+                schema_type = jsonld.get("@type", "unknown")
+                # Normalize @type (can be list)
+                if isinstance(schema_type, list):
+                    schema_type = ",".join(str(t) for t in schema_type)
+                else:
+                    schema_type = str(schema_type)
+
+                schema_batch.append({
+                    "page_url": url,
+                    "schemaType": schema_type,
+                    "schemaValue": json.dumps(jsonld, ensure_ascii=False)[:50000],
+                    "position": idx,
+                })
+
+            # Extract entities (about + mentions)
+            if jsonld_list:
+                ents = extract_entities(jsonld_list)
+                for entity in ents.get("about", []):
+                    name = str(entity.get("name", "")).strip()
+                    if not name:
+                        continue
+                    thing_batch.append({
+                        "page_url": url,
+                        "name": name,
+                        "thingType": str(entity.get("@type", "Thing")),
+                        "entity_id": entity.get("@id", ""),
+                        "entity_url": entity.get("url", ""),
+                        "rel_type": "ABOUT",
+                    })
+                for entity in ents.get("mentions", []):
+                    name = str(entity.get("name", "")).strip()
+                    if not name:
+                        continue
+                    thing_batch.append({
+                        "page_url": url,
+                        "name": name,
+                        "thingType": str(entity.get("@type", "Thing")),
+                        "entity_id": entity.get("@id", ""),
+                        "entity_url": entity.get("url", ""),
+                        "rel_type": "MENTIONS",
+                    })
+
+        # Write to Neo4j
+        async with self.driver.session() as session:
+            # 1. Update publishingDate and metaTitle on SeoWebPage
+            if page_updates:
+                await session.run(
+                    """
+                    UNWIND $updates AS upd
+                    MATCH (wp:Page {client_id: $client_id, url: upd.url})
+                    SET wp.publishingDate = upd.publishingDate,
+                        wp.metaTitle = upd.metaTitle
+                    """,
+                    client_id=self.client_id,
+                    updates=page_updates,
+                )
+
+            # 2. Create SeoSchema nodes + HAS_SCHEMA_MARKUP
+            if schema_batch:
+                await session.run(
+                    """
+                    UNWIND $schemas AS s
+                    MERGE (sc:SeoSchema {
+                        client_id: $client_id,
+                        page_url: s.page_url,
+                        schemaType: s.schemaType,
+                        position: s.position
+                    })
+                    SET sc.schemaValue = s.schemaValue,
+                        sc.updated_at = datetime()
+                    WITH sc, s
+                    MATCH (wp:Page {client_id: $client_id, url: s.page_url})
+                    MERGE (wp)-[:HAS_SCHEMA_MARKUP]->(sc)
+                    """,
+                    client_id=self.client_id,
+                    schemas=schema_batch,
+                )
+                result.schemas = len(schema_batch)
+                result.relationships += len(schema_batch)
+
+            # 3. Create SeoThing nodes + ABOUT/MENTIONS relationships
+            if thing_batch:
+                # Separate ABOUT and MENTIONS for distinct relationship creation
+                about_things = [t for t in thing_batch if t["rel_type"] == "ABOUT"]
+                mentions_things = [t for t in thing_batch if t["rel_type"] == "MENTIONS"]
+
+                if about_things:
+                    await session.run(
+                        """
+                        UNWIND $things AS t
+                        MERGE (th:SeoThing {
+                            client_id: $client_id,
+                            name: t.name,
+                            thingType: t.thingType
+                        })
+                        SET th.entity_id = CASE WHEN t.entity_id <> '' THEN t.entity_id ELSE th.entity_id END,
+                            th.entity_url = CASE WHEN t.entity_url <> '' THEN t.entity_url ELSE th.entity_url END,
+                            th.updated_at = datetime()
+                        WITH th, t
+                        MATCH (wp:Page {client_id: $client_id, url: t.page_url})
+                        MERGE (wp)-[:ABOUT]->(th)
+                        """,
+                        client_id=self.client_id,
+                        things=about_things,
+                    )
+
+                if mentions_things:
+                    await session.run(
+                        """
+                        UNWIND $things AS t
+                        MERGE (th:SeoThing {
+                            client_id: $client_id,
+                            name: t.name,
+                            thingType: t.thingType
+                        })
+                        SET th.entity_id = CASE WHEN t.entity_id <> '' THEN t.entity_id ELSE th.entity_id END,
+                            th.entity_url = CASE WHEN t.entity_url <> '' THEN t.entity_url ELSE th.entity_url END,
+                            th.updated_at = datetime()
+                        WITH th, t
+                        MATCH (wp:Page {client_id: $client_id, url: t.page_url})
+                        MERGE (wp)-[:MENTIONS]->(th)
+                        """,
+                        client_id=self.client_id,
+                        things=mentions_things,
+                    )
+
+                result.things = len(thing_batch)
+                result.relationships += len(thing_batch)

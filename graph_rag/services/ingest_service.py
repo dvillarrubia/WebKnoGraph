@@ -314,10 +314,15 @@ class IngestService:
                 if not source_url or not target_url:
                     continue
 
+                link_location = row.get("link_location", "content")
+                link_weight = float(row.get("link_weight", 1.0))
+
                 links_batch.append({
                     "source_url": source_url,
                     "target_url": target_url,
                     "anchor_text": anchor_text[:200] if anchor_text else None,
+                    "location": link_location,
+                    "weight": link_weight,
                 })
 
                 if len(links_batch) >= 500:

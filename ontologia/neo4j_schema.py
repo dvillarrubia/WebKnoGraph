@@ -97,12 +97,32 @@ SETUP_QUERIES = [
 
     """CREATE INDEX seo_url_client IF NOT EXISTS
        FOR (n:SeoURL) ON (n.client_id)""",
+
+    # === SeoSchema (Sprint 2) ===
+    """CREATE CONSTRAINT seo_schema_id IF NOT EXISTS
+       FOR (n:SeoSchema) REQUIRE (n.client_id, n.page_url, n.schemaType, n.position) IS UNIQUE""",
+
+    """CREATE INDEX seo_schema_client IF NOT EXISTS
+       FOR (n:SeoSchema) ON (n.client_id)""",
+
+    """CREATE INDEX seo_schema_type IF NOT EXISTS
+       FOR (n:SeoSchema) ON (n.schemaType)""",
+
+    # === SeoThing (Sprint 2) ===
+    """CREATE CONSTRAINT seo_thing_id IF NOT EXISTS
+       FOR (n:SeoThing) REQUIRE (n.client_id, n.name, n.thingType) IS UNIQUE""",
+
+    """CREATE INDEX seo_thing_client IF NOT EXISTS
+       FOR (n:SeoThing) ON (n.client_id)""",
+
+    """CREATE INDEX seo_thing_type IF NOT EXISTS
+       FOR (n:SeoThing) ON (n.thingType)""",
 ]
 
 # Cleanup removes ONLY the seovoc enrichment, preserving :Page nodes and :LINKS_TO
 CLEANUP_QUERIES = [
     # Remove SeoWebPage label from :Page nodes (keeps :Page + pagerank/HITS intact)
-    "MATCH (n:SeoWebPage {client_id: $client_id}) REMOVE n:SeoWebPage REMOVE n.metaDescription, n.markdownText, n.embeddingModel, n.isCrawlable, n.inLanguage, n.wordCount, n.clickDepth",
+    "MATCH (n:SeoWebPage {client_id: $client_id}) REMOVE n:SeoWebPage REMOVE n.metaDescription, n.markdownText, n.embeddingModel, n.isCrawlable, n.inLanguage, n.wordCount, n.clickDepth, n.publishingDate, n.metaTitle",
     # Delete satellite nodes (these are purely ontologia)
     "MATCH (n:SeoChunk {client_id: $client_id}) DETACH DELETE n",
     "MATCH (n:SeoURL {client_id: $client_id}) DETACH DELETE n",
@@ -114,7 +134,7 @@ CLEANUP_QUERIES = [
     "MATCH (n:SeoPersona {client_id: $client_id}) DETACH DELETE n",
     # Remove HAS_URL/HAS_CHUNK/HAS_LINK_GROUP rels from :Page (keeps :LINKS_TO)
     """MATCH (p:Page {client_id: $client_id})-[r]->()
-       WHERE type(r) IN ['HAS_URL','HAS_CHUNK','HAS_LINK_GROUP']
+       WHERE type(r) IN ['HAS_URL','HAS_CHUNK','HAS_LINK_GROUP','HAS_SCHEMA_MARKUP','ABOUT','MENTIONS']
        DELETE r""",
 ]
 

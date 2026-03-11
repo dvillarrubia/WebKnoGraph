@@ -46,7 +46,7 @@ async def export_to_ttl(
     g.bind("owl", OWL)
     g.bind("xsd", XSD)
 
-    stats = {"webpages": 0, "urls": 0, "chunks": 0, "links": 0, "link_groups": 0, "anchor_texts": 0}
+    stats = {"webpages": 0, "urls": 0, "chunks": 0, "links": 0, "link_groups": 0, "anchor_texts": 0, "schemas": 0, "things": 0}
 
     async with driver.session() as session:
         # Export fused Page:SeoWebPage nodes (includes both seovoc + graph_rag props)
@@ -82,6 +82,12 @@ async def export_to_ttl(
                 lang_ref = UOC[f"lang/{wp['inLanguage']}"]
                 g.add((page_ref, SCHEMA.inLanguage, lang_ref))
                 g.add((lang_ref, RDF.type, SCHEMA.Language))
+
+            # Sprint 2: publishingDate + metaTitle
+            if wp.get("publishingDate"):
+                g.add((page_ref, SEOVOC.publishingDate, Literal(wp["publishingDate"], datatype=XSD.dateTime)))
+            if wp.get("metaTitle"):
+                g.add((page_ref, SEOVOC.metaTitle, Literal(wp["metaTitle"], datatype=XSD.string)))
 
             # graph_rag scores (from fused :Page node) — exported as wkg: namespace
             if wp.get("pagerank") is not None:
@@ -174,6 +180,68 @@ async def export_to_ttl(
                     g.add((link_ref, SEOVOC.anchorResource, target_ref))
 
                 stats["links"] += 1
+
+        # Export SeoSchema nodes (Sprint 2)
+        result = await session.run(
+            """
+            MATCH (wp:Page:SeoWebPage {client_id: $client_id})-[:HAS_SCHEMA_MARKUP]->(sc:SeoSchema)
+            RETURN wp.url AS page_url, sc
+            """,
+            client_id=client_id,
+        )
+        records = await result.data()
+        for rec in records:
+            sc = rec["sc"]
+            page_ref = UOC[f"page/{_slug(rec['page_url'])}"]
+            schema_ref = UOC[f"schema/{_slug(rec['page_url'])}/{sc.get('position', 0)}"]
+
+            g.add((schema_ref, RDF.type, SEOVOC.Schema))
+            g.add((page_ref, SEOVOC.hasSchemaMarkup, schema_ref))
+            g.add((schema_ref, SEOVOC.describesPage, page_ref))
+
+            if sc.get("schemaType"):
+                g.add((schema_ref, SEOVOC.schemaType, Literal(sc["schemaType"], datatype=XSD.string)))
+            if sc.get("schemaValue"):
+                g.add((schema_ref, SEOVOC.schemaValue, Literal(sc["schemaValue"][:5000], datatype=XSD.string)))
+
+            stats["schemas"] += 1
+
+        # Export SeoThing nodes with ABOUT/MENTIONS (Sprint 2)
+        result = await session.run(
+            """
+            MATCH (wp:Page:SeoWebPage {client_id: $client_id})-[r:ABOUT|MENTIONS]->(th:SeoThing)
+            RETURN wp.url AS page_url, th, type(r) AS rel_type
+            """,
+            client_id=client_id,
+        )
+        records = await result.data()
+        seen_things = set()
+        for rec in records:
+            th = rec["th"]
+            page_ref = UOC[f"page/{_slug(rec['page_url'])}"]
+            thing_name = th.get("name", "")
+            thing_type = th.get("thingType", "Thing")
+            thing_ref = UOC[f"thing/{_slug(thing_name)}"]
+
+            # Add thing node only once
+            thing_key = (thing_name, thing_type)
+            if thing_key not in seen_things:
+                g.add((thing_ref, RDF.type, SCHEMA.Thing))
+                g.add((thing_ref, SEOVOC.label, Literal(thing_name, datatype=XSD.string)))
+                if thing_type != "Thing":
+                    g.add((thing_ref, SEOVOC.thingType, Literal(thing_type, datatype=XSD.string)))
+                if th.get("entity_id"):
+                    g.add((thing_ref, SCHEMA.identifier, Literal(th["entity_id"], datatype=XSD.string)))
+                if th.get("entity_url"):
+                    g.add((thing_ref, SCHEMA.url, _safe_uri(th["entity_url"])))
+                seen_things.add(thing_key)
+                stats["things"] += 1
+
+            # Add relationship
+            if rec["rel_type"] == "ABOUT":
+                g.add((page_ref, SEOVOC.about, thing_ref))
+            else:
+                g.add((page_ref, SEOVOC.mentions, thing_ref))
 
     # Serialize
     output_path = Path(output_path)

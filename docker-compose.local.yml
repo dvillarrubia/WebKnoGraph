@@ -88,6 +88,7 @@ services:
     volumes:
       - wkg-crawl-data:/app/data/crawl4ai_data
       - wkg-hf-cache:/home/appuser/.cache/huggingface
+      - ./ontologia:/app/ontologia
     depends_on:
       wkg-postgres:
         condition: service_healthy

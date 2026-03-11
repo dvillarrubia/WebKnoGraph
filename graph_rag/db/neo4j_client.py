@@ -160,7 +160,9 @@ class Neo4jClient:
                 MATCH (source:Page {client_id: $client_id, url: link.source_url})
                 MATCH (target:Page {client_id: $client_id, url: link.target_url})
                 MERGE (source)-[r:LINKS_TO]->(target)
-                SET r.anchor_text = link.anchor_text
+                SET r.anchor_text = link.anchor_text,
+                    r.location = link.location,
+                    r.weight = link.weight
                 """,
                 client_id=client_id,
                 links=links,
@@ -213,23 +215,28 @@ class Neo4jClient:
         client_id: str,
         url: str,
         limit: int = 50,
+        location: str = None,
     ) -> list[dict]:
-        """Get pages that a source URL links TO."""
+        """Get pages that a source URL links TO. Optionally filter by location."""
+        location_filter = "AND r.location = $location" if location else ""
         async with self.get_session() as session:
             result = await session.run(
-                """
-                MATCH (source:Page {client_id: $client_id, url: $url})
-                      -[:LINKS_TO]->(target:Page)
-                WHERE target.client_id = $client_id
+                f"""
+                MATCH (source:Page {{client_id: $client_id, url: $url}})
+                      -[r:LINKS_TO]->(target:Page)
+                WHERE target.client_id = $client_id {location_filter}
                 RETURN target.url AS url,
                        target.title AS title,
-                       target.pagerank AS pagerank
+                       target.pagerank AS pagerank,
+                       r.location AS location,
+                       r.anchor_text AS anchor_text
                 ORDER BY target.pagerank DESC
                 LIMIT $limit
                 """,
                 client_id=client_id,
                 url=url,
                 limit=limit,
+                location=location,
             )
             records = await result.data()
             return records
@@ -239,22 +246,27 @@ class Neo4jClient:
         client_id: str,
         url: str,
         limit: int = 50,
+        location: str = None,
     ) -> list[dict]:
-        """Get pages that link TO a target URL (backlinks)."""
+        """Get pages that link TO a target URL (backlinks). Optionally filter by location."""
+        location_filter = "AND r.location = $location" if location else ""
         async with self.get_session() as session:
             result = await session.run(
-                """
-                MATCH (source:Page)-[:LINKS_TO]->(target:Page {client_id: $client_id, url: $url})
-                WHERE source.client_id = $client_id
+                f"""
+                MATCH (source:Page)-[r:LINKS_TO]->(target:Page {{client_id: $client_id, url: $url}})
+                WHERE source.client_id = $client_id {location_filter}
                 RETURN source.url AS url,
                        source.title AS title,
-                       source.pagerank AS pagerank
+                       source.pagerank AS pagerank,
+                       r.location AS location,
+                       r.anchor_text AS anchor_text
                 ORDER BY source.pagerank DESC
                 LIMIT $limit
                 """,
                 client_id=client_id,
                 url=url,
                 limit=limit,
+                location=location,
             )
             records = await result.data()
             return records
