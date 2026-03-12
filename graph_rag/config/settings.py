@@ -22,8 +22,8 @@ class Settings(BaseSettings):
     # ==========================================================================
     # SUPABASE (pgvector)
     # ==========================================================================
-    supabase_url: str = Field(..., env="SUPABASE_URL")
-    supabase_key: str = Field(default="", alias="SUPABASE_SERVICE_KEY")  # Service role key (optional)
+    supabase_url: str = Field(default="", env="SUPABASE_URL")  # Legacy, unused — connection goes via SUPABASE_DB_* vars
+    supabase_key: str = Field(default="", alias="SUPABASE_SERVICE_KEY")  # Legacy, unused
     supabase_db_host: str = Field(default="localhost", env="SUPABASE_DB_HOST")
     supabase_db_port: int = Field(default=54322, env="SUPABASE_DB_PORT")
     supabase_db_name: str = Field(default="postgres", env="SUPABASE_DB_NAME")
