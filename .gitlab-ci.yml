@@ -1,0 +1,77 @@
+stages:
+  - build
+  - deploy-prod
+
+variables:
+  API_IMAGE: ${CI_REGISTRY_IMAGE}/api
+  CRAWLER_IMAGE: ${CI_REGISTRY_IMAGE}/crawler
+
+# Solo se ejecuta cuando se pushea un tag con formato wkg-vX.Y.Z
+.on-tag:
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^wkg-v\d+\.\d+\.\d+$/
+
+# ============================================
+# PRE: se lanza automaticamente al pushear tag
+# ============================================
+build-images:
+  stage: build
+  extends: .on-tag
+  tags:
+    - webknograph
+  image: docker:27
+  services:
+    - docker:27-dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  script:
+    - echo "Building tag ${CI_COMMIT_TAG}..."
+
+    # Build API (graph-rag + dashboard)
+    - docker build -f deploy/Dockerfile.api -t "${API_IMAGE}:${CI_COMMIT_TAG}" -t "${API_IMAGE}:latest" .
+
+    # Build Crawler (crawl4ai + playwright/chromium)
+    - docker build -f deploy/Dockerfile.crawler -t "${CRAWLER_IMAGE}:${CI_COMMIT_TAG}" -t "${CRAWLER_IMAGE}:latest" .
+
+    # Push
+    - docker push "${API_IMAGE}:${CI_COMMIT_TAG}"
+    - docker push "${API_IMAGE}:latest"
+    - docker push "${CRAWLER_IMAGE}:${CI_COMMIT_TAG}"
+    - docker push "${CRAWLER_IMAGE}:latest"
+
+    - echo "Images pushed to ${CI_REGISTRY_IMAGE}"
+
+# ============================================
+# PROD: se lanza manualmente desde GitLab UI
+# ============================================
+deploy-prod:
+  stage: deploy-prod
+  tags:
+    - webknograph
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^wkg-v\d+\.\d+\.\d+$/
+      when: manual
+  image: docker:27
+  services:
+    - docker:27-dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  script:
+    - VERSION=${CI_COMMIT_TAG#wkg-}
+    - echo "Promoting ${VERSION} to PROD..."
+
+    # Re-tag las imagenes de PRE como -prod
+    - docker pull "${API_IMAGE}:${CI_COMMIT_TAG}"
+    - docker pull "${CRAWLER_IMAGE}:${CI_COMMIT_TAG}"
+
+    - docker tag "${API_IMAGE}:${CI_COMMIT_TAG}" "${API_IMAGE}:${CI_COMMIT_TAG}-prod"
+    - docker tag "${API_IMAGE}:${CI_COMMIT_TAG}" "${API_IMAGE}:prod"
+    - docker tag "${CRAWLER_IMAGE}:${CI_COMMIT_TAG}" "${CRAWLER_IMAGE}:${CI_COMMIT_TAG}-prod"
+    - docker tag "${CRAWLER_IMAGE}:${CI_COMMIT_TAG}" "${CRAWLER_IMAGE}:prod"
+
+    - docker push "${API_IMAGE}:${CI_COMMIT_TAG}-prod"
+    - docker push "${API_IMAGE}:prod"
+    - docker push "${CRAWLER_IMAGE}:${CI_COMMIT_TAG}-prod"
+    - docker push "${CRAWLER_IMAGE}:prod"
+
+    - echo "PROD images pushed to ${CI_REGISTRY_IMAGE}"

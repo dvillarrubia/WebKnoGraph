@@ -2,8 +2,9 @@
 -- WebKnoGraph Graph-RAG: Multi-tenant Schema for Supabase + pgvector
 -- ============================================================================
 
--- Enable pgvector extension (should already be enabled in Supabase)
+-- Enable required extensions
 CREATE EXTENSION IF NOT EXISTS vector;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- ============================================================================
 -- CLIENTS TABLE
@@ -32,7 +33,8 @@ CREATE TABLE IF NOT EXISTS rag_pages (
     title TEXT,
     content TEXT,
     content_hash VARCHAR(64),  -- SHA256 hash to detect content changes
-    embedding vector(1024),     -- multilingual-e5-large dimension
+    embedding vector(768),      -- hiiamsid/sentence_similarity_spanish_es dimension
+    meta_description TEXT,
 
     -- Graph metrics (from PageRank/HITS analysis)
     pagerank FLOAT DEFAULT 0.0,
@@ -56,10 +58,30 @@ CREATE INDEX IF NOT EXISTS idx_rag_pages_pagerank ON rag_pages(client_id, pagera
 CREATE INDEX IF NOT EXISTS idx_rag_pages_folder_depth ON rag_pages(client_id, folder_depth);
 
 -- HNSW index for vector similarity search (pgvector)
--- Using cosine distance for multilingual-e5 embeddings
 CREATE INDEX IF NOT EXISTS idx_rag_pages_embedding ON rag_pages
 USING hnsw (embedding vector_cosine_ops)
 WITH (m = 16, ef_construction = 64);
+
+-- Full-text search on meta_description (Spanish)
+CREATE INDEX IF NOT EXISTS idx_rag_pages_meta_description ON rag_pages
+USING gin(to_tsvector('spanish', COALESCE(meta_description, '')));
+
+-- ============================================================================
+-- CHUNKS TABLE (semantic chunks with embeddings)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS rag_chunks (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    page_id UUID NOT NULL REFERENCES rag_pages(id) ON DELETE CASCADE,
+    chunk_index INTEGER NOT NULL,
+    content TEXT,
+    heading_context TEXT,
+    char_start INTEGER,
+    char_end INTEGER,
+    embedding vector(768),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    CONSTRAINT unique_page_chunk UNIQUE (page_id, chunk_index)
+);
+CREATE INDEX IF NOT EXISTS idx_rag_chunks_embedding ON rag_chunks USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 64);
 
 -- ============================================================================
 -- LINKS TABLE (edge list for internal links)
@@ -120,7 +142,7 @@ CREATE INDEX IF NOT EXISTS idx_rag_messages_conversation ON rag_messages(convers
 -- Function to search pages by semantic similarity
 CREATE OR REPLACE FUNCTION search_pages_by_similarity(
     p_client_id UUID,
-    p_query_embedding vector(1024),
+    p_query_embedding vector(768),
     p_limit INTEGER DEFAULT 10,
     p_min_pagerank FLOAT DEFAULT 0.0
 )
@@ -187,7 +209,14 @@ ALTER TABLE rag_links ENABLE ROW LEVEL SECURITY;
 ALTER TABLE rag_conversations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE rag_messages ENABLE ROW LEVEL SECURITY;
 
--- Policy: Service role can access all data
+-- Policy: Service role can access all data (DROP + CREATE for idempotency)
+DO $$ BEGIN
+    DROP POLICY IF EXISTS "Service role full access on rag_pages" ON rag_pages;
+    DROP POLICY IF EXISTS "Service role full access on rag_links" ON rag_links;
+    DROP POLICY IF EXISTS "Service role full access on rag_conversations" ON rag_conversations;
+    DROP POLICY IF EXISTS "Service role full access on rag_messages" ON rag_messages;
+END $$;
+
 CREATE POLICY "Service role full access on rag_pages" ON rag_pages
     FOR ALL USING (true);
 
