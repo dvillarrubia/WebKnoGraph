@@ -2,10 +2,9 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# System dependencies (including Playwright/Chromium requirements)
+# System dependencies for building Python C extensions
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        build-essential curl wget gnupg && \
+    apt-get install -y --no-install-recommends build-essential curl && \
     rm -rf /var/lib/apt/lists/*
 
 # Non-root user (created early for Playwright install)
@@ -15,7 +14,11 @@ RUN useradd --create-home appuser
 COPY crawler_service/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt gunicorn
 
-# Install Playwright browser dependencies (requires root)
+# Remove build tools no longer needed (saves ~200MB)
+RUN apt-get purge -y --auto-remove build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Playwright browser dependencies (requires root, adds runtime libs)
 RUN playwright install-deps chromium
 
 # Switch to appuser to install browser binaries in user space
