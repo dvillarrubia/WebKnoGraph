@@ -357,6 +357,62 @@ class Neo4jClient:
                 "link_count": record["link_count"],
             }
 
+    async def get_orphan_pages(
+        self,
+        client_id: str,
+        limit: int = 20,
+    ) -> list[dict]:
+        """Get pages with no incoming content links (orphan pages)."""
+        async with self.get_session() as session:
+            result = await session.run(
+                """
+                MATCH (p:Page {client_id: $client_id})
+                WHERE NOT EXISTS {
+                    MATCH (source:Page)-[r:LINKS_TO]->(p)
+                    WHERE source.client_id = $client_id AND r.location = 'content'
+                }
+                RETURN p.url AS url,
+                       p.title AS title,
+                       p.pagerank AS pagerank,
+                       p.folder_depth AS folder_depth
+                ORDER BY p.pagerank DESC
+                LIMIT $limit
+                """,
+                client_id=client_id,
+                limit=limit,
+            )
+            return await result.data()
+
+    async def get_silo_structure(
+        self,
+        client_id: str,
+        max_depth: int = 3,
+    ) -> list[dict]:
+        """Get site structure grouped by URL path prefix (silo analysis)."""
+        async with self.get_session() as session:
+            result = await session.run(
+                """
+                MATCH (p:Page {client_id: $client_id})
+                WITH p,
+                     split(replace(p.url, 'https://', ''), '/') AS parts
+                WITH p,
+                     CASE WHEN size(parts) > $max_depth + 1
+                          THEN reduce(s = '', i IN range(1, $max_depth) | s + '/' + parts[i])
+                          ELSE reduce(s = '', i IN range(1, size(parts)-1) | s + '/' + parts[i])
+                     END AS silo
+                WITH silo,
+                     count(p) AS page_count,
+                     avg(p.pagerank) AS avg_pagerank,
+                     sum(CASE WHEN p.pagerank > 0 THEN 1 ELSE 0 END) AS pages_with_links,
+                     collect(p.url)[0..3] AS sample_urls
+                RETURN silo, page_count, avg_pagerank, pages_with_links, sample_urls
+                ORDER BY page_count DESC
+                """,
+                client_id=client_id,
+                max_depth=max_depth,
+            )
+            return await result.data()
+
     async def delete_client_data(self, client_id: str) -> None:
         """Delete all data for a client."""
         async with self.get_session() as session:

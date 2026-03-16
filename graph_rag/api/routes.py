@@ -38,7 +38,8 @@ from graph_rag.services.rag_service import RAGService
 from graph_rag.services.migration_service import MigrationService
 from graph_rag.services.embedding_service import EmbeddingService
 from graph_rag.services.community_service import CommunityService
-from graph_rag.services.agentic_rag_service import AgenticRAGService, StepType
+from graph_rag.services.agentic_rag_service import AgenticRAGService
+from graph_rag.services.agents import StepType
 
 
 # =============================================================================
@@ -470,6 +471,8 @@ async def dashboard_query_agent(
                 }
                 if step.data:
                     event_data["data"] = step.data
+                if step.agent_name:
+                    event_data["agent_name"] = step.agent_name
 
                 yield f"data: {json.dumps(event_data, ensure_ascii=False)}\n\n"
 

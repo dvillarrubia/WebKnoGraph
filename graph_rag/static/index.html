@@ -414,6 +414,23 @@
             color: #ef4444;
         }
 
+        .agent-step-icon.delegation {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+        }
+
+        .agent-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            padding: 1px 6px;
+            border-radius: 8px;
+            background: rgba(168, 85, 247, 0.15);
+            color: #a855f7;
+            margin-left: 6px;
+            font-weight: 600;
+            vertical-align: middle;
+        }
+
         .agent-step-content {
             flex: 1;
             color: var(--text-secondary);
@@ -4114,14 +4131,24 @@
                     'tool_call': '🔧',
                     'tool_result': '✅',
                     'thinking': '💭',
-                    'error': '❌'
+                    'error': '❌',
+                    'delegation': '🎯'
                 };
                 const classes = {
                     'status': 'status',
                     'tool_call': 'tool',
                     'tool_result': 'result',
                     'thinking': 'thinking',
-                    'error': 'error'
+                    'error': 'error',
+                    'delegation': 'delegation'
+                };
+
+                const agentLabels = {
+                    'researcher': 'Investigador',
+                    'seo_analyst': 'SEO',
+                    'copywriter': 'Copy',
+                    'link_analyst': 'Enlaces',
+                    'auditor': 'Auditor'
                 };
 
                 const icon = icons[event.type] || '📌';
@@ -4135,9 +4162,16 @@
                     content = `<strong>${event.data.tool}</strong>(${args})`;
                 }
 
+                // Agent badge
+                let badge = '';
+                if (event.agent_name) {
+                    const label = agentLabels[event.agent_name] || event.agent_name;
+                    badge = `<span class="agent-badge">${label}</span>`;
+                }
+
                 return `<div class="agent-step ${cls}">
                     <span class="agent-step-icon ${cls}">${icon}</span>
-                    <span class="agent-step-content">${content}</span>
+                    <span class="agent-step-content">${content}${badge}</span>
                 </div>`;
             }
 

@@ -267,6 +267,29 @@ class SupabaseClient:
             )
             return [dict(row) for row in rows]
 
+    async def get_thin_pages(
+        self,
+        client_id: str,
+        max_word_count: int = 200,
+        limit: int = 20,
+    ) -> list[dict]:
+        """Get pages with thin content (low word count)."""
+        async with self.get_connection() as conn:
+            rows = await conn.fetch(
+                """
+                SELECT url, title, length(content) AS content_length,
+                       pagerank, folder_depth
+                FROM rag_pages
+                WHERE client_id = $1 AND (content IS NULL OR length(content) < $2)
+                ORDER BY pagerank DESC
+                LIMIT $3
+                """,
+                client_id,
+                max_word_count * 5,  # Approximate chars from word count
+                limit,
+            )
+            return [dict(row) for row in rows]
+
     # =========================================================================
     # VECTOR SEARCH
     # =========================================================================
