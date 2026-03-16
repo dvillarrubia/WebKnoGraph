@@ -43,12 +43,7 @@ COPY requirements-rag.txt .
 # Install Python dependencies + crawl4ai extras
 RUN pip install --no-cache-dir -r requirements-rag.txt \
     crawl4ai \
-    aiohttp \
-    scrapegraphai \
-    python-louvain \
-    beautifulsoup4 \
-    python-dotenv \
-    google-generativeai
+    aiohttp
 
 # Create non-root user before installing browsers
 RUN useradd --create-home --shell /bin/bash appuser

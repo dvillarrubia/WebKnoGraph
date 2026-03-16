@@ -265,3 +265,65 @@ header, footer, nav, aside, form, script, style, noscript, iframe
 ```
 
 Archivo completo: `/Users/dvillarrubia/webknoGraph/exclusiones_ilerna.md`
+
+---
+
+## Despliegues
+
+### Flujo de despliegue
+
+El despliegue se gestiona con GitLab CI/CD. El pipeline se dispara automáticamente al hacer push de un tag con formato `wkg-vX.Y.Z`.
+
+**Pasos para desplegar:**
+
+```bash
+# 1. Bump de versión (crea commit + tag)
+tools/release.sh --patch    # o --minor / --major
+
+# 2. Push a GitLab (dispara el build automático)
+git push && git push --tags
+
+# 3. Verificar el pipeline en:
+#    https://gitlab.lin3s.com/dvillarrubia/WebKnoGraph/-/pipelines
+#
+#    El stage "build" se ejecuta automáticamente y construye las imágenes:
+#      - gitlab.lin3s.com:5050/dvillarrubia/webknograph/api:wkg-vX.Y.Z
+#      - gitlab.lin3s.com:5050/dvillarrubia/webknograph/crawler:wkg-vX.Y.Z
+#
+#    El stage "deploy-prod" requiere ACCIÓN MANUAL → darle Play en el pipeline.
+
+# 4. Tras deploy-prod, actualizar el stack en Portainer con la nueva versión.
+```
+
+### tools/release.sh
+
+Soporta modo interactivo (sin args) y modo no interactivo (para agentes):
+
+```bash
+tools/release.sh             # Interactivo: pregunta patch/minor/major
+tools/release.sh --patch     # Bump patch automático (0.1.0 → 0.1.1)
+tools/release.sh --minor     # Bump minor automático (0.1.0 → 0.2.0)
+tools/release.sh --major     # Bump major automático (0.1.0 → 1.0.0)
+```
+
+El script:
+1. Lee la versión de `VERSION`
+2. Verifica que no hay cambios sin commitear
+3. Escribe la nueva versión en `VERSION`
+4. Hace commit `release: wkg-vX.Y.Z`
+5. Crea tag `wkg-vX.Y.Z`
+
+### GitLab CI/CD
+
+- **Pipeline URL**: https://gitlab.lin3s.com/dvillarrubia/WebKnoGraph/-/pipelines
+- **Runner tag**: `webknograph`
+- **Registry**: `gitlab.lin3s.com:5050/dvillarrubia/webknograph/{api,crawler}`
+- **Tag pattern**: `wkg-v*` (ej: `wkg-v0.2.0`)
+- **Stages**: `build` (automático) → `deploy-prod` (manual)
+
+### Portainer
+
+Ver `devops/README.md` para la documentación completa del stack.
+- **Bind mounts**: `/home/lin3s/webknograph/default/{pgdata,neo4jdata,crawl-data,hf-cache}`
+- **Networks**: `wkg-internal` (todos) + `proxy` (externa, para reverse proxy)
+- **Init DB**: Ejecutar `docker exec wkg-app python -m graph_rag.scripts.setup_db` tras primer despliegue

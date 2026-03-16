@@ -31,7 +31,7 @@ services:
     volumes:
       - wkg-neo4jdata:/data
     healthcheck:
-      test: ["CMD-SHELL", "cypher-shell -u neo4j -p neo4j123 'RETURN 1' || exit 1"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
       interval: 15s
       timeout: 10s
       retries: 5
