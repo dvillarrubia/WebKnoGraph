@@ -52,19 +52,27 @@ async def setup_neo4j(uri: str, user: str, password: str):
     constraints_path = Path(__file__).parent.parent / "db" / "neo4j" / "001_constraints.cypher"
     cypher_content = constraints_path.read_text()
 
-    # Extract individual statements (skip comments)
+    # Extract individual statements (skip comments, join multiline)
     statements = []
+    current = []
     for line in cypher_content.split("\n"):
         line = line.strip()
-        if line and not line.startswith("//"):
-            statements.append(line)
+        if not line or line.startswith("//"):
+            # End of a statement block — flush
+            if current:
+                statements.append(" ".join(current))
+                current = []
+            continue
+        current.append(line)
+    if current:
+        statements.append(" ".join(current))
 
     async with driver.session() as session:
         for stmt in statements:
             if stmt.startswith("CREATE"):
                 try:
                     await session.run(stmt)
-                    print(f"  Executed: {stmt[:60]}...")
+                    print(f"  OK: {stmt[:70]}...")
                 except Exception as e:
                     print(f"  Warning: {e}")
 
