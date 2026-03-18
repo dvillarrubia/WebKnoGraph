@@ -28,8 +28,10 @@ _pending_links = []
 _output_path = None
 _shutdown_requested = False
 _last_activity = 0  # Timestamp de última actividad para watchdog
-_watchdog_timeout = 120  # Segundos sin actividad antes de intervenir
+_watchdog_timeout = 180  # 3 minutos sin actividad antes de intervenir
 _browser_pid = None  # PID del proceso del browser para kill forzado
+_watchdog_killed = False  # Flag para que el loop principal sepa que el watchdog intervino
+BROWSER_RESTART_EVERY = 100  # Reiniciar browser cada N páginas (previene memory leaks)
 
 import pandas as pd
 from tqdm import tqdm
@@ -239,7 +241,7 @@ def _kill_chrome_processes():
 
 def _watchdog_thread(stop_event: threading.Event):
     """Thread watchdog que detecta cuelgues y mata el browser."""
-    global _last_activity, _shutdown_requested
+    global _last_activity, _shutdown_requested, _watchdog_killed
 
     while not stop_event.is_set():
         time.sleep(10)  # Check cada 10 segundos
@@ -255,9 +257,12 @@ def _watchdog_thread(stop_event: threading.Event):
                 # Guardar datos pendientes
                 _emergency_save()
 
-                # Matar procesos de Chrome
+                # Matar procesos de Chrome — esto hará que crawler.arun() lance excepción
                 killed = _kill_chrome_processes()
                 print(f"  Procesos Chrome eliminados: {killed}")
+
+                # Señalizar al loop principal para que reinicie el browser
+                _watchdog_killed = True
 
                 # Resetear actividad para no triggear continuamente
                 _last_activity = time.time()
@@ -710,7 +715,7 @@ async def crawl_site_advanced(
     sitemap_only: bool = False,  # Solo crawlear URLs del sitemap (no seguir enlaces)
 ):
     """Advanced crawl with sitemap and link extraction."""
-    global _output_path, _pending_results, _pending_links
+    global _output_path, _pending_results, _pending_links, _watchdog_killed
 
     base_domain = urlparse(start_url).netloc
     output_path = Path(output_dir) / base_domain.replace(".", "_")
@@ -769,7 +774,22 @@ async def crawl_site_advanced(
 
     update_status(status_path, status="running", pages_crawled=0, links_found=0, errors=0)
 
-    browser_cfg = BrowserConfig(headless=headless, verbose=False)
+    browser_cfg = BrowserConfig(
+        headless=headless,
+        verbose=False,
+        text_mode=True,     # No carga imágenes/CSS → más rápido y estable
+        light_mode=True,    # Optimizaciones adicionales de recursos
+        extra_args=[
+            "--disable-gpu",
+            "--disable-dev-shm-usage",  # Evita crashes por shared memory en Docker
+            "--no-sandbox",
+            "--disable-extensions",
+            "--disable-background-networking",
+            "--disable-default-apps",
+            "--disable-sync",
+            "--disable-translate",
+        ],
+    )
 
     # Markdown generator SIN PruningContentFilter
     # El filtrado se hace con JavaScript (elimina nav, header, footer, cookies)
@@ -848,9 +868,9 @@ async def crawl_site_advanced(
     # NO usar wait_until="networkidle" porque se cuelga con websockets
     crawler_cfg = CrawlerRunConfig(
         cache_mode=CacheMode.BYPASS,
-        wait_until="load",
-        page_timeout=60000,
-        delay_before_return_html=5.0,
+        wait_until="domcontentloaded",  # Más rápido que "load", no espera imágenes/CSS
+        page_timeout=45000,             # 45s timeout de página (antes 60s)
+        delay_before_return_html=2.0,   # 2s para JS dinámico (antes 5s)
         js_code=js_remove_overlays,
         markdown_generator=markdown_generator,
         # SIN css_selector - evita duplicación de contenido en elementos anidados
@@ -864,9 +884,9 @@ async def crawl_site_advanced(
     # NOTA: delay_before_return_html=5.0 para dar tiempo a JS de renderizar contenido dinámico
     crawler_cfg_fallback = CrawlerRunConfig(
         cache_mode=CacheMode.BYPASS,
-        wait_until="load",
-        page_timeout=60000,
-        delay_before_return_html=5.0,
+        wait_until="domcontentloaded",
+        page_timeout=45000,
+        delay_before_return_html=2.0,
         js_code=js_remove_overlays,
         markdown_generator=markdown_generator,
         # SIN css_selector - captura todo el body
@@ -918,7 +938,7 @@ async def crawl_site_advanced(
     _update_activity()  # Marcar inicio
 
     # Variables para auto-recovery
-    max_browser_restarts = 5
+    max_browser_restarts = 50  # Permitir muchos reinicios (cada 100 páginas = reinicio normal)
     browser_restarts = 0
     page_num = 0
     consecutive_errors = 0
@@ -935,12 +955,25 @@ async def crawl_site_advanced(
                 log(f"Browser iniciado (reinicio #{browser_restarts})" if browser_restarts > 0 else "Browser iniciado", "INFO")
                 pbar = tqdm(total=max_pages if max_pages > 0 else len(to_visit), desc="Crawling", initial=page_num)
 
+                pages_this_browser = 0  # Contador de páginas en esta sesión de browser
+
                 while to_visit and (max_pages == 0 or len(visited) - pages_prev < max_pages):
+                    # Check si el watchdog mató el browser
+                    if _watchdog_killed:
+                        _watchdog_killed = False
+                        log("Watchdog intervino — reiniciando browser...", "WARN")
+                        break
+
                     # Check si debemos reiniciar por errores consecutivos
                     if consecutive_errors >= max_consecutive_errors:
                         log(f"Demasiados errores consecutivos ({consecutive_errors}), reiniciando browser...", "WARN")
                         consecutive_errors = 0
                         break  # Sale del while interno, reinicia browser
+
+                    # Reinicio preventivo cada BROWSER_RESTART_EVERY páginas
+                    if pages_this_browser > 0 and pages_this_browser % BROWSER_RESTART_EVERY == 0:
+                        log(f"Reinicio preventivo del navegador (cada {BROWSER_RESTART_EVERY} páginas)", "INFO")
+                        break
 
                     url = to_visit.pop(0)
 
@@ -986,7 +1019,7 @@ async def crawl_site_advanced(
                         try:
                             result = await asyncio.wait_for(
                                 crawler.arun(url=url, config=crawler_cfg),
-                                timeout=90.0  # 90 segundos máximo absoluto
+                                timeout=60.0  # 60 segundos máximo absoluto
                             )
                         except asyncio.TimeoutError:
                             errors += 1
@@ -997,6 +1030,7 @@ async def crawl_site_advanced(
                         fetch_time = time.time() - fetch_start
                         _update_activity()  # Marcar actividad para watchdog
                         consecutive_errors = 0  # Reset en éxito
+                        pages_this_browser += 1
 
                         if result.success:
                             html = result.html or ""
@@ -1214,15 +1248,16 @@ async def crawl_site_advanced(
                         results, links_graph = [], []
                         _pending_results, _pending_links = [], []
 
-                    # Reinicio preventivo del navegador cada 300 páginas para evitar memory leaks
-                    pages_this_session = page_num % 300
-                    if page_num > 0 and pages_this_session == 0:
-                        log(f"🔄 Reinicio preventivo del navegador (cada 300 páginas)", "INFO")
-                        break  # Sale del while interno, reinicia browser
-
                     await asyncio.sleep(delay)
 
                 pbar.close()
+
+                # Guardar datos pendientes antes de reiniciar browser
+                if results or links_graph:
+                    log(f"Guardando datos antes de reinicio: {len(results)} páginas, {len(links_graph)} enlaces", "SAVE")
+                    save_results(results, links_graph, output_path)
+                    results, links_graph = [], []
+                    _pending_results, _pending_links = [], []
 
         except Exception as browser_error:
             # Browser crashed - save data and restart

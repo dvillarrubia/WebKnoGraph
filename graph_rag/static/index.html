@@ -2142,6 +2142,14 @@
                     <i class="bi bi-database-add"></i>
                     <span>3. Ingestión</span>
                 </a>
+                <a class="nav-item" data-section="ontology">
+                    <i class="bi bi-diagram-3"></i>
+                    <span>4. Ontología</span>
+                </a>
+                <a class="nav-item" data-section="entities">
+                    <i class="bi bi-tags"></i>
+                    <span>5. Entidades</span>
+                </a>
             </div>
 
             <div class="nav-section">
@@ -3100,6 +3108,214 @@
             </div>
         </section>
 
+        <!-- SEOntology Section -->
+        <section id="ontology" class="section">
+            <div class="page-header">
+                <h1 class="page-title">Ontología SEO</h1>
+                <p class="page-subtitle">Enriquecimiento ontológico con SEOntology (seovoc)</p>
+            </div>
+
+            <div class="row">
+                <!-- Left: Status -->
+                <div class="col-lg-8">
+                    <div class="card mb-3">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title"><i class="bi bi-diagram-3"></i> Estado del Enriquecimiento</h5>
+                            <button class="btn btn-outline-secondary btn-sm" id="ontologyRefreshStats">
+                                <i class="bi bi-arrow-clockwise"></i> Actualizar
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="ontologyStatsContent">
+                                <p class="text-muted text-center py-3">Selecciona un cliente para ver el estado</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"><i class="bi bi-info-circle"></i> Información</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-2" style="font-size: 0.85rem;">El pipeline SEOntology enriquece los nodos del grafo con propiedades de <code>seovoc.ttl</code>:</p>
+                            <ul style="font-size: 0.85rem; margin-bottom: 0;">
+                                <li><strong>SeoWebPage</strong> — Label adicional en :Page con metadatos SEO</li>
+                                <li><strong>SeoChunk</strong> — Chunks semánticos con posición</li>
+                                <li><strong>SeoURL, SeoLink, SeoLinkGroup</strong> — Estructura de enlaces</li>
+                                <li><strong>SeoSchema</strong> — JSON-LD extraído del HTML</li>
+                                <li><strong>SeoThing</strong> — Entidades de schema.org (about/mentions)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Config -->
+                <div class="col-lg-4">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title"><i class="bi bi-gear"></i> Configuración</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label>Cliente *</label>
+                                <select class="form-select" id="ontologyClientSelect">
+                                    <option value="">Selecciona un cliente...</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Crawl *</label>
+                                <select class="form-select" id="ontologyCrawlSelect">
+                                    <option value="">Selecciona un crawl...</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Dominio *</label>
+                                <input type="text" class="form-control" id="ontologyDomain" placeholder="www.ejemplo.com" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="ontologyRefresh">
+                                    <label class="form-check-label">Limpiar datos SEO antes</label>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="ontologyWithChunks">
+                                    <label class="form-check-label">Incluir chunks de Supabase</label>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100 mb-2" id="startOntologyIngest" disabled>
+                                <i class="bi bi-diagram-3"></i> Ejecutar SEOntology Ingest
+                            </button>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-secondary flex-fill btn-sm" id="ontologySetupSchema">
+                                    <i class="bi bi-database-gear"></i> Setup Schema
+                                </button>
+                                <button class="btn btn-outline-danger flex-fill btn-sm" id="ontologyCleanup" disabled>
+                                    <i class="bi bi-trash"></i> Cleanup
+                                </button>
+                            </div>
+                            <div id="ontologyStatus" class="mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Entities Section -->
+        <section id="entities" class="section">
+            <div class="page-header">
+                <h1 class="page-title">Extracción de Entidades</h1>
+                <p class="page-subtitle">NER con GLiNER sobre las páginas indexadas</p>
+            </div>
+
+            <div class="row">
+                <!-- Left: Results -->
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title"><i class="bi bi-tags"></i> Entidades Extraídas</h5>
+                            <div class="d-flex gap-2 align-items-center">
+                                <select class="form-select form-select-sm" id="entitiesFilterLabel" style="width: auto; min-width: 150px;">
+                                    <option value="">Todos los tipos</option>
+                                </select>
+                                <span class="badge bg-secondary" id="entitiesCount">0</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="entitiesStatsBar" class="alert alert-info mb-3" style="display: none;">
+                                <div class="d-flex justify-content-between" style="font-size: 0.85rem;">
+                                    <span>Brutas: <strong id="statTotalRaw">0</strong></span>
+                                    <span>Genéricas: <strong id="statRemovedGeneric">0</strong></span>
+                                    <span>Score bajo: <strong id="statRemovedScore">0</strong></span>
+                                    <span>Únicas: <strong id="statUnique">0</strong></span>
+                                    <span>Páginas: <strong id="statPages">0</strong></span>
+                                </div>
+                            </div>
+                            <div id="entitiesTableContainer" style="max-height: 500px; overflow-y: auto;">
+                                <p class="text-muted text-center py-4">
+                                    <i class="bi bi-tags" style="font-size: 2rem;"></i><br>
+                                    Configura y ejecuta la extracción para ver resultados
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Config -->
+                <div class="col-lg-4">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="card-title"><i class="bi bi-gear"></i> Configuración</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label>Cliente *</label>
+                                <select class="form-select" id="entitiesClientSelect">
+                                    <option value="">Selecciona un cliente...</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Páginas a procesar</label>
+                                <input type="number" class="form-control" id="entitiesSampleSize" placeholder="Vacío = todas" min="1" />
+                                <small class="text-muted">Vacío procesa todas las páginas</small>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Threshold extracción</label>
+                                <input type="number" class="form-control" id="entitiesThreshold" value="0.5" min="0" max="1" step="0.05" />
+                                <small class="text-muted">Confianza mínima del modelo GLiNER</small>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Min. score postproceso</label>
+                                <input type="number" class="form-control" id="entitiesMinScore" value="0.6" min="0" max="1" step="0.05" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Min. apariciones</label>
+                                <input type="number" class="form-control" id="entitiesMinCount" value="1" min="1" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Labels (uno por línea)</label>
+                                <textarea class="form-control" id="entitiesLabels" rows="6" style="font-size: 0.8rem;">nombre de persona
+universidad
+empresa
+institución
+grado universitario
+máster universitario
+doctorado
+curso
+asignatura
+especialización
+créditos ECTS
+precio
+duración
+programming language
+software
+technology
+campo de estudio
+sector profesional
+ciudad
+país</textarea>
+                            </div>
+                            <button class="btn btn-primary w-100" id="startEntitiesExtract" disabled>
+                                <i class="bi bi-tags"></i> Extraer Entidades
+                            </button>
+                            <div id="entitiesStatus" class="mt-3"></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title"><i class="bi bi-cpu"></i> Modelo GLiNER</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="glinerModelStatus">
+                                <span class="badge bg-secondary">No cargado</span>
+                            </div>
+                            <small class="text-muted">El modelo se carga en la primera extracción (~10s)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Preview Modal (Fullscreen) -->
         <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-fullscreen">
@@ -3701,7 +3917,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Configuration
-        const API_URL = localStorage.getItem('apiUrl') || 'http://localhost:8080';
+        const API_URL = localStorage.getItem('apiUrl') || window.location.origin;
 
         // State
         let currentClient = null;
@@ -3758,6 +3974,8 @@
             initCrawler();
             initIngest();
             initCleaner();
+            initOntology();
+            initEntities();
             initClients();
             initSettings();
             initInterlinking();
@@ -3840,6 +4058,10 @@
                     updateClientSelects();
                     updateClientsTable();
                     updateStats();
+                    // Notify any registered callbacks (ontology, entities, etc.)
+                    if (window._afterClientsLoaded) {
+                        window._afterClientsLoaded.forEach(fn => { try { fn(); } catch(e) { console.error(e); } });
+                    }
                 }
             } catch (error) {
                 console.error('Error loading clients:', error);
@@ -5714,6 +5936,374 @@
                 } finally {
                     startBtn.disabled = false;
                     startBtn.innerHTML = '<i class="bi bi-database-add"></i> Iniciar Ingestión';
+                }
+            });
+        }
+
+        // =====================================================================
+        // ONTOLOGY
+        // =====================================================================
+        function initOntology() {
+            const clientSelect = document.getElementById('ontologyClientSelect');
+            const crawlSelect = document.getElementById('ontologyCrawlSelect');
+            const domainInput = document.getElementById('ontologyDomain');
+            const startBtn = document.getElementById('startOntologyIngest');
+            const setupBtn = document.getElementById('ontologySetupSchema');
+            const cleanupBtn = document.getElementById('ontologyCleanup');
+            const statusDiv = document.getElementById('ontologyStatus');
+            const statsContent = document.getElementById('ontologyStatsContent');
+
+            // Populate clients
+            function updateOntologyClients() {
+                if (!clients.length) return;
+                clientSelect.innerHTML = '<option value="">Selecciona un cliente...</option>' +
+                    clients.map(c => `<option value="${c.id}" data-domain="${c.domain}">${c.name} (${c.domain})</option>`).join('');
+            }
+            const _origLoadClients4 = window._afterClientsLoaded || [];
+            window._afterClientsLoaded = _origLoadClients4;
+            window._afterClientsLoaded.push(updateOntologyClients);
+            updateOntologyClients();
+
+            // Load crawls
+            async function loadOntologyCrawls() {
+                try {
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/crawler/crawls`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        crawlSelect.innerHTML = '<option value="">Selecciona un crawl...</option>' +
+                            data.crawls.map(c => `<option value="${c.path}" data-domain="${c.name.replace(/_/g, '.')}">${c.name.replace(/_/g, '.')} (${c.pages} págs)</option>`).join('');
+                    }
+                } catch (e) { console.error('Error loading crawls for ontology:', e); }
+            }
+            loadOntologyCrawls();
+
+            // Enable/disable buttons based on selection
+            function updateOntologyButtons() {
+                const hasClient = !!clientSelect.value;
+                const hasCrawl = !!crawlSelect.value;
+                const hasDomain = !!domainInput.value.trim();
+                startBtn.disabled = !(hasClient && hasCrawl && hasDomain);
+                cleanupBtn.disabled = !hasClient;
+            }
+            clientSelect.addEventListener('change', () => {
+                const opt = clientSelect.selectedOptions[0];
+                if (opt && opt.dataset.domain) {
+                    domainInput.value = opt.dataset.domain;
+                }
+                updateOntologyButtons();
+                if (clientSelect.value) loadOntologyStats();
+            });
+            crawlSelect.addEventListener('change', () => {
+                const opt = crawlSelect.selectedOptions[0];
+                if (opt && opt.dataset.domain && !domainInput.value) {
+                    domainInput.value = opt.dataset.domain;
+                }
+                updateOntologyButtons();
+            });
+            domainInput.addEventListener('input', updateOntologyButtons);
+
+            // Load stats
+            async function loadOntologyStats() {
+                const clientId = clientSelect.value;
+                if (!clientId) {
+                    statsContent.innerHTML = '<p class="text-muted text-center py-3">Selecciona un cliente para ver el estado</p>';
+                    return;
+                }
+                statsContent.innerHTML = '<div class="text-center py-3"><div class="spinner"></div> Cargando...</div>';
+                try {
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/ontology/stats/${clientId}`);
+                    if (response.ok) {
+                        const stats = await response.json();
+                        const labels = ['SeoWebPage', 'SeoChunk', 'SeoURL', 'SeoLink', 'SeoLinkGroup', 'SeoAnchorText', 'SeoSchema', 'SeoThing'];
+                        const icons = ['bi-file-earmark', 'bi-puzzle', 'bi-link', 'bi-arrow-right', 'bi-collection', 'bi-type', 'bi-code-slash', 'bi-lightbulb'];
+                        const total = labels.reduce((s, l) => s + (stats[l] || 0), 0);
+                        statsContent.innerHTML = `
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted">Total nodos SEO:</span>
+                                <span class="badge bg-primary">${total}</span>
+                            </div>
+                            <div class="row g-2">
+                                ${labels.map((l, i) => `
+                                    <div class="col-6 col-md-3">
+                                        <div class="text-center p-2" style="background: var(--bg-input); border-radius: 8px;">
+                                            <i class="bi ${icons[i]} d-block mb-1" style="font-size: 1.2rem;"></i>
+                                            <div style="font-size: 1.1rem; font-weight: 600;">${stats[l] || 0}</div>
+                                            <small class="text-muted">${l.replace('Seo', '')}</small>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    } else {
+                        statsContent.innerHTML = '<p class="text-danger">Error al cargar estadísticas</p>';
+                    }
+                } catch (e) {
+                    statsContent.innerHTML = '<p class="text-danger">Error de conexión</p>';
+                }
+            }
+
+            document.getElementById('ontologyRefreshStats').addEventListener('click', loadOntologyStats);
+
+            // Start ingest
+            startBtn.addEventListener('click', async () => {
+                const clientId = clientSelect.value;
+                const crawlDir = crawlSelect.value;
+                const domain = domainInput.value.trim();
+                if (!clientId || !crawlDir || !domain) return;
+
+                startBtn.disabled = true;
+                startBtn.innerHTML = '<div class="spinner" style="width:16px;height:16px;"></div> Procesando...';
+                statusDiv.innerHTML = '<p class="text-warning"><i class="bi bi-hourglass-split"></i> Ejecutando SEOntology ingest... Puede tardar varios minutos.</p>';
+
+                try {
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/ontology/ingest`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            client_id: clientId,
+                            crawl_dir: crawlDir,
+                            domain: domain,
+                            refresh: document.getElementById('ontologyRefresh').checked,
+                            with_chunks: document.getElementById('ontologyWithChunks').checked,
+                        })
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        showToast(`SEOntology completado: ${data.webpages} páginas enriquecidas`);
+                        statusDiv.innerHTML = `
+                            <div class="alert alert-success">
+                                <h6><i class="bi bi-check-circle"></i> Completado</h6>
+                                <ul style="margin: 0.5rem 0 0 0; padding-left: 1.25rem; font-size: 0.85rem;">
+                                    <li>WebPages: ${data.webpages}</li>
+                                    <li>Chunks: ${data.chunks}</li>
+                                    <li>URLs: ${data.urls}</li>
+                                    <li>Links: ${data.links}</li>
+                                    <li>Schemas: ${data.schemas}</li>
+                                    <li>Things: ${data.things}</li>
+                                    <li>Relaciones: ${data.relationships}</li>
+                                    ${data.errors && data.errors.length ? `<li class="text-warning">Errores: ${data.errors.join(', ')}</li>` : ''}
+                                </ul>
+                            </div>`;
+                        loadOntologyStats();
+                    } else {
+                        const err = await response.json();
+                        showToast(err.detail || 'Error en SEOntology ingest', 'error');
+                        statusDiv.innerHTML = `<p class="text-danger"><i class="bi bi-x-circle"></i> ${err.detail || 'Error'}</p>`;
+                    }
+                } catch (e) {
+                    showToast('Error de conexión', 'error');
+                    statusDiv.innerHTML = '<p class="text-danger"><i class="bi bi-x-circle"></i> Error de conexión</p>';
+                } finally {
+                    startBtn.disabled = false;
+                    startBtn.innerHTML = '<i class="bi bi-diagram-3"></i> Ejecutar SEOntology Ingest';
+                    updateOntologyButtons();
+                }
+            });
+
+            // Setup schema
+            setupBtn.addEventListener('click', async () => {
+                setupBtn.disabled = true;
+                try {
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/ontology/setup-schema`, { method: 'POST' });
+                    if (response.ok) {
+                        const data = await response.json();
+                        showToast(`Schema creado: ${data.constraints_created} constraints/indexes`);
+                    } else {
+                        const err = await response.json();
+                        showToast(err.detail || 'Error', 'error');
+                    }
+                } catch (e) { showToast('Error de conexión', 'error'); }
+                finally { setupBtn.disabled = false; }
+            });
+
+            // Cleanup
+            cleanupBtn.addEventListener('click', async () => {
+                const clientId = clientSelect.value;
+                if (!clientId) return;
+                if (!confirm('¿Eliminar todos los datos SEOntology de este cliente? Los nodos :Page y :LINKS_TO se conservan.')) return;
+
+                cleanupBtn.disabled = true;
+                try {
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/ontology/cleanup`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ client_id: clientId })
+                    });
+                    if (response.ok) {
+                        showToast('Datos SEOntology eliminados');
+                        loadOntologyStats();
+                        statusDiv.innerHTML = '';
+                    } else {
+                        const err = await response.json();
+                        showToast(err.detail || 'Error', 'error');
+                    }
+                } catch (e) { showToast('Error de conexión', 'error'); }
+                finally { cleanupBtn.disabled = false; updateOntologyButtons(); }
+            });
+        }
+
+        // =====================================================================
+        // ENTITIES (GLiNER)
+        // =====================================================================
+        function initEntities() {
+            const clientSelect = document.getElementById('entitiesClientSelect');
+            const startBtn = document.getElementById('startEntitiesExtract');
+            const statusDiv = document.getElementById('entitiesStatus');
+            const tableContainer = document.getElementById('entitiesTableContainer');
+            const filterLabel = document.getElementById('entitiesFilterLabel');
+            const statsBar = document.getElementById('entitiesStatsBar');
+
+            let allEntities = [];
+
+            // Populate clients
+            function updateEntitiesClients() {
+                if (!clients.length) return;
+                clientSelect.innerHTML = '<option value="">Selecciona un cliente...</option>' +
+                    clients.map(c => `<option value="${c.id}">${c.name} (${c.domain})</option>`).join('');
+            }
+            window._afterClientsLoaded = window._afterClientsLoaded || [];
+            window._afterClientsLoaded.push(updateEntitiesClients);
+            updateEntitiesClients();
+
+            clientSelect.addEventListener('change', () => {
+                startBtn.disabled = !clientSelect.value;
+            });
+
+            // Label color map
+            const labelColors = {
+                'nombre de persona': '#e74c3c', 'universidad': '#3498db', 'empresa': '#2ecc71',
+                'institución': '#9b59b6', 'grado universitario': '#f39c12', 'máster universitario': '#e67e22',
+                'doctorado': '#1abc9c', 'curso': '#34495e', 'asignatura': '#16a085',
+                'especialización': '#d35400', 'créditos ECTS': '#7f8c8d', 'precio': '#c0392b',
+                'duración': '#8e44ad', 'programming language': '#2980b9', 'software': '#27ae60',
+                'technology': '#f1c40f', 'campo de estudio': '#e74c3c', 'sector profesional': '#3498db',
+                'ciudad': '#1abc9c', 'país': '#9b59b6',
+            };
+            function getLabelColor(label) {
+                return labelColors[label] || '#6c757d';
+            }
+
+            // Render entities table
+            function renderEntities(entities) {
+                if (!entities.length) {
+                    tableContainer.innerHTML = '<p class="text-muted text-center py-3">Sin entidades</p>';
+                    document.getElementById('entitiesCount').textContent = '0';
+                    return;
+                }
+                document.getElementById('entitiesCount').textContent = entities.length;
+                tableContainer.innerHTML = `
+                    <table class="table table-sm" style="font-size: 0.85rem;">
+                        <thead><tr>
+                            <th>Entidad</th>
+                            <th>Tipo</th>
+                            <th>Score</th>
+                            <th>Count</th>
+                            <th>Págs</th>
+                        </tr></thead>
+                        <tbody>
+                            ${entities.map(e => `
+                                <tr>
+                                    <td><strong>${e.text}</strong>${e.variants && e.variants.length > 1 ? `<br><small class="text-muted">${e.variants.slice(0, 3).join(', ')}</small>` : ''}</td>
+                                    <td><span class="badge" style="background: ${getLabelColor(e.label)}">${e.label}</span></td>
+                                    <td>${e.score.toFixed(3)}</td>
+                                    <td>${e.count}</td>
+                                    <td>${e.pages}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>`;
+            }
+
+            // Filter by label
+            filterLabel.addEventListener('change', () => {
+                const val = filterLabel.value;
+                const filtered = val ? allEntities.filter(e => e.label === val) : allEntities;
+                renderEntities(filtered);
+            });
+
+            // Check GLiNER model status
+            async function checkGlinerStatus() {
+                try {
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/gliner/status`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        const el = document.getElementById('glinerModelStatus');
+                        if (data.model_loaded) {
+                            el.innerHTML = `<span class="badge bg-success">Cargado</span> <small class="text-muted">${data.model_name}</small>`;
+                        } else {
+                            el.innerHTML = '<span class="badge bg-secondary">No cargado</span>';
+                        }
+                    }
+                } catch (e) { /* ignore */ }
+            }
+            checkGlinerStatus();
+
+            // Start extraction
+            startBtn.addEventListener('click', async () => {
+                const clientId = clientSelect.value;
+                if (!clientId) return;
+
+                const sampleSize = parseInt(document.getElementById('entitiesSampleSize').value) || null;
+                const threshold = parseFloat(document.getElementById('entitiesThreshold').value) || 0.5;
+                const minScore = parseFloat(document.getElementById('entitiesMinScore').value) || 0.6;
+                const minCount = parseInt(document.getElementById('entitiesMinCount').value) || 1;
+                const labelsText = document.getElementById('entitiesLabels').value.trim();
+                const labels = labelsText ? labelsText.split('\n').map(l => l.trim()).filter(l => l) : null;
+
+                startBtn.disabled = true;
+                startBtn.innerHTML = '<div class="spinner" style="width:16px;height:16px;"></div> Extrayendo...';
+                statusDiv.innerHTML = '<p class="text-warning"><i class="bi bi-hourglass-split"></i> Extrayendo entidades... Puede tardar varios minutos.</p>';
+                tableContainer.innerHTML = '<div class="text-center py-4"><div class="spinner"></div> Procesando páginas con GLiNER...</div>';
+
+                try {
+                    const response = await fetch(`${API_URL}/api/v1/dashboard/gliner/extract`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            client_id: clientId,
+                            sample_size: sampleSize,
+                            threshold: threshold,
+                            min_score: minScore,
+                            min_count: minCount,
+                            labels: labels,
+                        })
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        allEntities = data.entities || [];
+                        const stats = data.stats || {};
+
+                        showToast(`Extracción completada: ${stats.unique_entities || 0} entidades únicas de ${data.pages_processed || 0} páginas`);
+                        statusDiv.innerHTML = '';
+
+                        // Update stats bar
+                        statsBar.style.display = 'block';
+                        document.getElementById('statTotalRaw').textContent = stats.total_raw || 0;
+                        document.getElementById('statRemovedGeneric').textContent = stats.removed_generic || 0;
+                        document.getElementById('statRemovedScore').textContent = stats.removed_low_score || 0;
+                        document.getElementById('statUnique').textContent = stats.unique_entities || 0;
+                        document.getElementById('statPages').textContent = data.pages_processed || 0;
+
+                        // Update label filter
+                        const uniqueLabels = [...new Set(allEntities.map(e => e.label))].sort();
+                        filterLabel.innerHTML = '<option value="">Todos los tipos</option>' +
+                            uniqueLabels.map(l => `<option value="${l}">${l}</option>`).join('');
+
+                        renderEntities(allEntities);
+                        checkGlinerStatus();
+                    } else {
+                        const err = await response.json();
+                        showToast(err.detail || 'Error en extracción', 'error');
+                        statusDiv.innerHTML = `<p class="text-danger"><i class="bi bi-x-circle"></i> ${err.detail || 'Error'}</p>`;
+                        tableContainer.innerHTML = '<p class="text-muted text-center py-4">Error en la extracción</p>';
+                    }
+                } catch (e) {
+                    showToast('Error de conexión', 'error');
+                    statusDiv.innerHTML = '<p class="text-danger"><i class="bi bi-x-circle"></i> Error de conexión</p>';
+                    tableContainer.innerHTML = '<p class="text-muted text-center py-4">Error de conexión</p>';
+                } finally {
+                    startBtn.disabled = false;
+                    startBtn.innerHTML = '<i class="bi bi-tags"></i> Extraer Entidades';
                 }
             });
         }

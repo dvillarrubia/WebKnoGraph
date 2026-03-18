@@ -89,6 +89,8 @@ class CrawlerManager:
 
     async def start_crawl(self, params: dict) -> CrawlJob:
         """Start a new crawl job."""
+        # Ensure stale jobs are detected before blocking
+        self.get_status()
         if self.current_job and self.current_job.status == "running":
             raise ValueError("A crawl is already running")
 
@@ -206,30 +208,103 @@ class CrawlerManager:
         if not self._process or not self.current_job:
             return
 
-        while self._process.poll() is None:
-            await self._update_stats()
-            self._save_status()
-            await asyncio.sleep(2)
+        auto_resume_attempts = 0
+        max_auto_resumes = 5  # Máximo de auto-resumes antes de rendirse
 
-        return_code = self._process.returncode
+        while True:
+            # Esperar a que el proceso termine
+            while self._process and self._process.poll() is None:
+                await self._update_stats()
+                self._save_status()
+                await asyncio.sleep(2)
 
-        if return_code == 0:
-            self.current_job.status = "completed"
-        elif self.current_job.status == "stopped":
-            pass
-        else:
+            if not self._process:
+                break
+
+            return_code = self._process.returncode
             await self._update_stats()
+
+            # Si fue parado manualmente, no auto-resumir
+            if self.current_job.status == "stopped":
+                break
+
+            if return_code == 0:
+                self.current_job.status = "completed"
+                break
+
+            # Proceso murió inesperadamente — intentar auto-resume
+            if self.current_job.pages_crawled > 0 and auto_resume_attempts < max_auto_resumes:
+                auto_resume_attempts += 1
+                print(f"⚠️  AUTO-RESUME: Proceso murió (code={return_code}), "
+                      f"pero hay {self.current_job.pages_crawled} páginas. "
+                      f"Reiniciando (intento {auto_resume_attempts}/{max_auto_resumes})...")
+
+                self._save_status()
+                await asyncio.sleep(3)  # Esperar antes de relanzar
+
+                # Relanzar con resume=True
+                try:
+                    self._process = self._relaunch_with_resume()
+                    if self._process:
+                        self.current_job.process_pid = self._process.pid
+                        self._save_status()
+                        continue  # Volver al while para monitorear el nuevo proceso
+                except Exception as e:
+                    print(f"  Error en auto-resume: {e}")
+
+            # No se pudo resumir o sin páginas
             if self.current_job.pages_crawled > 0:
                 self.current_job.status = "completed"
                 self.current_job.error_message = None
             else:
                 self.current_job.status = "failed"
                 self.current_job.error_message = f"Process exited with code {return_code}"
+            break
 
         self.current_job.completed_at = datetime.now().isoformat()
         await self._update_stats()
         self._save_status()
         self._process = None
+
+    def _relaunch_with_resume(self) -> Optional[subprocess.Popen]:
+        """Relaunch the crawl script with --resume flag."""
+        if not self.current_job:
+            return None
+
+        script_path = Path(__file__).parent / "crawl4ai_advanced.py"
+        cmd = [
+            "python3", str(script_path),
+            "--url", self.current_job.url,
+            "--max-pages", str(self.current_job.max_pages),
+            "--output-dir", str(BASE_OUTPUT_DIR),
+            "--delay", str(self.current_job.delay),
+            "--resume",  # Siempre resume
+        ]
+
+        if not self.current_job.use_sitemap:
+            cmd.append("--no-sitemap")
+        if not self.current_job.content_filter:
+            cmd.append("--no-filter")
+        if not self.current_job.respect_robots:
+            cmd.append("--no-robots")
+        if not self.current_job.skip_noindex:
+            cmd.append("--no-skip-noindex")
+        if self.current_job.sitemap_only:
+            cmd.append("--sitemap-only")
+        if self.current_job.exclude_selectors:
+            cmd.extend(["--exclude-selectors", ",".join(self.current_job.exclude_selectors)])
+
+        env = os.environ.copy()
+        env["PYTHONUNBUFFERED"] = "1"
+
+        return subprocess.Popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            env=env,
+            cwd=str(Path(__file__).parent),
+        )
 
     async def _update_stats(self):
         if not self.current_job or not self.current_job.output_dir:
@@ -279,17 +354,57 @@ class CrawlerManager:
 
     def get_status(self) -> Optional[CrawlJob]:
         if self.current_job:
+            # Check if the subprocess died without updating status
+            if self.current_job.status == "running" and self._process is None:
+                self._mark_stale_job()
+            elif self.current_job.status == "running" and self._process is not None:
+                if self._process.poll() is not None:
+                    self._mark_stale_job()
             return self.current_job
 
         if self._status_file.exists():
             try:
                 with open(self._status_file) as f:
                     data = json.load(f)
-                    return CrawlJob(**data)
+                    job = CrawlJob(**data)
+                # If loaded from file and says running, the process is gone (service restarted)
+                if job.status == "running":
+                    self.current_job = job
+                    self._mark_stale_job()
+                    return self.current_job
+                return job
             except Exception:
                 pass
 
         return None
+
+    def _mark_stale_job(self):
+        """Mark a stale running job as completed or failed."""
+        if not self.current_job:
+            return
+        # Update stats one last time
+        output_dir = Path(self.current_job.output_dir) if self.current_job.output_dir else None
+        if output_dir:
+            pages_pattern = str(output_dir / "pages" / "**" / "*.parquet")
+            pages_files = glob(pages_pattern, recursive=True)
+            total_pages = 0
+            for pf in pages_files:
+                try:
+                    df = pd.read_parquet(pf)
+                    total_pages += len(df)
+                except Exception:
+                    pass
+            self.current_job.pages_crawled = total_pages
+
+        if self.current_job.pages_crawled > 0:
+            self.current_job.status = "completed"
+            self.current_job.error_message = None
+        else:
+            self.current_job.status = "failed"
+            self.current_job.error_message = "Process died unexpectedly"
+        self.current_job.completed_at = self.current_job.completed_at or datetime.now().isoformat()
+        self._process = None
+        self._save_status()
 
     def _save_status(self):
         if self.current_job:
