@@ -4952,13 +4952,20 @@ país</textarea>
             // UNIFIED CRAWLER STATUS — single source of truth
             // ============================================
             let _crawlPollingActive = false;
+            let _statusCheckInFlight = false; // Prevent concurrent calls
+            let _bgInterval = null;
 
-            // Check status on init, on section click, and periodically
+            // Check status on init and on section click
             checkCrawlerStatus();
             document.querySelector('[data-section="crawler"]').addEventListener('click', checkCrawlerStatus);
-            setInterval(checkCrawlerStatus, 10000); // Background check every 10s
+            // Background check every 10s — only when NOT already polling
+            _bgInterval = setInterval(() => {
+                if (!_crawlPollingActive) checkCrawlerStatus();
+            }, 10000);
 
             async function checkCrawlerStatus() {
+                if (_statusCheckInFlight) return; // Skip if already checking
+                _statusCheckInFlight = true;
                 try {
                     const response = await fetch(`${API_URL}/api/v1/dashboard/crawler/status`);
                     if (!response.ok) return;
@@ -4973,6 +4980,8 @@ país</textarea>
                     }
                 } catch (error) {
                     console.error('Error checking crawler status:', error);
+                } finally {
+                    _statusCheckInFlight = false;
                 }
             }
 
