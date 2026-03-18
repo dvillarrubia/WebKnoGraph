@@ -2654,3 +2654,125 @@ async def dashboard_get_communities(
             })
         
         return {"communities": communities, "total": len(communities)}
+
+
+# =============================================================================
+# SEONTOLOGY ENDPOINTS
+# =============================================================================
+
+@dashboard_router.post("/ontology/ingest")
+async def dashboard_ontology_ingest(
+    request: dict,
+    neo4j: Neo4jClient = Depends(get_neo4j_client),
+    supabase: SupabaseClient = Depends(get_supabase_client),
+):
+    """Run SEOntology ingest pipeline."""
+    from graph_rag.services.ontology_service import run_seo_ingest
+
+    client_id = request.get("client_id")
+    crawl_dir = request.get("crawl_dir")
+    domain = request.get("domain")
+
+    if not client_id or not crawl_dir or not domain:
+        raise HTTPException(status_code=400, detail="client_id, crawl_dir and domain are required")
+
+    try:
+        result = await run_seo_ingest(
+            neo4j=neo4j,
+            client_id=client_id,
+            crawl_dir=crawl_dir,
+            domain=domain,
+            refresh=request.get("refresh", False),
+            with_chunks=request.get("with_chunks", False),
+            supabase_client=supabase,
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@dashboard_router.post("/ontology/setup-schema")
+async def dashboard_ontology_setup_schema(
+    neo4j: Neo4jClient = Depends(get_neo4j_client),
+):
+    """Create all SEOntology constraints and indexes in Neo4j."""
+    from graph_rag.services.ontology_service import run_schema_setup
+
+    try:
+        result = await run_schema_setup(neo4j)
+        return {"status": "ok", "constraints_created": result.get("created", 0), "errors": result.get("errors", [])}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@dashboard_router.post("/ontology/cleanup")
+async def dashboard_ontology_cleanup(
+    request: dict,
+    neo4j: Neo4jClient = Depends(get_neo4j_client),
+):
+    """Remove SEOntology enrichment for a client."""
+    from graph_rag.services.ontology_service import run_cleanup
+
+    client_id = request.get("client_id")
+    if not client_id:
+        raise HTTPException(status_code=400, detail="client_id is required")
+
+    try:
+        result = await run_cleanup(neo4j, client_id)
+        return {"status": "ok", "cleaned": result.get("cleaned", 0), "errors": result.get("errors", [])}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@dashboard_router.get("/ontology/stats/{client_id}")
+async def dashboard_ontology_stats(
+    client_id: str,
+    neo4j: Neo4jClient = Depends(get_neo4j_client),
+):
+    """Get counts of SEOntology nodes for a client."""
+    from graph_rag.services.ontology_service import get_seo_stats
+
+    try:
+        stats = await get_seo_stats(neo4j, client_id)
+        return stats
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================================================
+# GLINER ENTITY EXTRACTION ENDPOINTS
+# =============================================================================
+
+@dashboard_router.post("/gliner/extract")
+async def dashboard_gliner_extract(
+    request: dict,
+    supabase: SupabaseClient = Depends(get_supabase_client),
+):
+    """Extract entities from client pages using GLiNER."""
+    from graph_rag.services.gliner_service import extract_entities
+
+    client_id = request.get("client_id")
+    if not client_id:
+        raise HTTPException(status_code=400, detail="client_id is required")
+
+    try:
+        result = await extract_entities(
+            supabase_client=supabase,
+            client_id=client_id,
+            sample_size=request.get("sample_size"),
+            threshold=request.get("threshold", 0.5),
+            labels=request.get("labels"),
+            min_score=request.get("min_score", 0.6),
+            min_count=request.get("min_count", 1),
+            model_name=request.get("model_name", "urchade/gliner_large-v2.1"),
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@dashboard_router.get("/gliner/status")
+async def dashboard_gliner_status():
+    """Check if GLiNER model is loaded."""
+    from graph_rag.services.gliner_service import get_model_status
+    return get_model_status()

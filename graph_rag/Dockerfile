@@ -60,6 +60,7 @@ USER root
 # Copy application code
 COPY graph_rag/ ./graph_rag/
 COPY scripts/ ./scripts/
+COPY ontologia/ ./ontologia/
 
 # Fix permissions
 RUN chown -R appuser:appuser /app

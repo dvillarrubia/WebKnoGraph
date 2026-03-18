@@ -26,6 +26,7 @@ COPY --from=builder /install /usr/local
 
 # Application code
 COPY graph_rag/ ./graph_rag/
+COPY ontologia/ ./ontologia/
 
 # Non-root user
 RUN useradd --create-home appuser
