@@ -62,8 +62,39 @@ client_router = APIRouter(prefix="/api/v1", tags=["client"])
 
 @public_router.get("/health")
 async def health_check():
-    """Health check endpoint."""
-    return {"status": "healthy", "service": "graph-rag"}
+    """Health check endpoint — verifies DB connectivity."""
+    checks = {"postgres": "unknown", "neo4j": "unknown"}
+    all_ok = True
+
+    # Check PostgreSQL
+    try:
+        supabase = await get_supabase_client()
+        async with supabase.get_connection() as conn:
+            await conn.fetchval("SELECT 1")
+        checks["postgres"] = "ok"
+    except Exception as e:
+        checks["postgres"] = f"error: {e}"
+        all_ok = False
+
+    # Check Neo4j
+    try:
+        neo4j = await get_neo4j_client()
+        async with neo4j.get_session() as session:
+            await session.run("RETURN 1")
+        checks["neo4j"] = "ok"
+    except Exception as e:
+        checks["neo4j"] = f"error: {e}"
+        all_ok = False
+
+    from fastapi.responses import JSONResponse
+    return JSONResponse(
+        status_code=200 if all_ok else 503,
+        content={
+            "status": "healthy" if all_ok else "unhealthy",
+            "service": "graph-rag",
+            "checks": checks,
+        },
+    )
 
 
 # =============================================================================

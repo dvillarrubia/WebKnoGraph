@@ -2,6 +2,15 @@
 FastAPI Application for Graph-RAG.
 """
 
+import logging
+
+# Configure logging before anything else so all modules pick it up
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+logging.getLogger("asyncpg").setLevel(logging.DEBUG)
+
 from contextlib import asynccontextmanager
 from pathlib import Path
 from fastapi import FastAPI
@@ -10,8 +19,10 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
 from graph_rag.api.routes import public_router, admin_router, client_router, dashboard_router
-from graph_rag.api.dependencies import shutdown_clients
+from graph_rag.api.dependencies import shutdown_clients, get_supabase_client, get_neo4j_client
 from graph_rag.config.settings import get_settings
+
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
@@ -19,11 +30,27 @@ async def lifespan(app: FastAPI):
     """Application lifespan handler."""
     # Startup
     settings = get_settings()
-    print(f"Starting {settings.app_name} v{settings.app_version}")
+    logger.info("Starting %s v%s", settings.app_name, settings.app_version)
+
+    # Eagerly connect to databases so health check works from the start
+    try:
+        logger.info("Connecting to PostgreSQL...")
+        await get_supabase_client()
+        logger.info("PostgreSQL connected OK")
+    except Exception as e:
+        logger.warning("PostgreSQL connection failed: %s", e)
+
+    try:
+        logger.info("Connecting to Neo4j...")
+        await get_neo4j_client()
+        logger.info("Neo4j connected OK")
+    except Exception as e:
+        logger.warning("Neo4j connection failed: %s", e)
+
     yield
     # Shutdown
     await shutdown_clients()
-    print("Shutdown complete")
+    logger.info("Shutdown complete")
 
 
 def create_app() -> FastAPI:

@@ -4,10 +4,13 @@ Handles vector similarity search and page/client management.
 """
 
 import asyncpg
+import logging
 from typing import Optional
 from contextlib import asynccontextmanager
 
 from graph_rag.config.settings import Settings
+
+logger = logging.getLogger(__name__)
 
 
 class SupabaseClient:
@@ -20,6 +23,13 @@ class SupabaseClient:
     async def connect(self) -> None:
         """Initialize connection pool."""
         if self._pool is None:
+            logger.info(
+                "Creating asyncpg connection pool "
+                "(host=%s, port=%s, db=%s, min=2, max=10)",
+                self.settings.supabase_db_host,
+                self.settings.supabase_db_port,
+                self.settings.supabase_db_name,
+            )
             self._pool = await asyncpg.create_pool(
                 host=self.settings.supabase_db_host,
                 port=self.settings.supabase_db_port,
@@ -28,7 +38,9 @@ class SupabaseClient:
                 password=self.settings.supabase_db_password,
                 min_size=2,
                 max_size=10,
+                max_inactive_connection_lifetime=3600.0,
             )
+            logger.info("Connection pool created successfully")
 
     async def disconnect(self) -> None:
         """Close connection pool."""
@@ -38,11 +50,28 @@ class SupabaseClient:
 
     @asynccontextmanager
     async def get_connection(self):
-        """Get a connection from the pool."""
+        """Get a connection from the pool, with stale-connection recovery."""
         if self._pool is None:
             await self.connect()
-        async with self._pool.acquire() as conn:
-            yield conn
+        try:
+            async with self._pool.acquire() as conn:
+                # Verify the connection is alive (equivalent to pool_pre_ping)
+                try:
+                    await conn.execute("SELECT 1")
+                except (asyncpg.ConnectionDoesNotExistError, ConnectionResetError):
+                    logger.warning("Stale connection detected, reconnecting pool")
+                    await self.disconnect()
+                    await self.connect()
+                    async with self._pool.acquire() as fresh_conn:
+                        yield fresh_conn
+                    return
+                yield conn
+        except (OSError, asyncpg.InterfaceError) as exc:
+            logger.error("Connection pool error: %s — recreating pool", exc)
+            await self.disconnect()
+            await self.connect()
+            async with self._pool.acquire() as conn:
+                yield conn
 
     # =========================================================================
     # CLIENT OPERATIONS
