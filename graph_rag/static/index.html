@@ -4949,53 +4949,91 @@ país</textarea>
             loadAvailableCrawls();
 
             // Load current crawler status on init
+            let _crawlerIsPolling = false;
             loadCrawlerStatus();
+
+            // Also re-check when user navigates to crawler section
+            document.querySelector('[data-section="crawler"]').addEventListener('click', () => {
+                if (!_crawlerIsPolling) loadCrawlerStatus();
+            });
+
+            // Background check every 15s — detects crawls started externally (CLI, API, other tab)
+            setInterval(() => {
+                if (!_crawlerIsPolling) loadCrawlerStatus();
+            }, 15000);
 
             async function loadCrawlerStatus() {
                 try {
                     const response = await fetch(`${API_URL}/api/v1/dashboard/crawler/status`);
+                    if (!response.ok) return;
                     const data = await response.json();
 
                     if (data.status === 'running') {
                         // Crawl is running, show stop button and start polling
                         startBtn.style.display = 'none';
+                        startBtn.disabled = true;
                         stopBtn.style.display = 'block';
                         runningIndicator.style.display = 'block';
                         document.getElementById('crawlStatus').textContent = 'Crawleando...';
                         document.getElementById('crawlCurrentUrl').textContent = data.url || '';
-
-                        // Set start time from API or now
-                        if (data.started_at) {
-                            crawlStartTime = new Date(data.started_at).getTime();
-                        } else {
-                            crawlStartTime = Date.now();
-                        }
-                        elapsedInterval = setInterval(updateElapsedTime, 1000);
-                        updateElapsedTime();
-
-                        crawlInterval = setInterval(updateCrawlProgress, 5000);
-                        updateCrawlProgress();
-                        showToast(`Crawl en progreso: ${data.url}`, 'info');
-                    } else if (data.status === 'completed' || data.status === 'stopped' || data.status === 'failed') {
-                        runningIndicator.style.display = 'none';
-                        // Show last crawl info
-                        const statusText = data.status === 'completed' ? 'Completado' :
-                                          data.status === 'stopped' ? 'Detenido' : 'Error';
-                        document.getElementById('crawlStatus').textContent = statusText;
                         document.getElementById('statPages').textContent = data.pages_crawled || 0;
                         document.getElementById('statLinks').textContent = data.links_found || 0;
                         document.getElementById('statErrors').textContent = data.errors || 0;
 
-                        // Show resume info if applicable
-                        if (data.resume && data.pages_previously_crawled > 0) {
-                            document.getElementById('crawlPercent').textContent = 'Resume';
-                            log.innerHTML = `<div class="log-entry success">[${new Date(data.completed_at).toLocaleTimeString()}] ${statusText}: ${data.pages_crawled} páginas (${data.pages_previously_crawled} previamente crawleadas)</div>`;
-                        } else {
-                            const percent = data.max_pages > 0 ? Math.min((data.pages_crawled / data.max_pages * 100), 100).toFixed(0) + '%' : '100%';
+                        if (data.max_pages > 0) {
+                            const percent = Math.min((data.pages_crawled / data.max_pages * 100), 100).toFixed(0) + '%';
                             document.getElementById('crawlPercent').textContent = percent;
                             document.getElementById('crawlProgressBar').style.width = percent;
-                            if (data.completed_at) {
-                                log.innerHTML = `<div class="log-entry success">[${new Date(data.completed_at).toLocaleTimeString()}] ${statusText}: ${data.pages_crawled} páginas, ${data.links_found || 0} enlaces</div>`;
+                        } else {
+                            document.getElementById('crawlPercent').textContent = data.pages_crawled || 0;
+                        }
+
+                        // Set start time from API or now
+                        if (data.started_at && !crawlStartTime) {
+                            crawlStartTime = new Date(data.started_at).getTime();
+                        }
+                        if (!crawlStartTime) crawlStartTime = Date.now();
+
+                        if (!elapsedInterval) {
+                            elapsedInterval = setInterval(updateElapsedTime, 1000);
+                            updateElapsedTime();
+                        }
+
+                        if (!_crawlerIsPolling) {
+                            _crawlerIsPolling = true;
+                            crawlInterval = setInterval(updateCrawlProgress, 5000);
+                            updateCrawlProgress();
+                        }
+                    } else {
+                        // Not running — reset UI
+                        _crawlerIsPolling = false;
+                        startBtn.style.display = 'block';
+                        startBtn.disabled = false;
+                        stopBtn.style.display = 'none';
+                        runningIndicator.style.display = 'none';
+
+                        if (crawlInterval) { clearInterval(crawlInterval); crawlInterval = null; }
+                        if (elapsedInterval) { clearInterval(elapsedInterval); elapsedInterval = null; }
+                        crawlStartTime = null;
+
+                        if (data.status === 'completed' || data.status === 'stopped' || data.status === 'failed') {
+                            const statusText = data.status === 'completed' ? 'Completado' :
+                                              data.status === 'stopped' ? 'Detenido' : 'Error';
+                            document.getElementById('crawlStatus').textContent = statusText;
+                            document.getElementById('statPages').textContent = data.pages_crawled || 0;
+                            document.getElementById('statLinks').textContent = data.links_found || 0;
+                            document.getElementById('statErrors').textContent = data.errors || 0;
+
+                            if (data.resume && data.pages_previously_crawled > 0) {
+                                document.getElementById('crawlPercent').textContent = 'Resume';
+                                log.innerHTML = `<div class="log-entry success">[${new Date(data.completed_at).toLocaleTimeString()}] ${statusText}: ${data.pages_crawled} páginas (${data.pages_previously_crawled} previamente crawleadas)</div>`;
+                            } else {
+                                const percent = data.max_pages > 0 ? Math.min((data.pages_crawled / data.max_pages * 100), 100).toFixed(0) + '%' : '100%';
+                                document.getElementById('crawlPercent').textContent = percent;
+                                document.getElementById('crawlProgressBar').style.width = percent;
+                                if (data.completed_at) {
+                                    log.innerHTML = `<div class="log-entry success">[${new Date(data.completed_at).toLocaleTimeString()}] ${statusText}: ${data.pages_crawled} páginas, ${data.links_found || 0} enlaces</div>`;
+                                }
                             }
                         }
                     }
