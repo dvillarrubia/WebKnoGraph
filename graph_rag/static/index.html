@@ -4948,98 +4948,145 @@ país</textarea>
             // Load available crawls on init
             loadAvailableCrawls();
 
-            // Load current crawler status on init
-            let _crawlerIsPolling = false;
-            loadCrawlerStatus();
+            // ============================================
+            // UNIFIED CRAWLER STATUS — single source of truth
+            // ============================================
+            let _crawlPollingActive = false;
 
-            // Also re-check when user navigates to crawler section
-            document.querySelector('[data-section="crawler"]').addEventListener('click', () => {
-                if (!_crawlerIsPolling) loadCrawlerStatus();
-            });
+            // Check status on init, on section click, and periodically
+            checkCrawlerStatus();
+            document.querySelector('[data-section="crawler"]').addEventListener('click', checkCrawlerStatus);
+            setInterval(checkCrawlerStatus, 10000); // Background check every 10s
 
-            // Background check every 15s — detects crawls started externally (CLI, API, other tab)
-            setInterval(() => {
-                if (!_crawlerIsPolling) loadCrawlerStatus();
-            }, 15000);
-
-            async function loadCrawlerStatus() {
+            async function checkCrawlerStatus() {
                 try {
                     const response = await fetch(`${API_URL}/api/v1/dashboard/crawler/status`);
                     if (!response.ok) return;
                     const data = await response.json();
 
                     if (data.status === 'running') {
-                        // Crawl is running, show stop button and start polling
-                        startBtn.style.display = 'none';
-                        startBtn.disabled = true;
-                        stopBtn.style.display = 'block';
-                        runningIndicator.style.display = 'block';
-                        document.getElementById('crawlStatus').textContent = 'Crawleando...';
-                        document.getElementById('crawlCurrentUrl').textContent = data.url || '';
-                        document.getElementById('statPages').textContent = data.pages_crawled || 0;
-                        document.getElementById('statLinks').textContent = data.links_found || 0;
-                        document.getElementById('statErrors').textContent = data.errors || 0;
-
-                        if (data.max_pages > 0) {
-                            const percent = Math.min((data.pages_crawled / data.max_pages * 100), 100).toFixed(0) + '%';
-                            document.getElementById('crawlPercent').textContent = percent;
-                            document.getElementById('crawlProgressBar').style.width = percent;
-                        } else {
-                            document.getElementById('crawlPercent').textContent = data.pages_crawled || 0;
-                        }
-
-                        // Set start time from API or now
-                        if (data.started_at && !crawlStartTime) {
-                            crawlStartTime = new Date(data.started_at).getTime();
-                        }
-                        if (!crawlStartTime) crawlStartTime = Date.now();
-
-                        if (!elapsedInterval) {
-                            elapsedInterval = setInterval(updateElapsedTime, 1000);
-                            updateElapsedTime();
-                        }
-
-                        if (!_crawlerIsPolling) {
-                            _crawlerIsPolling = true;
-                            crawlInterval = setInterval(updateCrawlProgress, 5000);
-                            updateCrawlProgress();
-                        }
+                        showCrawlRunning(data);
+                    } else if (data.status === 'completed' || data.status === 'stopped' || data.status === 'failed') {
+                        showCrawlFinished(data);
                     } else {
-                        // Not running — reset UI
-                        _crawlerIsPolling = false;
-                        startBtn.style.display = 'block';
-                        startBtn.disabled = false;
-                        stopBtn.style.display = 'none';
-                        runningIndicator.style.display = 'none';
-
-                        if (crawlInterval) { clearInterval(crawlInterval); crawlInterval = null; }
-                        if (elapsedInterval) { clearInterval(elapsedInterval); elapsedInterval = null; }
-                        crawlStartTime = null;
-
-                        if (data.status === 'completed' || data.status === 'stopped' || data.status === 'failed') {
-                            const statusText = data.status === 'completed' ? 'Completado' :
-                                              data.status === 'stopped' ? 'Detenido' : 'Error';
-                            document.getElementById('crawlStatus').textContent = statusText;
-                            document.getElementById('statPages').textContent = data.pages_crawled || 0;
-                            document.getElementById('statLinks').textContent = data.links_found || 0;
-                            document.getElementById('statErrors').textContent = data.errors || 0;
-
-                            if (data.resume && data.pages_previously_crawled > 0) {
-                                document.getElementById('crawlPercent').textContent = 'Resume';
-                                log.innerHTML = `<div class="log-entry success">[${new Date(data.completed_at).toLocaleTimeString()}] ${statusText}: ${data.pages_crawled} páginas (${data.pages_previously_crawled} previamente crawleadas)</div>`;
-                            } else {
-                                const percent = data.max_pages > 0 ? Math.min((data.pages_crawled / data.max_pages * 100), 100).toFixed(0) + '%' : '100%';
-                                document.getElementById('crawlPercent').textContent = percent;
-                                document.getElementById('crawlProgressBar').style.width = percent;
-                                if (data.completed_at) {
-                                    log.innerHTML = `<div class="log-entry success">[${new Date(data.completed_at).toLocaleTimeString()}] ${statusText}: ${data.pages_crawled} páginas, ${data.links_found || 0} enlaces</div>`;
-                                }
-                            }
-                        }
+                        showCrawlIdle();
                     }
                 } catch (error) {
-                    console.error('Error loading crawler status:', error);
+                    console.error('Error checking crawler status:', error);
                 }
+            }
+
+            function showCrawlRunning(data) {
+                // Buttons
+                startBtn.style.display = 'none';
+                startBtn.disabled = true;
+                stopBtn.style.display = 'block';
+                runningIndicator.style.display = 'block';
+
+                // Stats
+                document.getElementById('statPages').textContent = data.pages_crawled || 0;
+                document.getElementById('statLinks').textContent = data.links_found || 0;
+                document.getElementById('statErrors').textContent = data.errors || 0;
+                document.getElementById('statQueue').textContent = data.queue_size || 0;
+
+                // Progress
+                if (data.max_pages > 0) {
+                    const percent = Math.min((data.pages_crawled / data.max_pages * 100), 100).toFixed(0);
+                    document.getElementById('crawlPercent').textContent = percent + '%';
+                    document.getElementById('crawlProgressBar').style.width = percent + '%';
+                } else {
+                    document.getElementById('crawlPercent').textContent = `${data.pages_crawled || 0} págs`;
+                    document.getElementById('crawlProgressBar').style.width = Math.min(data.pages_crawled || 0, 99) + '%';
+                }
+
+                // Status text
+                document.getElementById('crawlStatus').textContent = `Crawleando... (${data.pages_crawled || 0}/${data.max_pages || '∞'})`;
+
+                // Current URL
+                if (data.current_url) {
+                    document.getElementById('crawlCurrentUrl').textContent = data.current_url;
+                } else if (data.url) {
+                    document.getElementById('crawlCurrentUrl').textContent = data.url;
+                }
+
+                // Phases
+                document.getElementById('crawlPhases').style.display = 'flex';
+                if (data.pages_crawled === 0) {
+                    updatePhase('phaseInit');
+                } else if (data.pages_crawled < 3 && data.use_sitemap) {
+                    updatePhase('phaseSitemap');
+                } else {
+                    updatePhase('phaseCrawl');
+                }
+
+                // Elapsed timer
+                if (!crawlStartTime) {
+                    crawlStartTime = data.started_at ? new Date(data.started_at).getTime() : Date.now();
+                }
+                document.getElementById('crawlElapsedTime').style.display = 'inline-block';
+                if (!elapsedInterval) {
+                    elapsedInterval = setInterval(updateElapsedTime, 1000);
+                    updateElapsedTime();
+                }
+
+                // Start log polling if not already active
+                if (!_crawlPollingActive) {
+                    _crawlPollingActive = true;
+                    if (crawlInterval) clearInterval(crawlInterval);
+                    crawlInterval = setInterval(async () => {
+                        await checkCrawlerStatus();
+                        await fetchCrawlerLogs();
+                    }, 3000);
+                    fetchCrawlerLogs(); // Fetch logs immediately
+                }
+            }
+
+            function showCrawlFinished(data) {
+                // Stop polling
+                _crawlPollingActive = false;
+                if (crawlInterval) { clearInterval(crawlInterval); crawlInterval = null; }
+                if (elapsedInterval) { clearInterval(elapsedInterval); elapsedInterval = null; }
+
+                // Buttons
+                startBtn.style.display = 'block';
+                startBtn.disabled = false;
+                startBtn.innerHTML = '<i class="bi bi-play-fill"></i> Iniciar';
+                stopBtn.style.display = 'none';
+                runningIndicator.style.display = 'none';
+
+                // Stats
+                document.getElementById('statPages').textContent = data.pages_crawled || 0;
+                document.getElementById('statLinks').textContent = data.links_found || 0;
+                document.getElementById('statErrors').textContent = data.errors || 0;
+                document.getElementById('statQueue').textContent = 0;
+
+                // Status
+                const statusText = data.status === 'completed' ? 'Completado' :
+                                  data.status === 'stopped' ? 'Detenido' : 'Error';
+                document.getElementById('crawlStatus').textContent = statusText;
+
+                // Progress
+                const percent = data.max_pages > 0 ? Math.min((data.pages_crawled / data.max_pages * 100), 100).toFixed(0) + '%' : '100%';
+                document.getElementById('crawlPercent').textContent = percent;
+                document.getElementById('crawlProgressBar').style.width = percent;
+
+                // Phase
+                if (data.status === 'completed') updatePhase('phaseComplete');
+
+                crawlStartTime = null;
+                loadAvailableCrawls();
+            }
+
+            function showCrawlIdle() {
+                _crawlPollingActive = false;
+                if (crawlInterval) { clearInterval(crawlInterval); crawlInterval = null; }
+                if (elapsedInterval) { clearInterval(elapsedInterval); elapsedInterval = null; }
+                startBtn.style.display = 'block';
+                startBtn.disabled = false;
+                startBtn.innerHTML = '<i class="bi bi-play-fill"></i> Iniciar';
+                stopBtn.style.display = 'none';
+                runningIndicator.style.display = 'none';
+                crawlStartTime = null;
             }
 
             // Show/hide force sitemap option based on resume checkbox
@@ -5106,40 +5153,20 @@ país</textarea>
                     if (response.ok) {
                         const crawlData = await response.json();
                         showToast('Crawl iniciado correctamente', 'success');
-                        startBtn.style.display = 'none';
-                        stopBtn.style.display = 'block';
-
-                        // Initialize phases
-                        updatePhase('phaseInit');
-                        document.getElementById('crawlPhases').style.display = 'flex';
-                        document.getElementById('crawlStatus').textContent = 'Iniciando...';
-
-                        // Reset stats
-                        document.getElementById('statPages').textContent = '0';
-                        document.getElementById('statLinks').textContent = '0';
-                        document.getElementById('statQueue').textContent = '0';
-                        document.getElementById('statErrors').textContent = '0';
-                        document.getElementById('crawlProgressBar').style.width = '0%';
-                        document.getElementById('crawlPercent').textContent = '0%';
-
-                        // Clear recent URLs
-                        recentUrls = [];
-                        recentUrlsContainer.style.display = 'none';
 
                         // Extract crawl name
                         if (crawlData.output_dir) {
                             currentCrawlName = crawlData.output_dir.split('/').pop();
                         }
 
-                        // Start elapsed timer
-                        crawlStartTime = Date.now();
-                        document.getElementById('crawlElapsedTime').style.display = 'inline-block';
-                        elapsedInterval = setInterval(updateElapsedTime, 1000);
-
+                        // Clear log and recent URLs
+                        recentUrls = [];
+                        recentUrlsContainer.style.display = 'none';
+                        lastLogCount = 0;
                         log.innerHTML = `<div class="log-entry text-info"><i class="bi bi-play-circle"></i> [${new Date().toLocaleTimeString()}] Crawl iniciado para ${url}</div>`;
 
-                        // Poll for progress (more frequent at start)
-                        crawlInterval = setInterval(updateCrawlProgress, 3000);
+                        // Trigger status check — will show running UI and start polling
+                        await checkCrawlerStatus();
                     } else {
                         const error = await response.json();
                         showToast(error.detail || 'Error al iniciar crawl', 'error');
@@ -5155,15 +5182,10 @@ país</textarea>
             stopBtn.addEventListener('click', async () => {
                 try {
                     await fetch(`${API_URL}/api/v1/dashboard/crawler/stop`, { method: 'POST' });
-                    clearInterval(crawlInterval);
-                    clearInterval(elapsedInterval);
-                    startBtn.style.display = 'block';
-                    stopBtn.style.display = 'none';
-                    runningIndicator.style.display = 'none';
-                    document.getElementById('crawlStatus').textContent = 'Detenido';
-                    showToast('⏹️ Crawl detenido', 'warning');
-                    crawlStartTime = null;
-                    loadAvailableCrawls();
+                    showToast('Crawl detenido', 'warning');
+                    // Status check will detect 'stopped' and update UI
+                    await checkCrawlerStatus();
+                    await fetchCrawlerLogs();
                 } catch (error) {
                     showToast('Error al detener crawl', 'error');
                 }
@@ -5200,109 +5222,7 @@ país</textarea>
                 }
             }
 
-            async function updateCrawlProgress() {
-                try {
-                    const response = await fetch(`${API_URL}/api/v1/dashboard/crawler/status`);
-                    const data = await response.json();
-
-                    if (data.status === 'running') {
-                        runningIndicator.style.display = 'block';
-
-                        // Extract crawl name from output_dir
-                        if (data.output_dir) {
-                            currentCrawlName = data.output_dir.split('/').pop();
-                        }
-
-                        // Calculate progress percentage
-                        let percent = 0;
-                        if (data.max_pages > 0) {
-                            percent = Math.min((data.pages_crawled / data.max_pages * 100), 100).toFixed(0);
-                        } else {
-                            // For unlimited crawls, show indeterminate or based on sitemap
-                            percent = data.pages_crawled > 0 ? Math.min(data.pages_crawled, 99) : 5;
-                        }
-
-                        document.getElementById('crawlProgressBar').style.width = percent + '%';
-                        document.getElementById('crawlPercent').textContent = data.max_pages > 0 ? percent + '%' : `${data.pages_crawled} págs`;
-                        document.getElementById('statPages').textContent = data.pages_crawled || 0;
-                        document.getElementById('statLinks').textContent = data.links_found || 0;
-                        document.getElementById('statQueue').textContent = data.queue_size || 0;
-                        document.getElementById('statErrors').textContent = data.errors || 0;
-
-                        // Update phase indicator
-                        if (data.pages_crawled === 0) {
-                            updatePhase('phaseInit');
-                            document.getElementById('crawlStatus').textContent = 'Iniciando...';
-                        } else if (data.pages_crawled < 3 && data.use_sitemap) {
-                            updatePhase('phaseSitemap');
-                            document.getElementById('crawlStatus').textContent = 'Descubriendo sitemap...';
-                        } else {
-                            updatePhase('phaseCrawl');
-                            document.getElementById('crawlStatus').textContent = `Crawleando... (${data.pages_crawled}/${data.max_pages || '∞'})`;
-                        }
-
-                        // Update current URL and add to recent list
-                        if (data.current_url) {
-                            const urlEl = document.getElementById('crawlCurrentUrl');
-                            if (urlEl.textContent !== data.current_url) {
-                                urlEl.textContent = data.current_url;
-                                addRecentUrl(data.current_url);
-                            }
-                        }
-
-                        // Show secondary stats if available
-                        const secondaryStats = document.getElementById('crawlSecondaryStats');
-                        if (data.skipped || data.duplicates || data.robots_blocked || data.noindex_skipped) {
-                            secondaryStats.style.display = 'flex';
-                            document.getElementById('statSkipped').textContent = data.skipped || 0;
-                            document.getElementById('statDuplicates').textContent = data.duplicates || 0;
-                            document.getElementById('statRobots').textContent = data.robots_blocked || 0;
-                            document.getElementById('statNoindex').textContent = data.noindex_skipped || 0;
-                        }
-
-                        // Fetch and display detailed logs
-                        await fetchCrawlerLogs();
-                    } else if (data.status === 'completed' || data.status === 'stopped' || data.status === 'failed') {
-                        clearInterval(crawlInterval);
-                        clearInterval(elapsedInterval);
-                        runningIndicator.style.display = 'none';
-
-                        // Update phase to complete
-                        if (data.status === 'completed') {
-                            updatePhase('phaseComplete');
-                        }
-
-                        const statusText = data.status === 'completed' ? 'Completado' : data.status === 'stopped' ? 'Detenido' : 'Error';
-                        document.getElementById('crawlStatus').textContent = statusText;
-                        startBtn.style.display = 'block';
-                        stopBtn.style.display = 'none';
-
-                        // Update final stats
-                        document.getElementById('statPages').textContent = data.pages_crawled || 0;
-                        document.getElementById('statLinks').textContent = data.links_found || 0;
-                        document.getElementById('statErrors').textContent = data.errors || 0;
-                        document.getElementById('statQueue').textContent = 0;
-
-                        // Calculate elapsed time for notification
-                        const elapsed = crawlStartTime ? formatElapsed(Math.floor((Date.now() - crawlStartTime) / 1000)) : '';
-
-                        if (data.status === 'completed') {
-                            showToast(`✅ Crawl completado: ${data.pages_crawled} páginas en ${elapsed}`, 'success');
-                            log.innerHTML = `<div class="log-entry success"><i class="bi bi-check-circle-fill"></i> [${new Date().toLocaleTimeString()}] Completado: ${data.pages_crawled} páginas, ${data.links_found || 0} enlaces extraídos</div>` + log.innerHTML;
-                        } else if (data.status === 'failed') {
-                            showToast(`❌ Error en crawl: ${data.error_message || 'Error desconocido'}`, 'error');
-                            log.innerHTML = `<div class="log-entry error"><i class="bi bi-x-circle-fill"></i> [${new Date().toLocaleTimeString()}] Error: ${data.error_message || 'Error desconocido'}</div>` + log.innerHTML;
-                        } else if (data.status === 'stopped') {
-                            log.innerHTML = `<div class="log-entry warning"><i class="bi bi-stop-circle-fill"></i> [${new Date().toLocaleTimeString()}] Detenido manualmente: ${data.pages_crawled} páginas procesadas</div>` + log.innerHTML;
-                        }
-
-                        crawlStartTime = null;
-                        loadAvailableCrawls();
-                    }
-                } catch (error) {
-                    console.error('Error updating progress:', error);
-                }
-            }
+            // updateCrawlProgress is now handled by checkCrawlerStatus + fetchCrawlerLogs
 
             async function loadAvailableCrawls() {
                 try {
