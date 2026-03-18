@@ -7,6 +7,8 @@ services:
       - "8080:8080"
     env_file:
       - .env.production
+    environment:
+      - CRAWLER_SERVICE_URL=http://crawler-service:8081
     volumes:
       - crawl_data:/app/data/crawl4ai_data
       - huggingface_cache:/home/appuser/.cache/huggingface
@@ -25,6 +27,12 @@ services:
       - .env.production
     volumes:
       - crawl_data:/app/data/crawl4ai_data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3
     restart: unless-stopped
     networks:
       - webknograph-network
