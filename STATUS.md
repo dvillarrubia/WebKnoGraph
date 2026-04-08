@@ -8,37 +8,29 @@
 
 ## Servicios (docker-compose.local.yml)
 
-| Container | Puerto | Estado |
+**Compose project:** `webknograph-uoc` — renombrado para coexistir en paralelo con el stack del cliente **Quiron** (`wkg-*`, project `webknograph`). Ambos stacks corren simultáneamente sin colisiones.
+
+| Container | Puerto host | Estado |
 |---|---|---|
-| `wkg-app` | 8080 | healthy |
-| `wkg-crawler` | 8081 | healthy |
-| `wkg-neo4j` | 7474 / 7687 | healthy (`neo4j` / `neo4j123`) |
-| `wkg-postgres` | 54322 | healthy (`postgres` / default) |
+| `wkguoc-app` (dashboard) | **8090** → 8080 | healthy |
+| `wkguoc-crawler` | **8082** → 8081 | healthy |
+| `wkguoc-neo4j` | **7475** / **7688** | healthy (`neo4j` / `neo4j123`) |
+| `wkguoc-postgres` | **54323** → 5432 | healthy (`postgres` / `postgres123`) |
 
-## Datos reales (cliente UOC `e72610f5-23a6-44af-9118-4eb22fbfb56e`)
+**Dashboard UOC:** http://localhost:8090
+**Neo4j browser UOC:** http://localhost:7475
 
-### Postgres (`public.rag_*`)
-| Tabla | Filas |
-|---|---|
-| `rag_pages` | 356 |
-| `rag_chunks` | 10.244 |
-| `rag_links` | **0** ⚠️ (los links viven solo en Neo4j) |
-| `rag_clients` | 1 |
-| `rag_conversations` | 0 |
-| `rag_messages` | 0 |
+> ⚠️ Quiron corre en los puertos clásicos (8080/8081/7474/7687/54322) con containers `wkg-*`. **No tocar Quiron desde este repo.**
 
-### Neo4j (labels activos)
-`Page`, `SeoWebPage`, `SeoURL`, `SeoChunk`, `SeoLink`, `SeoLinkGroup`, `SeoAnchorText`, `SeoSchema`, `SeoThing`
+## Datos (cliente UOC `e72610f5-23a6-44af-9118-4eb22fbfb56e`)
 
-| Entidad | Cantidad |
-|---|---|
-| `:Page` (dual `:SeoWebPage`) | 356 |
-| `:SeoChunk` | 10.244 |
-| `:LINKS_TO` (con `location`, `weight`, `anchor_text`) | 297 |
-| `:SeoSchema` | **859** |
-| `:SeoThing` | **0** ⚠️ |
+Volúmenes recién creados bajo project `webknograph-uoc` — **DBs vacías**. Los 356 pages / 10.244 chunks / 297 links que había antes estaban en volúmenes del stack Quiron (contaminación histórica). Pendiente **re-ingestar desde los parquets** en `data/crawl4ai_data/www_uoc_edu/`.
 
-> Embeddings: modelo `hiiamsid/sentence_similarity_spanish_es` (768-dim).
+Origen de la re-ingesta:
+- `data/crawl4ai_data/www_uoc_edu/pages/crawl_date=*/` (parquets)
+- `data/crawl4ai_data/www_uoc_edu/links/crawl_date=*/` (parquets)
+
+Embedding model: `hiiamsid/sentence_similarity_spanish_es` (768-dim).
 
 ---
 
@@ -62,7 +54,7 @@ Commits relevantes en `feature/crawler-docker-separation`:
 | Sprint | Descripción | Estado |
 |---|---|---|
 | 1 | Foundations (fusión con graph_rag) | ✅ DONE |
-| 2 | HTML enrichment (SeoSchema + SeoThing) | ⚠️ PARCIAL — 859 SeoSchema pero **0 SeoThing** |
+| 2 | HTML enrichment (SeoSchema + SeoThing) | ⚠️ A re-verificar tras re-ingesta |
 | 3 | LLM enrichment | ⏳ Not started |
 | 4 | GSC integration | ⏳ Not started |
 
@@ -71,9 +63,11 @@ Commits relevantes en `feature/crawler-docker-separation`:
 ## Pendientes (prioridad)
 
 ### P0 — Housekeeping
-- [ ] `git push` de los 29 commits locales a `origin` y `gitlab`
+- [x] ~~`git push` de los 29 commits locales~~ (hecho 2026-04-08)
+- [x] ~~Separar stack UOC de Quiron~~ (hecho 2026-04-08, project `webknograph-uoc`)
+- [ ] **Re-ingestar datos UOC** desde parquets `data/crawl4ai_data/www_uoc_edu/`
+- [ ] Verificar post-ingesta si `SeoThing` se crea o sigue a 0
 - [ ] Limpiar PNGs sueltos en root: `client_modal_test.png`, `modal_fixed.png`, `modal_open.png`
-- [ ] Investigar por qué `SeoThing = 0` (¿pipeline Sprint 2 nunca corrió con datos reales?)
 - [ ] Decidir si `rag_links` se elimina de Postgres (single source = Neo4j)
 
 ### P1 — Performance / Quality
