@@ -92,6 +92,8 @@ services:
       - wkguoc-crawl-data:/app/data/crawl4ai_data
       - wkguoc-hf-cache:/home/appuser/.cache/huggingface
       - ./ontologia:/app/ontologia
+      - ./graph_rag:/app/graph_rag
+      - ./credentials:/app/credentials:ro
     depends_on:
       wkguoc-postgres:
         condition: service_healthy

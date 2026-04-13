@@ -1,3 +1,7 @@
+# Credentials (NEVER commit)
+credentials/
+*.json.bak
+
 # Byte-code files
 __pycache__/
 *.pyc

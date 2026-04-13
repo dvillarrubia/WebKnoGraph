@@ -38,6 +38,10 @@ scrapegraphai>=1.0.0
 # NER (GLiNER)
 gliner>=0.2.0
 
+# Google Search Console
+google-auth>=2.20.0
+google-api-python-client>=2.90.0
+
 # Utils
 python-multipart>=0.0.6
 python-dotenv>=1.0.0

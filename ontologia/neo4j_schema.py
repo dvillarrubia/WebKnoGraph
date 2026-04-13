@@ -108,6 +108,19 @@ SETUP_QUERIES = [
     """CREATE INDEX seo_schema_type IF NOT EXISTS
        FOR (n:SeoSchema) ON (n.schemaType)""",
 
+    # === SeoQuery (GSC data) ===
+    """CREATE CONSTRAINT seo_query_id IF NOT EXISTS
+       FOR (n:SeoQuery) REQUIRE (n.client_id, n.queryText, n.page_url) IS UNIQUE""",
+
+    """CREATE INDEX seo_query_client IF NOT EXISTS
+       FOR (n:SeoQuery) ON (n.client_id)""",
+
+    """CREATE INDEX seo_query_clicks IF NOT EXISTS
+       FOR (n:SeoQuery) ON (n.client_id, n.clicks28Days)""",
+
+    """CREATE INDEX seo_query_page IF NOT EXISTS
+       FOR (n:SeoQuery) ON (n.client_id, n.page_url)""",
+
     # === SeoThing (Sprint 2) ===
     """CREATE CONSTRAINT seo_thing_id IF NOT EXISTS
        FOR (n:SeoThing) REQUIRE (n.client_id, n.name, n.thingType) IS UNIQUE""",
@@ -131,10 +144,11 @@ CLEANUP_QUERIES = [
     "MATCH (n:SeoAnchorText {client_id: $client_id}) DETACH DELETE n",
     "MATCH (n:SeoSchema {client_id: $client_id}) DETACH DELETE n",
     "MATCH (n:SeoThing {client_id: $client_id}) DETACH DELETE n",
+    "MATCH (n:SeoQuery {client_id: $client_id}) DETACH DELETE n",
     "MATCH (n:SeoPersona {client_id: $client_id}) DETACH DELETE n",
     # Remove HAS_URL/HAS_CHUNK/HAS_LINK_GROUP rels from :Page (keeps :LINKS_TO)
     """MATCH (p:Page {client_id: $client_id})-[r]->()
-       WHERE type(r) IN ['HAS_URL','HAS_CHUNK','HAS_LINK_GROUP','HAS_SCHEMA_MARKUP','ABOUT','MENTIONS']
+       WHERE type(r) IN ['HAS_URL','HAS_CHUNK','HAS_LINK_GROUP','HAS_SCHEMA_MARKUP','ABOUT','MENTIONS','HAS_QUERY','HAS_PRIMARY_QUERY']
        DELETE r""",
 ]
 

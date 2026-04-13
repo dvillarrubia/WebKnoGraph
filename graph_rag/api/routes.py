@@ -2740,6 +2740,144 @@ async def dashboard_ontology_stats(
 
 
 # =============================================================================
+# GSC (GOOGLE SEARCH CONSOLE) ENDPOINTS
+# =============================================================================
+
+@dashboard_router.post("/gsc/sync")
+async def dashboard_gsc_sync(
+    request: dict,
+    neo4j: Neo4jClient = Depends(get_neo4j_client),
+):
+    """
+    Sync Google Search Console data into Neo4j as :SeoQuery nodes.
+
+    Required:
+    - client_id: Client UUID
+    - site_url: GSC property (e.g. 'sc-domain:uoc.edu')
+    - credentials_path: Path to service account JSON file
+
+    Optional:
+    - url_filter: URL substring filter for GSC API (e.g. 'www.uoc.edu')
+    - refresh: Delete existing :SeoQuery data before sync (default false)
+    - batch_size: Neo4j batch size (default 500)
+    - language: Default language for queries (default 'es')
+    """
+    from graph_rag.services.gsc_service import run_gsc_sync
+
+    client_id = request.get("client_id")
+    site_url = request.get("site_url")
+    credentials_path = request.get("credentials_path")
+
+    if not client_id or not site_url or not credentials_path:
+        raise HTTPException(
+            status_code=400,
+            detail="client_id, site_url and credentials_path are required",
+        )
+
+    try:
+        result = await run_gsc_sync(
+            neo4j=neo4j,
+            client_id=client_id,
+            site_url=site_url,
+            credentials_path=credentials_path,
+            url_filter=request.get("url_filter"),
+            refresh=request.get("refresh", False),
+            batch_size=request.get("batch_size", 500),
+            language=request.get("language", "es"),
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================================================
+# LINK EXTRACTION & PAGERANK ENDPOINTS
+# =============================================================================
+
+@dashboard_router.post("/links/extract")
+async def dashboard_links_extract(
+    request: dict,
+    neo4j: Neo4jClient = Depends(get_neo4j_client),
+):
+    """
+    Extract internal links from HTML in parquets, create :LINKS_TO relationships,
+    and calculate PageRank + HITS scores.
+
+    Required:
+    - client_id: Client UUID
+    - crawl_dir: Path to crawl data directory
+    - domain: Site domain (e.g. 'www.uoc.edu')
+
+    Optional:
+    - date_partition: Filter by crawl date
+    - calculate_scores: Whether to run PageRank/HITS (default true)
+    """
+    from graph_rag.services.link_extraction_service import run_link_extraction
+
+    client_id = request.get("client_id")
+    crawl_dir = request.get("crawl_dir")
+    domain = request.get("domain")
+
+    if not client_id or not crawl_dir or not domain:
+        raise HTTPException(status_code=400, detail="client_id, crawl_dir and domain are required")
+
+    try:
+        result = await run_link_extraction(
+            neo4j=neo4j,
+            client_id=client_id,
+            crawl_dir=crawl_dir,
+            domain=domain,
+            date_partition=request.get("date_partition"),
+            calculate_scores=request.get("calculate_scores", True),
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================================================
+# SEO METADATA EXTRACTION ENDPOINTS
+# =============================================================================
+
+@dashboard_router.post("/seo-metadata/extract")
+async def dashboard_seo_metadata_extract(
+    request: dict,
+    neo4j: Neo4jClient = Depends(get_neo4j_client),
+):
+    """
+    Extract SEO metadata from HTML in parquets and update :SeoWebPage nodes.
+
+    Extracts: canonical, robots, og_*, twitter_card, hreflang, lang, viewport,
+    headings, h1, has_structured_data, noFollow, noIndex.
+
+    Required:
+    - client_id: Client UUID
+    - crawl_dir: Path to crawl data directory
+
+    Optional:
+    - date_partition: Filter by crawl date (e.g. '2026-04-13')
+    """
+    from graph_rag.services.seo_metadata_service import run_seo_metadata_extraction
+
+    client_id = request.get("client_id")
+    crawl_dir = request.get("crawl_dir")
+
+    if not client_id or not crawl_dir:
+        raise HTTPException(status_code=400, detail="client_id and crawl_dir are required")
+
+    try:
+        result = await run_seo_metadata_extraction(
+            neo4j=neo4j,
+            client_id=client_id,
+            crawl_dir=crawl_dir,
+            date_partition=request.get("date_partition"),
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================================================
 # GLINER ENTITY EXTRACTION ENDPOINTS
 # =============================================================================
 

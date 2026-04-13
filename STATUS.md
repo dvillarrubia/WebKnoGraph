@@ -84,6 +84,7 @@ Commits relevantes en `feature/crawler-docker-separation`:
 
 ## Documentación relacionada
 
+- **`INGESTION_PIPELINE.md` — auditoría end-to-end del pipeline (2026-04-08). Bugs P0: `links_migrated` optimista, `rag_links` nunca poblado, falta endpoint de verificación.**
 - `workplan.md` — plan de trabajo detallado
 - `HOW-IT-WORKS.md` — arquitectura
 - `INSTALL.md` — setup
